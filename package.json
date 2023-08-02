@@ -28,6 +28,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
     "prettier": "^3.0.0",
+    "sass": "^1.64.2",
     "vercel": "^31.2.1",
     "vite": "^4.4.0"
   }
