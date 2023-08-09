@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { BsPerson, BsPersonFill } from "react-icons/bs";
-import { MdVpnKey, MdEmail } from "react-icons/md";
+import {  BsPersonFill } from "react-icons/bs";
+import { MdVpnKey } from "react-icons/md";
 
-const SignupContainer = styled.div`
+const LoginContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,21 +44,15 @@ const StyledInput = styled.input`
 `;
 
 
-const SignUpPage = () => {
+const LoginPage = () => {
   return (
-    <SignupContainer>
-      <Title>회원가입 하기</Title>
-      <InputWrapper>
-        <InputIcon>
-          <BsPerson />
-        </InputIcon>
-        <StyledInput type="text" placeholder="닉네임" />
-      </InputWrapper>
+    <LoginContainer>
+      <Title>로그인 하기</Title>
       <InputWrapper>
         <InputIcon>
           <BsPersonFill />
         </InputIcon>
-        <StyledInput type="text"  placeholder="ID" />
+        <StyledInput type="text" placeholder="ID" />
       </InputWrapper>
       <InputWrapper>
         <InputIcon>
@@ -66,14 +60,8 @@ const SignUpPage = () => {
         </InputIcon>
         <StyledInput type="password" placeholder="Password" />
       </InputWrapper>
-      <InputWrapper>
-        <InputIcon>
-          <MdEmail />
-        </InputIcon>
-        <StyledInput type="email" placeholder="Email" />
-      </InputWrapper>
-    </SignupContainer>
+    </LoginContainer>
   );
 };
 
-export default SignUpPage;
+export default LoginPage;
