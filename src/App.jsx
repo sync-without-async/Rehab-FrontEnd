@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
+import MainPage from "./pages/MainPage.jsx";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/" element={<MainPage/>} />
         </Routes>
       </Router>
     </Container>
