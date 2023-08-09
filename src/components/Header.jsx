@@ -54,7 +54,7 @@ const Header = () => {
       </Logo>
       <CenterNav>
         <MainLink to="/">메인 페이지</MainLink>
-        <MainLink to="/my-course">나의 코스</MainLink>
+        <MainLink to="/mycourse">나의 코스</MainLink>
       </CenterNav>
       <RightNav>
         <MainLink to="/login">로그인</MainLink>
