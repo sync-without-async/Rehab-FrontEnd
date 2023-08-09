@@ -3,6 +3,7 @@ import SignUpPage from "./pages/SignUpPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import MainPage from "./pages/MainPage.jsx";
 import styled from "styled-components";
+import MyCourse from "./pages/MyCourse.jsx";
 
 const Container = styled.div`
   background-color: transparent;
@@ -17,6 +18,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<MainPage/>} />
+          <Route path="/mycourse" element={<MyCourse/>} />
         </Routes>
       </Router>
     </Container>
