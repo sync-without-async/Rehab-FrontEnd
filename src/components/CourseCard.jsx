@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
@@ -32,16 +33,22 @@ const CourseTitle = styled.span`
 const CourseTime = styled.span`
   font-size: 14px;
 `;
+const LinkedCourseCardContainer = styled(Link)`
+  text-decoration: none;
+  color: inherit;
+`;
 
 const CourseCard = ({ image, title, time }) => {
   return (
-    <CourseCardContainer>
-      <CourseImage style={{ backgroundImage: `url(${image})` }}></CourseImage>
-      <CourseInfo>
-        <CourseTitle>{title}</CourseTitle>
-        <CourseTime>{time}</CourseTime>
-      </CourseInfo>
-    </CourseCardContainer>
+    <LinkedCourseCardContainer to="/coursedetail">
+      <CourseCardContainer>
+        <CourseImage style={{ backgroundImage: `url(${image})` }}></CourseImage>
+        <CourseInfo>
+          <CourseTitle>{title}</CourseTitle>
+          <CourseTime>{time}</CourseTime>
+        </CourseInfo>
+      </CourseCardContainer>
+    </LinkedCourseCardContainer>
   );
 };
 
@@ -50,6 +57,5 @@ CourseCard.propTypes = {
   title: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
 };
-
 
 export default CourseCard;
