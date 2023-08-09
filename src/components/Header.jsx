@@ -17,21 +17,34 @@ const Logo = styled.div`
 
 const Nav = styled.nav`
   display: flex;
-  gap: 20px;
 `;
 
 const CenterNav = styled(Nav)`
   flex-grow: 1;
   justify-content: center;
+  gap: 40px; 
+`;
+
+const RightNav = styled(Nav)`
+  gap: 10px;
+`;
+
+const Divider = styled.div`
+  height: 25px;
+  width: 1px;
+  background-color: black;
 `;
 
 const MainLink = styled(Link)`
   text-decoration: none;
   color: black;
-  &:hover {
-    text-decoration: underline;
-  }
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none; 
+    outline: none;
 `;
+
 
 const Header = () => {
   return (
@@ -43,10 +56,11 @@ const Header = () => {
         <MainLink to="/">메인 페이지</MainLink>
         <MainLink to="/my-course">나의 코스</MainLink>
       </CenterNav>
-      <Nav>
+      <RightNav>
         <MainLink to="/login">로그인</MainLink>
+        <Divider /> 
         <MainLink to="/signup">회원가입</MainLink>
-      </Nav>
+      </RightNav>
     </HeaderWrapper>
   );
 };
