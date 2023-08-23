@@ -3,36 +3,28 @@ import { Link } from 'react-router-dom';
 
 const HeaderWrapper = styled.header`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
   font-family: "Inter var", sans-serif;
   font-weight: bold;
+  position: relative; 
+  margin-top:20px;
 `;
 
 const Logo = styled.div`
   font-size: 24px;
   font-weight: bold;
+  position: absolute; 
+  left: 100px; 
+  top: 50%;
+  transform: translateY(-50%);
 `;
 
 const Nav = styled.nav`
   display: flex;
-`;
-
-const CenterNav = styled(Nav)`
-  flex-grow: 1;
-  justify-content: center;
-  gap: 40px; 
-`;
-
-const RightNav = styled(Nav)`
-  gap: 10px;
-`;
-
-const Divider = styled.div`
-  height: 25px;
-  width: 1px;
-  background-color: black;
+  position: absolute;
+  right: 70px; 
+  align-items: center;
 `;
 
 const MainLink = styled(Link)`
@@ -43,8 +35,16 @@ const MainLink = styled(Link)`
   &:focus {
     text-decoration: none; 
     outline: none;
+  }
 `;
 
+const Divider = styled.div`
+  height: 30px;
+  width: 1px;
+  background-color: black;
+  margin-left: 20px;
+  margin-right: 30px;
+`;
 
 const Header = () => {
   return (
@@ -52,15 +52,12 @@ const Header = () => {
       <Logo>
         <MainLink to="/">Logo</MainLink>
       </Logo>
-      <CenterNav>
-        <MainLink to="/">메인 페이지</MainLink>
-        <MainLink to="/mycourse">나의 코스</MainLink>
-      </CenterNav>
-      <RightNav>
+      <Nav>
+        <MainLink to="/" style={{ marginRight: '40px' }}>메인 페이지</MainLink>
+        <MainLink to="/mycourse" style={{ marginRight: '20px' }}>수강내역</MainLink>
+        <Divider />
         <MainLink to="/login">로그인</MainLink>
-        <Divider /> 
-        <MainLink to="/signup">회원가입</MainLink>
-      </RightNav>
+      </Nav>
     </HeaderWrapper>
   );
 };

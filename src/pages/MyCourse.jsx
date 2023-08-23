@@ -60,32 +60,44 @@ const MyCourse = () => {
         <CourseCard 
           image={null} 
           title="거북목 탈출코스"
-          time="총 01시간 21분"
+          description="이 코스는 목과 어깨의 근육을 이완시켜주는 운동을 포함하고 있습니다."
+          time="총 10분"
+          tags={["테스트1", "운동"]}
         />
         <CourseCard 
           image={null} 
-          title="거북목 탈출코스"
-          time="총 01시간 21분"
+          title="코어 강화 코스"
+          description="코어 근육을 강화하는데 초점을 둔 운동을 학습합니다."
+          time="총 20분"
+          tags={["코어", "강화"]}
         />
         <CourseCard 
           image={null} 
-          title="거북목 탈출코스"
-          time="총 01시간 21분"
+          title="유연성 향상 코스"
+          description="몸의 유연성을 높이는 스트레칭 운동을 포함하고 있습니다."
+          time="총 15분"
+          tags={["스트레칭", "유연성"]}
         />
         <CourseCard 
           image={null} 
-          title="거북목 탈출코스"
-          time="총 01시간 21분"
+          title="하체 강화 코스"
+          description="다리와 엉덩이 근육을 강화하는 운동을 진행합니다."
+          time="총 25분"
+          tags={["하체", "강화"]}
         />
         <CourseCard 
           image={null} 
-          title="거북목 탈출코스"
-          time="총 01시간 21분"
+          title="유산소 운동 코스"
+          description="심장 건강과 체력 향상을 위한 유산소 운동을 합니다."
+          time="총 30분"
+          tags={["유산소", "체력"]}
         />
         <CourseCard 
           image={null} 
-          title="거북목 탈출코스"
-          time="총 01시간 21분"
+          title="근력 운동 코스"
+          description="체중을 이용한 근력 운동을 중점적으로 합니다."
+          time="총 20분"
+          tags={["근력", "체중운동"]}
         />
       </CourseWrapper>
     </div>
