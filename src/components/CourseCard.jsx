@@ -31,14 +31,14 @@ const CourseInfo = styled.div`
 `;
 
 const CourseTitle = styled.span`
-  font-size: 18px;
+  font-size: 15px;
   font-weight: bold;
   color: black;
   margin-bottom: 5px;  
 `;
 
 const CourseDescription = styled.span`
-  font-size: 16px;
+  font-size: 10px;
   margin-bottom: 15px; 
   max-height: 3em;
   overflow: hidden;
@@ -49,9 +49,9 @@ const CourseDescription = styled.span`
 `;
 
 const CourseTime = styled.span`
-  font-size: 14px;
+  font-size: 15px;
   align-self: flex-end; 
-  margin-right: 20px;  
+  margin-right: 10px;  
   margin-bottom: 5px;
 `;
 
@@ -62,12 +62,24 @@ const HorizontalLine = styled.div`
   margin: 0 auto; 
 `;
 
+const TagContainer = styled.div`
+  display: flex;             
+  flex-wrap: wrap;           
+  margin-top: 2px;          
+`;
+
 const TagButton = styled.button`
-  width: 60px;
+  width: 60px; 
   height: 20px;
+  padding: 0 10px;
   border-radius: 10px;
+  font-size: 10px;
+  background-color: white;
   border: 1px solid black;
   margin-top: 10px;
+  margin-right: 5px;  
+  display: inline-block; 
+  white-space: nowrap;
 `;
 
 const LinkedCourseCardContainer = styled(Link)`
@@ -85,9 +97,11 @@ const CourseCard = ({ image, title, description, time, tags }) => {
           <CourseDescription>{description}</CourseDescription>
           <CourseTime>{time}</CourseTime>
           <HorizontalLine />
-          {tags && tags.map((tag, index) => (
-            <TagButton key={index}>{tag}</TagButton>
-          ))}
+          <TagContainer>
+            {tags && tags.map((tag, index) => (
+              <TagButton key={index}>{tag}</TagButton>
+            ))}
+          </TagContainer>
         </CourseInfo>
       </CourseCardContainer>
     </LinkedCourseCardContainer>
