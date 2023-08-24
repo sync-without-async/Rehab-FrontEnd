@@ -14,6 +14,7 @@ const PageWrapper = styled.div`
   top: 0;
   left: 0;
   width: 100%;
+  font-family: "SUIT Variable";
 `;
 
 const Greeting = styled.h1`
@@ -21,6 +22,7 @@ const Greeting = styled.h1`
   font-weight: bold;
   margin-top: 100px;
   margin-left: 100px;
+  font-family: "SUIT Variable";
 `;
 
 const DumbbellImage = styled.img`
@@ -33,6 +35,7 @@ const ExerciseTitle = styled.h1`
   font-weight: bold;
   margin-left: 100px;
   margin-top: 20px;
+  font-family: "SUIT Variable";
 `;
 
 const CardContainer = styled.div`
@@ -42,6 +45,7 @@ const CardContainer = styled.div`
   gap: 20px;
   margin: 40px auto;
   max-width: 1200px;
+  font-family: "SUIT Variable";
 `;
 
 const MyCourse = () => {

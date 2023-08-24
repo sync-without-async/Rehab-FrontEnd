@@ -12,4 +12,12 @@
 
 html {
 }
+
+@font-face {
+  font-family: "SUIT Variable";
+  font-weight: 100 900;
+  src: url("https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/variable/woff2/SUIT-Variable.woff2")
+    format("woff2-variations");
+}
+
 @import url("https://rsms.me/inter/inter.css");
