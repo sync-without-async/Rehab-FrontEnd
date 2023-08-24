@@ -87,11 +87,11 @@ const LinkedCourseCardContainer = styled(Link)`
   color: inherit;
 `;
 
-const CourseCard = ({ image, title, description, time, tags }) => {
+const CourseCard = ({ id, image, title, description, time, tags }) => {
   return (
-    <LinkedCourseCardContainer to="/coursedetail">
+    <LinkedCourseCardContainer to={`/coursedetail/${id}`}>
       <CourseCardContainer>
-        <CourseImage image={image}></CourseImage>
+        <CourseImage src={image}></CourseImage>
         <CourseInfo>
           <CourseTitle>{title}</CourseTitle>
           <CourseDescription>{description}</CourseDescription>
@@ -109,6 +109,7 @@ const CourseCard = ({ image, title, description, time, tags }) => {
 };
 
 CourseCard.propTypes = {
+  id: PropTypes.number.isRequired,
   image: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,

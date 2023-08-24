@@ -18,15 +18,13 @@ function App() {
         <Routes>
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/" element={<MainPage/>} />
-          <Route path="/mycourse" element={<MyCourse/>} />
-          <Route path="/coursedetail" element={<CourseDetail/>} /> 
+          <Route path="/" element={<MainPage />} />
+          <Route path="/mycourse" element={<MyCourse />} />
+          <Route path="/coursedetail/:id" element={<CourseDetail />} />
         </Routes>
       </Router>
     </Container>
   );
 }
-//<Route path="/coursedetail" element={<CourseDetail/>} /> 코스 세부 정보 페이지 조회를 위해 임시로 연결한 것입니다. 나중에 지울 예정 
+
 export default App;
-
-
