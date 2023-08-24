@@ -25,7 +25,6 @@ const courseList = [
       image: CourseImagePlaceholder,
       tags: ["허벅지", "선 자세"]
     },
-  
     { 
       id: 4,
       title: "유연성 향상 코스",
@@ -43,7 +42,6 @@ const courseList = [
       image: CourseImagePlaceholder,
       tags: ["어깨", "선 자세"]
     },
-
     { 
       id: 6,
       title: "근력 운동 코스",
@@ -52,7 +50,6 @@ const courseList = [
       image: CourseImagePlaceholder,
       tags: ["허벅지", "선 자세", "앉은 자세"]
     },
-  
     { 
       id: 7,
       title: "밸런스 트레이닝",
@@ -61,7 +58,6 @@ const courseList = [
       image: CourseImagePlaceholder,
       tags: ["어깨", "앉은 자세"]
     },
-  
     { 
       id: 8,
       title: "포스쳐 교정 코스",

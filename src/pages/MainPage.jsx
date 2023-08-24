@@ -30,6 +30,7 @@ const ProgramText = styled.p`
   font-size: 50px;
   bottom: 20px;
   left: 118px;
+  font-family: "SUIT Variable";
 `;
 
 const CategoryText = styled.div`
@@ -37,6 +38,7 @@ const CategoryText = styled.div`
   align-items: center;
   margin-left: 400px;
   margin-top: 20px;
+  font-family: "SUIT Variable";
 `;
 
 const FilterButton = styled.button`
