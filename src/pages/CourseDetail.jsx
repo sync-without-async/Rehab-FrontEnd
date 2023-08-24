@@ -3,6 +3,8 @@ import Header from "../components/Header";
 import styled from 'styled-components';
 import dumbbell from "../assets/images/dumbbell.png";
 import { getCourse } from "../librarys/exercise-api.js";
+import { useParams } from 'react-router-dom';
+
 
 const Background = styled.div`
   width: 100%;
@@ -57,15 +59,16 @@ const DumbbellImage = styled.img`
 
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
+  const { id } = useParams(); 
 
   useEffect(() => {
     async function fetchCourse() {
-      const courseData = await getCourse(1);
+      const courseData = await getCourse(Number(id)); 
       setCourse(courseData);
     }
 
     fetchCourse();
-  }, []);
+  }, [id]);
 
   if (!course) {
     return <div>Loading...</div>;

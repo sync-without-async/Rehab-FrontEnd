@@ -1,4 +1,4 @@
-import { useState ,  useEffect } from "react";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
@@ -74,18 +74,23 @@ const MainPage = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const allCourses = await getAllCourses(); 
+      const allCourses = await getAllCourses();
       setCourses(allCourses);
-    }
+    };
 
     fetchCourses();
   }, []);
-  
-  const filteredCourses = courses.filter(course => {
+
+  const filteredCourses = courses.filter((course) => {
     if (!selectedCategory && !selectedPosture) return true;
-    if (selectedCategory && !selectedPosture) return course.tags.includes(selectedCategory);
-    if (!selectedCategory && selectedPosture) return course.tags.includes(selectedPosture);
-    return course.tags.includes(selectedCategory) && course.tags.includes(selectedPosture);
+    if (selectedCategory && !selectedPosture)
+      return course.tags.includes(selectedCategory);
+    if (!selectedCategory && selectedPosture)
+      return course.tags.includes(selectedPosture);
+    return (
+      course.tags.includes(selectedCategory) &&
+      course.tags.includes(selectedPosture)
+    );
   });
 
   return (
@@ -101,8 +106,10 @@ const MainPage = () => {
           <FilterButton
             key={category}
             selected={selectedCategory === category}
-            onClick={() => 
-              setSelectedCategory(prev => prev === category ? null : category)
+            onClick={() =>
+              setSelectedCategory((prev) =>
+                prev === category ? null : category,
+              )
             }
           >
             {category}
@@ -115,8 +122,8 @@ const MainPage = () => {
           <FilterButton
             key={posture}
             selected={selectedPosture === posture}
-            onClick={() => 
-              setSelectedPosture(prev => prev === posture ? null : posture)
+            onClick={() =>
+              setSelectedPosture((prev) => (prev === posture ? null : posture))
             }
           >
             {posture}
@@ -124,20 +131,20 @@ const MainPage = () => {
         ))}
       </CategoryText>
       <CardContainer>
-      {filteredCourses.map(course => (
-        <CourseCard
-          key={course.id} 
-          image={course.image} 
-          title={course.title}
-          description={course.description}
-          time={course.time}
-          tags={course.tags}
-        />
-      ))}
-    </CardContainer>
+        {filteredCourses.map((course) => (
+          <CourseCard
+            key={course.id}
+            id={course.id}
+            image={course.image}
+            title={course.title}
+            description={course.description}
+            time={course.time}
+            tags={course.tags}
+          />
+        ))}
+      </CardContainer>
     </div>
   );
 };
 
 export default MainPage;
-
