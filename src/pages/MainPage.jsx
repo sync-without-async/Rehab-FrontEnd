@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState ,  useEffect } from "react";
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
 import CourseCard from "../components/CourseCard";
+
+import { getAllCourses } from "../librarys/exercise-api.js";
 
 const Background = styled.div`
   width: 100%;
@@ -68,62 +70,16 @@ const CardContainer = styled.div`
 const MainPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPosture, setSelectedPosture] = useState(null);
+  const [courses, setCourses] = useState([]);
 
-  const courses = [
-    { 
-      title: "거북목 탈출코스",
-      description: "이 코스는 목과 어깨의 근육을 이완시켜주는 운동을 포함하고 있습니다.",
-      time: "총 10분",
-      tags: ["목", "어깨", "앉은 자세"]
-    },
-    { 
-      title: "코어 강화 코스",
-      description: "코어 근육을 강화하는데 초점을 둔 운동을 학습합니다.",
-      time: "총 15분",
-      tags: ["팔", "선 자세"]
-    },
-    { 
-      title: "하체 강화 코스",
-      description: "다리와 엉덩이 근육을 강화하는 운동을 진행합니다.",
-      time: "총 25분",
-      tags: ["허벅지", "선 자세"]
-    },
-  
-    { 
-      title: "유연성 향상 코스",
-      description: "몸의 유연성을 높이는 스트레칭 운동을 포함하고 있습니다.",
-      time: "총 15분",
-      tags: ["어깨", "앉은 자세"]
-    },
-  
-    { 
-      title: "유산소 운동 코스",
-      description: "심장 건강과 체력 향상을 위한 유산소 운동을 합니다.",
-      time: "총 30분",
-      tags: ["어깨", "선 자세"]
-    },
-  
-    { 
-      title: "근력 운동 코스",
-      description: "체중을 이용한 근력 운동을 중점적으로 합니다.",
-      time: "총 15분",
-      tags: ["허벅지", "선 자세", "앉은 자세"]
-    },
-  
-    { 
-      title: "밸런스 트레이닝",
-      description: "몸의 균형 능력을 향상시키기 위한 운동 코스입니다.",
-      time: "총 20분",
-      tags: ["어깨", "앉은 자세"]
-    },
-  
-    { 
-      title: "포스쳐 교정 코스",
-      description: "올바른 자세를 유지하기 위한 교정 운동을 포함하고 있습니다.",
-      time: "총 15분",
-      tags: ["목", "선 자세"]
-    },
-  ];
+  useEffect(() => {
+    const fetchCourses = async () => {
+      const allCourses = await getAllCourses(); 
+      setCourses(allCourses);
+    }
+
+    fetchCourses();
+  }, []);
   
   const filteredCourses = courses.filter(course => {
     if (!selectedCategory && !selectedPosture) return true;
@@ -166,8 +122,8 @@ const MainPage = () => {
       <CardContainer>
       {filteredCourses.map(course => (
         <CourseCard
-          key={course.title}
-          image={null}
+          key={course.id} 
+          image={course.image} 
           title={course.title}
           description={course.description}
           time={course.time}
