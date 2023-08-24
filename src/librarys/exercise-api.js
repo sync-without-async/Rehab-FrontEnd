@@ -19,13 +19,6 @@ const courseList = [
     },
     { 
       id: 3,
-      title: "코어 강화 코스",
-      description: "코어 근육을 강화하는데 초점을 둔 운동을 학습합니다.",
-      time: "총 15분",
-      image: CourseImagePlaceholder,
-      tags: ["팔", "선 자세"]
-    },
-    { 
       title: "하체 강화 코스",
       description: "다리와 엉덩이 근육을 강화하는 운동을 진행합니다.",
       time: "총 25분",
@@ -34,6 +27,7 @@ const courseList = [
     },
   
     { 
+      id: 4,
       title: "유연성 향상 코스",
       description: "몸의 유연성을 높이는 스트레칭 운동을 포함하고 있습니다.",
       time: "총 15분",
@@ -42,14 +36,16 @@ const courseList = [
     },
   
     { 
+      id: 5,
       title: "유산소 운동 코스",
       description: "심장 건강과 체력 향상을 위한 유산소 운동을 합니다.",
       time: "총 30분",
       image: CourseImagePlaceholder,
       tags: ["어깨", "선 자세"]
     },
-  
+
     { 
+      id: 6,
       title: "근력 운동 코스",
       description: "체중을 이용한 근력 운동을 중점적으로 합니다.",
       time: "총 15분",
@@ -58,6 +54,7 @@ const courseList = [
     },
   
     { 
+      id: 7,
       title: "밸런스 트레이닝",
       description: "몸의 균형 능력을 향상시키기 위한 운동 코스입니다.",
       time: "총 20분",
@@ -66,6 +63,7 @@ const courseList = [
     },
   
     { 
+      id: 8,
       title: "포스쳐 교정 코스",
       description: "올바른 자세를 유지하기 위한 교정 운동을 포함하고 있습니다.",
       time: "총 15분",

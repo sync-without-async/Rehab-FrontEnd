@@ -101,7 +101,9 @@ const MainPage = () => {
           <FilterButton
             key={category}
             selected={selectedCategory === category}
-            onClick={() => setSelectedCategory(category)}
+            onClick={() => 
+              setSelectedCategory(prev => prev === category ? null : category)
+            }
           >
             {category}
           </FilterButton>
@@ -113,7 +115,9 @@ const MainPage = () => {
           <FilterButton
             key={posture}
             selected={selectedPosture === posture}
-            onClick={() => setSelectedPosture(posture)}
+            onClick={() => 
+              setSelectedPosture(prev => prev === posture ? null : posture)
+            }
           >
             {posture}
           </FilterButton>
@@ -136,3 +140,4 @@ const MainPage = () => {
 };
 
 export default MainPage;
+
