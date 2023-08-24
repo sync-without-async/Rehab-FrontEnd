@@ -23,6 +23,7 @@ const ProgramText = styled.p`
   bottom: 20px;
   left: 118px;
   font-family: "SUIT Variable";
+  font-weight:bold;
 `;
 
 const ContentContainer = styled.div`
@@ -78,9 +79,9 @@ const StyledInput = styled.input`
   margin-top: 10px;
   background-color: #ffffff;
   border-radius: 10px;
-  border: 1px solid #ddd;
+  border: 2px solid #000000;
   padding: 10px;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 `;
 
 const StyledTextarea = styled.textarea`
@@ -89,16 +90,78 @@ const StyledTextarea = styled.textarea`
   margin-top: 10px;
   background-color: #ffffff;
   border-radius: 10px;
-  border: 2px solid #ddd;
+  border: 2px solid #000000;
   padding: 10px;
+`;
+
+const TagTitle = styled.h3`
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 20px;
+  margin-left: -110px; 
+`;
+
+const TagRow = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const TagTitleInline = styled(TagTitle)`
+  margin-right: 20px;
+  margin-left: 0; 
+`;
+
+const TagButton = styled.button`
+  background-color: ${(props) => (props.selected ? "#ACEAFF" : "#FFFFFF")};
+  color: ${(props) => (props.selected ? "white" : "black")};
+  border: ${(props) => (props.selected ? "none" : "1px solid black")};
+  border-radius: 10px;
+  width: 140px;
+  height: 40px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const TextContainer = styled.div`
   margin-left: 20px;
 `;
+const TagsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 50px;
+`;
+
+const RegisterButton = styled.button`
+  width: 200px;
+  height: 50px;
+  background-color: #AD5DFD;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 20px;
+
+  &:hover {
+    background-color: #8F47D4;  
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
 
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedPose, setSelectedPose] = useState(null);
 
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
@@ -142,6 +205,61 @@ const AddExercise = () => {
           />
         </TextContainer>
       </ContentContainer>
+
+      <TagsContainer>
+        <TagRow>
+          <TagTitleInline>카테고리 별</TagTitleInline>
+          <TagButton
+            selected={selectedCategory === "팔"}
+            onClick={() => setSelectedCategory("팔")}
+          >
+            팔
+          </TagButton>
+          <TagButton
+            selected={selectedCategory === "어깨"}
+            onClick={() => setSelectedCategory("어깨")}
+          >
+            어깨
+          </TagButton>
+          <TagButton
+            selected={selectedCategory === "무릎"}
+            onClick={() => setSelectedCategory("무릎")}
+          >
+            무릎
+          </TagButton>
+          <TagButton
+            selected={selectedCategory === "허벅지"}
+            onClick={() => setSelectedCategory("허벅지")}
+          >
+            허벅지
+          </TagButton>
+        </TagRow>
+
+        <TagRow>
+          <TagTitleInline>자세 별</TagTitleInline>
+          <TagButton
+            selected={selectedPose === "선 자세"}
+            onClick={() => setSelectedPose("선 자세")}
+          >
+            선 자세
+          </TagButton>
+          <TagButton
+            selected={selectedPose === "앉은 자세"}
+            onClick={() => setSelectedPose("앉은 자세")}
+          >
+            앉은 자세
+          </TagButton>
+          <TagButton
+            selected={selectedPose === "누운 자세"}
+            onClick={() => setSelectedPose("누운 자세")}
+          >
+            누운 자세
+          </TagButton>
+        </TagRow>
+      </TagsContainer>
+      <ContentContainer>
+      <RegisterButton>등록하기</RegisterButton>
+    </ContentContainer>
     </div>
   );
 };
