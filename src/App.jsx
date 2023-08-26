@@ -6,7 +6,7 @@ import styled from "styled-components";
 import MyCourse from "./pages/MyCourse.jsx";
 import CourseDetail from "./pages/CourseDetail.jsx";
 import AddExercise from "./pages/AddExercise.jsx";
-import { ModalProvider } from './components/Modal.jsx'; 
+import { ModalProvider } from './librarys/context.jsx'; 
 
 const Container = styled.div`
   background-color: transparent;

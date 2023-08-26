@@ -1,5 +1,5 @@
 import { useReducer, createContext} from 'react';
-import { modalReducer, intialModalState } from '../reducer/modal.jsx'; // 모달 리듀서가 있는 경로를 지정해주세요
+import { modalReducer, intialModalState } from '../reducer/modal.js';
 import PropTypes from 'prop-types';
 
 export const StateContext = createContext();

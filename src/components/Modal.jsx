@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 
-import { DispatchContext, StateContext } from "../librarys/context.js";
+import { DispatchContext, StateContext } from "../librarys/context.jsx";
 
 const Background = styled.div`
   width: 100%;

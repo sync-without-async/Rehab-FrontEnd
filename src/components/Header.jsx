@@ -1,5 +1,8 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { DispatchContext } from  '../librarys/context.jsx';
+import { useContext } from 'react';
+import Modal from './Modal.jsx';
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -50,6 +53,12 @@ const Divider = styled.div`
 `;
 
 const Header = () => {
+  const dispatch = useContext(DispatchContext);
+
+  const handleLoginClick = () => {
+    dispatch({ type: 'show', payload: 'loginModal' });
+  };
+
   return (
     <HeaderWrapper>
       <Logo>
@@ -60,8 +69,11 @@ const Header = () => {
         <MainLink to="/" style={{ marginRight: '40px' }}>메인 페이지</MainLink>
         <MainLink to="/mycourse" style={{ marginRight: '20px' }}>수강내역</MainLink>
         <Divider />
-        <MainLink to="/login">로그인</MainLink>
+        <MainLink to="#" onClick={handleLoginClick}>로그인</MainLink>
       </Nav>
+      <Modal id="loginModal">
+
+      </Modal>
     </HeaderWrapper>
   );
 };
