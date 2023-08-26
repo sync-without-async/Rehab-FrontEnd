@@ -53,7 +53,7 @@ const Header = () => {
   return (
     <HeaderWrapper>
       <Logo>
-        <MainLink to="/">Logo</MainLink>
+        <MainLink to="/">Re:Hab</MainLink>
       </Logo>
       <Nav>
         <MainLink to="/register" style={{ marginRight: '50px' }}>운동등록</MainLink>
