@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
-import dumbbell from "../assets/images/dumbbell.png";
 import { getCourse } from "../librarys/exercise-api.js";
-import { useParams } from "react-router-dom";
+
+import dumbbell from "../assets/images/dumbbell.png";
 import CheckB from "../assets/images/Check-Before.png";
 import CheckA from "../assets/images/Check-After.png";
 import Player from "../assets/images/play.png";
@@ -30,12 +31,14 @@ const ExerciseTitle = styled.h1`
   left: 500px;
   top: 40px;
   font-weight: bold;
+  font-family: "SUIT Variable";
 `;
 
 const ExerciseDescription = styled.p`
   position: absolute;
   left: 500px;
   top: 70px;
+  font-family: "SUIT Variable";
 `;
 
 const Tag = styled.div`
@@ -51,6 +54,7 @@ const Tag = styled.div`
   justify-content: center;
   align-items: center;
   margin-right: 10px;
+  font-family: "SUIT Variable";
 `;
 
 const DumbbellImage = styled.img`
@@ -62,6 +66,7 @@ const DumbbellImage = styled.img`
 const CurriculumTitle = styled.h2`
   margin-top: 20px;
   margin-left: 80px;
+  font-family: "SUIT Variable";
 `;
 
 const CurriculumBox = styled.div`
@@ -77,10 +82,12 @@ const CurriculumBox = styled.div`
 
 const ActionTitleName = styled.span`
   margin-left: 60px;
+  font-family: "SUIT Variable";
 `;
 
 const ActionTitleTime = styled.span`
   margin-right: 80px;
+  font-family: "SUIT Variable";
 `;
 
 const DividerLine = styled.div`
@@ -102,26 +109,28 @@ const CourseInfoContainer = styled.div`
 
 const CheckImage = styled.img`
   width: 25px;
-  height: 25px; 
+  height: 25px;
   margin-left: 10px;
 `;
 
-const ActionName =styled.span`
-margin-left: -865px;
-`
-const ActionTime =styled.span`
-margin-right: -860px;
-`
+const ActionName = styled.span`
+  margin-left: -875px;
+  font-family: "SUIT Variable";
+`;
+const ActionTime = styled.span`
+  margin-right: -875px;
+  font-family: "SUIT Variable";
+`;
 
 const PlayerButton = styled.button`
   background: url(${Player}) no-repeat center center;
-  width: 40px;  
+  width: 40px;
   height: 40px;
   border: none;
   cursor: pointer;
   outline: none;
   transition: 0.3s;
-  margin-right:15px;
+  margin-right: 15px;
 
   &:hover {
     opacity: 0.7;
@@ -130,7 +139,7 @@ const PlayerButton = styled.button`
 
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
-  const [isChecked, setIsChecked] = useState(false); 
+  const [isChecked, setIsChecked] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -166,13 +175,13 @@ const CourseDetail = () => {
         <ActionTitleTime>동작시간</ActionTitleTime>
       </CurriculumBox>
       <CourseInfoContainer>
-      <CheckImage 
-          src={isChecked ? CheckA : CheckB} 
+        <CheckImage
+          src={isChecked ? CheckA : CheckB}
           alt={isChecked ? "Check After" : "Check Before"}
-          onClick={() => setIsChecked(prev => !prev)}
+          onClick={() => setIsChecked((prev) => !prev)}
         />
-        <ActionName>{course.title}</ActionName> 
-        <ActionTime>{course.time}</ActionTime> 
+        <ActionName>{course.title}</ActionName>
+        <ActionTime>{course.time}</ActionTime>
         <PlayerButton onClick={() => {}} />
       </CourseInfoContainer>
       <DividerLine />

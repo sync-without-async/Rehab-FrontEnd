@@ -5,7 +5,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  font-family: "Inter var", sans-serif;
+  font-family: "SUIT Variable";
   font-weight: bold;
   position: relative; 
   margin-top:20px;
@@ -18,6 +18,7 @@ const Logo = styled.div`
   left: 100px; 
   top: 50%;
   transform: translateY(-50%);
+  font-family: "SUIT Variable";
 `;
 
 const Nav = styled.nav`
@@ -25,11 +26,13 @@ const Nav = styled.nav`
   position: absolute;
   right: 70px; 
   align-items: center;
+  font-family: "SUIT Variable";
 `;
 
 const MainLink = styled(Link)`
   text-decoration: none;
   color: black;
+  font-family: "SUIT Variable";
   &:hover,
   &:active,
   &:focus {
@@ -53,6 +56,7 @@ const Header = () => {
         <MainLink to="/">Logo</MainLink>
       </Logo>
       <Nav>
+        <MainLink to="/register" style={{ marginRight: '50px' }}>운동등록</MainLink>
         <MainLink to="/" style={{ marginRight: '40px' }}>메인 페이지</MainLink>
         <MainLink to="/mycourse" style={{ marginRight: '20px' }}>수강내역</MainLink>
         <Divider />

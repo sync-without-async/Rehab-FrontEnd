@@ -10,6 +10,7 @@ const CourseCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white; 
+  font-family: "SUIT Variable";
 `;
 
 const CourseImage = styled.div`
@@ -28,6 +29,7 @@ const CourseInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  font-family: "SUIT Variable";
   padding-top: 15px; 
 `;
 
@@ -36,6 +38,7 @@ const CourseTitle = styled.span`
   font-weight: bold;
   color: black;
   margin-bottom: 5px;  
+  font-family: "SUIT Variable";
 `;
 
 const CourseDescription = styled.span`
@@ -47,6 +50,7 @@ const CourseDescription = styled.span`
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  font-family: "SUIT Variable";
 `;
 
 const CourseTime = styled.span`
@@ -54,6 +58,7 @@ const CourseTime = styled.span`
   align-self: flex-end; 
   margin-right: 10px;  
   margin-bottom: 5px;
+  font-family: "SUIT Variable";
 `;
 
 const HorizontalLine = styled.div`
@@ -66,7 +71,8 @@ const HorizontalLine = styled.div`
 const TagContainer = styled.div`
   display: flex;             
   flex-wrap: wrap;           
-  margin-top: 2px;          
+  margin-top: 2px;  
+  font-family: "SUIT Variable";        
 `;
 
 const TagButton = styled.button`
@@ -81,6 +87,7 @@ const TagButton = styled.button`
   margin-right: 5px;  
   display: inline-block; 
   white-space: nowrap;
+  font-family: "SUIT Variable";
 `;
 
 const LinkedCourseCardContainer = styled(Link)`
