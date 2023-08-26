@@ -6,6 +6,7 @@ import styled from "styled-components";
 import MyCourse from "./pages/MyCourse.jsx";
 import CourseDetail from "./pages/CourseDetail.jsx";
 import AddExercise from "./pages/AddExercise.jsx";
+import PlayerPage from "./pages/PlayerPage.jsx";
 
 const Container = styled.div`
   background-color: transparent;
@@ -20,6 +21,7 @@ function App() {
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<AddExercise />} />
+          <Route path="/player/:id" element={<PlayerPage />} />
           <Route path="/" element={<MainPage />} />
           <Route path="/mycourse" element={<MyCourse />} />
           <Route path="/coursedetail/:id" element={<CourseDetail />} />
