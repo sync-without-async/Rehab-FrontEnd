@@ -5,7 +5,9 @@ import { MdClose, MdPlayArrow, MdRefresh } from "react-icons/md";
 import classNames from "classnames";
 
 import styled from "styled-components";
-import { DispatchContext } from "../../librarys/context";
+import { DispatchContext, StateContext } from "../../librarys/context";
+
+import Player from "../../librarys/player.js";
 
 const Container = styled.div`
   left: 50%;
@@ -75,13 +77,27 @@ Button.defaultProps = {
 };
 
 const ControllerSection = () => {
-  const dispatch = useContext(DispatchContext);
+  const { playButtonActive, guideButtonActive } = useContext(StateContext);
   return (
     <IconContext.Provider value={{ size: "24px" }}>
       <Container>
         <Button icon={<MdClose />} text="운동 종료하기" />
-        <Button icon={<MdPlayArrow />} text="시작하기" />
-        <Button icon={<MdRefresh />} text="가이드 영상 다시보기" />
+        <Button
+          icon={<MdPlayArrow />}
+          text="시작하기"
+          disable={!playButtonActive}
+          onClick={() => {
+            Player.onPlayClick();
+          }}
+        />
+        <Button
+          icon={<MdRefresh />}
+          text="가이드 영상 다시보기"
+          disable={!guideButtonActive}
+          onClick={() => {
+            Player.playGuide();
+          }}
+        />
       </Container>
     </IconContext.Provider>
   );

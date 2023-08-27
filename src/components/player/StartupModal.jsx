@@ -32,7 +32,7 @@ const Button = styled.button`
   width: 100%;
   padding: 18px 0;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(0, 0, 0, 1);
   background-color: rgba(20, 242, 198, 1);
 
