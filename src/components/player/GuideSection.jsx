@@ -1,7 +1,10 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 
 import SampleVideo from "../../assets/videos/sample_video.mp4";
+
+import Player from "../../librarys/player";
+import { DispatchContext, StateContext } from "../../librarys/context";
 
 const Container = styled.div`
   max-width: 20%;
@@ -25,7 +28,9 @@ const ProgressContainer = styled.div`
 
 const Progress = styled.div.attrs((props) => ({
   style: {
-    width: (props.playback / props.duration) * 100 + "%",
+    width:
+      (props.$playback === null ? 0 : props.$playback / props.$duration) * 100 +
+      "%",
   },
 }))`
   height: 100%;
@@ -35,33 +40,45 @@ const Progress = styled.div.attrs((props) => ({
 const GuideSection = ({ play }) => {
   const video = useRef(null);
   const [duration, setDuration] = useState(0);
-  const [playback, setPlayback] = useState(0);
-  const [timer, setTimer] = useState(null);
+  const [playback, setPlayback] = useState(null);
 
-  function videoHook() {
-    if (video) {
-      setPlayback(video.current.currentTime);
-      setDuration(video.current.duration);
-    }
-  }
+  const dispatch = useContext(DispatchContext);
+  const { guideStatus } = useContext(StateContext);
 
   useEffect(() => {
-    if (video) {
-      video.current.addEventListener("play", () => {
-        setTimer(setInterval(videoHook, 50));
-      });
-      video.current.addEventListener("pause", () => {
-        clearInterval(timer);
-        setTimer(null);
-      });
+    if (guideStatus) {
+      video.current.currentTime = 0;
+      video.current.play();
+    } else {
+      video.current.pause();
     }
-  }, [video, timer]);
+  }, [guideStatus]);
+
+  function onGuideLoad(event) {
+    Player.guideDuration = event.target.duration;
+  }
+
+  function onTimeUpdate(event) {
+    setPlayback(event.target.currentTime);
+    setDuration(event.target.duration);
+  }
+
+  function onEnded(event) {
+    dispatch({ type: "stopGuide" });
+    Player.onGuideComplete();
+  }
 
   return (
     <Container>
-      <Video ref={video} src={SampleVideo} />
+      <Video
+        ref={video}
+        src={SampleVideo}
+        onLoadedData={onGuideLoad}
+        onTimeUpdate={onTimeUpdate}
+        onEnded={onEnded}
+      />
       <ProgressContainer>
-        <Progress duration={duration} playback={playback} />
+        <Progress $duration={duration} $playback={playback} />
       </ProgressContainer>
     </Container>
   );
