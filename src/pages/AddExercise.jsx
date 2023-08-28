@@ -1,12 +1,14 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
-import { useState , useRef } from "react";
+import { useState , useRef, useEffect } from "react";
 
 import arms from "../assets/images/arms-up.webp";
 import knee from "../assets/images/knee.webp";
 import shoulder from "../assets/images/shoulder-up.webp";
 import thigh from "../assets/images/thigh.webp";
+
+import axios from "axios";
 
 const Background = styled.div`
   width: 100%;
@@ -171,10 +173,26 @@ const categoryImages = {
 };
 
 
+
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPose, setSelectedPose] = useState(null);
+
+
+      // 페이지 컴포넌트가 마운트될 때 권한 검사 수행
+      useEffect(() => {
+        function checkAdminAccess() {
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (!user || !user.admin) {
+                alert('관리자만 접근 가능합니다.');
+                // 로그인 페이지나 메인 페이지로 리다이렉션. 필요에 따라 경로를 수정하세요.
+                window.location.href = '/login';
+            }
+        }
+        
+        checkAdminAccess();
+    }, []);
 
   // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
   const videoRef = useRef(null);
@@ -208,30 +226,41 @@ const AddExercise = () => {
     setCourseData((prev) => ({ ...prev, description: e.target.value }));
   };
 
-  const handleRegister = () => {
-    let existingCourses = JSON.parse(localStorage.getItem("courses")) || [];
-    existingCourses.push({
+  const handleRegister = async () => {
+    const course = {
       id: new Date().getTime(),
       ...courseData,
       category: selectedCategory,
       posture: selectedPose,
       image: categoryImages[selectedCategory], 
       tags: [selectedCategory, selectedPose]
-    });
-    localStorage.setItem("courses", JSON.stringify(existingCourses));
-    alert("운동이 등록되었습니다.");
-  
-    // 초기화해둠요
-    setCourseData({
-      video: null,
-      title: "",
-      description: "",
-      category: null,
-      posture: null,
-    });
-    setSelectedCategory(null);
-    setSelectedPose(null);
+    };
+
+    try {
+      const response = await axios.post("/api/exercise/register", course); 
+
+      if (response.status === 200) {
+        alert("운동이 등록되었습니다.");
+        
+        setCourseData({
+          video: null,
+          title: "",
+          description: "",
+          category: null,
+          posture: null,
+        });
+        setSelectedCategory(null);
+        setSelectedPose(null);
+      } else {
+        alert("운동 등록 중 오류가 발생하였습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("Error while registering exercise:", error);
+      alert("운동 등록 중 오류가 발생하였습니다. 다시 시도해주세요.");
+    }
   };
+
+
   
   return (
     <div>
