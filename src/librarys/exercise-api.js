@@ -112,8 +112,12 @@ export async function getCoursesByPosture(posture) {
 }
 
 export const getCourse = (id) => {
-  const courses = JSON.parse(localStorage.getItem("courses")) || [];
-  const course = courses.find((course) => course.id === id);
+  const coursesFromLocalStorage = JSON.parse(localStorage.getItem("courses")) || [];
+  const allCourses = [...courseList, ...coursesFromLocalStorage];
+
+  const course = allCourses.find((course) => course.id === id);
+
   return course || null;
 };
+
 
