@@ -1,7 +1,12 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
-import { useState } from "react";
+import { useState , useRef } from "react";
+
+import arms from "../assets/images/arms-up.webp";
+import knee from "../assets/images/knee.webp";
+import shoulder from "../assets/images/shoulder-up.webp";
+import thigh from "../assets/images/thigh.webp";
 
 const Background = styled.div`
   width: 100%;
@@ -23,7 +28,7 @@ const ProgramText = styled.p`
   bottom: 20px;
   left: 118px;
   font-family: "SUIT Variable";
-  font-weight:bold;
+  font-weight: bold;
 `;
 
 const ContentContainer = styled.div`
@@ -98,7 +103,7 @@ const TagTitle = styled.h3`
   font-weight: bold;
   margin-top: 30px;
   margin-bottom: 20px;
-  margin-left: -110px; 
+  margin-left: -110px;
 `;
 
 const TagRow = styled.div`
@@ -108,7 +113,7 @@ const TagRow = styled.div`
 
 const TagTitleInline = styled(TagTitle)`
   margin-right: 20px;
-  margin-left: 0; 
+  margin-left: 0;
 `;
 
 const TagButton = styled.button`
@@ -141,7 +146,7 @@ const TagsContainer = styled.div`
 const RegisterButton = styled.button`
   width: 200px;
   height: 50px;
-  background-color: #AD5DFD;
+  background-color: #ad5dfd;
   color: white;
   border-radius: 10px;
   border: none;
@@ -150,7 +155,7 @@ const RegisterButton = styled.button`
   margin-bottom: 20px;
 
   &:hover {
-    background-color: #8F47D4;  
+    background-color: #8f47d4;
   }
 
   &:focus {
@@ -158,11 +163,21 @@ const RegisterButton = styled.button`
   }
 `;
 
+const categoryImages = {
+  "팔": arms,
+  "어깨": shoulder,
+  "무릎": knee,
+  "허벅지": thigh
+};
+
+
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPose, setSelectedPose] = useState(null);
 
+  // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
+  const videoRef = useRef(null);
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -170,6 +185,54 @@ const AddExercise = () => {
     }
   };
 
+  const handleVideoMetadataLoaded = () => {
+    // 비디오 길이를 가져와서 courseData에 저장함
+    const videoDuration = Math.round(videoRef.current.duration);
+    setCourseData((prev) => ({ ...prev, time: videoDuration }));
+  };
+
+  /* 백엔드 api 연결 프론트단에서 임시로 구현*/
+  const [courseData, setCourseData] = useState({
+    video: null,
+    title: "",
+    description: "",
+    category: null,
+    posture: null,
+  });
+
+  const handleTitleChange = (e) => {
+    setCourseData((prev) => ({ ...prev, title: e.target.value }));
+  };
+
+  const handleDescriptionChange = (e) => {
+    setCourseData((prev) => ({ ...prev, description: e.target.value }));
+  };
+
+  const handleRegister = () => {
+    let existingCourses = JSON.parse(localStorage.getItem("courses")) || [];
+    existingCourses.push({
+      id: new Date().getTime(),
+      ...courseData,
+      category: selectedCategory,
+      posture: selectedPose,
+      image: categoryImages[selectedCategory], 
+      tags: [selectedCategory, selectedPose]
+    });
+    localStorage.setItem("courses", JSON.stringify(existingCourses));
+    alert("운동이 등록되었습니다.");
+  
+    // 초기화해둠요
+    setCourseData({
+      video: null,
+      title: "",
+      description: "",
+      category: null,
+      posture: null,
+    });
+    setSelectedCategory(null);
+    setSelectedPose(null);
+  };
+  
   return (
     <div>
       <Header />
@@ -179,29 +242,38 @@ const AddExercise = () => {
       </Background>
 
       <ContentContainer>
-        <UploadContainer>
-          <VideoTitleText>가이드 영상 업로드</VideoTitleText>
-          <VideoUploadLabel>
-            {videoSrc ? (
-              <VideoPreview controls src={videoSrc}></VideoPreview>
-            ) : (
-              "등록하기"
-            )}
-            <VideoUploadBox onChange={handleVideoChange} />
-          </VideoUploadLabel>
-        </UploadContainer>
+      <UploadContainer>
+        <VideoTitleText>가이드 영상 업로드</VideoTitleText>
+        <VideoUploadLabel>
+  {videoSrc ? (
+    <VideoPreview
+      controls
+      src={videoSrc}
+      ref={videoRef}
+      onLoadedMetadata={handleVideoMetadataLoaded}
+      key={videoSrc} 
+    ></VideoPreview>
+  ) : (
+    "등록하기"
+  )}
+  <VideoUploadBox onChange={handleVideoChange} />
+</VideoUploadLabel>
+      </UploadContainer>
 
         <TextContainer>
           <TitleText>운동 제목 등록</TitleText>
           <StyledInput
             placeholder="최대 50글자까지 입력 가능합니다."
             maxLength={50}
+            value={courseData.title}
+            onChange={handleTitleChange}
           />
-
-          <TitleText style={{ marginTop: "10px" }}>운동 설명 등록</TitleText>
+          <TitleText>운동 설명 등록</TitleText>
           <StyledTextarea
             placeholder="최대 200글자까지 입력 가능합니다."
             maxLength={200}
+            value={courseData.description}
+            onChange={handleDescriptionChange}
           />
         </TextContainer>
       </ContentContainer>
@@ -258,8 +330,8 @@ const AddExercise = () => {
         </TagRow>
       </TagsContainer>
       <ContentContainer>
-      <RegisterButton>등록하기</RegisterButton>
-    </ContentContainer>
+        <RegisterButton onClick={handleRegister}>등록하기</RegisterButton>
+      </ContentContainer>
     </div>
   );
 };

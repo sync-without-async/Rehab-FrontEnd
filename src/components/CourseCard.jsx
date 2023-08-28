@@ -100,7 +100,7 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
         <CourseInfo>
           <CourseTitle>{title}</CourseTitle>
           <CourseDescription>{description}</CourseDescription>
-          <CourseTime>{time / 60} 초</CourseTime>
+          <CourseTime>{time } 초</CourseTime>
           <HorizontalLine />
           <TagContainer>
             {tags && tags.map((tag, index) => (
