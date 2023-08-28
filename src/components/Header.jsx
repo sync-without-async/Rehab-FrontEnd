@@ -1,11 +1,14 @@
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { DispatchContext } from  '../librarys/context.jsx';
-import { useContext } from 'react';
-import Modal from './Modal.jsx';
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { DispatchContext } from "../librarys/context.jsx";
+import { useContext } from "react";
+import Modal from "./Modal.jsx";
 import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
-
+import { useState } from "react";
+import { useDispatch} from "react-redux";
+import { userLogin } from "../librarys/login-api.js";
+import { login } from "../redux/userSlice.js";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -13,15 +16,15 @@ const HeaderWrapper = styled.header`
   padding: 10px 20px;
   font-family: "SUIT Variable";
   font-weight: bold;
-  position: relative; 
-  margin-top:20px;
+  position: relative;
+  margin-top: 20px;
 `;
 
 const Logo = styled.div`
   font-size: 24px;
   font-weight: bold;
-  position: absolute; 
-  left: 100px; 
+  position: absolute;
+  left: 100px;
   top: 50%;
   transform: translateY(-50%);
   font-family: "SUIT Variable";
@@ -30,7 +33,7 @@ const Logo = styled.div`
 const Nav = styled.nav`
   display: flex;
   position: absolute;
-  right: 70px; 
+  right: 70px;
   align-items: center;
   font-family: "SUIT Variable";
 `;
@@ -42,7 +45,7 @@ const MainLink = styled(Link)`
   &:hover,
   &:active,
   &:focus {
-    text-decoration: none; 
+    text-decoration: none;
     outline: none;
   }
 `;
@@ -91,29 +94,50 @@ const StyledInput = styled.input`
   text-align: center;
   outline: none;
 
-  &::placeholder { 
+  &::placeholder {
     font-weight: bold;
   }
 `;
 
 const Header = () => {
   const dispatch = useContext(DispatchContext);
+  const reduxDispatch = useDispatch();
 
-  const handleLoginClick = () => {
-    dispatch({ type: 'show', payload: 'loginModal' });
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLoginClick = async () => {
+    dispatch({ type: "show", payload: "loginModal" });
   };
 
+  const handleLoginSubmit = async () => {
+    const result = await userLogin(id, password);
+    if (result) {
+      reduxDispatch(login(result));
+      dispatch({ type: "hide", payload: "loginModal" });
+    } else {
+      alert("로그인 실패: 잘못된 ID 또는 비밀번호입니다.");
+    }
+  };
   return (
     <HeaderWrapper>
       <Logo>
         <MainLink to="/">Re:Hab</MainLink>
       </Logo>
       <Nav>
-        <MainLink to="/register" style={{ marginRight: '50px' }}>운동등록</MainLink>
-        <MainLink to="/" style={{ marginRight: '40px' }}>메인 페이지</MainLink>
-        <MainLink to="/mycourse" style={{ marginRight: '20px' }}>수강내역</MainLink>
+        <MainLink to="/register" style={{ marginRight: "50px" }}>
+          운동등록
+        </MainLink>
+        <MainLink to="/" style={{ marginRight: "40px" }}>
+          메인 페이지
+        </MainLink>
+        <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
+          수강내역
+        </MainLink>
         <Divider />
-        <MainLink to="#" onClick={handleLoginClick}>로그인</MainLink>
+        <MainLink to="#" onClick={handleLoginClick}>
+          로그인
+        </MainLink>
       </Nav>
       <Modal id="loginModal">
         <LoginContainer>
@@ -122,14 +146,25 @@ const Header = () => {
             <InputIcon>
               <BsPersonFill />
             </InputIcon>
-            <StyledInput type="text" placeholder="ID" />
+            <StyledInput
+              type="text"
+              placeholder="ID"
+              value={id}
+              onChange={(e) => setId(e.target.value)}
+            />
           </InputWrapper>
           <InputWrapper>
             <InputIcon>
               <MdVpnKey />
             </InputIcon>
-            <StyledInput type="password" placeholder="Password" />
+            <StyledInput
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </InputWrapper>
+          <button onClick={handleLoginSubmit}>로그인</button>
         </LoginContainer>
       </Modal>
     </HeaderWrapper>
