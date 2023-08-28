@@ -1,19 +1,13 @@
-
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 class Player {
   static #instance = null;
-
   videoStream = null;
-
   guideDuration = null;
-
   name = null;
-
   id = null;
-
   status = 0;
 
   onError = (e) => {
@@ -127,6 +121,8 @@ class Player {
   }
 
   async analyze() {
+    this.setPlayButton(false);
+    this.setGuideButton(false);
     this.status = 2;
     this.setSubtitle(
       "지금부터 측정을 시작합니다.\n가이드 영상을 잘 보고 따라해보세요.",
@@ -140,18 +136,18 @@ class Player {
 
   async record() {
     const recorder = new MediaRecorder(this.videoStream, {
-      mimeType: "video/webm;codecs=av1",
+      mimeType: "video/webm;codecs=h264",
     });
 
     recorder.ondataavailable = (event) => {
-      this.onRecordComplete(event.data);
+      if (recorder.state === "recording") {
+        this.onRecordComplete(event.data);
+      }
     };
-
-    console.log(this.guideDuration * 1000);
 
     recorder.start(this.guideDuration * 1000);
 
-    setTimeout(() => recorder.stop(), this.guideDuration * 1000);
+    setTimeout(() => recorder.stop(), this.guideDuration * 1000 + 300); // 여유있게 300ms 추가
   }
 
   async onRecordComplete(data) {
