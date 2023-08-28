@@ -70,7 +70,6 @@ const CardContainer = styled.div`
   max-width: 1200px;
 `;
 
-
 const MainPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPosture, setSelectedPosture] = useState(null);
@@ -79,12 +78,15 @@ const MainPage = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       const apiCourses = await getAllCourses();
-      const localCourses = JSON.parse(localStorage.getItem('courses')) || [];
+      const localCourses = JSON.parse(localStorage.getItem("courses")) || [];
       setCourses([...apiCourses, ...localCourses]);
     };
-  
+
     fetchCourses();
   }, []);
+
+  console.log(courses);
+  console.log(!selectedCategory, !selectedPosture);
 
   const filteredCourses = courses.filter((course) => {
     if (!selectedCategory && !selectedPosture) return true;
@@ -93,12 +95,9 @@ const MainPage = () => {
     if (!selectedCategory && selectedPosture)
       return course.posture === selectedPosture;
     return (
-      course.category === selectedCategory &&
-      course.posture === selectedPosture
+      course.category === selectedCategory && course.posture === selectedPosture
     );
   });
-
-  
 
   return (
     <div>

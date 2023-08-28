@@ -8,7 +8,7 @@ import { DispatchContext, StateContext } from "../../librarys/context";
 
 const Container = styled.div`
   max-width: 20%;
-  min-width: 280px;
+  min-width: 400px;
   width: 100%;
   position: absolute;
 
@@ -18,6 +18,22 @@ const Container = styled.div`
 
 const Video = styled.video`
   width: 100%;
+`;
+
+const Title = styled.p`
+  left: 16px;
+  top: 16px;
+  position: absolute;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.5),
+    1px -1px 1px rgba(0, 0, 0, 0.5),
+    -1px 1px 1px rgba(0, 0, 0, 0.5),
+    1px 1px 1px rgba(0, 0, 0, 0.5);
 `;
 
 const ProgressContainer = styled.div`
@@ -43,14 +59,16 @@ const GuideSection = ({ play }) => {
   const [playback, setPlayback] = useState(null);
 
   const dispatch = useContext(DispatchContext);
-  const { guideStatus } = useContext(StateContext);
+  const { name, guideStatus } = useContext(StateContext);
 
   useEffect(() => {
-    if (guideStatus) {
-      video.current.currentTime = 0;
-      video.current.play();
-    } else {
-      video.current.pause();
+    if (video) {
+      if (guideStatus) {
+        video.current.currentTime = 0;
+        video.current.play();
+      } else {
+        video.current.pause();
+      }
     }
   }, [guideStatus]);
 
@@ -65,11 +83,15 @@ const GuideSection = ({ play }) => {
 
   function onEnded(event) {
     dispatch({ type: "stopGuide" });
+    if (video) {
+      video.current.currentTime = 0;
+    }
     Player.onGuideComplete();
   }
 
   return (
     <Container>
+      <Title>{name}</Title>
       <Video
         ref={video}
         src={SampleVideo}

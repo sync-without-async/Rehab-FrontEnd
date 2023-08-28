@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { DispatchContext, StateContext } from "../../librarys/context";
 
 import Player from "../../librarys/player.js";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   left: 50%;
@@ -78,10 +79,15 @@ Button.defaultProps = {
 
 const ControllerSection = () => {
   const { playButtonActive, guideButtonActive } = useContext(StateContext);
+  const navigate = useNavigate();
   return (
     <IconContext.Provider value={{ size: "24px" }}>
       <Container>
-        <Button icon={<MdClose />} text="운동 종료하기" />
+        <Button
+          icon={<MdClose />}
+          text="운동 종료하기"
+          onClick={() => navigate("/")}
+        />
         <Button
           icon={<MdPlayArrow />}
           text="시작하기"
