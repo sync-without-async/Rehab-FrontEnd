@@ -4,7 +4,7 @@ import Modal from "../Modal.jsx";
 import PropTypes from "prop-types";
 
 import { useContext, useState } from "react";
-import { DispatchContext, StateContext } from "../../librarys/context.js";
+import { DispatchContext, StateContext } from "../../librarys/context.jsx";
 
 const Container = styled.div`
   min-height: 180px;

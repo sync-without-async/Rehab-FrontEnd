@@ -9,8 +9,7 @@ import ControllerSection from "../components/player/ControllerSection.jsx";
 import Subtitle from "../components/player/Subtitle.jsx";
 
 import SampleVideo from "../assets/videos/sample_video.mp4";
-import { DispatchContext, StateContext } from "../librarys/context.js";
-
+import { DispatchContext, StateContext } from "../librarys/context.jsx";
 import { intialModalState, modalReducer } from "../reducer/modal.js";
 import StartupModal from "../components/player/StartupModal.jsx";
 import { intialPlayerState, playerReducer } from "../reducer/player.js";
