@@ -6,9 +6,10 @@ import Modal from "./Modal.jsx";
 import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
-import { useDispatch} from "react-redux";
+import { useDispatch, useSelector} from "react-redux";
 import { userLogin } from "../librarys/login-api.js";
-import { login } from "../redux/userSlice.js";
+import { login, selectName, selectIsLoggedIn } from '../redux/userSlice.js';  
+
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -106,6 +107,9 @@ const Header = () => {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
+  const userName = useSelector(selectName);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const handleLoginClick = async () => {
     dispatch({ type: "show", payload: "loginModal" });
   };
@@ -135,9 +139,15 @@ const Header = () => {
           수강내역
         </MainLink>
         <Divider />
-        <MainLink to="#" onClick={handleLoginClick}>
-          로그인
-        </MainLink>
+        {
+          isLoggedIn ? ( 
+            <span>{userName}</span>
+          ) : (
+            <MainLink to="#" onClick={handleLoginClick}>
+              로그인
+            </MainLink>
+          )
+        }
       </Nav>
       <Modal id="loginModal">
         <LoginContainer>

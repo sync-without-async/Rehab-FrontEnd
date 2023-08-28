@@ -3,10 +3,10 @@ import { createSlice } from '@reduxjs/toolkit';
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    access_token: "token1",
-    refresh_token: "token2",
-    email: "user@example.com",
-    name: "일반유저",
+    access_token: null,
+    refresh_token: null,
+    email: null,
+    name: null,
     admin: false,
   },
   
