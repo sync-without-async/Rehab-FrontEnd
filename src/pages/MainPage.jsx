@@ -31,6 +31,7 @@ const ProgramText = styled.p`
   bottom: 20px;
   left: 118px;
   font-family: "SUIT Variable";
+  font-weight: bold;
 `;
 
 const CategoryText = styled.div`
@@ -104,7 +105,7 @@ const MainPage = () => {
       </Background>
       <CategoryText>
         <Label>카테고리별</Label>
-        {["팔", "어깨", "목", "허벅지"].map((category) => (
+        {["팔", "어깨", "무릎", "허벅지"].map((category) => (
           <FilterButton
             key={category}
             selected={selectedCategory === category}

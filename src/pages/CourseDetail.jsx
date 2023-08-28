@@ -32,6 +32,7 @@ const ExerciseTitle = styled.h1`
   top: 40px;
   font-weight: bold;
   font-family: "SUIT Variable";
+  font-size: 25px;
 `;
 
 const ExerciseDescription = styled.p`
@@ -39,6 +40,8 @@ const ExerciseDescription = styled.p`
   left: 500px;
   top: 70px;
   font-family: "SUIT Variable";
+  font-size: 20px;
+  margin-top: 10px;
 `;
 
 const Tag = styled.div`
@@ -181,7 +184,7 @@ const CourseDetail = () => {
           onClick={() => setIsChecked((prev) => !prev)}
         />
         <ActionName>{course.title}</ActionName>
-        <ActionTime>{course.time}</ActionTime>
+        <ActionTime>{course.time / 60} 초</ActionTime>
         <PlayerButton onClick={() => {}} />
       </CourseInfoContainer>
       <DividerLine />
