@@ -1,12 +1,13 @@
 import { styled } from "styled-components";
 
 import Modal from "../Modal.jsx";
+import PropTypes from "prop-types";
 
 import { useContext, useState } from "react";
-import { DispatchContext, StateContext } from "../../librarys/context.js";
+import { DispatchContext, StateContext } from "../../librarys/context.jsx";
 
 const Container = styled.div`
-  min-height: 240px;
+  min-height: 180px;
   margin: 16px;
   display: flex;
   flex-direction: column;
@@ -31,7 +32,7 @@ const Button = styled.button`
   width: 100%;
   padding: 18px 0;
   border: none;
-  font-size: 16px;
+  font-size: 18px;
   color: rgba(0, 0, 0, 1);
   background-color: rgba(20, 242, 198, 1);
 

@@ -11,12 +11,11 @@ const Background = styled.div`
   z-index: 99;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.5);
-
   transition: opacity 0.25s;
 
-  /* display: flex;
+  display: flex;
   justify-content: center;
-  align-items: center; */
+  align-items: center;
 
   overflow: auto;
 
@@ -30,10 +29,6 @@ const Background = styled.div`
 `;
 
 const Content = styled.div`
-  left: 50%;
-  top: 50%;
-  position: absolute;
-  transform: translateX(-50%) translateY(-50%);
   max-width: 400px;
   width: 100%;
   border-radius: 6px;
@@ -41,6 +36,7 @@ const Content = styled.div`
   box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 `;
+
 
 const Modal = ({ id, className, style, children, onToggle }) => {
   const dispatch = useContext(DispatchContext);
