@@ -8,7 +8,8 @@ import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../librarys/login-api.js";
-import { login, selectName, selectIsLoggedIn } from "../redux/userSlice.js";
+import { login, selectName, selectIsLoggedIn, selectIsAdmin } from '../redux/userSlice.js';
+
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -108,7 +109,7 @@ const Header = () => {
 
   const userName = useSelector(selectName);
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const isAdmin = useSelector(selectAdmin);
+  const isAdmin = useSelector(selectIsAdmin);
 
   const handleLoginClick = async () => {
     dispatch({ type: "show", payload: "loginModal" });
