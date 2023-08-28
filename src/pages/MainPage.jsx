@@ -77,22 +77,23 @@ const MainPage = () => {
 
   useEffect(() => {
     const fetchCourses = async () => {
-      const allCourses = await getAllCourses();
-      setCourses(allCourses);
+      const apiCourses = await getAllCourses();
+      const localCourses = JSON.parse(localStorage.getItem('courses')) || [];
+      setCourses([...apiCourses, ...localCourses]);
     };
-
+  
     fetchCourses();
   }, []);
 
   const filteredCourses = courses.filter((course) => {
     if (!selectedCategory && !selectedPosture) return true;
     if (selectedCategory && !selectedPosture)
-      return course.tags.includes(selectedCategory);
+      return course.category === selectedCategory;
     if (!selectedCategory && selectedPosture)
-      return course.tags.includes(selectedPosture);
+      return course.posture === selectedPosture;
     return (
-      course.tags.includes(selectedCategory) &&
-      course.tags.includes(selectedPosture)
+      course.category === selectedCategory &&
+      course.posture === selectedPosture
     );
   });
 
