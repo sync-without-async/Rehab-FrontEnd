@@ -62,11 +62,20 @@ const courseList = [
       id: 8,
       title: "포스쳐 교정 코스",
       description: "올바른 자세를 유지하기 위한 교정 운동을 포함하고 있습니다.",
-      time:  "00:15",
+      time: "총 15분",
       image: CourseImagePlaceholder,
       tags: ["목", "선 자세"]
     },
-];
+  ].map(course => {
+    // "00:15" 같은 형태의 문자열을 분리하여 숫자로 변환
+    const [minutes, seconds] = course.time.split(":").map(Number);
+    // 전체 시간을 초 단위로 계산
+    const totalSeconds = minutes * 60 + seconds;
+    return {
+        ...course,
+        time: totalSeconds
+    };
+});
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
