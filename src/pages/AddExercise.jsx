@@ -261,14 +261,14 @@ const AddExercise = () => {
       </UploadContainer>
 
         <TextContainer>
-          <TitleText>운동 제목 등록</TitleText>
+          <TitleText>운동 제목</TitleText>
           <StyledInput
             placeholder="최대 50글자까지 입력 가능합니다."
             maxLength={50}
             value={courseData.title}
             onChange={handleTitleChange}
           />
-          <TitleText>운동 설명 등록</TitleText>
+          <TitleText>운동 설명</TitleText>
           <StyledTextarea
             placeholder="최대 200글자까지 입력 가능합니다."
             maxLength={200}
