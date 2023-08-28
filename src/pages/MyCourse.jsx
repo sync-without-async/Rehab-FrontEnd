@@ -1,14 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { getAllCourses } from "../librarys/exercise-api.js";
 
 import Header from "../components/Header";
-import styled from 'styled-components';
+import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
 
 import CourseCard from "../components/CourseCard";
+import { useSelector } from "react-redux";
+import { selectName } from "../redux/userSlice.js";
 
 const PageWrapper = styled.div`
-  background-color: #ACEAFF;
+  background-color: #aceaff;
   min-height: 100vh;
   position: absolute;
   top: 0;
@@ -50,6 +52,8 @@ const CardContainer = styled.div`
 
 const MyCourse = () => {
   const [courses, setCourses] = useState([]);
+  const userName = useSelector(selectName);
+
 
   useEffect(() => {
     async function fetchData() {
@@ -65,8 +69,9 @@ const MyCourse = () => {
       <Greeting>
         안녕하세요,
         <br />
-        오소현님.
+        {userName}님.
       </Greeting>
+
       <DumbbellImage src={dumbbell} alt="dumbbell image" />
       <ExerciseTitle>진행한 운동</ExerciseTitle>
       <CardContainer>
