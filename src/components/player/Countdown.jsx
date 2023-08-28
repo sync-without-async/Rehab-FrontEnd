@@ -27,12 +27,12 @@ const Container = styled.div`
 
   @keyframes countdown {
     0% {
-      transform: translateX(-50%) translateY(-20%);
+      transform: translateX(-50%) translateY(-10%);
       opacity: 0;
     }
 
     10% {
-      transform: translateX(-50%) translateY(-20%);
+      transform: translateX(-50%) translateY(-10%);
       opacity: 0;
     }
 
@@ -47,12 +47,12 @@ const Container = styled.div`
     }
 
     90% {
-      transform: translateX(-50%) translateY(20%);
+      transform: translateX(-50%) translateY(10%);
       opacity: 0;
     }
 
     100% {
-      transform: translateX(-50%) translateY(20%);
+      transform: translateX(-50%) translateY(10%);
       opacity: 0;
     }
   }

@@ -10,6 +10,10 @@ class Player {
 
   guideDuration = null;
 
+  name = null;
+
+  id = null;
+
   status = 0;
 
   onError = (e) => {
@@ -81,7 +85,7 @@ class Player {
   async start() {
     this.setPlayButton(false);
     this.setSubtitle(
-      "지금부터 '~~~' 운동을 해보겠습니다.\n좌측 상단의 가이드 영상을 잘 봐주세요.",
+      `지금부터 '${this.name}' 운동을 해보겠습니다.\n좌측 상단의 가이드 영상을 잘 봐주세요.`,
     );
 
     await this.playCountdown();

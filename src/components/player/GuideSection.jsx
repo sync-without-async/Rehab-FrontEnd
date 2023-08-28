@@ -20,6 +20,22 @@ const Video = styled.video`
   width: 100%;
 `;
 
+const Title = styled.p`
+  left: 16px;
+  top: 16px;
+  position: absolute;
+
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 1);
+
+  text-shadow:
+    -1px -1px 1px rgba(0, 0, 0, 0.5),
+    1px -1px 1px rgba(0, 0, 0, 0.5),
+    -1px 1px 1px rgba(0, 0, 0, 0.5),
+    1px 1px 1px rgba(0, 0, 0, 0.5);
+`;
+
 const ProgressContainer = styled.div`
   width: 100%;
   height: 8px;
@@ -43,7 +59,7 @@ const GuideSection = ({ play }) => {
   const [playback, setPlayback] = useState(null);
 
   const dispatch = useContext(DispatchContext);
-  const { guideStatus } = useContext(StateContext);
+  const { name, guideStatus } = useContext(StateContext);
 
   useEffect(() => {
     if (video) {
@@ -75,6 +91,7 @@ const GuideSection = ({ play }) => {
 
   return (
     <Container>
+      <Title>{name}</Title>
       <Video
         ref={video}
         src={SampleVideo}
