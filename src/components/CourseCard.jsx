@@ -13,15 +13,12 @@ const CourseCardContainer = styled.div`
   font-family: "SUIT Variable";
 `;
 
-const CourseImage = styled.div`
+const CourseImage = styled.img`
   height: 150px;
-  background-color: grey; 
+  width: 100%;
   border-radius: 10px 10px 0 0;
-  background-image: url(${props => props.image});
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-`;
+  object-fit: cover; 
+`
 
 const CourseInfo = styled.div`
   height: 150px;
@@ -99,11 +96,11 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
   return (
     <LinkedCourseCardContainer to={`/coursedetail/${id}`}>
       <CourseCardContainer>
-        <CourseImage src={image}></CourseImage>
+        <CourseImage src={image} alt={title}></CourseImage>
         <CourseInfo>
           <CourseTitle>{title}</CourseTitle>
           <CourseDescription>{description}</CourseDescription>
-          <CourseTime>{time / 60} 분</CourseTime>
+          <CourseTime>{time / 60} 초</CourseTime>
           <HorizontalLine />
           <TagContainer>
             {tags && tags.map((tag, index) => (
@@ -115,7 +112,6 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
     </LinkedCourseCardContainer>
   );
 };
-
 CourseCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string,
