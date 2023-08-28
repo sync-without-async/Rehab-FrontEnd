@@ -184,7 +184,7 @@ const CourseDetail = () => {
           onClick={() => setIsChecked((prev) => !prev)}
         />
         <ActionName>{course.title}</ActionName>
-        <ActionTime>{course.time / 60} 초</ActionTime>
+        <ActionTime>{course.time} 초</ActionTime>
         <PlayerButton onClick={() => {}} />
       </CourseInfoContainer>
       <DividerLine />
