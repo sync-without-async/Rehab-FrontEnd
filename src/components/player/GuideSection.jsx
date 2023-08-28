@@ -8,7 +8,7 @@ import { DispatchContext, StateContext } from "../../librarys/context";
 
 const Container = styled.div`
   max-width: 20%;
-  min-width: 280px;
+  min-width: 400px;
   width: 100%;
   position: absolute;
 
@@ -46,11 +46,13 @@ const GuideSection = ({ play }) => {
   const { guideStatus } = useContext(StateContext);
 
   useEffect(() => {
-    if (guideStatus) {
-      video.current.currentTime = 0;
-      video.current.play();
-    } else {
-      video.current.pause();
+    if (video) {
+      if (guideStatus) {
+        video.current.currentTime = 0;
+        video.current.play();
+      } else {
+        video.current.pause();
+      }
     }
   }, [guideStatus]);
 
@@ -65,6 +67,9 @@ const GuideSection = ({ play }) => {
 
   function onEnded(event) {
     dispatch({ type: "stopGuide" });
+    if (video) {
+      video.current.currentTime = 0;
+    }
     Player.onGuideComplete();
   }
 

@@ -63,7 +63,7 @@ class Player {
         this.onError({
           title: "권한 거부됨",
           message:
-            "카메라 권한을 거부하셨습니다. 브라우저 설정에서 권한을 재설정해주세요.",
+            "카메라 권한을 거부하셨습니다.\n브라우저 설정에서 권한을 재설정해주세요.",
           isErrorModal: true,
         });
       }
@@ -81,7 +81,7 @@ class Player {
   async start() {
     this.setPlayButton(false);
     this.setSubtitle(
-      "지금부터 '~~~' 운동을 해보겠습니다. 좌측 상단의 가이드 영상을 잘 봐주세요.",
+      "지금부터 '~~~' 운동을 해보겠습니다.\n좌측 상단의 가이드 영상을 잘 봐주세요.",
     );
 
     await this.playCountdown();
@@ -107,7 +107,7 @@ class Player {
     if (this.status === 0) {
       this.status = 1;
       this.setSubtitle(
-        "가이드 영상을 다시 보려면 다시보기 버튼을 누르고, 측정을 시작하려면 시작하기 버튼을 누르세요.",
+        "가이드 영상을 다시 보려면 다시보기 버튼을 누르고,\n측정을 시작하려면 시작하기 버튼을 누르세요.",
       );
 
       this.setPlayButton(true);
@@ -117,7 +117,7 @@ class Player {
       this.setGuideButton(true);
     } else if (this.status === 2) {
       this.setSubtitle(
-        "프로그램을 완료하셨습니다. 운동 종료하기 버튼을 눌러서 나가세요.",
+        "프로그램을 완료하셨습니다.\n운동 종료하기 버튼을 눌러서 나가세요.",
       );
     }
   }
@@ -125,7 +125,7 @@ class Player {
   async analyze() {
     this.status = 2;
     this.setSubtitle(
-      "지금부터 측정을 시작합니다. 가이드 영상을 잘 보고 따라해보세요.",
+      "지금부터 측정을 시작합니다.\n가이드 영상을 잘 보고 따라해보세요.",
     );
 
     await this.playCountdown();

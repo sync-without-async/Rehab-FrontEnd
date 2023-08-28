@@ -13,6 +13,8 @@ const Container = styled.div`
   position: absolute;
   transform: translateX(-50%);
 
+  white-space: pre-line;
+
   text-align: center;
   font-size: 28px;
   font-weight: 700;

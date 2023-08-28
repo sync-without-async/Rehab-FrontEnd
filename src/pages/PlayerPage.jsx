@@ -7,6 +7,7 @@ import Player from "../librarys/player.js";
 import GuideSection from "../components/player/GuideSection.jsx";
 import ControllerSection from "../components/player/ControllerSection.jsx";
 import Subtitle from "../components/player/Subtitle.jsx";
+import Countdown from "../components/player/Countdown.jsx";
 
 import SampleVideo from "../assets/videos/sample_video.mp4";
 import { DispatchContext, StateContext } from "../librarys/context.jsx";
@@ -56,7 +57,8 @@ const PlayerPage = () => {
           {/* <StartupModal /> */}
           <Camera ref={cameraRef} autoPlay />
           <GuideSection />
-          <Subtitle text={subtitle + " " + (countdown || "")} />
+          <Countdown />
+          <Subtitle text={subtitle} />
           <ControllerSection />
         </Container>
       </DispatchContext.Provider>
