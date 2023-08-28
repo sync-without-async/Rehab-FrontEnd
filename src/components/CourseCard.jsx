@@ -103,7 +103,7 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
         <CourseInfo>
           <CourseTitle>{title}</CourseTitle>
           <CourseDescription>{description}</CourseDescription>
-          <CourseTime>{time}</CourseTime>
+          <CourseTime>{time / 60} 분</CourseTime>
           <HorizontalLine />
           <TagContainer>
             {tags && tags.map((tag, index) => (
@@ -121,7 +121,7 @@ CourseCard.propTypes = {
   image: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
+  time: PropTypes.number.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string) 
 };
 

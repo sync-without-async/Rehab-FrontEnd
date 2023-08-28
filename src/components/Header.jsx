@@ -6,9 +6,9 @@ import Modal from "./Modal.jsx";
 import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../librarys/login-api.js";
-import { login, selectName, selectIsLoggedIn } from '../redux/userSlice.js';  
+import { login, selectName, selectIsLoggedIn, selectIsAdmin } from '../redux/userSlice.js';
 
 
 const HeaderWrapper = styled.header`
@@ -109,6 +109,7 @@ const Header = () => {
 
   const userName = useSelector(selectName);
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isAdmin = useSelector(selectIsAdmin);
 
   const handleLoginClick = async () => {
     dispatch({ type: "show", payload: "loginModal" });
@@ -129,25 +130,40 @@ const Header = () => {
         <MainLink to="/">Re:Hab</MainLink>
       </Logo>
       <Nav>
-        <MainLink to="/register" style={{ marginRight: "50px" }}>
-          운동등록
-        </MainLink>
-        <MainLink to="/" style={{ marginRight: "40px" }}>
-          메인 페이지
-        </MainLink>
-        <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
-          수강내역
-        </MainLink>
-        <Divider />
-        {
-          isLoggedIn ? ( 
-            <span>{userName}</span>
-          ) : (
-            <MainLink to="#" onClick={handleLoginClick}>
-              로그인
+        {isAdmin ? (
+          <>
+            <MainLink to="/register" style={{ marginRight: "50px" }}>
+              운동등록
             </MainLink>
-          )
-        }
+            <MainLink to="/" style={{ marginRight: "40px" }}>
+              메인 페이지
+            </MainLink>
+            <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
+              수강내역
+            </MainLink>
+          </>
+        ) : isLoggedIn ? (
+          <>
+            <MainLink to="/" style={{ marginRight: "40px" }}>
+              메인 페이지
+            </MainLink>
+            <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
+              수강내역
+            </MainLink>
+          </>
+        ) : (
+          <MainLink to="/" style={{ marginRight: "40px" }}>
+            메인 페이지
+          </MainLink>
+        )}
+        <Divider />
+        {isLoggedIn ? (
+          <span>{userName}</span>
+        ) : (
+          <MainLink to="#" onClick={handleLoginClick}>
+            로그인
+          </MainLink>
+        )}
       </Nav>
       <Modal id="loginModal">
         <LoginContainer>
