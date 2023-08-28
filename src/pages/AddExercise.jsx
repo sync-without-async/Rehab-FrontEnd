@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
-import { useState } from "react";
+import { useState , useRef } from "react";
 
 import arms from "../assets/images/arms-up.webp";
 import knee from "../assets/images/knee.webp";
@@ -176,6 +176,8 @@ const AddExercise = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPose, setSelectedPose] = useState(null);
 
+  // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
+  const videoRef = useRef(null);
   const handleVideoChange = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -183,8 +185,13 @@ const AddExercise = () => {
     }
   };
 
+  const handleVideoMetadataLoaded = () => {
+    // 비디오 길이를 가져와서 courseData에 저장함
+    const videoDuration = Math.round(videoRef.current.duration);
+    setCourseData((prev) => ({ ...prev, time: videoDuration }));
+  };
 
-  /* 백엔드 api 연결 함수 프론트단에서 임시로 구현*/
+  /* 백엔드 api 연결 프론트단에서 임시로 구현*/
   const [courseData, setCourseData] = useState({
     video: null,
     title: "",
@@ -214,7 +221,7 @@ const AddExercise = () => {
     localStorage.setItem("courses", JSON.stringify(existingCourses));
     alert("운동이 등록되었습니다.");
   
-    // 초기화
+    // 초기화해둠요
     setCourseData({
       video: null,
       title: "",
@@ -235,17 +242,23 @@ const AddExercise = () => {
       </Background>
 
       <ContentContainer>
-        <UploadContainer>
-          <VideoTitleText>가이드 영상 업로드</VideoTitleText>
-          <VideoUploadLabel>
-            {videoSrc ? (
-              <VideoPreview controls src={videoSrc}></VideoPreview>
-            ) : (
-              "등록하기"
-            )}
-            <VideoUploadBox onChange={handleVideoChange} />
-          </VideoUploadLabel>
-        </UploadContainer>
+      <UploadContainer>
+        <VideoTitleText>가이드 영상 업로드</VideoTitleText>
+        <VideoUploadLabel>
+  {videoSrc ? (
+    <VideoPreview
+      controls
+      src={videoSrc}
+      ref={videoRef}
+      onLoadedMetadata={handleVideoMetadataLoaded}
+      key={videoSrc} 
+    ></VideoPreview>
+  ) : (
+    "등록하기"
+  )}
+  <VideoUploadBox onChange={handleVideoChange} />
+</VideoUploadLabel>
+      </UploadContainer>
 
         <TextContainer>
           <TitleText>운동 제목 등록</TitleText>
