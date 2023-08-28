@@ -70,6 +70,7 @@ const CardContainer = styled.div`
   max-width: 1200px;
 `;
 
+
 const MainPage = () => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPosture, setSelectedPosture] = useState(null);
@@ -96,6 +97,8 @@ const MainPage = () => {
       course.posture === selectedPosture
     );
   });
+
+  
 
   return (
     <div>

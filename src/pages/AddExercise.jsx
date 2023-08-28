@@ -3,6 +3,11 @@ import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
 import { useState } from "react";
 
+import arms from "../assets/images/arms-up.webp";
+import knee from "../assets/images/knee.webp";
+import shoulder from "../assets/images/shoulder-up.webp";
+import thigh from "../assets/images/thigh.webp";
+
 const Background = styled.div`
   width: 100%;
   height: 250px;
@@ -158,6 +163,14 @@ const RegisterButton = styled.button`
   }
 `;
 
+const categoryImages = {
+  "팔": arms,
+  "어깨": shoulder,
+  "무릎": knee,
+  "허벅지": thigh
+};
+
+
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -169,6 +182,7 @@ const AddExercise = () => {
       setVideoSrc(URL.createObjectURL(file));
     }
   };
+
 
   /* 백엔드 api 연결 함수 프론트단에서 임시로 구현*/
   const [courseData, setCourseData] = useState({
@@ -194,6 +208,7 @@ const AddExercise = () => {
       ...courseData,
       category: selectedCategory,
       posture: selectedPose,
+      image: categoryImages[selectedCategory], 
       tags: [selectedCategory, selectedPose]
     });
     localStorage.setItem("courses", JSON.stringify(existingCourses));
