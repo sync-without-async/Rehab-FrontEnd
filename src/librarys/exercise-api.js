@@ -96,8 +96,9 @@ export async function getCoursesByPosture(posture) {
     );
 }
 
-export async function getCourse(id) {
-    return JSON.parse(
-        JSON.stringify(courseList.find(course => course.id === Number(id)) || null)
-    );
-}
+export const getCourse = (id) => {
+  const courses = JSON.parse(localStorage.getItem("courses")) || [];
+  const course = courses.find((course) => course.id === id);
+  return course || null;
+};
+
