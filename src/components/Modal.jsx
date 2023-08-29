@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 
-import { useCallback, useContext, useEffect, useRef, useState } from "react";
-
-import { DispatchContext, StateContext } from "../librarys/context.jsx";
+import { hide, selectVisible } from "../redux/modalSlice.js";
+import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const Background = styled.div`
+  top: 0;
   width: 100%;
   height: 100vh;
   z-index: 99;
@@ -37,14 +38,11 @@ const Content = styled.div`
   overflow: hidden;
 `;
 
-
-const Modal = ({ id, className, style, children, onToggle }) => {
-  const dispatch = useContext(DispatchContext);
-  const { status } = useContext(StateContext);
+const Modal = ({ id, className, style, children, onToggle, onHide }) => {
+  const dispatch = useDispatch();
+  const isVisible = useSelector(selectVisible(id));
   const [interactable, setInteractable] = useState(false);
   const ref = useRef(null);
-
-  const isVisible = status === id;
 
   const backgroundClass = [
     isVisible ? null : "hidden",
@@ -53,13 +51,12 @@ const Modal = ({ id, className, style, children, onToggle }) => {
 
   const onClick = useCallback(
     (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        dispatch({
-          type: "hide",
-        });
+      if (isVisible && ref.current && !ref.current.contains(e.target)) {
+        onHide();
+        dispatch(hide(id));
       }
     },
-    [ref, dispatch],
+    [isVisible, ref, dispatch, id, onHide],
   );
 
   useEffect(() => {
@@ -71,7 +68,7 @@ const Modal = ({ id, className, style, children, onToggle }) => {
 
   useEffect(() => {
     onToggle(isVisible);
-  }, [isVisible, onToggle]);
+  }, [isVisible]);
 
   return (
     <Background
@@ -91,11 +88,13 @@ Modal.propTypes = {
   style: PropTypes.object,
   children: PropTypes.node,
   onToggle: PropTypes.func,
+  onHide: PropTypes.func,
 };
 
 Modal.defaultProps = {
   id: "modal",
   onToggle: () => {},
+  onHide: () => {},
 };
 
 export default Modal;
