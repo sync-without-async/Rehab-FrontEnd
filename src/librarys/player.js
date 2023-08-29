@@ -14,6 +14,8 @@ class Player {
     console.error(e);
   };
 
+  onComplete = (time, percentage) => {};
+
   // reducer dispatch
   dispatch = (value) => {};
 
@@ -147,7 +149,13 @@ class Player {
 
     recorder.start(this.guideDuration * 1000);
 
-    setTimeout(() => recorder.stop(), this.guideDuration * 1000 + 300); // 여유있게 300ms 추가
+    setTimeout(
+      () => {
+        recorder.stop();
+        this.onComplete(213, 0.786335);
+      },
+      this.guideDuration * 1000 + 300,
+    ); // 여유있게 300ms 추가
   }
 
   async onRecordComplete(data) {

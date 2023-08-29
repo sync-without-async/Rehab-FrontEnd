@@ -13,8 +13,11 @@ import SampleVideo from "../assets/videos/sample_video.mp4";
 import { DispatchContext, StateContext } from "../librarys/context.jsx";
 import { intialModalState, modalReducer } from "../reducer/modal.js";
 import StartupModal from "../components/player/StartupModal.jsx";
+import ResultModal from "../components/player/ResultModal.jsx";
 import { intialPlayerState, playerReducer } from "../reducer/player.js";
 import { getCourse } from "../librarys/exercise-api.js";
+import { useDispatch } from "react-redux";
+import { show } from "../redux/modalSlice.js";
 
 const Container = styled.div`
   width: 100%;
@@ -32,16 +35,27 @@ const Camera = styled.video`
 `;
 
 const PlayerPage = () => {
-  // const [state, dispatch] = useReducer(modalReducer, intialModalState); <- redux로 변경
   const { id } = useParams();
   const [state, dispatch] = useReducer(playerReducer, intialPlayerState);
+  const modalDispatch = useDispatch();
   const { subtitle, countdown } = state;
   const cameraRef = useRef(null);
 
   useEffect(() => {
-    // dispatch({ type: "show", payload: "startup_notice" });
+    modalDispatch(show("startup_notice"));
     Player.dispatch = dispatch;
     Player.id = id;
+    Player.onComplete = (time, percentage) => {
+      modalDispatch(
+        show({
+          id: "exercise_result",
+          props: {
+            time,
+            percentage,
+          },
+        }),
+      );
+    };
     Player.getVideoStream()
       .then((stream) => {
         if (cameraRef) {
@@ -53,7 +67,7 @@ const PlayerPage = () => {
       });
 
     (async () => {
-      const data = await getCourse(id);
+      const data = await getCourse(Number(id));
 
       if (!data) {
         // No Data Error
@@ -69,7 +83,8 @@ const PlayerPage = () => {
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <Container>
-          {/* <StartupModal /> */}
+          <StartupModal />
+          <ResultModal />
           <Camera ref={cameraRef} autoPlay />
           <GuideSection />
           <Countdown />

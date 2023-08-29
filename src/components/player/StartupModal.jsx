@@ -3,8 +3,8 @@ import { styled } from "styled-components";
 import Modal from "../Modal.jsx";
 import PropTypes from "prop-types";
 
-import { useContext, useState } from "react";
-import { DispatchContext, StateContext } from "../../librarys/context.jsx";
+import { useDispatch } from "react-redux";
+import { hide } from "../../redux/modalSlice.js";
 
 const Container = styled.div`
   min-height: 180px;
@@ -48,9 +48,7 @@ const Button = styled.button`
 const id = "startup_notice";
 
 const StartupModal = () => {
-  const dispatch = useContext(DispatchContext);
-  const { props } = useContext(StateContext);
-
+  const dispatch = useDispatch();
   return (
     <Modal id={id}>
       <Container>
@@ -67,7 +65,7 @@ const StartupModal = () => {
           <Text>카메라가 준비되었으면, 확인을 눌러서 시작하세요.</Text>
         </List>
       </Container>
-      <Button onClick={() => dispatch({ type: "hide" })}>확인</Button>
+      <Button onClick={() => dispatch(hide(id))}>확인</Button>
     </Modal>
   );
 };
