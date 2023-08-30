@@ -144,7 +144,6 @@ const MainPage = () => {
             image={course.image}
             title={course.title}
             description={course.description}
-            time={course.time}
             tags={course.tags}
           />
         ))}

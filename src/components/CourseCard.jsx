@@ -25,22 +25,22 @@ const CourseInfo = styled.div`
   padding: 0 15px; 
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   font-family: "SUIT Variable";
-  padding-top: 15px; 
+  justify-content: space-between; 
 `;
 
 const CourseTitle = styled.span`
   font-size: 15px;
   font-weight: bold;
   color: black;
+  margin-top:20px;
   margin-bottom: 5px;  
   font-family: "SUIT Variable";
 `;
 
 const CourseDescription = styled.span`
   font-size: 10px;
-  margin-bottom: 15px; 
+  margin-bottom: 5px; 
   max-height: 3em;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -50,13 +50,6 @@ const CourseDescription = styled.span`
   font-family: "SUIT Variable";
 `;
 
-const CourseTime = styled.span`
-  font-size: 15px;
-  align-self: flex-end; 
-  margin-right: 10px;  
-  margin-bottom: 5px;
-  font-family: "SUIT Variable";
-`;
 
 const HorizontalLine = styled.div`
   width: calc(100% - 10px);  
@@ -68,8 +61,9 @@ const HorizontalLine = styled.div`
 const TagContainer = styled.div`
   display: flex;             
   flex-wrap: wrap;           
-  margin-top: 2px;  
-  font-family: "SUIT Variable";        
+  margin-top: -10px;  
+  font-family: "SUIT Variable";   
+  margin-bottom: 20px;     
 `;
 
 const TagButton = styled.button`
@@ -92,7 +86,7 @@ const LinkedCourseCardContainer = styled(Link)`
   color: inherit;
 `;
 
-const CourseCard = ({ id, image, title, description, time, tags }) => {
+const CourseCard = ({ id, image, title, description, tags }) => {  
   return (
     <LinkedCourseCardContainer to={`/coursedetail/${id}`}>
       <CourseCardContainer>
@@ -100,7 +94,6 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
         <CourseInfo>
           <CourseTitle>{title}</CourseTitle>
           <CourseDescription>{description}</CourseDescription>
-          <CourseTime>{time } 초</CourseTime>
           <HorizontalLine />
           <TagContainer>
             {tags && tags.map((tag, index) => (
@@ -112,12 +105,12 @@ const CourseCard = ({ id, image, title, description, time, tags }) => {
     </LinkedCourseCardContainer>
   );
 };
+
 CourseCard.propTypes = {
   id: PropTypes.number.isRequired,
   image: PropTypes.string,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  time: PropTypes.number.isRequired,
   tags: PropTypes.arrayOf(PropTypes.string) 
 };
 

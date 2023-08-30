@@ -1,9 +1,6 @@
 # ReHab-FrontEnd
 ReHab 프론트엔드 팀 개발 저장소입니다.
 
-### ReHab 기능명세서
-[기능명세서 바로가기](https://www.notion.so/osohyun/Re-Hab-7f24e640d38c481eb21f03b532bf98c2)
-
 ## 🔥Frontend Team
 
 |                                      오소현                                      |                                      김경재                                      |
