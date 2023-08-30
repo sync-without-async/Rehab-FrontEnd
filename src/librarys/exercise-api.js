@@ -6,8 +6,8 @@ import thigh from "../assets/images/thigh.webp";
 const courseList = [
   {
       id: 1,
-      title: "거북목 탈출코스",
-      description: "이 코스는 목과 어깨의 근육을 이완시켜주는 운동을 포함하고 있습니다.",
+      title: "어깨 이완 운동 강의",
+      description: "앉은 자세에서 수행할 수 있는 어깨 이완 운동을 학습합니다.",
       category: "어깨",
       posture: "앉은 자세",
       time: 15,
@@ -16,8 +16,8 @@ const courseList = [
   },
   {
       id: 2,
-      title: "코어 강화 코스",
-      description: "코어 근육을 강화하는데 초점을 둔 운동을 학습합니다.",
+      title: "선 자세 팔 강화 운동",
+      description: "선 자세에서 팔 근육을 강화하는 운동을 학습합니다.",
       category: "팔",
       posture: "선 자세",
       time: 15,
@@ -26,8 +26,8 @@ const courseList = [
   },
   {
     id: 3,
-    title: "하체 강화 코스",
-    description: "다리와 엉덩이 근육을 강화하는 운동을 진행합니다.",
+    title: "선 자세 허벅지 강화 운동",
+    description: "선 자세에서 허벅지 근육 강화를 위한 운동을 학습합니다.",
     category: "허벅지",
     posture: "선 자세",
     time: 15,
@@ -36,8 +36,8 @@ const courseList = [
   },
   {
     id: 4,
-    title: "유연성 향상 코스",
-    description: "몸의 유연성을 높이는 스트레칭 운동을 포함하고 있습니다.",
+    title: "앉은 자세 어깨 스트레칭",
+    description: "앉은 자세에서 어깨를 스트레칭하는 운동을 학습합니다.",
     category: "어깨",
     posture: "앉은 자세",
     time: 15,
@@ -46,8 +46,8 @@ const courseList = [
   },
   {
     id: 5,
-    title: "유산소 운동 코스",
-    description: "심장 건강과 체력 향상을 위한 유산소 운동을 합니다.",
+    title: "선 자세 어깨 운동",
+    description: "선 자세에서 어깨 근육을 강화하고 이완하는 운동을 학습합니다.",
     category: "어깨",
     posture: "선 자세",
     time: 15,
@@ -56,8 +56,8 @@ const courseList = [
   },
   {
     id: 6,
-    title: "근력 운동 코스",
-    description: "체중을 이용한 근력 운동을 중점적으로 합니다.",
+    title: "선 자세 허벅지 근력 운동",
+    description: "선 자세와 앉은 자세에서 허벅지 근력을 키우는 운동을 학습합니다.",
     category: "허벅지",
     posture: "선 자세",
     time:  15,
@@ -66,8 +66,8 @@ const courseList = [
   },
   {
     id: 7,
-    title: "밸런스 트레이닝",
-    description: "몸의 균형 능력을 향상시키기 위한 운동 코스입니다.",
+    title: "앉은 자세 어깨 밸런스 운동",
+    description: "앉은 자세에서 어깨 밸런스와 균형을 잡는 운동을 학습합니다.",
     category: "어깨",
     posture: "앉은 자세",
     time:  15,
@@ -76,8 +76,8 @@ const courseList = [
   },
   {
     id: 8,
-    title: "포스쳐 교정 코스",
-    description: "올바른 자세를 유지하기 위한 교정 운동을 포함하고 있습니다.",
+    title: "선 자세 무릎 포스쳐 교정",
+    description: "선 자세에서 무릎 포스쳐를 교정하기 위한 운동을 학습합니다.",
     category: "무릎",
     posture: "선 자세",
     time: 15,
@@ -85,6 +85,7 @@ const courseList = [
     tags: ["무릎", "선 자세"]
   },
 ];
+
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
