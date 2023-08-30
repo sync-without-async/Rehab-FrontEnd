@@ -143,39 +143,42 @@ const PlayerButton = styled.button`
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
-  const { id } = useParams();
+  const { pno } = useParams(); 
 
   useEffect(() => {
     async function fetchCourse() {
-      const courseData = await getCourse(Number(id));
+      const courseData = await getCourse(Number(pno), "jyp"); 
       setCourse(courseData);
     }
 
     fetchCourse();
-  }, [id]);
+  }, [pno]);
 
   if (!course) {
     return <div>Loading...</div>;
   }
 
+
   return (
     <div>
       <Header />
       <Background>
-        <ExerciseImage src={course.image} alt={course.title} />
-        <ExerciseTitle>{course.title}</ExerciseTitle>
+        <ExerciseTitle>{course.programTitle}</ExerciseTitle>
         <ExerciseDescription>{course.description}</ExerciseDescription>
-        {course.tags.map((tag, index) => (
-          <Tag key={index} style={{ left: `${500 + 110 * index}px` }}>
-            {tag}
-          </Tag>
-        ))}
+        <Tag>{course.category}</Tag>
+        <Tag>{course.position}</Tag>
         <DumbbellImage src={dumbbell} alt="Dumbbell" />
       </Background>
       <CurriculumTitle>커리큘럼</CurriculumTitle>
       <CurriculumBox>
         <ActionTitleName>동작이름</ActionTitleName>
         <ActionTitleTime>동작시간</ActionTitleTime>
+        {course.actResponseDTO.map(action => (
+          <div key={action.ord}>
+            <ActionName>{action.actName}</ActionName>
+            <ActionTime>{action.frame} 초</ActionTime>
+          </div>
+        ))}
       </CurriculumBox>
       <CourseInfoContainer>
         <CheckImage
@@ -183,8 +186,8 @@ const CourseDetail = () => {
           alt={isChecked ? "Check After" : "Check Before"}
           onClick={() => setIsChecked((prev) => !prev)}
         />
-        <ActionName>{course.title}</ActionName>
-        <ActionTime>{course.time} 초</ActionTime>
+        <ActionName>{course.programTitle}</ActionName>
+        <ActionTime>30 초</ActionTime>
         <PlayerButton onClick={() => {}} />
       </CourseInfoContainer>
       <DividerLine />
