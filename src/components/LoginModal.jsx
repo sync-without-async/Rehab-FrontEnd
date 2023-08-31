@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
-
 import Modal from "./Modal.jsx";
-import PropTypes from "prop-types";
+import axios from "axios"; 
 
 import { useDispatch } from "react-redux";
 import { hide } from "../redux/modalSlice.js";
@@ -9,7 +8,6 @@ import { hide } from "../redux/modalSlice.js";
 import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
-import { userLogin } from "../librarys/login-api.js";
 import { login } from "../redux/userSlice.js";
 
 const LoginContainer = styled.div`
@@ -54,6 +52,48 @@ const StyledInput = styled.input`
 
 const modalId = "login";
 
+const accounts = [
+  {
+    id: "admin@example.com",
+    password: "qwerty123",
+    name: "관리자",
+    admin: true,
+  },
+  {
+    id: "user@example.com",
+    password: "qwerty123",
+    name: "일반유저",
+    admin: false,
+  },
+];
+
+const BASE_URL = 'http://raspberrypihome.iptime.org:8080';
+
+const userLogin = async (id, password) => {
+  const account = accounts.find((acc) => acc.id === id && acc.password === password);
+  if (!account) {
+    return { error: 'Invalid account' };
+  }
+
+  try {
+    const response = await axios.post(`${BASE_URL}/login`, {
+      mid: id,
+      password,
+    });
+
+    if (response.data && response.data.accessToken && response.data.refreshToken) {
+      return {
+        accessToken: response.data.accessToken,
+        refreshToken: response.data.refreshToken,
+      };
+    } else {
+      return { error: '로그인에 실패하였습니다.' };
+    }
+  } catch (error) {
+    return { error: error.message || '로그인에 실패하였습니다.' };
+  }
+};
+
 const LoginModal = () => {
   const dispatch = useDispatch();
   const [id, setId] = useState("");
@@ -61,11 +101,11 @@ const LoginModal = () => {
 
   const handleLoginSubmit = async () => {
     const result = await userLogin(id, password);
-    if (result) {
-      dispatch(login(result));
-      dispatch(hide(modalId));
+    if (result.error) {
+      alert(`로그인 실패: ${result.error}`);
     } else {
-      alert("로그인 실패: 잘못된 ID 또는 비밀번호입니다.");
+      dispatch(login(result)); 
+      dispatch(hide(modalId));
     }
   };
 
