@@ -8,6 +8,8 @@ import {
 } from "../redux/userSlice.js";
 import { show } from "../redux/modalSlice.js";
 
+
+
 const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
@@ -63,9 +65,10 @@ const Header = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isAdmin = useSelector(selectIsAdmin);
 
-  const handleLoginClick = async () => {
-    dispatch(show("login"));
+  const handleLoginClick = () => {
+    dispatch(show("login")); // 로그인 모달을 표시
   };
+
 
   return (
     <HeaderWrapper>

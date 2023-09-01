@@ -174,16 +174,81 @@ const categoryImages = {
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedPose, setSelectedPose] = useState(null);
-
-  // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
-  const videoRef = useRef(null);
-  const handleVideoChange = (event) => {
+  const [selectedPose, setSelectedPose] = useState(null);const [isSkeletonReceived, setSkeletonReceived] = useState(false);
+  const [skeletonData, setSkeletonData] = useState(null); // 스켈레톤 데이터 저장
+  
+  const handleVideoChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       setVideoSrc(URL.createObjectURL(file));
+  
+      // AI에게 영상 binary를 전송
+      const formData = new FormData();
+      formData.append('video', file);
+      
+      try {
+        const response = await fetch("AI_SERVER_ENDPOINT", { method: 'POST', body: formData });
+        const result = await response.json();
+  
+        if (result.success) {
+          setSkeletonData(result.data); // 스켈레톤 데이터 저장
+          setSkeletonReceived(true);    // 스켈레톤 데이터 수신 확인
+        } else {
+          alert("스켈레톤 데이터를 받아오지 못했습니다. 다시 시도해주세요.");
+        }
+      } catch (error) {
+        console.error("Error sending video to AI:", error);
+      }
     }
   };
+  
+  const handleRegister = async () => {
+    // 프로그램을 먼저 등록하는 코드
+    try {
+      const programResponse = await fetch("/auth/program/create", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          programTitle: courseData.title,
+          description: courseData.description,
+          category: selectedCategory,
+          position: selectedPose,
+          image: categoryImages[selectedCategory], 
+        }),
+      });
+  
+      const programResult = await programResponse.json();
+      if (programResult.pno) {
+        // 이후, 비디오 등록
+        const formData = new FormData();
+        formData.append('video', courseData.video); // 영상 추가
+        formData.append('skeleton', skeletonData);  // 스켈레톤 데이터 추가
+        // 기타 필요한 데이터도 추가 가능
+        
+        const videoResponse = await fetch(`/auth/video/create/${programResult.pno}/{ord}`, {
+          method: "POST",
+          body: formData,
+        });
+  
+        const videoResult = await videoResponse.json();
+        if (videoResult.success) {
+          alert("비디오가 성공적으로 등록되었습니다.");
+        } else {
+          alert("비디오 등록에 실패했습니다. 다시 시도해주세요.");
+        }
+      } else {
+        alert("프로그램 등록에 실패했습니다. 다시 시도해주세요.");
+      }
+    } catch (error) {
+      console.error("Error registering course:", error);
+    }
+  };
+  
+
+  // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
+  const videoRef = useRef(null);
 
   const handleVideoMetadataLoaded = () => {
     // 비디오 길이를 가져와서 courseData에 저장함
@@ -208,31 +273,6 @@ const AddExercise = () => {
     setCourseData((prev) => ({ ...prev, description: e.target.value }));
   };
 
-  const handleRegister = () => {
-    let existingCourses = JSON.parse(localStorage.getItem("courses")) || [];
-    existingCourses.push({
-      id: new Date().getTime(),
-      ...courseData,
-      category: selectedCategory,
-      posture: selectedPose,
-      image: categoryImages[selectedCategory], 
-      tags: [selectedCategory, selectedPose]
-    });
-    localStorage.setItem("courses", JSON.stringify(existingCourses));
-    alert("운동이 등록되었습니다.");
-  
-    // 초기화해둠요
-    setCourseData({
-      video: null,
-      title: "",
-      description: "",
-      category: null,
-      posture: null,
-    });
-    setSelectedCategory(null);
-    setSelectedPose(null);
-  };
-  
   return (
     <div>
       <Header />
