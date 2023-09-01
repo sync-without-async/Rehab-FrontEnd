@@ -4,7 +4,12 @@ import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
 import CourseCard from "../components/CourseCard";
 
-import { getAllCourses } from "../librarys/exercise-api.js";
+import { CATEGORY, POSITION } from "../librarys/type.js";
+
+import {
+  getPrograms,
+  searchProgramsWithCategory,
+} from "../librarys/exercise-api.js";
 
 const Background = styled.div`
   width: 100%;
@@ -71,33 +76,34 @@ const CardContainer = styled.div`
 `;
 
 const MainPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedPosture, setSelectedPosture] = useState(null);
+  const [category, setCategory] = useState(null);
+  const [posture, setPosture] = useState(null);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    const fetchCourses = async () => {
-      const apiCourses = await getAllCourses();
-      const localCourses = JSON.parse(localStorage.getItem("courses")) || [];
-      setCourses([...apiCourses, ...localCourses]);
-    };
-
-    fetchCourses();
+    getPrograms().then((response) => {
+      setCourses(response.dtoList);
+    });
   }, []);
 
-  console.log(courses);
-  console.log(!selectedCategory, !selectedPosture);
+  useEffect(() => {
+    if (!category && !posture) {
+      getPrograms().then((response) => {
+        setCourses(response.dtoList);
+      });
+    } else {
+      searchProgramsWithCategory(category, posture).then((response) => {
+        setCourses(response.dtoList);
+      });
+    }
+  }, [category, posture]);
 
-  const filteredCourses = courses.filter((course) => {
-    if (!selectedCategory && !selectedPosture) return true;
-    if (selectedCategory && !selectedPosture)
-      return course.category === selectedCategory;
-    if (!selectedCategory && selectedPosture)
-      return course.posture === selectedPosture;
-    return (
-      course.category === selectedCategory && course.posture === selectedPosture
-    );
-  });
+  // 혹시 모르니 남겨둠...
+  // const filteredPrograms = courses.filter((course) => {
+  //   const isCategory = category === null || course.category === category;
+  //   const isPosture = posture === null || course.posture === posture;
+  //   return isCategory && isPosture;
+  // });
 
   return (
     <div>
@@ -108,43 +114,37 @@ const MainPage = () => {
       </Background>
       <CategoryText>
         <Label>카테고리별</Label>
-        {["팔", "어깨", "무릎", "허벅지"].map((category) => (
+        {CATEGORY.map(({ key, value }) => (
           <FilterButton
-            key={category}
-            selected={selectedCategory === category}
-            onClick={() =>
-              setSelectedCategory((prev) =>
-                prev === category ? null : category,
-              )
-            }
+            key={key}
+            selected={category === key}
+            onClick={() => setCategory((prev) => (prev === key ? null : key))}
           >
-            {category}
+            {value}
           </FilterButton>
         ))}
       </CategoryText>
       <CategoryText>
         <Label>자세</Label>
-        {["선 자세", "앉은 자세", "누운 자세"].map((posture) => (
+        {POSITION.map(({ key, value }) => (
           <FilterButton
-            key={posture}
-            selected={selectedPosture === posture}
-            onClick={() =>
-              setSelectedPosture((prev) => (prev === posture ? null : posture))
-            }
+            key={key}
+            selected={posture === key}
+            onClick={() => setPosture((prev) => (prev === key ? null : key))}
           >
-            {posture}
+            {value} 자세
           </FilterButton>
         ))}
       </CategoryText>
       <CardContainer>
-        {filteredCourses.map((course) => (
+        {courses.map((program) => (
           <CourseCard
-            key={course.id}
-            id={course.id}
-            image={course.image}
-            title={course.title}
-            description={course.description}
-            tags={course.tags}
+            key={program.id}
+            id={program.id}
+            image={program.image}
+            title={program.title}
+            description={program.description}
+            tags={program.tags}
           />
         ))}
       </CardContainer>

@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import Modal from "./Modal.jsx";
 
-import { saveToken, userLogin, userRegister } from "../librarys/login-api.js";
+import { saveToken, userLogin } from "../librarys/login-api.js";
 
 import { useDispatch } from "react-redux";
 import { hide } from "../redux/modalSlice.js";
@@ -10,7 +10,6 @@ import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
 import { login } from "../redux/userSlice.js";
-import { decodeJWT } from "../librarys/util.js";
 
 const LoginContainer = styled.div`
   display: flex;
