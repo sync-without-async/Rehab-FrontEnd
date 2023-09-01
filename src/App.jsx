@@ -12,6 +12,9 @@ import PlayerPage from "./pages/PlayerPage.jsx";
 import store from "./redux/store.js";
 
 import LoginModal from "./components/LoginModal.jsx";
+import { useEffect } from "react";
+import { loadToken } from "./librarys/login-api.js";
+import { login } from "./redux/userSlice.js";
 
 const Container = styled.div`
   background-color: transparent;
@@ -19,6 +22,19 @@ const Container = styled.div`
 `;
 
 function App() {
+  const dispatch = store.dispatch;
+
+  // Login logic
+  useEffect(() => {
+    loadToken().then((result) => {
+      if (!result) {
+        return;
+      } else {
+        dispatch(login(result));
+      }
+    });
+  });
+
   return (
     <Provider store={store}>
       <ModalProvider>

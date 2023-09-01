@@ -1,6 +1,7 @@
 import { styled } from "styled-components";
 import Modal from "./Modal.jsx";
-import axios from "axios"; 
+
+import { saveToken, userLogin, userRegister } from "../librarys/login-api.js";
 
 import { useDispatch } from "react-redux";
 import { hide } from "../redux/modalSlice.js";
@@ -9,6 +10,7 @@ import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 import { useState } from "react";
 import { login } from "../redux/userSlice.js";
+import { decodeJWT } from "../librarys/util.js";
 
 const LoginContainer = styled.div`
   display: flex;
@@ -52,60 +54,25 @@ const StyledInput = styled.input`
 
 const modalId = "login";
 
-const accounts = [
-  {
-    id: "admin@example.com",
-    password: "qwerty123",
-    name: "관리자",
-    admin: true,
-  },
-  {
-    id: "user@example.com",
-    password: "qwerty123",
-    name: "일반유저",
-    admin: false,
-  },
-];
-
-const BASE_URL = 'http://raspberrypihome.iptime.org:8080';
-
-const userLogin = async (id, password) => {
-  const account = accounts.find((acc) => acc.id === id && acc.password === password);
-  if (!account) {
-    return { error: 'Invalid account' };
-  }
-
-  try {
-    const response = await axios.post(`${BASE_URL}/login`, {
-      mid: id,
-      password,
-    });
-
-    if (response.data && response.data.accessToken && response.data.refreshToken) {
-      return {
-        accessToken: response.data.accessToken,
-        refreshToken: response.data.refreshToken,
-      };
-    } else {
-      return { error: '로그인에 실패하였습니다.' };
-    }
-  } catch (error) {
-    return { error: error.message || '로그인에 실패하였습니다.' };
-  }
-};
-
 const LoginModal = () => {
   const dispatch = useDispatch();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLoginSubmit = async () => {
-    const result = await userLogin(id, password);
-    if (result.error) {
-      alert(`로그인 실패: ${result.error}`);
-    } else {
-      dispatch(login(result)); 
+    try {
+      const result = await userLogin(id, password);
+      const data = saveToken(result.data);
+
+      dispatch(login(data));
       dispatch(hide(modalId));
+    } catch (e) {
+      if (e.isAxiosError && e.response.status === 401) {
+        alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
+      } else {
+        alert("알 수 없는 오류가 발생했습니다.");
+        console.error(e);
+      }
     }
   };
 
