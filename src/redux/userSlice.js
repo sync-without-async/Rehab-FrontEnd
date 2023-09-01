@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 export const userSlice = createSlice({
   name: "user",
@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     name: null,
     admin: false,
   },
-  
+
   reducers: {
     login: (state, action) => {
       state.access_token = action.payload.access_token;
