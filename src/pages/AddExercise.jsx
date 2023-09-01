@@ -1,12 +1,14 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
-import { useState , useRef } from "react";
+import { useState, useRef } from "react";
 
 import arms from "../assets/images/arms-up.webp";
 import knee from "../assets/images/knee.webp";
 import shoulder from "../assets/images/shoulder-up.webp";
 import thigh from "../assets/images/thigh.webp";
+
+import axios from "axios";
 
 const Background = styled.div`
   width: 100%;
@@ -164,35 +166,40 @@ const RegisterButton = styled.button`
 `;
 
 const categoryImages = {
-  "팔": arms,
-  "어깨": shoulder,
-  "무릎": knee,
-  "허벅지": thigh
+  팔: arms,
+  어깨: shoulder,
+  무릎: knee,
+  허벅지: thigh,
 };
-
 
 const AddExercise = () => {
   const [videoSrc, setVideoSrc] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedPose, setSelectedPose] = useState(null);const [isSkeletonReceived, setSkeletonReceived] = useState(false);
+  const [selectedPose, setSelectedPose] = useState(null);
+  const [isSkeletonReceived, setSkeletonReceived] = useState(false);
   const [skeletonData, setSkeletonData] = useState(null); // 스켈레톤 데이터 저장
-  
+
   const handleVideoChange = async (event) => {
     const file = event.target.files[0];
+
+    console.log(event.target);
     if (file) {
       setVideoSrc(URL.createObjectURL(file));
-  
+
       // AI에게 영상 binary를 전송
       const formData = new FormData();
-      formData.append('video', file);
-      
+      formData.append("video", file);
+
       try {
-        const response = await fetch("AI_SERVER_ENDPOINT", { method: 'POST', body: formData });
+        const response = await fetch("AI_SERVER_ENDPOINT", {
+          method: "POST",
+          body: formData,
+        });
         const result = await response.json();
-  
+
         if (result.success) {
           setSkeletonData(result.data); // 스켈레톤 데이터 저장
-          setSkeletonReceived(true);    // 스켈레톤 데이터 수신 확인
+          setSkeletonReceived(true); // 스켈레톤 데이터 수신 확인
         } else {
           alert("스켈레톤 데이터를 받아오지 못했습니다. 다시 시도해주세요.");
         }
@@ -201,7 +208,7 @@ const AddExercise = () => {
       }
     }
   };
-  
+
   const handleRegister = async () => {
     // 프로그램을 먼저 등록하는 코드
     try {
@@ -215,23 +222,26 @@ const AddExercise = () => {
           description: courseData.description,
           category: selectedCategory,
           position: selectedPose,
-          image: categoryImages[selectedCategory], 
+          image: categoryImages[selectedCategory],
         }),
       });
-  
+
       const programResult = await programResponse.json();
       if (programResult.pno) {
         // 이후, 비디오 등록
         const formData = new FormData();
-        formData.append('video', courseData.video); // 영상 추가
-        formData.append('skeleton', skeletonData);  // 스켈레톤 데이터 추가
+        formData.append("video", courseData.video); // 영상 추가
+        formData.append("skeleton", skeletonData); // 스켈레톤 데이터 추가
         // 기타 필요한 데이터도 추가 가능
-        
-        const videoResponse = await fetch(`/auth/video/create/${programResult.pno}/{ord}`, {
-          method: "POST",
-          body: formData,
-        });
-  
+
+        const videoResponse = await fetch(
+          `/auth/video/create/${programResult.pno}/{ord}`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
         const videoResult = await videoResponse.json();
         if (videoResult.success) {
           alert("비디오가 성공적으로 등록되었습니다.");
@@ -245,7 +255,6 @@ const AddExercise = () => {
       console.error("Error registering course:", error);
     }
   };
-  
 
   // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
   const videoRef = useRef(null);
@@ -282,23 +291,23 @@ const AddExercise = () => {
       </Background>
 
       <ContentContainer>
-      <UploadContainer>
-        <VideoTitleText>가이드 영상 업로드</VideoTitleText>
-        <VideoUploadLabel>
-  {videoSrc ? (
-    <VideoPreview
-      controls
-      src={videoSrc}
-      ref={videoRef}
-      onLoadedMetadata={handleVideoMetadataLoaded}
-      key={videoSrc} 
-    ></VideoPreview>
-  ) : (
-    "등록하기"
-  )}
-  <VideoUploadBox onChange={handleVideoChange} />
-</VideoUploadLabel>
-      </UploadContainer>
+        <UploadContainer>
+          <VideoTitleText>가이드 영상 업로드</VideoTitleText>
+          <VideoUploadLabel>
+            {videoSrc ? (
+              <VideoPreview
+                controls
+                src={videoSrc}
+                ref={videoRef}
+                onLoadedMetadata={handleVideoMetadataLoaded}
+                key={videoSrc}
+              ></VideoPreview>
+            ) : (
+              "등록하기"
+            )}
+            <VideoUploadBox onChange={handleVideoChange} />
+          </VideoUploadLabel>
+        </UploadContainer>
 
         <TextContainer>
           <TitleText>운동 제목</TitleText>

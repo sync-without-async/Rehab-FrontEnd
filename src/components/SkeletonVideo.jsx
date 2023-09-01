@@ -201,6 +201,7 @@ const SkeletonVideo = ({ src, skeleton }) => {
         onPause={onPause}
         onEnded={onEnded}
         onResize={onResize}
+        controls
       />
     </Container>
   );
