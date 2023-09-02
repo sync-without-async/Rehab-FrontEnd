@@ -8,6 +8,8 @@ import { hide, selectProps } from "../../redux/modalSlice.js";
 import { useNavigate } from "react-router";
 import { useMemo } from "react";
 
+import { ImSpinner2 } from "react-icons/im";
+
 const Container = styled.div`
   min-height: 180px;
   margin: 16px;
@@ -23,8 +25,10 @@ const Title = styled.p`
 `;
 
 const List = styled.div`
+  min-height: 120px;
   margin: 12px 24px;
   display: grid;
+  align-items: center;
   grid-template-columns: 1fr 1fr;
 `;
 
@@ -35,6 +39,33 @@ const Text = styled.p`
   &:nth-child(2n) {
     text-align: right;
     font-size: 20px;
+  }
+`;
+
+const Block = styled.div`
+  grid-column: 1 / span 2;
+
+  text-align: center;
+
+  & > p {
+    margin-top: 8px;
+    text-align: center;
+  }
+`;
+
+const Loading = styled(ImSpinner2)`
+  width: 36px;
+  height: 36px;
+  animation: spin 3s infinite linear;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    from {
+      transform: rotate(-360deg);
+    }
   }
 `;
 
@@ -81,20 +112,31 @@ const ResultModal = () => {
     return "Bad;";
   }, [percentage]);
 
+  const LoadingBlock = (
+    <Block>
+      <Loading />
+      <p>점수를 측정하는 중...</p>
+    </Block>
+  );
+
+  const ResultBlock = (
+    <>
+      <Text>전체 소요 시간</Text>
+      <Text>
+        {minute}:{second}
+      </Text>
+      <Text>정확도</Text>
+      <Text>{Math.round(percentage * 1000) / 10}%</Text>
+      <Text>판정</Text>
+      <Text>{score}</Text>
+    </>
+  );
+
   return (
     <Modal id={id} onHide={() => navigate("/")}>
       <Container>
         <Title>운동 결과</Title>
-        <List>
-          <Text>전체 소요 시간</Text>
-          <Text>
-            {minute}:{second}
-          </Text>
-          <Text>정확도</Text>
-          <Text>{Math.round(percentage * 1000) / 10}%</Text>
-          <Text>판정</Text>
-          <Text>{score}</Text>
-        </List>
+        <List>{percentage ? ResultBlock : LoadingBlock}</List>
         <Button onClick={() => navigate("/")}>종료하기</Button>
       </Container>
     </Modal>
