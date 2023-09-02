@@ -143,12 +143,19 @@ const PlayerButton = styled.button`
 const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
-  const { pno } = useParams(); 
+  const { pno } = useParams();
 
   useEffect(() => {
     async function fetchCourse() {
-      const courseData = await getCourse(Number(pno), "jyp"); 
-      setCourse(courseData);
+      try {
+        const courseData = await getCourse(Number(pno), "jyp");
+        setCourse(courseData);
+      } catch (error) {
+        console.error(
+          "프로그램 상세 페이지를 불러오는데 실패했습니다. :",
+          error,
+        );
+      }
     }
 
     fetchCourse();
@@ -158,11 +165,11 @@ const CourseDetail = () => {
     return <div>Loading...</div>;
   }
 
-
   return (
     <div>
       <Header />
       <Background>
+        <ExerciseImage src={course.image} alt="Exercise" />
         <ExerciseTitle>{course.programTitle}</ExerciseTitle>
         <ExerciseDescription>{course.description}</ExerciseDescription>
         <Tag>{course.category}</Tag>
@@ -173,7 +180,7 @@ const CourseDetail = () => {
       <CurriculumBox>
         <ActionTitleName>동작이름</ActionTitleName>
         <ActionTitleTime>동작시간</ActionTitleTime>
-        {course.actResponseDTO.map(action => (
+        {course.actResponseDTO.map((action) => (
           <div key={action.ord}>
             <ActionName>{action.actName}</ActionName>
             <ActionTime>{action.frame} 초</ActionTime>
