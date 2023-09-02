@@ -42,13 +42,13 @@ function App() {
           <LoginModal />
           <Router>
             <Routes>
+              <Route path="/program/:pno" element={<CourseDetail />} />
               <Route path="/signup" element={<SignUpPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<AddExercise />} />
               <Route path="/player/:id" element={<PlayerPage />} />
               <Route path="/" element={<MainPage />} />
               <Route path="/mycourse" element={<MyCourse />} />
-              <Route path="/coursedetail/:id" element={<CourseDetail />} />
             </Routes>
           </Router>
         </Container>

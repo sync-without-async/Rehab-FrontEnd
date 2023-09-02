@@ -88,7 +88,7 @@ const LinkedCourseCardContainer = styled(Link)`
 
 const CourseCard = ({ id, image, title, description, tags }) => {  
   return (
-    <LinkedCourseCardContainer to={`/coursedetail/${id}`}>
+    <LinkedCourseCardContainer to={`/program/${id}`}>
       <CourseCardContainer>
         <CourseImage src={image} alt={title}></CourseImage>
         <CourseInfo>
@@ -101,7 +101,7 @@ const CourseCard = ({ id, image, title, description, tags }) => {
             ))}
           </TagContainer>
         </CourseInfo>
-      </CourseCardContainer>
+        </CourseCardContainer>
     </LinkedCourseCardContainer>
   );
 };

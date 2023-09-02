@@ -130,20 +130,20 @@ export const getCourseFromLocal = (id) => {
   return course || null;
 };
 
-export const getCourse = async (pno, mid) => {
-  try {
-    const response = await fetch(
-      `[your domain here]/program/${pno}?mid=${mid}`,
-    );
-    if (!response.ok) {
-      throw new Error("Failed to fetch course data");
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("API Call Error:", error);
-    return getCourseFromLocal(pno); // API 호출에 실패한 경우 로컬에서 코스를 가져옵니다.
-  }
-};
+// export const getCourse = async (pno, mid) => {
+//   try {
+//     const response = await fetch(
+//       `[your domain here]/program/${pno}?mid=${mid}`,
+//     );
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch course data");
+//     }
+//     return await response.json();
+//   } catch (error) {
+//     console.error("API Call Error:", error);
+//     return getCourseFromLocal(pno); // API 호출에 실패한 경우 로컬에서 코스를 가져옵니다.
+//   }
+// };
 
 /* 
 
@@ -207,11 +207,15 @@ export async function searchProgramsWithCategory(category, position, page = 1) {
   return response.data;
 }
 
-export async function getProgramDetail(id, mid) {
-  const data = {
-    mid,
-  };
+export async function getCourse(id, mid) {
+  try {
+    const response = await axios.get(`/program/${id}`, {
+      params: { mid } 
+    });
 
-  const response = await axios.get(`/program/${id}`, data);
-  return response.data;
+    return response.data;  
+  } catch (error) {
+    console.error("API 호출 오류가 발생했습니다. : ", error);
+    throw error;  
+  }
 }
