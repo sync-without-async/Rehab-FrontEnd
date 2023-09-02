@@ -1,3 +1,5 @@
+import { getMetrics } from "./skeleton-api.js";
+
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -9,6 +11,8 @@ class Player {
   name = null;
   id = null;
   status = 0;
+
+  startDate = null;
 
   onError = (e) => {
     console.error(e);
@@ -48,9 +52,9 @@ class Player {
           width: 1280,
           height: 720,
           frameRate: {
-            min: 24, // very important to define min value here
-            ideal: 24,
-            max: 25,
+            min: 30,
+            ideal: 30,
+            max: 31,
           },
         },
       });
@@ -79,6 +83,7 @@ class Player {
   }
 
   async start() {
+    this.startDate = new Date();
     this.setPlayButton(false);
     this.setSubtitle(
       `지금부터 '${this.name}' 운동을 해보겠습니다.\n좌측 상단의 가이드 영상을 잘 봐주세요.`,
@@ -149,21 +154,29 @@ class Player {
 
     recorder.start(this.guideDuration * 1000);
 
-    setTimeout(
-      () => {
-        recorder.stop();
-        this.onComplete(213, 0.786335);
-      },
-      this.guideDuration * 1000 + 300,
-    ); // 여유있게 300ms 추가
+    setTimeout(() => recorder.stop(), this.guideDuration * 1000 + 300); // 여유있게 300ms 추가
   }
 
   async onRecordComplete(data) {
-    const blobUrl = URL.createObjectURL(data);
-    const element = document.createElement("a");
-    element.href = blobUrl;
-    element.download = "Recorded Video.webm";
-    element.click();
+    const formData = new FormData();
+    formData.append("vno", 1);
+    formData.append("video_file", data);
+
+    let response;
+
+    const time = Math.round((new Date() - this.startDate) / 1000);
+    this.onComplete(null, null);
+
+    try {
+      response = await getMetrics(formData);
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+
+    const score = response ? response.metrics : 0.01;
+
+    this.onComplete(time, score);
   }
 }
 

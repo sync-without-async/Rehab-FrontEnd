@@ -9,15 +9,15 @@ import ControllerSection from "../components/player/ControllerSection.jsx";
 import Subtitle from "../components/player/Subtitle.jsx";
 import Countdown from "../components/player/Countdown.jsx";
 
-import SampleVideo from "../assets/videos/sample_video.mp4";
 import { DispatchContext, StateContext } from "../librarys/context.jsx";
-import { intialModalState, modalReducer } from "../reducer/modal.js";
 import StartupModal from "../components/player/StartupModal.jsx";
 import ResultModal from "../components/player/ResultModal.jsx";
 import { intialPlayerState, playerReducer } from "../reducer/player.js";
 import { getCourse } from "../librarys/exercise-api.js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { show } from "../redux/modalSlice.js";
+import { selectEmail } from "../redux/userSlice.js";
+import { getVideo } from "../librarys/video-api.js";
 
 const Container = styled.div`
   width: 100%;
@@ -38,14 +38,16 @@ const PlayerPage = () => {
   const { id } = useParams();
   const [state, dispatch] = useReducer(playerReducer, intialPlayerState);
   const modalDispatch = useDispatch();
-  const { subtitle, countdown } = state;
+  const { subtitle } = state;
   const cameraRef = useRef(null);
+  const userId = useSelector(selectEmail);
 
   useEffect(() => {
     modalDispatch(show("startup_notice"));
+
     Player.dispatch = dispatch;
     Player.id = id;
-    Player.onComplete = (time, percentage) => {
+    Player.onComplete = (time, percentage) =>
       modalDispatch(
         show({
           id: "exercise_result",
@@ -55,7 +57,7 @@ const PlayerPage = () => {
           },
         }),
       );
-    };
+
     Player.getVideoStream()
       .then((stream) => {
         if (cameraRef) {
@@ -65,19 +67,29 @@ const PlayerPage = () => {
       .catch((e) => {
         console.error(e);
       });
+  }, []);
 
-    (async () => {
-      const data = await getCourse(Number(id));
+  useEffect(() => {
+    if (!userId) {
+      return;
+    }
 
+    getVideo(Number(id)).then((data) => {
       if (!data) {
-        // No Data Error
+        alert("프로그램 데이터를 불러오는데 실패했습니다.");
+        return;
+      }
+
+      if (!Array.isArray(data.videoList) || data.videoList.length === 0) {
+        alert("프로그램 가이드 영상이 없습니다. 영상을 추가하세요.");
         return;
       }
 
       dispatch({ type: "setName", payload: data.title });
+      dispatch({ type: "setVideoURL", payload: data.videoList[0] });
       Player.name = data.title;
-    })();
-  }, []);
+    });
+  }, [userId]);
 
   return (
     <StateContext.Provider value={state}>

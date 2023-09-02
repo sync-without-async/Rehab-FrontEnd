@@ -170,10 +170,10 @@ const CourseDetail = () => {
       <Header />
       <Background>
         <ExerciseImage src={course.image} alt="Exercise" />
-        <ExerciseTitle>{course.programTitle}</ExerciseTitle>
+        <ExerciseTitle>{course.title}</ExerciseTitle>
         <ExerciseDescription>{course.description}</ExerciseDescription>
         <Tag>{course.category}</Tag>
-        <Tag>{course.position}</Tag>
+        <Tag>{course.posture}</Tag>
         <DumbbellImage src={dumbbell} alt="Dumbbell" />
       </Background>
       <CurriculumTitle>커리큘럼</CurriculumTitle>
@@ -193,7 +193,7 @@ const CourseDetail = () => {
           alt={isChecked ? "Check After" : "Check Before"}
           onClick={() => setIsChecked((prev) => !prev)}
         />
-        <ActionName>{course.programTitle}</ActionName>
+        <ActionName>{course.title}</ActionName>
         <ActionTime>30 초</ActionTime>
         <PlayerButton onClick={() => {}} />
       </CourseInfoContainer>

@@ -1,14 +1,12 @@
 import { useState, useEffect, useRef, useContext } from "react";
 import styled from "styled-components";
 
-import SampleVideo from "../../assets/videos/sample_video.mp4";
-
 import Player from "../../librarys/player";
 import { DispatchContext, StateContext } from "../../librarys/context";
 
 const Container = styled.div`
   max-width: 20%;
-  min-width: 400px;
+  min-width: 300px;
   width: 100%;
   position: absolute;
 
@@ -18,6 +16,7 @@ const Container = styled.div`
 
 const Video = styled.video`
   width: 100%;
+  background-color: black;
 `;
 
 const Title = styled.p`
@@ -53,13 +52,13 @@ const Progress = styled.div.attrs((props) => ({
   background-color: rgba(255, 255, 255, 1);
 `;
 
-const GuideSection = ({ play }) => {
+const GuideSection = () => {
   const video = useRef(null);
   const [duration, setDuration] = useState(0);
   const [playback, setPlayback] = useState(null);
 
   const dispatch = useContext(DispatchContext);
-  const { name, guideStatus } = useContext(StateContext);
+  const { name, videoURL, guideStatus } = useContext(StateContext);
 
   useEffect(() => {
     if (video) {
@@ -73,6 +72,7 @@ const GuideSection = ({ play }) => {
   }, [guideStatus]);
 
   function onGuideLoad(event) {
+    event.target.volume = 0;
     Player.guideDuration = event.target.duration;
   }
 
@@ -94,7 +94,7 @@ const GuideSection = ({ play }) => {
       <Title>{name}</Title>
       <Video
         ref={video}
-        src={SampleVideo}
+        src={videoURL}
         onLoadedData={onGuideLoad}
         onTimeUpdate={onTimeUpdate}
         onEnded={onEnded}

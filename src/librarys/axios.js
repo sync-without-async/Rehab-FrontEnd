@@ -5,12 +5,24 @@ export default axios.create({
   timeout: 10000,
 });
 
-export function getAuthAxios(token) {
-  return axios.create({
+export function getSpringAxios(token) {
+  const options = {
     baseURL: "http://raspberrypihome.iptime.org:8080",
     timeout: 10000,
-    headers: {
+  };
+
+  if (token) {
+    options.headers = {
       Authorization: `Bearer ${token}`,
-    },
+    };
+  }
+
+  return axios.create(options);
+}
+
+export function getAIAxios() {
+  return axios.create({
+    baseURL: "http://localhost:5500/",
+    timeout: 1000 * 60 * 60 * 24,
   });
 }
