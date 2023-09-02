@@ -7,7 +7,8 @@ import dumbbell from "../assets/images/dumbbell.png";
 
 import CourseCard from "../components/CourseCard";
 import { useSelector } from "react-redux";
-import { selectName } from "../redux/userSlice.js";
+import { selectEmail, selectName, selectToken } from "../redux/userSlice.js";
+import { getMyPrograms } from "../librarys/my-program-api.js";
 
 const PageWrapper = styled.div`
   background-color: #aceaff;
@@ -53,15 +54,15 @@ const CardContainer = styled.div`
 const MyCourse = () => {
   const [courses, setCourses] = useState([]);
   const userName = useSelector(selectName);
-
+  const userId = useSelector(selectEmail);
 
   useEffect(() => {
-    async function fetchData() {
-      const fetchedCourses = await getAllCourses();
-      setCourses(fetchedCourses);
+    if (userId) {
+      getMyPrograms(userId).then((response) => {
+        setCourses(response);
+      });
     }
-    fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <PageWrapper>
