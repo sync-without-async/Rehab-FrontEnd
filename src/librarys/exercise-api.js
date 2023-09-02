@@ -161,6 +161,7 @@ function toExerciseSchema(data) {
     category: data.category,
     posture: data.position,
     time: data.totalPlayTime,
+    actResponseDTO: data.actResponseDTO,
     image: images[data.pno % images.length],
   };
 }
@@ -208,14 +209,11 @@ export async function searchProgramsWithCategory(category, position, page = 1) {
 }
 
 export async function getCourse(id, mid) {
-  try {
-    const response = await axios.get(`/program/${id}`, {
-      params: { mid } 
-    });
+  const params = {
+    mid,
+  };
 
-    return response.data;  
-  } catch (error) {
-    console.error("API 호출 오류가 발생했습니다. : ", error);
-    throw error;  
-  }
+  const response = await axios.get(`/program/${id}`, { params });
+
+  return toExerciseSchema(response.data);
 }
