@@ -33,7 +33,7 @@ export const { login, logout } = userSlice.actions;
 export const selectName = (state) => state.user.name;
 export const selectEmail = (state) => state.user.email;
 export const selectIsLoggedIn = (state) => state.user.access_token !== null;
-export const selectToken = (state) => state.user.name;
+export const selectToken = (state) => state.user.access_token;
 export const selectIsAdmin = (state) => state.user.admin;
 
 export default userSlice.reducer;
