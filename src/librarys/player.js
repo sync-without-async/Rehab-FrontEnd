@@ -1,4 +1,4 @@
-import { getMetrics } from "./skeleton-api";
+import { getMetrics } from "./skeleton-api.js";
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
