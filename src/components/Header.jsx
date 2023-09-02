@@ -5,10 +5,10 @@ import {
   selectName,
   selectIsLoggedIn,
   selectIsAdmin,
+  logout,
 } from "../redux/userSlice.js";
 import { show } from "../redux/modalSlice.js";
-
-
+import { clearToken } from "../librarys/login-api.js";
 
 const HeaderWrapper = styled.header`
   display: flex;
@@ -66,9 +66,15 @@ const Header = () => {
   const isAdmin = useSelector(selectIsAdmin);
 
   const handleLoginClick = () => {
-    dispatch(show("login")); // 로그인 모달을 표시
+    if (isLoggedIn) {
+      if (confirm("로그아웃 하시겠습니끼?")) {
+        clearToken();
+        dispatch(logout());
+      }
+    } else {
+      dispatch(show("login")); // 로그인 모달을 표시
+    }
   };
-
 
   return (
     <HeaderWrapper>
@@ -103,13 +109,10 @@ const Header = () => {
           </MainLink>
         )}
         <Divider />
-        {isLoggedIn ? (
-          <span>{userName}</span>
-        ) : (
-          <MainLink to="#" onClick={handleLoginClick}>
-            로그인
-          </MainLink>
-        )}
+
+        <MainLink to="#" onClick={handleLoginClick}>
+          {isLoggedIn ? userName : "로그인"}
+        </MainLink>
       </Nav>
     </HeaderWrapper>
   );
