@@ -3,7 +3,9 @@ import knee from "../assets/images/knee.webp";
 import shoulder from "../assets/images/shoulder-up.webp";
 import thigh from "../assets/images/thigh.webp";
 
-import axios from "./axios.js";
+import { getSpringAxios } from "./axios.js";
+
+const axios = getSpringAxios();
 
 const images = [arms, knee, shoulder, thigh];
 
@@ -209,11 +211,7 @@ export async function searchProgramsWithCategory(category, position, page = 1) {
 }
 
 export async function getCourse(id, mid) {
-  const params = {
-    mid,
-  };
-
-  const response = await axios.get(`/program/${id}`, { params });
+  const response = await axios.get(`/program/${id}/${mid}`);
 
   return toExerciseSchema(response.data);
 }

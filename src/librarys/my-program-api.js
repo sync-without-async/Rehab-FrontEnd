@@ -3,7 +3,7 @@ import knee from "../assets/images/knee.webp";
 import shoulder from "../assets/images/shoulder-up.webp";
 import thigh from "../assets/images/thigh.webp";
 
-import axios from "./axios.js";
+import axios, { getSpringAxios } from "./axios.js";
 
 const images = [arms, knee, shoulder, thigh];
 
@@ -45,6 +45,15 @@ function toProgramSchema(data) {
   };
 }
 
+export async function registerMyProgram(id, mid) {
+  const data = {
+    mid,
+  };
+
+  const response = await axios.post(`/program/addHistory/${id}`, data);
+  return response.data;
+}
+
 export async function getMyPrograms(mid) {
   const data = {
     mid,
@@ -64,4 +73,14 @@ export async function getMyPrograms(mid) {
   }
 
   return response.map(toProgramSchema);
+}
+
+export async function modifyMetrics(vno, mid, metrics) {
+  const data = {
+    mid,
+    metrics,
+  };
+
+  const response = await axios.put(`/video/modify/metrics/${vno}`, data);
+  return response.data;
 }

@@ -1,3 +1,4 @@
+import { modifyMetrics } from "./my-program-api.js";
 import { getMetrics } from "./skeleton-api.js";
 
 function sleep(ms) {
@@ -10,6 +11,8 @@ class Player {
   guideDuration = null;
   name = null;
   id = null;
+  userId = null;
+  videoId = null;
   status = 0;
 
   startDate = null;
@@ -83,6 +86,7 @@ class Player {
   }
 
   async start() {
+    this.dispatch({ type: "hideBox" });
     this.startDate = new Date();
     this.setPlayButton(false);
     this.setSubtitle(
@@ -147,12 +151,11 @@ class Player {
     });
 
     recorder.ondataavailable = (event) => {
+      console.log(event.data, recorder.state);
       if (recorder.state === "recording") {
         this.onRecordComplete(event.data);
       }
     };
-
-    console.log(this.guideDuration);
 
     recorder.start(this.guideDuration * 1000);
 
@@ -160,8 +163,16 @@ class Player {
   }
 
   async onRecordComplete(data) {
+    // const blobUrl = URL.createObjectURL(data);
+    // const element = document.createElement("a");
+    // element.href = blobUrl;
+    // element.download = "Recorded Video.webm";
+    // element.click();
+
+    // return;
+
     const formData = new FormData();
-    formData.append("vno", "1");
+    formData.append("vno", this.videoId);
     formData.append("video_file", data);
 
     let response;
@@ -177,6 +188,13 @@ class Player {
     }
 
     const score = response ? response.metrics : 0.01;
+    console.log(this.videoId, this.userId, score);
+
+    const modifyResponse = await modifyMetrics(
+      this.videoId,
+      this.userId,
+      score,
+    );
 
     this.onComplete(time, score);
   }

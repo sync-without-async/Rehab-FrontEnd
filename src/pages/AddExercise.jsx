@@ -13,7 +13,7 @@ import SkeletonVideo from "../components/SkeletonVideo";
 import { getSkeletons } from "../librarys/skeleton-api";
 import { createProgram, createVideo } from "../librarys/admin-api";
 import { useSelector } from "react-redux";
-import { selectToken } from "../redux/userSlice";
+import { selectEmail, selectToken } from "../redux/userSlice";
 import { CATEGORY, POSITION } from "../librarys/type";
 
 const Background = styled.div`
@@ -189,6 +189,7 @@ const AddExercise = () => {
   const [selectedPose, setSelectedPose] = useState(null);
   const [skeletonData, setSkeletonData] = useState(null);
   const [skeletonFrame, setSkeletonFrame] = useState(null);
+  const userId = useSelector(selectEmail);
   const accessToken = useSelector(selectToken);
 
   const status = [
@@ -225,6 +226,7 @@ const AddExercise = () => {
 
     const programResponse = await createProgram(
       accessToken,
+      userId,
       title,
       description,
       selectedCategory,
@@ -241,6 +243,8 @@ const AddExercise = () => {
     formData.append("actName", "기본 운동");
     formData.append("playTime", videoDuration);
     formData.append("frame", skeletonFrame);
+    formData.append("guideWidth", skeletonData.video_width);
+    formData.append("guideHeight", skeletonData.video_heigth);
     formData.append("files[0]", videoFile);
     formData.append("files[1]", skeletonBlob);
 
