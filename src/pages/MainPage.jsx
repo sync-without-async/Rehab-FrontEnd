@@ -10,6 +10,10 @@ import {
   getPrograms,
   searchProgramsWithCategory,
 } from "../librarys/exercise-api.js";
+import { useSearchParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { show } from "../redux/modalSlice";
+import Cookies from "js-cookie";
 
 const Background = styled.div`
   width: 100%;
@@ -80,10 +84,18 @@ const MainPage = () => {
   const [posture, setPosture] = useState(null);
   const [courses, setCourses] = useState([]);
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const showLogin = searchParams.get("showLogin");
+  const dispatch = useDispatch();
+
   useEffect(() => {
     getPrograms().then((response) => {
       setCourses(response.dtoList);
     });
+
+    if (showLogin === "true" && !Cookies.get("accessToken")) {
+      dispatch(show("login"));
+    }
   }, []);
 
   useEffect(() => {
