@@ -14,7 +14,6 @@ const HeaderWrapper = styled.header`
   display: flex;
   align-items: center;
   padding: 10px 20px;
-  font-family: "SUIT Variable";
   font-weight: bold;
   position: relative;
   margin-top: 20px;
@@ -27,7 +26,6 @@ const Logo = styled.div`
   left: 100px;
   top: 50%;
   transform: translateY(-50%);
-  font-family: "SUIT Variable";
 `;
 
 const Nav = styled.nav`
@@ -35,13 +33,11 @@ const Nav = styled.nav`
   position: absolute;
   right: 70px;
   align-items: center;
-  font-family: "SUIT Variable";
 `;
 
 const MainLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-family: "SUIT Variable";
   &:hover,
   &:active,
   &:focus {

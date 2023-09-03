@@ -152,6 +152,8 @@ class Player {
       }
     };
 
+    console.log(this.guideDuration);
+
     recorder.start(this.guideDuration * 1000);
 
     setTimeout(() => recorder.stop(), this.guideDuration * 1000 + 300); // 여유있게 300ms 추가
@@ -159,7 +161,7 @@ class Player {
 
   async onRecordComplete(data) {
     const formData = new FormData();
-    formData.append("vno", 1);
+    formData.append("vno", "1");
     formData.append("video_file", data);
 
     let response;

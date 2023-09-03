@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import { loadToken } from "./librarys/login-api.js";
 import { login } from "./redux/userSlice.js";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import "./App.scss";
 
 const Container = styled.div`
   background-color: transparent;

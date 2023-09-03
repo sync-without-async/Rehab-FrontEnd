@@ -80,13 +80,20 @@ const PlayerPage = () => {
         return;
       }
 
+      console.log(data);
       if (!Array.isArray(data.videoList) || data.videoList.length === 0) {
         alert("프로그램 가이드 영상이 없습니다. 영상을 추가하세요.");
         return;
       }
 
       dispatch({ type: "setName", payload: data.title });
-      dispatch({ type: "setVideoURL", payload: data.videoList[0] });
+      dispatch({
+        type: "setVideo",
+        payload: {
+          id: data.videoList[0].vno,
+          url: data.videoList[0].url,
+        },
+      });
       Player.name = data.title;
     });
   }, [userId]);

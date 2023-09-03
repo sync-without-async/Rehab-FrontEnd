@@ -7,3 +7,7 @@ export function decodeJWT(token) {
 
   return JSON.parse(atob(payload));
 }
+
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}

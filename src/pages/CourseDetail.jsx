@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "../components/Header";
 import styled from "styled-components";
 import { getCourse } from "../librarys/exercise-api.js";
@@ -8,48 +8,55 @@ import dumbbell from "../assets/images/dumbbell.png";
 import CheckB from "../assets/images/Check-Before.png";
 import CheckA from "../assets/images/Check-After.png";
 import Player from "../assets/images/play.png";
+import { useSelector } from "react-redux";
+import { selectEmail } from "../redux/userSlice";
+
+const Container = styled.div`
+  width: 100%;
+`;
 
 const Background = styled.div`
   width: 100%;
   height: 250px;
+  padding: 0 100px;
   background-color: #14f2c6;
-  position: relative;
   margin-top: 20px;
+  display: flex;
+  align-items: center;
+`;
+
+const ExerciseInfo = styled.div`
+  margin-left: 24px;
+  display: flex;
+  flex-direction: column;
 `;
 
 const ExerciseImage = styled.img`
-  position: absolute;
-  left: 150px;
-  top: 40px;
   width: 300px;
   height: 180px;
   object-fit: cover;
 `;
 
 const ExerciseTitle = styled.h1`
-  position: absolute;
-  left: 500px;
-  top: 40px;
   font-weight: bold;
   font-family: "SUIT Variable";
   font-size: 25px;
 `;
 
 const ExerciseDescription = styled.p`
-  position: absolute;
-  left: 500px;
-  top: 70px;
   font-family: "SUIT Variable";
   font-size: 20px;
-  margin-top: 10px;
+  margin: 10px 0;
+`;
+
+const TagContainer = styled.div`
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
 `;
 
 const Tag = styled.div`
-  position: absolute;
-  left: 500px;
-  top: 120px;
-  width: 100px;
-  height: 30px;
+  padding: 4px 16px;
   background-color: white;
   border: 1px solid black;
   border-radius: 20px;
@@ -58,56 +65,53 @@ const Tag = styled.div`
   align-items: center;
   margin-right: 10px;
   font-family: "SUIT Variable";
+
+  &:nth-of-type(1) {
+    left: 610px;
+  }
+`;
+
+const Spacer = styled.div`
+  flex-grow: 1;
 `;
 
 const DumbbellImage = styled.img`
-  position: absolute;
-  right: 100px;
-  bottom: 10px;
+  width: 80px;
+  margin-bottom: 36px;
+  object-fit: contain;
+  align-self: flex-end;
+`;
+
+const Wrapper = styled.div`
+  margin: 0 128px;
 `;
 
 const CurriculumTitle = styled.h2`
-  margin-top: 20px;
-  margin-left: 80px;
+  margin: 20px 0;
+  font-weight: 600;
+  font-size: 18px;
   font-family: "SUIT Variable";
 `;
 
-const CurriculumBox = styled.div`
-  margin-top: 25px;
-  margin-left: 80px;
-  width: 1200px;
-  height: 60px;
-  background-color: rgba(217, 217, 217, 0.38);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
+const ActionTitleName = styled.span``;
 
-const ActionTitleName = styled.span`
-  margin-left: 60px;
-  font-family: "SUIT Variable";
-`;
-
-const ActionTitleTime = styled.span`
-  margin-right: 80px;
-  font-family: "SUIT Variable";
-`;
+const ActionTitleTime = styled.span``;
 
 const DividerLine = styled.div`
-  margin-top: 10px;
-  margin-left: 80px;
-  width: 1200px;
   height: 1px;
   background-color: black;
 `;
 
 const CourseInfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 64px 1fr 72px 72px;
   align-items: center;
-  margin-left: 80px;
-  width: 1200px;
   height: 60px;
+
+  &.header {
+    background-color: rgba(217, 217, 217, 0.38);
+  }
 `;
 
 const CheckImage = styled.img`
@@ -117,11 +121,9 @@ const CheckImage = styled.img`
 `;
 
 const ActionName = styled.span`
-  margin-left: -875px;
   font-family: "SUIT Variable";
 `;
 const ActionTime = styled.span`
-  margin-right: -875px;
   font-family: "SUIT Variable";
 `;
 
@@ -144,12 +146,19 @@ const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const { pno } = useParams();
+  const userId = useSelector(selectEmail);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    if (!userId) {
+      return;
+    }
+
     async function fetchCourse() {
       try {
-        const courseData = await getCourse(Number(pno), "jyp");
+        const courseData = await getCourse(Number(pno), userId);
         setCourse(courseData);
+        console.log(courseData);
       } catch (error) {
         console.error(
           "프로그램 상세 페이지를 불러오는데 실패했습니다. :",
@@ -159,46 +168,54 @@ const CourseDetail = () => {
     }
 
     fetchCourse();
-  }, [pno]);
+  }, [userId]);
 
   if (!course) {
     return <div>Loading...</div>;
   }
 
+  function createCourse(key, title, time) {
+    return (
+      <CourseInfoContainer key={key}>
+        <CheckImage src={CheckB} />
+        <ActionName>{title}</ActionName>
+        <ActionTime>{time}초</ActionTime>
+        <PlayerButton onClick={() => navigate(`/program/${pno}/play`)} />
+      </CourseInfoContainer>
+    );
+  }
+
   return (
-    <div>
+    <Container>
       <Header />
       <Background>
         <ExerciseImage src={course.image} alt="Exercise" />
-        <ExerciseTitle>{course.title}</ExerciseTitle>
-        <ExerciseDescription>{course.description}</ExerciseDescription>
-        <Tag>{course.category}</Tag>
-        <Tag>{course.posture}</Tag>
+        <ExerciseInfo>
+          <ExerciseTitle>{course.title}</ExerciseTitle>
+          <ExerciseDescription>{course.description}</ExerciseDescription>
+          <TagContainer>
+            <Tag>{course.category}</Tag>
+            <Tag>{course.posture}</Tag>
+          </TagContainer>
+        </ExerciseInfo>
+        <Spacer />
+
         <DumbbellImage src={dumbbell} alt="Dumbbell" />
       </Background>
-      <CurriculumTitle>커리큘럼</CurriculumTitle>
-      <CurriculumBox>
-        <ActionTitleName>동작이름</ActionTitleName>
-        <ActionTitleTime>동작시간</ActionTitleTime>
-        {course.actResponseDTO.map((action) => (
-          <div key={action.ord}>
-            <ActionName>{action.actName}</ActionName>
-            <ActionTime>{action.frame} 초</ActionTime>
-          </div>
-        ))}
-      </CurriculumBox>
-      <CourseInfoContainer>
-        <CheckImage
-          src={isChecked ? CheckA : CheckB}
-          alt={isChecked ? "Check After" : "Check Before"}
-          onClick={() => setIsChecked((prev) => !prev)}
-        />
-        <ActionName>{course.title}</ActionName>
-        <ActionTime>30 초</ActionTime>
-        <PlayerButton onClick={() => {}} />
-      </CourseInfoContainer>
-      <DividerLine />
-    </div>
+      <Wrapper>
+        <CurriculumTitle>커리큘럼</CurriculumTitle>
+        <CourseInfoContainer className="header">
+          <span />
+          <ActionName>운동 이름</ActionName>
+          <ActionTime>시간</ActionTime>
+          <span />
+        </CourseInfoContainer>
+        {course.actResponseDTO.map((item) =>
+          createCourse(item.ord, item.actName, item.playTime),
+        )}
+        <DividerLine />
+      </Wrapper>
+    </Container>
   );
 };
 
