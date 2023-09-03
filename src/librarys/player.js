@@ -78,7 +78,7 @@ class Player {
   }
 
   async playCountdown() {
-    for (let i = 2; i > 0; i--) {
+    for (let i = 5; i > 0; i--) {
       this.dispatch({ type: "setCountdown", payload: i });
       await sleep(1000);
     }
@@ -106,7 +106,7 @@ class Player {
 
   onPlayClick() {
     if (this.status === 0) {
-      this.analyze();
+      this.start();
     } else if (this.status === 1) {
       this.analyze();
     }
