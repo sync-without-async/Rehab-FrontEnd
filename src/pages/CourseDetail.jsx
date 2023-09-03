@@ -9,7 +9,8 @@ import CheckB from "../assets/images/Check-Before.png";
 import CheckA from "../assets/images/Check-After.png";
 import Player from "../assets/images/play.png";
 import { useSelector } from "react-redux";
-import { selectEmail } from "../redux/userSlice";
+import { selectEmail, selectToken } from "../redux/userSlice";
+import { registerMyProgram } from "../librarys/my-program-api";
 
 const Container = styled.div`
   width: 100%;
@@ -114,10 +115,20 @@ const CourseInfoContainer = styled.div`
   }
 `;
 
+const Metrics = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const Percentage = styled.p`
+  margin-top: 4px;
+  font-size: 11px;
+`;
+
 const CheckImage = styled.img`
-  width: 25px;
-  height: 25px;
-  margin-left: 10px;
+  width: 24px;
+  height: 24px;
 `;
 
 const ActionName = styled.span`
@@ -146,19 +157,21 @@ const CourseDetail = () => {
   const [course, setCourse] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const { pno } = useParams();
+  const userToken = useSelector(selectToken);
   const userId = useSelector(selectEmail);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!userId) {
+    if (!userId || !userToken) {
       return;
     }
 
     async function fetchCourse() {
       try {
+        console.log(pno);
+        const response = await registerMyProgram(Number(pno), userId);
         const courseData = await getCourse(Number(pno), userId);
         setCourse(courseData);
-        console.log(courseData);
       } catch (error) {
         console.error(
           "프로그램 상세 페이지를 불러오는데 실패했습니다. :",
@@ -168,18 +181,21 @@ const CourseDetail = () => {
     }
 
     fetchCourse();
-  }, [userId]);
+  }, [userId, userToken]);
 
   if (!course) {
     return <div>Loading...</div>;
   }
 
-  function createCourse(key, title, time) {
+  function createCourse(key, title, time, metrics) {
     return (
       <CourseInfoContainer key={key}>
-        <CheckImage src={CheckB} />
+        <Metrics>
+          <CheckImage src={CheckB} />
+          <Percentage>{metrics ? Math.round(metrics * 100) : 0}%</Percentage>
+        </Metrics>
         <ActionName>{title}</ActionName>
-        <ActionTime>{time}초</ActionTime>
+        <ActionTime>{Math.round(time * 10) / 10}초</ActionTime>
         <PlayerButton onClick={() => navigate(`/program/${pno}/play`)} />
       </CourseInfoContainer>
     );
@@ -211,7 +227,7 @@ const CourseDetail = () => {
           <span />
         </CourseInfoContainer>
         {course.actResponseDTO.map((item) =>
-          createCourse(item.ord, item.actName, item.playTime),
+          createCourse(item.ord, item.actName, item.playTime, item.metrics),
         )}
         <DividerLine />
       </Wrapper>

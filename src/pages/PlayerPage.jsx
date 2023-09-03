@@ -16,8 +16,10 @@ import { intialPlayerState, playerReducer } from "../reducer/player.js";
 import { getCourse } from "../librarys/exercise-api.js";
 import { useDispatch, useSelector } from "react-redux";
 import { show } from "../redux/modalSlice.js";
-import { selectEmail } from "../redux/userSlice.js";
+import { selectEmail, selectToken } from "../redux/userSlice.js";
 import { getVideo } from "../librarys/video-api.js";
+import BorderBox from "../components/player/BorderBox.jsx";
+import { modifyMetrics } from "../librarys/my-program-api.js";
 
 const Container = styled.div`
   width: 100%;
@@ -38,16 +40,14 @@ const PlayerPage = () => {
   const { id } = useParams();
   const [state, dispatch] = useReducer(playerReducer, intialPlayerState);
   const modalDispatch = useDispatch();
-  const { subtitle } = state;
+  const { subtitle, videoId } = state;
   const cameraRef = useRef(null);
   const userId = useSelector(selectEmail);
 
   useEffect(() => {
     modalDispatch(show("startup_notice"));
 
-    Player.dispatch = dispatch;
-    Player.id = id;
-    Player.onComplete = (time, percentage) =>
+    Player.onComplete = async (time, percentage) => {
       modalDispatch(
         show({
           id: "exercise_result",
@@ -57,7 +57,10 @@ const PlayerPage = () => {
           },
         }),
       );
+    };
 
+    Player.dispatch = dispatch;
+    Player.id = id;
     Player.getVideoStream()
       .then((stream) => {
         if (cameraRef) {
@@ -73,6 +76,8 @@ const PlayerPage = () => {
     if (!userId) {
       return;
     }
+
+    Player.userId = userId;
 
     getVideo(Number(id)).then((data) => {
       if (!data) {
@@ -98,12 +103,19 @@ const PlayerPage = () => {
     });
   }, [userId]);
 
+  useEffect(() => {
+    if (videoId) {
+      Player.videoId = videoId;
+    }
+  }, [videoId]);
+
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>
         <Container>
           <StartupModal />
           <ResultModal />
+          <BorderBox />
           <Camera ref={cameraRef} autoPlay />
           <GuideSection />
           <Countdown />

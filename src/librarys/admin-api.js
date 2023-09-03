@@ -11,12 +11,14 @@ body에 담을 매개변수를 object로 한번에 받는 형식으로 변경
 
 export async function createProgram(
   token,
+  mid,
   programTitle,
   description,
   category,
   position,
 ) {
   const data = {
+    mid,
     programTitle,
     description,
     category,

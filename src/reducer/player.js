@@ -8,6 +8,7 @@ export const intialPlayerState = {
   countdown: null,
   playButtonActive: true,
   guideButtonActive: false,
+  blackBox: true,
   complete: false,
 };
 
@@ -27,6 +28,11 @@ export function playerReducer(state, action) {
       return {
         ...state,
         complete: true,
+      };
+    case "hideBox":
+      return {
+        ...state,
+        blackBox: false,
       };
     case "setName":
       return {
