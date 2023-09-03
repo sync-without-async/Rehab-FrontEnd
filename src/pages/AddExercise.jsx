@@ -1,7 +1,7 @@
 import Header from "../components/Header";
 import styled from "styled-components";
 import dumbbell from "../assets/images/dumbbell.png";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import arms from "../assets/images/arms-up.webp";
 import knee from "../assets/images/knee.webp";
@@ -9,6 +9,12 @@ import shoulder from "../assets/images/shoulder-up.webp";
 import thigh from "../assets/images/thigh.webp";
 
 import axios from "axios";
+import SkeletonVideo from "../components/SkeletonVideo";
+import { getSkeletons } from "../librarys/skeleton-api";
+import { createProgram, createVideo } from "../librarys/admin-api";
+import { useSelector } from "react-redux";
+import { selectToken } from "../redux/userSlice";
+import { CATEGORY, POSITION } from "../librarys/type";
 
 const Background = styled.div`
   width: 100%;
@@ -29,7 +35,6 @@ const ProgramText = styled.p`
   font-size: 50px;
   bottom: 20px;
   left: 118px;
-  font-family: "SUIT Variable";
   font-weight: bold;
 `;
 
@@ -66,6 +71,10 @@ const VideoUploadLabel = styled.label`
   background-color: black;
   color: white;
   cursor: pointer;
+
+  &.disabled {
+    pointer-events: none;
+  }
 `;
 
 const VideoUploadBox = styled.input.attrs({
@@ -75,7 +84,7 @@ const VideoUploadBox = styled.input.attrs({
   display: none;
 `;
 
-const VideoPreview = styled.video`
+const VideoPreview = styled(SkeletonVideo)`
   width: 350px;
   height: 250px;
 `;
@@ -163,106 +172,85 @@ const RegisterButton = styled.button`
   &:focus {
     outline: none;
   }
+
+  &.disable {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 `;
 
-const categoryImages = {
-  팔: arms,
-  어깨: shoulder,
-  무릎: knee,
-  허벅지: thigh,
-};
-
 const AddExercise = () => {
+  const [videoFile, setVideoFile] = useState(null);
   const [videoSrc, setVideoSrc] = useState(null);
+  const [videoDuration, setVideoDuration] = useState(null);
+  const [title, setTitle] = useState("");
+  const [description, setDesctiption] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [selectedPose, setSelectedPose] = useState(null);
-  const [isSkeletonReceived, setSkeletonReceived] = useState(false);
-  const [skeletonData, setSkeletonData] = useState(null); // 스켈레톤 데이터 저장
+  const [skeletonData, setSkeletonData] = useState(null);
+  const [skeletonFrame, setSkeletonFrame] = useState(null);
+  const accessToken = useSelector(selectToken);
+
+  const status = [
+    // videoFile,
+    selectedCategory,
+    selectedPose,
+    // skeletonData,
+    title.length >= 2,
+  ].every((item) => item);
 
   const handleVideoChange = async (event) => {
     const file = event.target.files[0];
 
-    console.log(event.target);
-    if (file) {
-      setVideoSrc(URL.createObjectURL(file));
-
-      // AI에게 영상 binary를 전송
-      const formData = new FormData();
-      formData.append("video", file);
-
-      try {
-        const response = await fetch("AI_SERVER_ENDPOINT", {
-          method: "POST",
-          body: formData,
-        });
-        const result = await response.json();
-
-        if (result.success) {
-          setSkeletonData(result.data); // 스켈레톤 데이터 저장
-          setSkeletonReceived(true); // 스켈레톤 데이터 수신 확인
-        } else {
-          alert("스켈레톤 데이터를 받아오지 못했습니다. 다시 시도해주세요.");
-        }
-      } catch (error) {
-        console.error("Error sending video to AI:", error);
-      }
+    if (!file) {
+      return;
     }
+
+    setVideoFile(file);
+    setVideoSrc(URL.createObjectURL(file));
+
+    // AI에게 영상 binary를 전송
+    const formData = new FormData();
+    formData.append("video_file", file);
+
+    const response = await getSkeletons(formData);
+
+    console.log(response);
+    setSkeletonData(response); // 스켈레톤 데이터 저장
+    setSkeletonFrame(parseInt(response.video_length));
   };
 
   const handleRegister = async () => {
     // 프로그램을 먼저 등록하는 코드
-    try {
-      const programResponse = await fetch("/auth/program/create", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          programTitle: courseData.title,
-          description: courseData.description,
-          category: selectedCategory,
-          position: selectedPose,
-          image: categoryImages[selectedCategory],
-        }),
-      });
 
-      const programResult = await programResponse.json();
-      if (programResult.pno) {
-        // 이후, 비디오 등록
-        const formData = new FormData();
-        formData.append("video", courseData.video); // 영상 추가
-        formData.append("skeleton", skeletonData); // 스켈레톤 데이터 추가
-        // 기타 필요한 데이터도 추가 가능
+    const programResponse = await createProgram(
+      accessToken,
+      title,
+      description,
+      selectedCategory,
+      selectedPose,
+    );
 
-        const videoResponse = await fetch(
-          `/auth/video/create/${programResult.pno}/{ord}`,
-          {
-            method: "POST",
-            body: formData,
-          },
-        );
+    const programId = Object.values(programResponse)[0];
 
-        const videoResult = await videoResponse.json();
-        if (videoResult.success) {
-          alert("비디오가 성공적으로 등록되었습니다.");
-        } else {
-          alert("비디오 등록에 실패했습니다. 다시 시도해주세요.");
-        }
-      } else {
-        alert("프로그램 등록에 실패했습니다. 다시 시도해주세요.");
-      }
-    } catch (error) {
-      console.error("Error registering course:", error);
-    }
+    const skeletonBlob = new Blob([JSON.stringify(skeletonData)], {
+      type: "application/json",
+    });
+
+    const formData = new FormData();
+    formData.append("actName", "기본 운동");
+    formData.append("playTime", videoDuration);
+    formData.append("frame", skeletonFrame);
+    formData.append("files[0]", videoFile);
+    formData.append("files[1]", skeletonBlob);
+
+    const videoResponse = await createVideo(accessToken, programId, formData);
+
+    console.log(videoResponse);
   };
 
-  // videoRef 생성 > 관리자가 비디오를 등록하면 자동으로 해당 비디오의 길이를 time정보로 넘겨주는 기능을 구현함.
-  const videoRef = useRef(null);
-
-  const handleVideoMetadataLoaded = () => {
-    // 비디오 길이를 가져와서 courseData에 저장함
-    const videoDuration = Math.round(videoRef.current.duration);
-    setCourseData((prev) => ({ ...prev, time: videoDuration }));
+  const handleVideoMetadataLoaded = (event) => {
+    setVideoDuration(Number(event.target.duration));
   };
 
   /* 백엔드 api 연결 프론트단에서 임시로 구현*/
@@ -275,11 +263,11 @@ const AddExercise = () => {
   });
 
   const handleTitleChange = (e) => {
-    setCourseData((prev) => ({ ...prev, title: e.target.value }));
+    setTitle(e.target.value);
   };
 
   const handleDescriptionChange = (e) => {
-    setCourseData((prev) => ({ ...prev, description: e.target.value }));
+    setDesctiption(e.target.value);
   };
 
   return (
@@ -293,14 +281,12 @@ const AddExercise = () => {
       <ContentContainer>
         <UploadContainer>
           <VideoTitleText>가이드 영상 업로드</VideoTitleText>
-          <VideoUploadLabel>
+          <VideoUploadLabel className={videoSrc ? "disabled" : null}>
             {videoSrc ? (
               <VideoPreview
-                controls
                 src={videoSrc}
-                ref={videoRef}
-                onLoadedMetadata={handleVideoMetadataLoaded}
-                key={videoSrc}
+                skeleton={skeletonData}
+                onLoad={handleVideoMetadataLoaded}
               ></VideoPreview>
             ) : (
               "등록하기"
@@ -314,14 +300,14 @@ const AddExercise = () => {
           <StyledInput
             placeholder="최대 50글자까지 입력 가능합니다."
             maxLength={50}
-            value={courseData.title}
+            value={title}
             onChange={handleTitleChange}
           />
           <TitleText>운동 설명</TitleText>
           <StyledTextarea
             placeholder="최대 200글자까지 입력 가능합니다."
             maxLength={200}
-            value={courseData.description}
+            value={description}
             onChange={handleDescriptionChange}
           />
         </TextContainer>
@@ -330,56 +316,37 @@ const AddExercise = () => {
       <TagsContainer>
         <TagRow>
           <TagTitleInline>카테고리 별</TagTitleInline>
-          <TagButton
-            selected={selectedCategory === "팔"}
-            onClick={() => setSelectedCategory("팔")}
-          >
-            팔
-          </TagButton>
-          <TagButton
-            selected={selectedCategory === "어깨"}
-            onClick={() => setSelectedCategory("어깨")}
-          >
-            어깨
-          </TagButton>
-          <TagButton
-            selected={selectedCategory === "무릎"}
-            onClick={() => setSelectedCategory("무릎")}
-          >
-            무릎
-          </TagButton>
-          <TagButton
-            selected={selectedCategory === "허벅지"}
-            onClick={() => setSelectedCategory("허벅지")}
-          >
-            허벅지
-          </TagButton>
+          {CATEGORY.map(({ key, value }) => (
+            <TagButton
+              key={key}
+              selected={selectedCategory === key}
+              onClick={() => setSelectedCategory(key)}
+            >
+              {value}
+            </TagButton>
+          ))}
         </TagRow>
 
         <TagRow>
           <TagTitleInline>자세 별</TagTitleInline>
-          <TagButton
-            selected={selectedPose === "선 자세"}
-            onClick={() => setSelectedPose("선 자세")}
-          >
-            선 자세
-          </TagButton>
-          <TagButton
-            selected={selectedPose === "앉은 자세"}
-            onClick={() => setSelectedPose("앉은 자세")}
-          >
-            앉은 자세
-          </TagButton>
-          <TagButton
-            selected={selectedPose === "누운 자세"}
-            onClick={() => setSelectedPose("누운 자세")}
-          >
-            누운 자세
-          </TagButton>
+          {POSITION.map(({ key, value }) => (
+            <TagButton
+              key={key}
+              selected={selectedPose === key}
+              onClick={() => setSelectedPose(key)}
+            >
+              {value} 자세
+            </TagButton>
+          ))}
         </TagRow>
       </TagsContainer>
       <ContentContainer>
-        <RegisterButton onClick={handleRegister}>등록하기</RegisterButton>
+        <RegisterButton
+          className={status ? null : "disable"}
+          onClick={handleRegister}
+        >
+          등록하기
+        </RegisterButton>
       </ContentContainer>
     </div>
   );

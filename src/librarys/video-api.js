@@ -7,7 +7,7 @@ function toProgramSchema(data) {
     description: data.description,
     category: data.category,
     posture: data.position,
-    videoList: data.programVideoFile,
+    videoList: data.vno_videoUrl,
   };
 }
 
