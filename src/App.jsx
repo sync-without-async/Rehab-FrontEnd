@@ -15,11 +15,30 @@ import LoginModal from "./components/LoginModal.jsx";
 import { useEffect } from "react";
 import { loadToken } from "./librarys/login-api.js";
 import { login } from "./redux/userSlice.js";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 const Container = styled.div`
   background-color: transparent;
   height: 100%;
 `;
+
+const routerList = [
+  { path: "/", element: <MainPage /> },
+  { path: "/program/:pno", element: <CourseDetail />, role: 1 },
+  { path: "/program/:id/play", element: <PlayerPage />, role: 1 },
+  { path: "/mycourse", element: <MyCourse />, role: 1 },
+  { path: "/register", element: <AddExercise />, role: 2 },
+];
+
+routerList.forEach((item) => {
+  if (item.role && item.role > 0) {
+    item.element = (
+      <ProtectedRoute role={item.role} to={item.redirect}>
+        {item.element}
+      </ProtectedRoute>
+    );
+  }
+});
 
 function App() {
   const dispatch = store.dispatch;
@@ -42,13 +61,9 @@ function App() {
           <LoginModal />
           <Router>
             <Routes>
-              <Route path="/program/:pno" element={<CourseDetail />} />
-              <Route path="/signup" element={<SignUpPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<AddExercise />} />
-              <Route path="/player/:id" element={<PlayerPage />} />
-              <Route path="/" element={<MainPage />} />
-              <Route path="/mycourse" element={<MyCourse />} />
+              {routerList.map((item, index) => (
+                <Route key={index} path={item.path} element={item.element} />
+              ))}
             </Routes>
           </Router>
         </Container>
