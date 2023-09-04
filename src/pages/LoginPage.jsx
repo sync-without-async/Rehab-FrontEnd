@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {  BsPersonFill } from "react-icons/bs";
+import { BsPersonFill } from "react-icons/bs";
 import { MdVpnKey } from "react-icons/md";
 
 const LoginContainer = styled.div`
@@ -13,7 +13,7 @@ const Title = styled.h1`
   font-size: 50px;
   margin-top: 200px;
   margin-bottom: 40px;
-  font-weight: bold;
+  font-weight: bold;s
 `;
 
 const InputWrapper = styled.div`
