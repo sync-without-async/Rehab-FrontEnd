@@ -10,7 +10,7 @@ import AddExercise from "./pages/AddExercise.jsx";
 import { ModalProvider } from "./librarys/context.jsx";
 import PlayerPage from "./pages/PlayerPage.jsx";
 import store from "./redux/store.js";
-//커밋 확인용
+
 import LoginModal from "./components/LoginModal.jsx";
 import { useEffect } from "react";
 import { loadToken } from "./librarys/login-api.js";

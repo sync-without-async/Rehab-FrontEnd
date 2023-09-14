@@ -60,6 +60,7 @@ const Header = () => {
   const userName = useSelector(selectName);
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isAdmin = useSelector(selectIsAdmin);
+  const userType = useSelector(selectUserType);
 
   const handleLoginClick = () => {
     if (isLoggedIn) {
@@ -68,7 +69,7 @@ const Header = () => {
         dispatch(logout());
       }
     } else {
-      dispatch(show("login")); // 로그인 모달을 표시
+      dispatch(show("login")); 
     }
   };
 
@@ -78,37 +79,43 @@ const Header = () => {
         <MainLink to="/">Re:Hab</MainLink>
       </Logo>
       <Nav>
-        {isAdmin ? (
+        {userType === 'user' && (
           <>
-            <MainLink to="/register" style={{ marginRight: "50px" }}>
-              운동등록
-            </MainLink>
-            <MainLink to="/" style={{ marginRight: "40px" }}>
-              메인 페이지
-            </MainLink>
-            <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
-              수강내역
-            </MainLink>
+            <MainLink to="/mypage">나의 수강 페이지</MainLink>
+            <MainLink to="/mycourse">실시간 비대면 진료</MainLink>
+            <MainLink to="/about">서비스 소개</MainLink>
+            <MainLink to="#" onClick={handleLoginClick}>로그아웃</MainLink>
+            <ProfileImage src="path_to_user_image.jpg" />
           </>
-        ) : isLoggedIn ? (
-          <>
-            <MainLink to="/" style={{ marginRight: "40px" }}>
-              메인 페이지
-            </MainLink>
-            <MainLink to="/mycourse" style={{ marginRight: "20px" }}>
-              수강내역
-            </MainLink>
-          </>
-        ) : (
-          <MainLink to="/" style={{ marginRight: "40px" }}>
-            메인 페이지
-          </MainLink>
         )}
-        <Divider />
+        
+        {userType === 'admin1' && (
+          <>
+            <MainLink to="/dashboard">관리자 대시보드</MainLink>
+            <MainLink to="/mycourse">실시간 비대면 진료</MainLink>
+            <MainLink to="/about">서비스 소개</MainLink>
+            <MainLink to="#" onClick={handleLoginClick}>로그아웃</MainLink>
+            <ProfileImage src="path_to_admin1_image.jpg" />
+          </>
+        )}
 
-        <MainLink to="#" onClick={handleLoginClick}>
-          {isLoggedIn ? userName : "로그인"}
-        </MainLink>
+        {userType === 'admin2' && (
+          <>
+            <MainLink to="/register">운동 등록하기</MainLink>
+            <MainLink to="/dashboard">관리자 대시보드</MainLink>
+            <MainLink to="/mycourse">실시간 비대면 진료</MainLink>
+            <MainLink to="/about">서비스 소개</MainLink>
+            <MainLink to="#" onClick={handleLoginClick}>로그아웃</MainLink>
+            <ProfileImage src="path_to_admin2_image.jpg" />
+          </>
+        )}
+
+        {userType === 'guest' && (
+          <>
+            <MainLink to="/about">서비스 소개</MainLink>
+            <MainLink to="#" onClick={handleLoginClick}>로그인</MainLink>
+          </>
+        )}
       </Nav>
     </HeaderWrapper>
   );
