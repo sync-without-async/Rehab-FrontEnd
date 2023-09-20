@@ -1,14 +1,16 @@
 # ReHab-FrontEnd
-ReHab 프론트엔드 팀 개발 저장소입니다.
+비대면 재활치료를 돕는 웹서비스, "Re:Hab" 프론트엔드 팀 개발 저장소입니다.
 
 ## 🔥Frontend Team
 
-|                                      오소현                                      |                                      김경재                                      |
-| :------------------------------------------------------------------------------: | :------------------------------------------------------------------------------: |
-| <img width="150px" src="https://avatars.githubusercontent.com/u/53892427?v=4" /> | <img width="150px" src="https://avatars.githubusercontent.com/u/35104213?v=4" /> |
-|                  [@osohyun0224](https://github.com/osohyun0224)                  |                   [@PortalCube](https://github.com/PortalCube)                   |
+| FE | FE |
+| :---: | :---: |
+|  <img width="130px" src="https://avatars.githubusercontent.com/u/53892427?v=4" /> |  <img width="130px" src="https://avatars.githubusercontent.com/u/35104213?v=4" /> |
+| 오소현 | 김경재 |
+|  [@osohyun0224](https://github.com/osohyun0224)   |  [@PortalCube](https://github.com/PortalCube)     |
 
-## 💡 Commit Convention
+
+## 💡 Frontend Commit Convention
 
 |       Tags       |               Explanation               |
 | :--------------: | :-------------------------------------: |
