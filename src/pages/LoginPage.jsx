@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import GuestHeader from '../components/Header/GuestHeader';
+import Header from '../components/Header/Header';
 import LoginComponents from "../components/Accounts/LoginComponents";
+import { useState } from 'react';
 
 const PageContainer = styled.div`
   display: flex;
@@ -16,14 +17,21 @@ const CenteredContainer = styled.div`
 `;
 
 const LoginPage = () => {
-    return (
-        <PageContainer>
-            <GuestHeader />
-            <CenteredContainer>
-                <LoginComponents />
-            </CenteredContainer>
-        </PageContainer>
-    );
+  const [userType, setUserType] = useState(null); // 유저 타입 상태 추가
+
+  // 로그인 성공시 호출되는 함수
+  const handleLoginSuccess = (response) => {
+      setUserType(response.type);
+  };
+
+  return (
+      <PageContainer>
+          <Header userType={userType} />  {/* userType을 prop으로 전달 */}
+          <CenteredContainer>
+              <LoginComponents onLoginSuccess={handleLoginSuccess} />
+          </CenteredContainer>
+      </PageContainer>
+  );
 }
 
 export default LoginPage;

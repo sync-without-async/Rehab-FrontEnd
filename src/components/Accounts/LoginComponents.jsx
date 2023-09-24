@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import  { useState } from 'react';
 import { userLogin } from '../../librarys/login-api';
+import PropTypes from 'prop-types';
 
 const LoginContainer = styled.div`
   width: 1000px;
@@ -75,17 +76,19 @@ const SignupLink = styled.span`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
 
-const LoginComponents = () => {
+const LoginComponents = (props) => {
   let navigate = useNavigate();
 
   const [id, setId] = useState('');  
   const [password, setPassword] = useState(''); 
   const [error, setError] = useState(null);  
+
   const handleLogin = async () => {
     const response = await userLogin(id, password);
     if (response) {
       console.log('로그인 성공:', response);
       navigate('/dashboard'); // 이거 아직 페이지 완성 안됨 임시 로그인 되나만 확인용입니다.
+      props.onLoginSuccess(response);
     } else {
       setError('아이디나 비밀번호가 일치하지 않습니다.'); 
     }
@@ -128,6 +131,10 @@ const LoginComponents = () => {
       </SignupLink>
     </LoginContainer>
   );
+};
+
+LoginComponents.propTypes = {
+  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default LoginComponents;
