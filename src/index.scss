@@ -26,3 +26,47 @@ html {
   src: url("https://cdn.jsdelivr.net/gh/sunn-us/SUITE/fonts/variable/woff2/SUITE-Variable.woff2")
     format("woff2-variations");
 }
+
+@font-face {
+  font-family: "SpoqaHanSans";
+  font-weight: 700;
+  src:
+    url("../src/assets/font/SpoqaHanSansNeo-Bold.eot")
+      format("embedded-opentype"),
+    url("../src/assets/font/SpoqaHanSansNeo-Bold.woff2") format("woff2"),
+    url("../src/assets/font/SpoqaHanSansNeo-Bold.woff") format("woff"),
+    url("../src/assets/font/SpoqaHanSansNeo-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SpoqaHanSans";
+  font-weight: 500;
+  src:
+    url("../src/assets/font/SpoqaHanSansNeo-Medium.eot")
+      format("embedded-opentype"),
+    url("../src/assets/font/SpoqaHanSansNeo-Medium.woff2") format("woff2"),
+    url("../src/assets/font/SpoqaHanSansNeo-Medium.woff") format("woff"),
+    url("../src/assets/font/SpoqaHanSansNeo-Medium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SpoqaHanSans";
+  font-weight: 300;
+  src:
+    url("../src/assets/font/SpoqaHanSansNeo-Regular.eot")
+      format("embedded-opentype"),
+    url("../src/assets/font/SpoqaHanSansNeo-Regular.woff2") format("woff2"),
+    url("../src/assets/font/SpoqaHanSansNeo-Regular.woff") format("woff"),
+    url("../src/assets/font/SpoqaHanSansNeo-Regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "SpoqaHanSans";
+  font-weight: 100;
+  src:
+    url("../src/assets/font/SpoqaHanSansNeo-Thin.eot")
+      format("embedded-opentype"),
+    url("../src/assets/font/SpoqaHanSansNeo-Thin.woff2") format("woff2"),
+    url("../src/assets/font/SpoqaHanSansNeo-Thin.woff") format("woff"),
+    url("../src/assets/font/SpoqaHanSansNeo-Thin.ttf") format("truetype");
+}
