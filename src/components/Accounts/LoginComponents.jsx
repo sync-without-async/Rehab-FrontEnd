@@ -6,12 +6,14 @@ const LoginContainer = styled.div`
   height: 603px;
   border-radius: 10px;
   background-color: #ffffff;
-  border: 1px solid #0064FF;
+  border: 2px solid #0064FF;
   position: relative;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
 `;
 
+
 const Title = styled.h1`
-  font-size: 42px;
+  font-size: 35px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
   margin-left: 30px;
@@ -22,15 +24,15 @@ const Divider = styled.div`
   width: 900px;
   height: 1px;
   background-color: #D9D9D9;
-  margin-top: 20px;
-  margin-left: auto;
+  margin-top: 10px;
+  margin-left: 30px;
   margin-right: auto;
 `;
 
 const Label = styled.label`
   font-size: 20px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  font-weight: 300;
+  font-weight: 500;
   position: absolute;
 `;
 
@@ -57,6 +59,7 @@ const Button = styled.button`
   cursor: pointer;
   position: absolute;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  margin-top: 20px;
 `;
 
 const SignupLink = styled.span`
@@ -65,6 +68,7 @@ const SignupLink = styled.span`
   cursor: pointer;
   position: absolute;
   margin-left:-20px;
+  margin-top: 10px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
 
