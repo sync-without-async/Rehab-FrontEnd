@@ -14,6 +14,7 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1; 
+  margin-top: -50px;
 `;
 
 const LoginPage = () => {
@@ -26,7 +27,7 @@ const LoginPage = () => {
 
   return (
       <PageContainer>
-          <Header userType={userType} />  {/* userType을 prop으로 전달 */}
+          <Header userType={userType} /> 
           <CenteredContainer>
               <LoginComponents onLoginSuccess={handleLoginSuccess} />
           </CenteredContainer>
