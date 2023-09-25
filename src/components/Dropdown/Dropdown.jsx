@@ -2,12 +2,23 @@ import  { useState } from 'react';
 import styled from 'styled-components';
 import dropdownicon from "../../assets/icons/dropdownicon.png";
 
+const Label = styled.div`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-weight: 500;
+  font-size: 16px;
+  margin-bottom: 5px;
+  padding-top:10px;
+`;
+
 const DropdownContainer = styled.div`
   width: 320px;
   height: 50px;
   background-color: #FFFFFF;
+  border: 2px solid #BBBBBB; 
   position: relative;
   cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 10px;
 `;
 
 const DropdownText = styled.input`
@@ -46,7 +57,7 @@ const DropdownItem = styled.div`
   padding: 10px;
 `;
 
-function Dropdown({ items }) {
+function Dropdown({ label, items }) {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState('');
 
@@ -54,16 +65,28 @@ function Dropdown({ items }) {
     setIsOpen(!isOpen);
   };
 
+  const handleItemClick = (item) => {
+    setText(item); 
+    setIsOpen(false); 
+  };
+
   return (
-    <DropdownContainer onClick={toggleDropdown}>
-      <DropdownText value={text} onChange={e => setText(e.target.value)} />
-      <DropdownIcon src={dropdownicon} alt="Dropdown Icon" />
-      {isOpen && (
-        <DropdownList open={isOpen}>
-          {items.map((item, index) => <DropdownItem key={index}>{item}</DropdownItem>)}
-        </DropdownList>
-      )}
-    </DropdownContainer>
+    <div>
+      <Label>{label}</Label>
+      <DropdownContainer onClick={toggleDropdown}>
+        <DropdownText value={text} onChange={e => setText(e.target.value)} />
+        <DropdownIcon src={dropdownicon} alt="Dropdown Icon" />
+        {isOpen && (
+          <DropdownList open={isOpen}>
+            {items.map((item, index) => (
+              <DropdownItem key={index} onClick={() => handleItemClick(item)}>
+                {item}
+              </DropdownItem>
+            ))}
+          </DropdownList>
+        )}
+      </DropdownContainer>
+    </div>
   );
 }
 

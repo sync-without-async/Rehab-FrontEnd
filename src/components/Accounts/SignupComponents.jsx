@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import RoleButton from '../Button/RoleButton';
+import Dropdown from '../Dropdown/Dropdown';
 
 const SignupContainer = styled.div`
   width: 1000px;
@@ -36,7 +37,23 @@ const ButtonContainer = styled.div`
   margin-left: 130px;
 `;
 
+const DropdownsContainer = styled.div`
+  margin-top: 30px;
+  margin-left: 130px;
+`;
+
 const SignupComponents = () => {
+  
+  // 소속병원 선택
+  const hospitals = [
+    "한림대학교 춘천성심병원", "한림대학교 강남성심병원", 
+    "한림대학교 동탄성심병원", "한림대학교 성심병원(평촌)", 
+    "한림대학교 한강성심병원", "강동성심병원"
+  ];
+
+  // 재활 분야 선택
+  const fields = ["재활의학과", "신경외과", "정형외과"];
+
   return (
     <SignupContainer>
       <Title>회원가입</Title>
@@ -45,6 +62,10 @@ const SignupComponents = () => {
         <RoleButton role="doctor" />
         <RoleButton role="therapist" />
       </ButtonContainer>
+      <DropdownsContainer>
+        <Dropdown label="소속 병원명 *" items={hospitals} />
+        <Dropdown label="재활 분야 *" items={fields} />
+      </DropdownsContainer>
     </SignupContainer>
   );
 };
