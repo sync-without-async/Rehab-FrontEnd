@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import RoleButton from '../Button/RoleButton';
 import Dropdown from '../Dropdown/Dropdown';
-import InputText from '../Input/InputText';
+import InputText, { Input } from '../Input/InputText';
 import InputImage from '../Input/InputImage';
 
 const SignupContainer = styled.div`
@@ -55,15 +55,49 @@ const InputFieldsContainer = styled.div`
 
 const FlexContainer = styled.div`
   display: flex;
-  justify-content: space-between;
   align-items: center;
   width: 100%;
   margin-left: 0px;
+  gap: 60px;
 `;
 
 const StyledInputImage = styled(InputImage)`
-  margin-left: -200px; 
 `;
+
+const EmailInputContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  width: 700px; 
+  margin-left: 130px; 
+  margin-top: 30px;
+`;
+
+
+const EmailInput = styled(Input)`
+  width: 200%;
+`;
+
+const VerifyButton = styled.button`
+  width: 130px;
+  height: 50px;
+  background-color: #f0f0f0;
+  border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
 
 const SignupComponents = () => {
   
@@ -96,6 +130,12 @@ const SignupComponents = () => {
         <InputText label="성함 *" />
         <InputText label="연락처 *" />
       </InputFieldsContainer>
+      <EmailInputContainer>
+        <InputText label="이메일 *">
+          <EmailInput type="text" />
+        </InputText>
+        <VerifyButton>인증</VerifyButton>
+      </EmailInputContainer>
     </SignupContainer>
   );
 };

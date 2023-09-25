@@ -8,7 +8,7 @@ const InputContainer = styled.div`
 
 const Label = styled.label`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
 `;
@@ -36,4 +36,5 @@ function InputText({ label }) {
   );
 }
 
+export { Input };
 export default InputText;

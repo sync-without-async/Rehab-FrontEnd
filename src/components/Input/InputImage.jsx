@@ -5,19 +5,22 @@ const Wrapper = styled.div`
   width: 320px;
   height: 198px;
   display: flex;
-  align-items: center;
+  flex-direction: row;  
+  align-items: flex-start;  
+  margin-top:50px;
+  gap: 50px;
 `;
+
 
 const Label = styled.label`
   width: 90px;
   height: 30px;
   display: flex;
-  align-items: center;
 `;
 
 const UploadBox = styled.div`
-  width: 150px;
-  height: 150px;
+  width: 180px;
+  height: 180px;
   background-color: #F3F3F3;
   border: 1px solid #BBBBBB;
   display: flex;
@@ -65,7 +68,7 @@ const InputImage = () => {
 
   return (
     <Wrapper>
-      <Label>사진 등록</Label>
+      <Label>사진 등록 *</Label>
       <UploadBox onClick={triggerFileInput}>
         {preview && <ImagePreview src={preview} alt="Image preview" />}
         {!preview && (
