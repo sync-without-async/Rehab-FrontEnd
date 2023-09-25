@@ -4,7 +4,7 @@ import dropdownicon from "../../assets/icons/dropdownicon.png";
 
 const Label = styled.div`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  font-weight: 500;
+  font-weight: 700;
   font-size: 16px;
   margin-bottom: 5px;
   padding-top:10px;
@@ -19,6 +19,7 @@ const DropdownContainer = styled.div`
   cursor: pointer;
   margin-bottom: 10px;
   border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
 `;
 
 const DropdownText = styled.input`
