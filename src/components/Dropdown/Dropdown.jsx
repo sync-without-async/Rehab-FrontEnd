@@ -46,7 +46,7 @@ const DropdownItem = styled.div`
   padding: 10px;
 `;
 
-function Dropdown() {
+function Dropdown({ items }) {
   const [isOpen, setIsOpen] = useState(false);
   const [text, setText] = useState('');
 
@@ -60,9 +60,7 @@ function Dropdown() {
       <DropdownIcon src={dropdownicon} alt="Dropdown Icon" />
       {isOpen && (
         <DropdownList open={isOpen}>
-          <DropdownItem>Item 1</DropdownItem>
-          <DropdownItem>Item 2</DropdownItem>
-          <DropdownItem>Item 3</DropdownItem>
+          {items.map((item, index) => <DropdownItem key={index}>{item}</DropdownItem>)}
         </DropdownList>
       )}
     </DropdownContainer>
