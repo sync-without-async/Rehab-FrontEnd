@@ -59,15 +59,25 @@ const InputImage = () => {
     }
   };
 
+  const triggerFileInput = () => {
+    document.getElementById("imageInput").click();
+  };
+
   return (
     <Wrapper>
       <Label>사진 등록</Label>
-      <UploadBox>
+      <UploadBox onClick={triggerFileInput}>
         {preview && <ImagePreview src={preview} alt="Image preview" />}
-        <UploadText>
-          이미지<br />등록하기
-        </UploadText>
-        <HiddenInput type="file" onChange={handleImageChange} />
+        {!preview && (
+          <UploadText>
+            이미지<br />등록하기
+          </UploadText>
+        )}
+        <HiddenInput 
+          type="file" 
+          onChange={handleImageChange} 
+          id="imageInput"
+        />
       </UploadBox>
     </Wrapper>
   );
