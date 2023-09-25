@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import RoleButton from '../Button/RoleButton';
 import Dropdown from '../Dropdown/Dropdown';
+import InputText from '../Input/InputText';
 
 const SignupContainer = styled.div`
   width: 1000px;
@@ -42,6 +43,16 @@ const DropdownsContainer = styled.div`
   margin-left: 130px;
 `;
 
+const InputFieldsContainer = styled.div`
+  display: flex;
+  justify-content: space-between; 
+  margin-top: 30px; 
+  margin-left: 130px;
+  gap: 20px; 
+  width: 700px;  
+`;
+
+
 const SignupComponents = () => {
   
   // 소속병원 선택
@@ -66,6 +77,10 @@ const SignupComponents = () => {
         <Dropdown label="소속 병원명 *" items={hospitals} />
         <Dropdown label="재활 분야 *" items={fields} />
       </DropdownsContainer>
+      <InputFieldsContainer>
+        <InputText label="성함 *" />
+        <InputText label="연락처 *" />
+      </InputFieldsContainer>
     </SignupContainer>
   );
 };
