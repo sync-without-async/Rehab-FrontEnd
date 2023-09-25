@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import UserComponent from './UserComponents';
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -31,7 +30,7 @@ const NavItem = styled.div`
 export default function Header(props) {
   let navigate = useNavigate();
 
-  const { userType, userName } = props; 
+  const { userType = null } = props;
 
   const menus = {
     null: ["서비스 소개", "회원가입", "로그인"], 
@@ -65,7 +64,6 @@ export default function Header(props) {
             {item}
           </NavItem>
         ))}
-        {userType && <UserComponent userType={userType} userName={userName} />}
       </NavMenu>
     </HeaderContainer>
   );
