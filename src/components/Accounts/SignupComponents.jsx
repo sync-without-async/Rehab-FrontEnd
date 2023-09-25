@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import RoleButton from '../Button/RoleButton';
 import Dropdown from '../Dropdown/Dropdown';
 import InputText from '../Input/InputText';
+import InputImage from '../Input/InputImage';
 
 const SignupContainer = styled.div`
   width: 1000px;
@@ -52,6 +53,17 @@ const InputFieldsContainer = styled.div`
   width: 700px;  
 `;
 
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-left: 0px;
+`;
+
+const StyledInputImage = styled(InputImage)`
+  margin-left: -200px; 
+`;
 
 const SignupComponents = () => {
   
@@ -73,10 +85,13 @@ const SignupComponents = () => {
         <RoleButton role="doctor" />
         <RoleButton role="therapist" />
       </ButtonContainer>
-      <DropdownsContainer>
-        <Dropdown label="소속 병원명 *" items={hospitals} />
-        <Dropdown label="재활 분야 *" items={fields} />
-      </DropdownsContainer>
+      <FlexContainer>
+        <DropdownsContainer>
+          <Dropdown label="소속 병원명 *" items={hospitals} />
+          <Dropdown label="재활 분야 *" items={fields} />
+        </DropdownsContainer>
+        <StyledInputImage />
+      </FlexContainer>
       <InputFieldsContainer>
         <InputText label="성함 *" />
         <InputText label="연락처 *" />
