@@ -98,6 +98,23 @@ const VerifyButton = styled.button`
   }
 `;
 
+const Button = styled.button`
+  width: 280px;
+  height: 60px;
+  background-color: #3592FF;
+  border-radius: 10px;
+  color: white;
+  font-size: 22px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  margin-top: 40px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+`;
 
 const SignupComponents = () => {
   
@@ -136,6 +153,11 @@ const SignupComponents = () => {
         </InputText>
         <VerifyButton>인증</VerifyButton>
       </EmailInputContainer>
+      <InputFieldsContainer>
+        <InputText label="아이디 *" />
+        <InputText label="비밀번호 *" />
+      </InputFieldsContainer>
+      <Button>가입하기</Button>
     </SignupContainer>
   );
 };
