@@ -1,11 +1,14 @@
 import styled from 'styled-components';
+import RoleButton from '../Button/RoleButton';
 
 const SignupContainer = styled.div`
   width: 1000px;
   height: 1000px;
-  border: 1px solid #0064FF;
   border-radius: 10px;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  background-color: #ffffff;
+  border: 2px solid #0064FF;
+  position: relative;
+  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
 `;
 
 const Divider = styled.div`
@@ -17,37 +20,20 @@ const Divider = styled.div`
   margin-right: auto;
 `;
 
-const Title = styled.div`
-  margin: 24px 0 0 50px;
-  font-size: 42px;
+const Title = styled.h1`
+  font-size: 35px;
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
-  position: relative;
-
-  &::after {
-    content: "";
-    display: block;
-    width: 900px;
-    height: 1px;
-    background-color: #D9D9D9;
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-  }
+  margin-left: 30px;
+  margin-top: 24px;
 `;
 
-const Button = styled.button`
-  width: 320px;
-  height: 72px;
-  background-color: #F3F3F3;
-  border: 1px solid #BBBBBB;
-  border-radius: 10px;
-  font-weight: 500;
-  margin: 163px 0 0 130px;
-  cursor: pointer;
-
-  &:nth-child(3) {
-    margin-left: 30px;
-  }
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 700px;  
+  margin-top: 80px;
+  margin-left: 130px;
 `;
 
 const SignupComponents = () => {
@@ -55,8 +41,10 @@ const SignupComponents = () => {
     <SignupContainer>
       <Title>회원가입</Title>
       <Divider />
-      <Button>전문의</Button>
-      <Button>재활치료사</Button>
+      <ButtonContainer>
+        <RoleButton role="doctor" />
+        <RoleButton role="therapist" />
+      </ButtonContainer>
     </SignupContainer>
   );
 };

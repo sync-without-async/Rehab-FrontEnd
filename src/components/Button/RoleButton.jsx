@@ -17,8 +17,8 @@ const Button = styled.button`
   cursor: pointer;
 
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  font-weight: 500;
-  font-size: 16px;
+  font-weight: 700;
+  font-size: 24px;
   color: #333; 
 `;
 

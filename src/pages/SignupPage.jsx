@@ -19,7 +19,6 @@ const CenteredContainer = styled.div`
 
 const SignupPage = () => {
 
-
   return (
       <PageContainer>
         <Header/>
