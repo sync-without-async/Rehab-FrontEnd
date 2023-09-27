@@ -5,76 +5,75 @@ import { userLogin } from '../../librarys/login-api';
 import PropTypes from 'prop-types';
 
 const LoginContainer = styled.div`
-  width: 1000px;
-  height: 603px;
-  border-radius: 10px;
+  width: 750px;
+  height: 452px;
+  border-radius: 7.5px;
   background-color: #ffffff;
-  border: 2px solid #0064FF;
+  border: 1.5px solid #0064FF;
   position: relative;
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.1);
 `;
 
-
 const Title = styled.h1`
-  font-size: 35px;
+  font-size: 26.25px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
-  margin-left: 30px;
-  margin-top: 24px;
+  margin-left: 22.5px;
+  margin-top: 18px;
 `;
 
 const Divider = styled.div`
-  width: 900px;
-  height: 1px;
+  width: 675px;
+  height: 0.75px;
   background-color: #D9D9D9;
-  margin-top: 10px;
-  margin-left: 30px;
+  margin-top: 7.5px;
+  margin-left: 22.5px;
   margin-right: auto;
 `;
 
 const Label = styled.label`
-  font-size: 20px;
+  font-size: 15px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
   position: absolute;
 `;
 
 const Input = styled.input`
-  width: 400px;
-  height: 50px;
+  width: 300px;
+  height: 37.5px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   background-color: #FAFAFA;
-  border: 1px solid #BBBBBB;
+  border: 0.75px solid #BBBBBB;
   position: absolute;
   margin-top: 0px;
-  border-radius: 10px;
-  padding-left: 10px; 
-
+  border-radius: 7.5px;
+  padding-left: 7.5px; 
 `;
 
 const Button = styled.button`
-  width: 280px;
-  height: 60px;
+  width: 210px;
+  height: 45px;
   background-color: #3592FF;
-  border-radius: 10px;
+  border-radius: 7.5px;
   color: white;
-  font-size: 22px;
+  font-size: 16.5px;
   border: none;
   cursor: pointer;
   position: absolute;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 const SignupLink = styled.span`
   color: #7E7E7E;
-  font-size: 18px;
+  font-size: 13.5px;
   cursor: pointer;
   position: absolute;
-  margin-left:-20px;
-  margin-top: 10px;
+  margin-left:-15px;
+  margin-top: 7.5px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
+
 
 const LoginComponents = (props) => {
   let navigate = useNavigate();
@@ -99,16 +98,16 @@ const LoginComponents = (props) => {
       <Title>로그인</Title>
       <Divider />
 
-      <Label style={{ left: '300px', top: '187px' }}>아이디</Label>
+      <Label style={{ left: '240px', top: '135px' }}>아이디</Label>
       <Input 
-        style={{ left: '300px', top: '227px' }}
+        style={{ left: '240px', top: '170px' }}
         value={id}
         onChange={(e) => setId(e.target.value)}
       />
 
-      <Label style={{ left: '300px', top: '287px' }}>비밀번호</Label>
+      <Label style={{ left: '240px', top: '225px' }}>비밀번호</Label>
       <Input 
-        style={{ left: '300px', top: '327px' }} 
+        style={{ left: '240px', top: '260px' }} 
         type="password" 
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -117,14 +116,14 @@ const LoginComponents = (props) => {
       {error && <p style={{ color: 'red', position: 'absolute', left: '300px', top: '367px' }}>{error}</p>}
 
       <Button 
-        style={{ left: '360px', top: '397px' }}
+        style={{ left: '280px', top: '310px' }}
         onClick={handleLogin}
       >
         로그인
       </Button>
 
       <SignupLink 
-        style={{ left: '460px', top: '477px' }}
+        style={{ left: '357px', top: '370px' }}
         onClick={() => navigate('/signup')} 
       >
         처음 오셨나요?
