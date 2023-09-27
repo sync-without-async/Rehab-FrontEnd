@@ -5,52 +5,53 @@ import InputText, { Input } from '../Input/InputText';
 import InputImage from '../Input/InputImage';
 
 const SignupContainer = styled.div`
-  width: 1000px;
-  height: 1000px;
-  border-radius: 10px;
+  width: 750px;
+  height: 750px;
+  border-radius: 7.5px;
   background-color: #ffffff;
-  border: 2px solid #0064FF;
+  border: 1.5px solid #0064FF;
   position: relative;
-  box-shadow: 0px 12px 24px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.1);
 `;
 
 const Divider = styled.div`
-  width: 900px;
-  height: 1px;
+  width: 675px;
+  height: 0.75px;
   background-color: #D9D9D9;
-  margin-top: 10px;
-  margin-left: 30px;
+  margin-top: 7.5px;
+  margin-left: 22.5px;
   margin-right: auto;
 `;
 
 const Title = styled.h1`
-  font-size: 35px;
+  font-size: 26.25px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
-  margin-left: 30px;
-  margin-top: 24px;
+  margin-left: 22.5px;
+  margin-top: 18px;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 700px;  
-  margin-top: 80px;
-  margin-left: 130px;
+  width: 580px;  
+  margin-top: 60px;
+  margin-left: 97.5px;
+  gap: 40px;
 `;
 
 const DropdownsContainer = styled.div`
-  margin-top: 30px;
-  margin-left: 130px;
+  margin-top: 22.5px;
+  margin-left: 97.5px;
 `;
 
 const InputFieldsContainer = styled.div`
   display: flex;
   justify-content: space-between; 
-  margin-top: 30px; 
-  margin-left: 130px;
-  gap: 20px; 
-  width: 700px;  
+  margin-top: 22.5px; 
+  margin-left: 97.5px;
+  gap: 15px; 
+  width: 525px;  
 `;
 
 const FlexContainer = styled.div`
@@ -58,7 +59,8 @@ const FlexContainer = styled.div`
   align-items: center;
   width: 100%;
   margin-left: 0px;
-  gap: 60px;
+  gap: 70px;
+  font-size: 16px;
 `;
 
 const StyledInputImage = styled(InputImage)`
@@ -68,25 +70,24 @@ const EmailInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 5px;
-  width: 700px; 
-  margin-left: 130px; 
-  margin-top: 30px;
+  gap: 3.75px;
+  width: 525px; 
+  margin-left: 97.5px; 
+  margin-top: 22.5px;
 `;
 
-
 const EmailInput = styled(Input)`
-  width: 200%;
+  width: 150%;
 `;
 
 const VerifyButton = styled.button`
-  width: 130px;
-  height: 50px;
+  width: 97.5px;
+  height: 37.5px;
   background-color: #f0f0f0;
-  border: 1px solid #BBBBBB;
-  border-radius: 10px;
+  border: 0.75px solid #BBBBBB;
+  border-radius: 7.5px;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 700;
   display: flex;
   justify-content: center;
@@ -99,17 +100,17 @@ const VerifyButton = styled.button`
 `;
 
 const Button = styled.button`
-  width: 280px;
-  height: 60px;
+  width: 210px;
+  height: 45px;
   background-color: #3592FF;
-  border-radius: 10px;
+  border-radius: 7.5px;
   color: white;
-  font-size: 22px;
+  font-size: 16.5px;
   border: none;
   cursor: pointer;
   position: absolute;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  margin-top: 40px;
+  margin-top: 30px;
   left: 0;
   right: 0;
   margin-left: auto;

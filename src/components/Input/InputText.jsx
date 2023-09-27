@@ -14,13 +14,13 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 320px;
-  height: 50px;
+  width: 250px;
+  height: 40px;
   border-radius: 10px;
   background-color: #FAFAFA;
   border: 1px solid #BBBBBB;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-  padding-left: 10px;
+  padding-left: 0px;
 
   &:focus {
     outline: none;

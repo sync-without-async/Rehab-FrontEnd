@@ -5,31 +5,31 @@ import dropdownicon from "../../assets/icons/dropdownicon.png";
 const Label = styled.div`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 16px;
-  margin-bottom: 5px;
-  padding-top:10px;
+  font-size: 12px;
+  margin-bottom: 3.75px;
+  padding-top: 7.5px;
 `;
 
 const DropdownContainer = styled.div`
-  width: 320px;
-  height: 50px;
+  width: 240px;
+  height: 37.5px;
   background-color: #FFFFFF;
-  border: 1px solid #BBBBBB; 
+  border: 0.75px solid #BBBBBB; 
   position: relative;
   cursor: pointer;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); 
+  margin-bottom: 7.5px;
+  border-radius: 7.5px;
+  box-shadow: 0px 1.5px 3px rgba(0, 0, 0, 0.1); 
 `;
 
 const DropdownText = styled.input`
-  width: calc(100% - 60px); 
+  width: calc(100% - 45px); 
   height: 100%;
   border: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 16px;
-  padding-left: 10px;
+  font-size: 12px;
+  padding-left: 7.5px;
   &:focus {
     outline: none;
   }
@@ -37,25 +37,25 @@ const DropdownText = styled.input`
 
 const DropdownIcon = styled.img`
   position: absolute;
-  right: 10px;
+  right: 7.5px;
   top: 50%;
   transform: translateY(-50%);
 `;
 
 const DropdownList = styled.div`
   width: 100%;
-  max-height: ${props => (props.open ? '150px' : '0')}; 
+  max-height: ${props => (props.open ? '112.5px' : '0')}; 
   overflow-y: auto;
   position: absolute;
   top: 100%;
   left: 0;
   background-color: #FFFFFF;
-  border: 1px solid #ccc;
+  border: 0.75px solid #ccc;
   z-index: 1;
 `;
 
 const DropdownItem = styled.div`
-  padding: 10px;
+  padding: 7.5px;
 `;
 
 function Dropdown({ label, items }) {
