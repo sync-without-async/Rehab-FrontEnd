@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Header from '../components/Header/Header';
 import LoginComponents from "../components/Accounts/LoginComponents";
 import { useState } from 'react';
+import UserCard from "../components/Accounts/UserCard";
 
 const PageContainer = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ const LoginPage = () => {
           <CenteredContainer>
               <LoginComponents onLoginSuccess={handleLoginSuccess} />
           </CenteredContainer>
+          <UserCard/>
       </PageContainer>
   );
 }

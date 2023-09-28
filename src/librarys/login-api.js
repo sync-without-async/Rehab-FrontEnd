@@ -1,14 +1,16 @@
 export async function userLogin(id, password) {
   const accounts = [
     {
-      //User: 환자
+      // User: 환자
       type: "user",
       id: "HL0001",
       password: "123456",
       name: "오소현",
       admin: false,
+      assignedDoctor: "김정원", // 이 환자에게 배정된 전문의
+      assignedTherapist: "오민혁", // 이 환자에게 배정된 재활치료사
     },
-    //Admin1: 전문의
+    // Admin1: 전문의
     {
       type: "admin1",
       id: "doctor",
@@ -16,7 +18,7 @@ export async function userLogin(id, password) {
       name: "김정원",
       admin: true,
     },
-    //Admin2: 재활치료사
+    // Admin2: 재활치료사
     {
       type: "admin2",
       id: "therapist",
@@ -27,10 +29,7 @@ export async function userLogin(id, password) {
   ];
 
   const account = accounts.find((item) => item.id === id);
-  if (!account) {
-    return null;
-  }
-  if (account.password !== password) {
+  if (!account || account.password !== password) {
     return null;
   }
 
@@ -43,6 +42,8 @@ export async function userLogin(id, password) {
         access_token: "user_token1",
         refresh_token: "user_token2",
         admin: account.admin,
+        assignedDoctor: account.assignedDoctor,
+        assignedTherapist: account.assignedTherapist,
       };
     case "admin1":
       return {
