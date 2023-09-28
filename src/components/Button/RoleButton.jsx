@@ -5,8 +5,8 @@ import Doctor from "../../assets/images/user/Odoctor.png";
 import Therapist from "../../assets/images/user/Otherapist.png";
 
 const Button = styled.button`
-  width: 320px;
-  height: 72px;
+  width: 240px;
+  height: 50px;
   border-radius: 10px;
   background-color: #F3F3F3;
   border: ${({ isSelected }) => (isSelected ? '3px solid #AD5DFD' : '1px solid #BBBBBB')};
@@ -18,7 +18,7 @@ const Button = styled.button`
 
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 700;
-  font-size: 24px;
+  font-size: 18px;
   color: #333; 
 `;
 

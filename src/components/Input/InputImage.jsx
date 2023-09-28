@@ -2,13 +2,13 @@ import { useState } from 'react';
 import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 320px;
-  height: 198px;
+  width: 240px;
+  height: 160px;
   display: flex;
   flex-direction: row;  
   align-items: flex-start;  
   margin-top:50px;
-  gap: 50px;
+  gap:20px;
 `;
 
 
@@ -19,8 +19,8 @@ const Label = styled.label`
 `;
 
 const UploadBox = styled.div`
-  width: 180px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   background-color: #F3F3F3;
   border: 1px solid #BBBBBB;
   display: flex;
