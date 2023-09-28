@@ -7,8 +7,10 @@ export async function userLogin(id, password) {
       password: "123456",
       name: "오소현",
       admin: false,
-      assignedDoctor: "김정원", // 이 환자에게 배정된 전문의
-      assignedTherapist: "오민혁", // 이 환자에게 배정된 재활치료사
+      assignedDoctor: "김정원", // 배정된 전문의
+      assignedTherapist: "오민혁", // 배정된 재활치료사
+      recentVisitDate: "2023.09.01", // 최근 외래 진료일
+      nextReservationDate: "2023.09.11" // 다음 외래 예약일
     },
     // Admin1: 전문의
     {
@@ -44,6 +46,8 @@ export async function userLogin(id, password) {
         admin: account.admin,
         assignedDoctor: account.assignedDoctor,
         assignedTherapist: account.assignedTherapist,
+        recentVisitDate: account.recentVisitDate,
+        nextReservationDate: account.nextReservationDate
       };
     case "admin1":
       return {

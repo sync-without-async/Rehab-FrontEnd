@@ -74,7 +74,7 @@ const UserCard = () => {
 
     useEffect(() => {
         async function fetchUserData() {
-            const data = await userLogin('HL0001', '123456'); // 예시로 'HL0001', '123456' 사용
+            const data = await userLogin('HL0001', '123456'); 
             if (data) {
                 setUserData(data);
             }
