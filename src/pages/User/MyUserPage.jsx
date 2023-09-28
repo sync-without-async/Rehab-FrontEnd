@@ -6,29 +6,49 @@ import UserUntactRecord from '../../components/UserDashBoard/UserUntactRecord';
 
 const PageContainer = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   height: 100vh;
 `;
 
 const CenteredContainer = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex: 1; 
-  margin-top: -50px;
+  flex: 1;
+  margin-top: 10px; 
 `;
+
+const StyledComponentWrapper = styled.div`
+  margin: 14px 0;
+
+  &:first-child {
+    margin-top: 60px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 28px; // 28px 마진을 추가합니다.
+  }
+`;
+
 
 const MyUserPage = () => {
 
   return (
-      <PageContainer>
-          <Header/>
-          <CenteredContainer>
-            <UserDashHeader/>
-            <UserAssignList/>
-            <UserUntactRecord />
-          </CenteredContainer>
-      </PageContainer>
+    <PageContainer>
+      <Header/>
+      <CenteredContainer>
+        <StyledComponentWrapper>
+          <UserDashHeader/>
+        </StyledComponentWrapper>
+        <StyledComponentWrapper>
+          <UserAssignList/>
+        </StyledComponentWrapper>
+        <StyledComponentWrapper>
+          <UserUntactRecord />
+        </StyledComponentWrapper>
+      </CenteredContainer>
+    </PageContainer>
   );
 }
 

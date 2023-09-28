@@ -21,7 +21,7 @@ const Title = styled.h1`
 `;
 
 const Divider = styled.hr`
-  width: 720px;
+  width: 100%;
   height: 1px;
   background-color: #d9d9d9;
   border: none;
@@ -31,7 +31,7 @@ const Divider = styled.hr`
 const ButtonGroup = styled.div`
   position: absolute;
   top: 20px;
-  right: 60px;
+  right: 20px;
 `;
 
 const Button = styled.button`
@@ -58,7 +58,7 @@ const DateText = styled.p`
 `;
 
 const RecordBox = styled.div`
-  width: 720px;
+  width: 100%;
   height: 122px;
   background-color: #FAFAFA;
   border-radius: 10px;
@@ -73,7 +73,7 @@ const DoctorInfo = styled.span`
   font-size: 18px;
   position: absolute; 
   margin-top: 15px; 
-  right: 60px;
+  right: 20px;
 `;
 
 
