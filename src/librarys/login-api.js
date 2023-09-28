@@ -88,3 +88,24 @@ const userExercises = {
 export function getUserExercises(userId) {
   return userExercises[userId] || [];
 }
+
+// 기존 login-api.js 파일에 비대면 진료 기록 추가
+const userUntactRecords = {
+  "HL0001": [
+    {
+      date: "2023.08.31",
+      doctorName: "김정원 전문의",
+      record: "환자는 3일 전부터 갑자기 시작된 기침과 가래를 주소로 내원하였음. 체온 측정 결과 38.2도로 발열 증상도 있음. 오늘 진료를 통해 급성 기관지염으로 진단하고, 관련 약물 처방하였음. 1주 후 재진을 권장함."
+    },
+    {
+      date: "2023.09.22",
+      doctorName: "오민혁 재활치료사",
+      record: "환자는 3일 전부터 갑자기 시작된 기침과 가래를 주소로 내원하였음. 체온 측정 결과 38.2도로 발열 증상도 있음. 오늘 진료를 통해 급성 기관지염으로 진단하고, 관련 약물 처방하였음. 1주 후 재진을 권장함."
+    }
+  ]
+};
+
+// 비대면 진료 기록을 반환하는 함수
+export function getUntactRecords(userId) {
+  return userUntactRecords[userId];
+}

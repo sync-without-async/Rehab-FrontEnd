@@ -5,7 +5,7 @@ import Pagination from "../Pagination/Pagination";
 import { getUserExercises } from "../../librarys/login-api";
 
 const Container = styled.div`
-  width: 720px;
+  width: 800px;
   height: 635px;
   margin: 0 auto;
   padding: 20px;
@@ -83,7 +83,7 @@ const TableCell = styled.td`
     width: 60px;
   }
   &:nth-child(2) {
-    width: 400px;
+    width: 470px;
   }
   &:nth-child(3) {
     width: 60px;
@@ -120,9 +120,6 @@ const PlayerIcon = styled.img`
   height: 18px;
 `;
 
-const Percentage = styled.span`
-  color: ${({ completed }) => (completed ? "#0064FF" : "#FF0000")};
-`;
 
 const Accuracy = styled.span`
   color: #000;
@@ -137,7 +134,7 @@ const Judgement = styled.span`
   }};
 `;
 
-const ExerciseList = () => {
+const UserAssignList = () => {
   const userId = "HL0001"; 
   const exercises = getUserExercises(userId);
 
@@ -201,5 +198,5 @@ const ExerciseList = () => {
   );
 };
 
-export default ExerciseList;
+export default UserAssignList;
 
