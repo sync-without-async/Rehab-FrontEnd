@@ -19,25 +19,21 @@ const StyledArrow = styled.img`
 const StyledReactPaginate = styled(ReactPaginate)`
   display: flex;
   justify-content: center;
-  list-style: none; // add this line
+  list-style: none; 
   .page-link {
-    font-family: 'Nanum Gothic';
-    font-size: 13px;
-    font-weight: 700;
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    font-size: 20px;
+    font-weight: 300;
     line-height: 19px;
     letter-spacing: -0.02em;
     text-align: center;
     color: black;
     margin: 0 3px;
     padding: 5px 10px;
-    border-radius: 5px;
-    border: 1px solid #5c859b;
-    &:hover {
-      background-color: #5c859b55;
-    }
   }
   .active-link {
-    color: #D94A56;
+    color: #00418E;
+    font-weight:bold;
   }
 `;
 

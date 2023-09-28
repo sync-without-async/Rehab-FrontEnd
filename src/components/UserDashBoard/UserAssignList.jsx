@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import assigninfo from "../../assets/icons/assigninfo.png";
 import player from "../../assets/icons/player.png";
+import Pagination from '../Pagination/Pagination';
 
 const Container = styled.div`
     width: 720px; 
@@ -126,50 +127,62 @@ const Percentage = styled.span`
 
 
 const ExerciseList = () => {
-    return (
-      <Container>
-      <Title>과제</Title>
-      <Divider />
-      <InfoBox>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-              <InfoIcon src={assigninfo} alt="Info Icon" />
-              <InfoTitle>재활치료사의 과제 설명</InfoTitle>
-          </div>
-          <InfoMessage>
-              환자의 팔을 집중적으로 재활하는 과제를 할당하였습니다. ~~~를 신경쓰면서 해주세요.
-          </InfoMessage>
-      </InfoBox>
-      
-            
-      <Table>
-                <thead>
-                    <TableRow>
-                        <TableHeader>번호</TableHeader> 
-                        <TableHeader>과제 이름</TableHeader>
-                        <TableHeader>정확도</TableHeader>
-                        <TableHeader>판정</TableHeader>
-                        <TableHeader>수강</TableHeader>
-                    </TableRow>
-                </thead>
-                <tbody>
-                    {Array(8).fill(null).map((_, index) => (
-                        <TableRow key={index}>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>과제 {index + 1}</TableCell>
-                            <TableCell>
-                                <Percentage completed={index < 3}>
-                                    {index < 2 ? '80%' : index === 2 ? '40%' : '0%'}
-                                </Percentage>
-                            </TableCell>
-                            <TableCell>{index < 2 ? '합격' : '미흡'}</TableCell>
-                            <TableCell><PlayerIcon src={player} alt="Player Icon" /></TableCell> {/* 이미지를 추가 */}
-                        </TableRow>
-                    ))}
-                </tbody>
-            </Table>
-
-        </Container>
-    );
-}
+      // 페이지네이션을 위한 상태 설정
+      const totalItems = 40; // 전체 아이템 수를 설정해주세요
+      const itemsPerPage = 8;
+  
+      const handlePageChange = (selectedPage) => {
+          
+          console.log("Selected page:", selectedPage);
+      };
+      return (
+        <Container>
+        <Title>과제</Title>
+        <Divider />
+        <InfoBox>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <InfoIcon src={assigninfo} alt="Info Icon" />
+                <InfoTitle>재활치료사의 과제 설명</InfoTitle>
+            </div>
+            <InfoMessage>
+                환자의 팔을 집중적으로 재활하는 과제를 할당하였습니다. ~~~를 신경쓰면서 해주세요.
+            </InfoMessage>
+        </InfoBox>
+        <Table>
+                  <thead>
+                      <TableRow>
+                          <TableHeader>번호</TableHeader> 
+                          <TableHeader>과제 이름</TableHeader>
+                          <TableHeader>정확도</TableHeader>
+                          <TableHeader>판정</TableHeader>
+                          <TableHeader>수강</TableHeader>
+                      </TableRow>
+                  </thead>
+                  <tbody>
+                      {Array(8).fill(null).map((_, index) => (
+                          <TableRow key={index}>
+                              <TableCell>{index + 1}</TableCell>
+                              <TableCell>과제 {index + 1}</TableCell>
+                              <TableCell>
+                                  <Percentage completed={index < 3}>
+                                      {index < 2 ? '80%' : index === 2 ? '40%' : '0%'}
+                                  </Percentage>
+                              </TableCell>
+                              <TableCell>{index < 2 ? '합격' : '미흡'}</TableCell>
+                              <TableCell><PlayerIcon src={player} alt="Player Icon" /></TableCell>
+                          </TableRow>
+                      ))}
+                  </tbody>
+              </Table>
+              
+              {/* 페이지네이션 컴포넌트 추가 */}
+              <Pagination 
+                  totalItems={totalItems}
+                  itemsPerPage={itemsPerPage}
+                  onChange={handlePageChange}
+              />
+          </Container>
+      );
+  }
 
 export default ExerciseList;
