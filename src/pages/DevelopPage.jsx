@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Header from '../components/Header/Header';
-import UserDashHeader from '../components/UserDashBoard/UserDashHeader';
+import UserAssignList from "../components/UserDashBoard/UserAssignList";
 
 const PageContainer = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const DevelopPage = () => {
       <PageContainer>
           <Header/>
           <CenteredContainer>
-            <UserDashHeader/>
+            <UserAssignList />
           </CenteredContainer>
       </PageContainer>
   );
