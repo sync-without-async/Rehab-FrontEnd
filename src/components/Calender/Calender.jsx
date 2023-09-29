@@ -56,7 +56,7 @@ const Calender = () => {
     days.unshift(null);
   }
 
-  while (days.length < 42) {
+  while (days.length < 35) {
     days.push(null);
   }
 
