@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import XButton from '../../assets/icons/iconx.png';
 import Calendar from '../Calender/Calender.jsx';
 import { useState } from 'react';
+import InputTextLong from '../Input/InputTextLong';
 
 const Overlay = styled.div`
   position: fixed;
@@ -55,6 +56,11 @@ const DateText = styled.p`
   margin-top: -10px;
 `;
 
+const ReasonText = styled.p`
+  font-size: 16px;
+  margin-top: 10px;
+`;
+
 const TimeButton = styled.button`
   width: 90px;
   height: 40px;
@@ -73,9 +79,26 @@ const TimeButton = styled.button`
 const TimeButtonContainer = styled.div`
   display: flex;
   margin-top: 20px;
-  margin-left:10px;
-  gap:10px;
+  margin-left:8px;
+  gap:5px;
 `;
+
+const Button = styled.button`
+  width: 140px;
+  height: 30px;
+  background-color: #3592FF;
+  font-weight: 300;
+  color: #FEFDFD;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top:20px;
+  display: block;     
+  margin-left: auto;
+  margin-right: auto; 
+`;
+
 
 export const UntactReserveModal = ({ onClose }) => {
   const [selectedTime, setSelectedTime] = useState(null);
@@ -113,7 +136,9 @@ export const UntactReserveModal = ({ onClose }) => {
             </TimeButton>
           ))}
         </TimeButtonContainer>
-        <DateText>진료 희망 사유 *</DateText>
+        <ReasonText>진료 희망 사유 *</ReasonText>
+        <InputTextLong/>
+        <Button>예약 신청</Button>
       </ModalContainer>
     </Overlay>
   );

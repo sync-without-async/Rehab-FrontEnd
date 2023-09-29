@@ -12,7 +12,7 @@ const BackButtonContainer = styled.button`
     align-items: center;
     justify-content: center;
     padding: 0 15px; 
-    margin-top:60px;
+    margin-top:40px;
     margin-bottom: 10px;
     margin-left: -580px;
 `;
