@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Icondoctor from "../../assets/icons/icondoctor.png";
@@ -5,6 +6,8 @@ import Iconmajor from "../../assets/icons/iconmajor.png";
 import Iconhospital from "../../assets/icons/iconhospital.png";
 import DoctorImage from "../../assets/images/user/Odoctor.png";
 import TherapistImage from "../../assets/images/user/Otherapist.png";
+import { UntactReserveModal } from "../UntactReserve/UntactReserveModal";
+
 
 const Card = styled.div`
     width: 280px;
@@ -84,13 +87,20 @@ const MidSection = styled.div`
 
 
 export const UserSelectCard = ({ userType, userData }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  const toggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   if (!userData) return null;
 
   const imageUrl = userType === "admin1" ? DoctorImage : TherapistImage;
   const title = userType === "admin1" ? "담당 전문의 프로필" : "담당 재활치료사 프로필";
 
   return (
-    <Card>
+    <>
+      <Card>
       <Title>{title}</Title>
       <Separator />
       <MidSection>
@@ -104,8 +114,10 @@ export const UserSelectCard = ({ userType, userData }) => {
       <Info><Icon src={Iconhospital} alt="icon" /> {userData.workplace}</Info>
       <Info><Icon src={Iconmajor} alt="icon" /> {userData.major}</Info>
       <Separator />
-      <Button>진료 예약</Button>
-    </Card>
+      <Button onClick={toggleModal}>진료 예약</Button>
+      </Card>
+      {isModalOpen && <UntactReserveModal onClose={toggleModal} />}
+    </>
   );
 }
 
