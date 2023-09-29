@@ -45,7 +45,6 @@ const Calender = () => {
 
   const daysInCurrentMonth = dayjs([2023, selectedMonth]).daysInMonth();
   const startDayOfWeek = dayjs([2023, selectedMonth, 1]).day();
-  
 
   let days = [];
   for (let i = 1; i <= daysInCurrentMonth; i++) {
@@ -65,7 +64,7 @@ const Calender = () => {
     <>
       <SelectorContainer>
         <Icon src={IconLeft} alt="Previous Month" onClick={prevMonth} />
-        <MonthLabel>{`2023.${selectedMonth < 9 ? `0${selectedMonth }` : selectedMonth }`}</MonthLabel>
+        <MonthLabel>{`2023.${selectedMonth < 9 ? `${selectedMonth }` : selectedMonth }`}</MonthLabel>
         <Icon src={IconRight} alt="Next Month" onClick={nextMonth} />
       </SelectorContainer>
       <Container>
@@ -76,16 +75,14 @@ const Calender = () => {
               key={idx}
               date={day}
               type={type}
-              isSelected={selectedDate === day}
+              isSelected={selectedDate === day && day !== null}
               onSelectDate={setSelectedDate}
             />
           );
         })}
       </Container>
-      </>
+    </>
   );
 };
 
 export default Calender;
-
-
