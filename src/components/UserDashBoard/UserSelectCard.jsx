@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Icondoctor from "../../assets/icons/icondoctor.png";
 import Iconmajor from "../../assets/icons/iconmajor.png";
 import Iconhospital from "../../assets/icons/iconhospital.png";
 import DoctorImage from "../../assets/images/user/Odoctor.png";
 import TherapistImage from "../../assets/images/user/Otherapist.png";
-import {userLogin} from "../../librarys/login-api";
 
 const Card = styled.div`
-    width: 250px;
+    width: 280px;
     border: 1px solid #e1e1e1;
     padding: 20px;
     border-radius: 10px;
@@ -52,10 +51,6 @@ const UserName = styled.span`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
 `;
 
-const UserTitle = styled.span`
-    font-size: 16px;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-`;
 
 const Info = styled.div`
     font-family: 'Spoqa Han Sans Neo', 'sans-serif';
@@ -65,75 +60,62 @@ const Info = styled.div`
 `;
 
 const Button = styled.button`
-    width: 150px;
-    height: 24px;
-    border-radius: 10px;
-    background-color: #000;
-    color: #fff;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    cursor: pointer;
-    border: none;
-    align-self: center;
-    margin-top: 15px;
+  width: 150px;
+  height: 24px;
+  border-radius: 10px;
+  background-color: #3592FF;
+  color: #FEFDFD;
+  cursor: pointer;
+  border: none;
+  align-self: center;
+  font-size: 12px;
 `;
 
 const Icon = styled.img`
-    width: 16px;
-    height: 16px;
-    margin-right: 8px;
-    vertical-align: middle;
+  height: 12px;
+  width: 12px;
+  margin-right: 5px;
+  vertical-align: middle;
 `;
 
-const UserSelectCard = () => {
-  const [userData, setUserData] = useState(null);
-  const [doctorData, setDoctorData] = useState(null);
-  const [therapistData, setTherapistData] = useState(null);
+const MidSection = styled.div`
+    background-color: rgba(0, 100, 255, 0.03); 
+`;
 
-  useEffect(() => {
-      async function fetchUserData() {
-          const data = await userLogin('HL0001', '123456'); 
-          if (data) {
-              setUserData(data);
 
-              
-              const doctorDetails = await userLogin('doctor', '123456');
-              setDoctorData(doctorDetails);
-
-              
-              const therapistDetails = await userLogin('therapist', '123456');
-              setTherapistData(therapistDetails);
-          }
-      }
-      fetchUserData();
-  }, []);
-
+export const UserSelectCard = ({ userType, userData }) => {
   if (!userData) return null;
 
+  const imageUrl = userType === "admin1" ? DoctorImage : TherapistImage;
+  const title = userType === "admin1" ? "담당 전문의 프로필" : "담당 재활치료사 프로필";
+
   return (
-      <Card>
-          <Title>{userData.assignedDoctor ? "담당 전문의 프로필" : "담당 재활치료사 프로필"}</Title>
-          <Separator />
-          <ImageContainer>
-              <Avatar src={userData.assignedDoctor ? DoctorImage : TherapistImage} alt="avatar" />
-          </ImageContainer>
-          <UserName>{userData.name}</UserName><UserTitle>님</UserTitle>
-          <Separator />
-          <Info>
-              <Icon src={Icondoctor} alt="role-icon" />
-              {userData.assignedDoctor ? "전문의" : "재활치료사"}
-          </Info>
-          <Info>
-              <Icon src={Iconhospital} alt="workplace-icon" />
-              {userData.assignedDoctor ? doctorData.workplace : therapistData.workplace}
-          </Info>
-          <Info>
-              <Icon src={Iconmajor} alt="major-icon" />
-              {userData.assignedDoctor ? doctorData.major : therapistData.major}
-          </Info>
-          <Separator />
-          <Button>진료 예약</Button>
-      </Card>
+    <Card>
+      <Title>{title}</Title>
+      <Separator />
+      <MidSection>
+        <ImageContainer>
+          <Avatar src={imageUrl} alt="avatar" />
+        </ImageContainer>
+        <UserName>{userData.name}</UserName>
+      </MidSection>
+      <Separator />
+      <Info><Icon src={Icondoctor} alt="icon" /> {userType === "admin1" ? "전문의" : "재활치료사"}</Info>
+      <Info><Icon src={Iconhospital} alt="icon" /> {userData.workplace}</Info>
+      <Info><Icon src={Iconmajor} alt="icon" /> {userData.major}</Info>
+      <Separator />
+      <Button>진료 예약</Button>
+    </Card>
   );
 }
+
+UserSelectCard.propTypes = {
+  userType: PropTypes.string.isRequired,
+  userData: PropTypes.shape({
+    name: PropTypes.string,
+    workplace: PropTypes.string,
+    major: PropTypes.string,
+  }).isRequired,
+};
 
 export default UserSelectCard;

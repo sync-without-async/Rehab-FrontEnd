@@ -35,14 +35,18 @@ export async function userLogin(id, password) {
   ];
 
   const account = accounts.find((item) => item.id === id);
+
   if (!account || account.password !== password) {
     return null;
   }
 
-  // 계정 유형에 따른 다른 반환 값
-  switch (account.type) {
-    case "user":
-      return {
+  
+  if (account.type === "user") {
+    const doctor = accounts.find(item => item.name === account.assignedDoctor && item.type === "admin1");
+    const therapist = accounts.find(item => item.name === account.assignedTherapist && item.type === "admin2");
+
+    return {
+      user: {
         email: account.id,
         name: account.name,
         access_token: "user_token1",
@@ -52,30 +56,33 @@ export async function userLogin(id, password) {
         assignedTherapist: account.assignedTherapist,
         recentVisitDate: account.recentVisitDate,
         nextReservationDate: account.nextReservationDate,
-      };
-      case "admin1":
-        return {
-          email: account.id,
-          name: account.name,
-          major: account.major, 
-          workplace: account.workplace, 
-          access_token: "admin1_token1",
-          refresh_token: "admin1_token2",
-          admin: account.admin,
-        };
-      case "admin2":
-        return {
-          email: account.id,
-          name: account.name,
-          major: account.major, 
-          workplace: account.workplace, 
-          access_token: "admin2_token1",
-          refresh_token: "admin2_token2",
-          admin: account.admin,
-        };
-    default:
-      return null;
+      },
+      doctor,
+      therapist,
+    };
+  } else if (account.type === "admin1") {
+    return {
+      email: account.id,
+      name: account.name,
+      major: account.major, 
+      workplace: account.workplace, 
+      access_token: "admin1_token1",
+      refresh_token: "admin1_token2",
+      admin: account.admin,
+    };
+  } else if (account.type === "admin2") {
+    return {
+      email: account.id,
+      name: account.name,
+      major: account.major, 
+      workplace: account.workplace, 
+      access_token: "admin2_token1",
+      refresh_token: "admin2_token2",
+      admin: account.admin,
+    };
   }
+
+  return null;
 }
 
 // 임시로 환자에게 할당된 과제 데이터를 추가
