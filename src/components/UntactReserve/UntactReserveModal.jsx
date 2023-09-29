@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import XButton from '../../assets/icons/iconx.png';
+import Calendar from '../Calender/Calender.jsx';
 
 const Overlay = styled.div`
   position: fixed;
@@ -61,6 +62,7 @@ export const UntactReserveModal = ({ onClose }) => {
         <CloseIcon src={XButton} alt="Close" onClick={onClose} />
         <Divider />
         <DateText>날짜 선택 *</DateText>
+        <Calendar />
       </ModalContainer>
     </Overlay>
   );
