@@ -27,7 +27,7 @@ const StyledComponentWrapper = styled.div`
   }
 
   &:not(:last-child) {
-    margin-bottom: 28px; // 28px 마진을 추가합니다.
+    margin-bottom: 28px; 
   }
 `;
 
