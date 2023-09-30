@@ -5,6 +5,7 @@ import MyUserPage from './pages/User/MyUserPage.jsx';
 import DevelopPage from './pages/DevelopPage.jsx';
 import UserUntactReservePage from './pages/User/UserUntactReservePage.jsx';
 import UserReservePage from './pages/User/UserReservePage.jsx';
+import DoctorDashBoardPage from './pages/Doctor/DoctorDashBoardPage.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -24,6 +25,7 @@ function App() {
           <Route path="/userdash" element={<MyUserPage/>}/>
           <Route path="/useruntactreserve" element={<UserUntactReservePage/>} />
           <Route path="/userreserve" element={<UserReservePage />} />
+          <Route path="/doctordash" element={<DoctorDashBoardPage />} />
         </Routes>
       </Container>
     </Router>
