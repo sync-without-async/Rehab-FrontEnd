@@ -13,7 +13,7 @@ const Container = styled.div`
 
 const DateInput = styled.input`
   box-sizing: border-box;
-  width: 188px;
+  width: 200px;
   height: 40px;
   border-radius: 10px;
   background-color: #FAFAFA;
@@ -142,7 +142,7 @@ const DateSelect = ({ labelText }) => {
         <DateInput
           type='text'
           value={date}
-          placeholder='날짜를 선택해주세요.'
+          placeholder='   날짜를 선택해주세요.'
           onChange={handleChangeDate}
         />
         <CalendarButton type='button' onClick={handleClickButton} />

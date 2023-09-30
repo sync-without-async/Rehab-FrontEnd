@@ -2,10 +2,11 @@ import styled from "styled-components";
 import InputText from "../Input/InputText";
 import Dropdown from "../Dropdown/Dropdown";
 import DateSelect from "../Input/DateSelect";
+import InputTextLong from "../Input/InputTextLong";
 
-const SignupContainer = styled.div`
-  width: 750px;
-  height: 750px;
+const ChartContainer = styled.div`
+  width: 800px;
+  height: 900px;
   border-radius: 7.5px;
   background-color: #ffffff;
   border: 1.5px solid #0064ff;
@@ -60,9 +61,11 @@ const Button = styled.button`
 const DoctorChart = () => {
 
   const gender = ["남성", "여성"];
+  
+  const therapist = ["오민혁" , "오민혁", "오민혁"];
 
   return (
-    <SignupContainer>
+    <ChartContainer>
       <Title>환자 차트 작성</Title>
       <Divider />
       <InputFieldsContainer>
@@ -75,10 +78,19 @@ const DoctorChart = () => {
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 전화번호*" />
-        <Dropdown label="담당 치료사 *" items={gender} />
+        <Dropdown label="담당 치료사 *" items={therapist} />
       </InputFieldsContainer>
-      <Button>가입하기</Button>
-    </SignupContainer>
+      <InputFieldsContainer>
+        <DateSelect labelText="다음 외래 일정 *" />
+      </InputFieldsContainer>
+      <InputFieldsContainer>
+      <InputTextLong label="진료 기록 작성*" />
+      </InputFieldsContainer>
+      <InputFieldsContainer>
+      <InputTextLong label="재활치료사 재활 운동 요청서 작성*" />
+      </InputFieldsContainer>
+      <Button>작성하기</Button>
+      </ChartContainer>
   );
 };
 

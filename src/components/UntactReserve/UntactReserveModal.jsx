@@ -56,11 +56,6 @@ const DateText = styled.p`
   margin-top: -10px;
 `;
 
-const ReasonText = styled.p`
-  font-size: 16px;
-  margin-top: 10px;
-`;
-
 const TimeButton = styled.button`
   width: 90px;
   height: 40px;
@@ -136,8 +131,7 @@ export const UntactReserveModal = ({ onClose }) => {
             </TimeButton>
           ))}
         </TimeButtonContainer>
-        <ReasonText>진료 희망 사유 *</ReasonText>
-        <InputTextLong/>
+        <InputTextLong label="진료 희망 사유*" />
         <Button>예약 신청</Button>
       </ModalContainer>
     </Overlay>
