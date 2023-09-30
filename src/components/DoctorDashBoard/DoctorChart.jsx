@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import InputText, { Input } from "../Input/InputText";
+import InputText from "../Input/InputText";
 import Dropdown from "../Dropdown/Dropdown";
-import DatePicker from "react-datepicker";
-import { useState } from "react";
+import DateSelect from "../Input/DateSelect";
+
 
 const SignupContainer = styled.div`
   width: 750px;
@@ -40,25 +40,6 @@ const InputFieldsContainer = styled.div`
   width: 525px;
 `;
 
-const VerifyButton = styled.button`
-  width: 97.5px;
-  height: 37.5px;
-  background-color: #f0f0f0;
-  border: 0.75px solid #bbbbbb;
-  border-radius: 7.5px;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
-  font-size: 12px;
-  font-weight: 700;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-
-  &:focus {
-    outline: none;
-  }
-`;
-
 const Button = styled.button`
   width: 210px;
   height: 45px;
@@ -78,14 +59,10 @@ const Button = styled.button`
 `;
 
 const DoctorChart = () => {
-  const [date, setDate] = useState(new Date());
 
-  const handleCalendarClose = () => console.log("Calendar closed");
-  const handleCalendarOpen = () => console.log("Calendar opened");
-  // 소속병원 선택
   const gender = ["남성", "여성"];
 
-  const therapist = ["오민혁", ""];
+  //
 
   return (
     <SignupContainer>
@@ -97,12 +74,7 @@ const DoctorChart = () => {
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 성함 *" />
-        <DatePicker
-      selected={date}
-      onChange={(date) => setDate(date)}
-      onCalendarClose={handleCalendarClose}
-      onCalendarOpen={handleCalendarOpen}
-    />
+        <DateSelect/>
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 전화번호*" />
