@@ -5,13 +5,14 @@ import dropdownicon from "../../assets/icons/dropdownicon.png";
 const Label = styled.div`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 3.75px;
+  margin-top:-10px;
   padding-top: 7.5px;
 `;
 
 const DropdownContainer = styled.div`
-  width: 240px;
+  width: 250px;
   height: 37.5px;
   background-color: #FFFFFF;
   border: 0.75px solid #BBBBBB; 
@@ -28,7 +29,7 @@ const DropdownText = styled.input`
   border: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
   padding-left: 7.5px;
   &:focus {
     outline: none;

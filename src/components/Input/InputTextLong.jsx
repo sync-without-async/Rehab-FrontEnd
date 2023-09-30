@@ -4,13 +4,18 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 320px;
-  margin-top:10px;
 `;
 
+const Label = styled.label`
+  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 5px;
+`;
 
 const Input = styled.input`
-  width: 500px;
-  height: 100px;
+  width: 550px;
+  height: 133px;
   border-radius: 10px;
   background-color: #FAFAFA;
   border: 1px solid #BBBBBB;
@@ -22,13 +27,14 @@ const Input = styled.input`
   }
 `;
 
-function InputTextLong() {
+function InputLongText({ label }) {
   return (
     <InputContainer>
+      <Label>{label}</Label>
       <Input type="text" />
     </InputContainer>
   );
 }
 
 export { Input };
-export default InputTextLong;
+export default InputLongText;
