@@ -72,7 +72,6 @@ const DoctorDashHeader = () => {
 
   useEffect(() => {
     async function fetchUserData() {
-      // Change the hardcoded credentials here to your desired authentication method
       const data = await userLogin('doctor', '123456'); 
       if (data) {
         setUserData(data);
