@@ -16,20 +16,30 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 10px; 
+  margin-top: 50px; 
+`;
+
+const CardButtonGroup = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;  
+  margin-top: 20px; 
+  margin-bottom :20px;
 `;
 
 const DoctorDashBoardPage = () => {
-
   return (
     <PageContainer>
       <Header/>
       <CenteredContainer>
-      <DoctorDashHeader/>
-      <CardhButton mode="list" />
-      <CardhButton mode="treatment" />
-      <CardhButton mode="register" />
-      <DoctorUntactList/>
+        <DoctorDashHeader/>
+        <CardButtonGroup>
+          <CardhButton mode="list" />
+          <CardhButton mode="treatment" />
+          <CardhButton mode="register" />
+        </CardButtonGroup>
+        <DoctorUntactList/>
       </CenteredContainer>
     </PageContainer>
   );
