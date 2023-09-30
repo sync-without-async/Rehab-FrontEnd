@@ -3,7 +3,6 @@ import InputText from "../Input/InputText";
 import Dropdown from "../Dropdown/Dropdown";
 import DateSelect from "../Input/DateSelect";
 
-
 const SignupContainer = styled.div`
   width: 750px;
   height: 750px;
@@ -61,8 +60,6 @@ const Button = styled.button`
 const DoctorChart = () => {
 
   const gender = ["남성", "여성"];
-
-  //
 
   return (
     <SignupContainer>
