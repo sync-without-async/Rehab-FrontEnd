@@ -71,7 +71,7 @@ const DoctorChart = () => {
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 성함 *" />
-        <DateSelect/>
+        <DateSelect labelText="환자 생년월일 *" />
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 전화번호*" />

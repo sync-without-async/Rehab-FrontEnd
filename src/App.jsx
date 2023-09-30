@@ -7,7 +7,6 @@ import UserUntactReservePage from './pages/User/UserUntactReservePage.jsx';
 import UserReservePage from './pages/User/UserReservePage.jsx';
 import DoctorDashBoardPage from './pages/Doctor/DoctorDashBoardPage.jsx';
 import DoctorChartPage from './pages/Doctor/DoctorChartPage.jsx';
-import DateSelect from './components/Input/DateSelect.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -19,7 +18,6 @@ const Container = styled.div`
 function App() {
   return (
     <Router>
-       <DateSelect/>
       <Container>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
