@@ -5,8 +5,9 @@ import dropdownicon from "../../assets/icons/dropdownicon.png";
 const Label = styled.div`
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
   margin-bottom: 3.75px;
+  margin-top:-10px;
   padding-top: 7.5px;
 `;
 
@@ -28,7 +29,7 @@ const DropdownText = styled.input`
   border: none;
   font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 12px;
+  font-size: 16px;
   padding-left: 7.5px;
   &:focus {
     outline: none;
