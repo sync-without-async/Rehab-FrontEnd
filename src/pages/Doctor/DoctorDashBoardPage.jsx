@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import DoctorDashHeader from '../../components/DoctorDashBoard/DoctorDashHeader';
 import CardhButton from '../../components/DoctorDashBoard/CardButton';
+import DoctorUntactList from '../../components/DoctorDashBoard/DoctorUntactList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -28,6 +29,7 @@ const DoctorDashBoardPage = () => {
       <CardhButton mode="list" />
       <CardhButton mode="treatment" />
       <CardhButton mode="register" />
+      <DoctorUntactList/>
       </CenteredContainer>
     </PageContainer>
   );
