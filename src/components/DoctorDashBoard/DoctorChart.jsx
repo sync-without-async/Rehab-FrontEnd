@@ -1,13 +1,15 @@
-import styled from 'styled-components';
-import InputText, { Input } from '../Input/InputText';
-import Dropdown from '../Dropdown/Dropdown';
+import styled from "styled-components";
+import InputText, { Input } from "../Input/InputText";
+import Dropdown from "../Dropdown/Dropdown";
+import DatePicker from "react-datepicker";
+import { useState } from "react";
 
 const SignupContainer = styled.div`
   width: 750px;
   height: 750px;
   border-radius: 7.5px;
   background-color: #ffffff;
-  border: 1.5px solid #0064FF;
+  border: 1.5px solid #0064ff;
   position: relative;
   box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.1);
 `;
@@ -15,7 +17,7 @@ const SignupContainer = styled.div`
 const Divider = styled.div`
   width: 675px;
   height: 0.75px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   margin-top: 7.5px;
   margin-left: 22.5px;
   margin-right: auto;
@@ -23,7 +25,7 @@ const Divider = styled.div`
 
 const Title = styled.h1`
   font-size: 27px;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 700;
   margin-left: 23px;
   margin-top: 18px;
@@ -31,34 +33,20 @@ const Title = styled.h1`
 
 const InputFieldsContainer = styled.div`
   display: flex;
-  justify-content: space-between; 
-  margin-top: 23px; 
-  margin-left: 97px;
-  gap: 15px; 
-  width: 525px;  
-`;
-
-const EmailInputContainer = styled.div`
-  display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 3.75px;
-  width: 525px; 
-  margin-left: 97.5px; 
-  margin-top: 22.5px;
-`;
-
-const EmailInput = styled(Input)`
-  width: 150%;
+  margin-top: 23px;
+  margin-left: 97px;
+  gap: 15px;
+  width: 525px;
 `;
 
 const VerifyButton = styled.button`
   width: 97.5px;
   height: 37.5px;
   background-color: #f0f0f0;
-  border: 0.75px solid #BBBBBB;
+  border: 0.75px solid #bbbbbb;
   border-radius: 7.5px;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -74,14 +62,14 @@ const VerifyButton = styled.button`
 const Button = styled.button`
   width: 210px;
   height: 45px;
-  background-color: #3592FF;
+  background-color: #3592ff;
   border-radius: 7.5px;
   color: white;
   font-size: 16.5px;
   border: none;
   cursor: pointer;
   position: absolute;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   margin-top: 30px;
   left: 0;
   right: 0;
@@ -90,16 +78,14 @@ const Button = styled.button`
 `;
 
 const DoctorChart = () => {
+  const [date, setDate] = useState(new Date());
 
-    // 소속병원 선택
-  const gender = [
-    "남성", "여성"
-  ];
+  const handleCalendarClose = () => console.log("Calendar closed");
+  const handleCalendarOpen = () => console.log("Calendar opened");
+  // 소속병원 선택
+  const gender = ["남성", "여성"];
 
-  const therapist =[
-    "오민혁",""
-
-  ];
+  const therapist = ["오민혁", ""];
 
   return (
     <SignupContainer>
@@ -111,7 +97,12 @@ const DoctorChart = () => {
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 성함 *" />
-        <InputText label="환자 생년월일 *" />
+        <DatePicker
+      selected={date}
+      onChange={(date) => setDate(date)}
+      onCalendarClose={handleCalendarClose}
+      onCalendarOpen={handleCalendarOpen}
+    />
       </InputFieldsContainer>
       <InputFieldsContainer>
         <InputText label="환자 전화번호*" />
