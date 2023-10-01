@@ -7,11 +7,13 @@ export async function userLogin(id, password) {
       password: "123456",
       name: "오소현",
       admin: false,
-      assignedDoctor: "김정원", // 배정된 전문의
-      assignedTherapist: "오민혁", // 배정된 재활치료사
-      recentVisitDate: "2023.09.01", // 최근 외래 진료일
-      nextReservationDate: "2023.09.11", // 다음 외래 예약일
-    },
+      assignedDoctor: "김정원", 
+      assignedTherapist: "오민혁", 
+      recentVisitDate: "2023.09.01",
+      nextReservationDate: "2023.09.11",
+      gender: "여성",
+      birth: "2001-02-24"
+    },    
     // Admin1: 전문의
     {
       type: "admin1",
@@ -61,21 +63,28 @@ export async function userLogin(id, password) {
       therapist,
     };
   } else if (account.type === "admin1") {
+    const patient = accounts.find(item => item.assignedDoctor === account.name && item.type === "user");
+
     return {
       email: account.id,
       name: account.name,
-      major: account.major, 
-      workplace: account.workplace, 
+      major: account.major,
+      workplace: account.workplace,
       access_token: "admin1_token1",
       refresh_token: "admin1_token2",
       admin: account.admin,
+      patient: {
+        name: patient.name,
+        gender: patient.gender, 
+        birth: patient.birth 
+      }
     };
   } else if (account.type === "admin2") {
     return {
       email: account.id,
       name: account.name,
-      major: account.major, 
-      workplace: account.workplace, 
+      major: account.major,
+      workplace: account.workplace,
       access_token: "admin2_token1",
       refresh_token: "admin2_token2",
       admin: account.admin,
