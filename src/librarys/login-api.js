@@ -12,7 +12,8 @@ export async function userLogin(id, password) {
       recentVisitDate: "2023.09.01",
       nextReservationDate: "2023.09.11",
       gender: "여성",
-      birth: "2001-02-24"
+      birth: "2001-02-24",
+      diseaseCode: "A001"
     },    
     // Admin1: 전문의
     {
@@ -64,7 +65,7 @@ export async function userLogin(id, password) {
     };
   } else if (account.type === "admin1") {
     const patient = accounts.find(item => item.assignedDoctor === account.name && item.type === "user");
-
+  
     return {
       email: account.id,
       name: account.name,
@@ -76,7 +77,11 @@ export async function userLogin(id, password) {
       patient: {
         name: patient.name,
         gender: patient.gender, 
-        birth: patient.birth 
+        birth: patient.birth,
+        diseaseCode: patient.diseaseCode, 
+        recentVisitDate: patient.recentVisitDate,  
+        nextReservationDate: patient.nextReservationDate,  
+        assignedTherapist: patient.assignedTherapist  
       }
     };
   } else if (account.type === "admin2") {

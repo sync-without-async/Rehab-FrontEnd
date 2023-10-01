@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import BackButton from '../../components/Button/BackButton';
 import DoctorDetailHeader from '../../components/DoctorDashBoard/DoctorDetailHeader';
+import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart'
 
 const PageContainer = styled.div`
   display: flex;
@@ -25,6 +26,7 @@ const DoctorDetailPage = () => {
       <CenteredContainer>
         <BackButton pageName="환자 목록" />
         <DoctorDetailHeader/>
+        <DoctorDetailChart/>
       </CenteredContainer>
     </PageContainer>
   );
