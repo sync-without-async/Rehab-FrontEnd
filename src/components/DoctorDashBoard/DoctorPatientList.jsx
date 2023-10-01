@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import player from "../../assets/icons/player.png";
 import Pagination from "../Pagination/Pagination";
-import { getUserExercises } from "../../librarys/login-api";
+import { useState, useEffect } from "react";
+import {userLogin,  getUserExercises } from "../../librarys/login-api";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 
@@ -102,8 +103,32 @@ const PlayerIcon = styled.img`
 const filterlist=["오늘 외래 순", "최신 등록 순", "수행도 높은 순"];
 
 const DoctorPatientList = () => {
-  const userId = "HL0001"; 
-  const exercises = getUserExercises(userId);
+  const doctorId = "doctor"; 
+  const [doctorInfo, setDoctorInfo] = useState(null);
+  const [patientInfo, setPatientInfo] = useState(null);
+
+  useEffect(() => {
+    async function fetchDoctorInfo() {
+      const info = await userLogin(doctorId, "123456");
+      if (info && info.patient) {
+        setDoctorInfo(info);
+        setPatientInfo(info.patient);
+      }
+    }
+
+    fetchDoctorInfo();
+  }, []);
+
+  if (!doctorInfo || !patientInfo) {
+    return <div>Error: Doctor or Patient info not found.</div>;
+  }
+
+  const exercises = getUserExercises(doctorInfo.patient.name);
+  
+  const passedExercises = exercises.filter(exercise => exercise.judgement === "합격").length;
+  const totalExercises = exercises.length;
+  
+  const passRate = Math.round((passedExercises / totalExercises) * 100);
 
   const totalItems = 40; 
   const itemsPerPage = 8;
@@ -131,33 +156,16 @@ const DoctorPatientList = () => {
           </TableRow>
         </thead>
         <tbody>
-          {exercises.map((exercise, index) => (
-            <TableRow key={index}>
-              <TableCell>
-                {// 담당하는 환자 이름
-                }
-              </TableCell>
-              <TableCell>
-                {// 담당하는 환자의 생년월일
-                }
-              </TableCell>
-              <TableCell>
-                {// 담당하는 환자의 과제 수행도
-                }
-              </TableCell>
-              <TableCell>
-                {// 담당하는 환자의 재활치료사 이름
-                }
-              </TableCell>
-              <TableCell>
-                {//담당하는 환자의 다음 외래 일정
-                }              
-                </TableCell>
-              <TableCell>
-                <PlayerIcon src={player} alt="Player Icon" />
-              </TableCell>
-            </TableRow>
-          ))}
+        <TableRow>
+            <TableCell>{patientInfo.name}</TableCell>
+            <TableCell>{patientInfo.birth}</TableCell>
+            <TableCell>{passRate}%</TableCell>
+            <TableCell>{patientInfo.assignedTherapist}</TableCell>
+            <TableCell>{patientInfo.nextReservationDate}</TableCell>
+            <TableCell>
+              <PlayerIcon src={player} alt="Player Icon" />
+            </TableCell>
+          </TableRow>
         </tbody>
       </Table>
 
