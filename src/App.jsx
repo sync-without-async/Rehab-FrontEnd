@@ -7,6 +7,7 @@ import UserUntactReservePage from './pages/User/UserUntactReservePage.jsx';
 import UserReservePage from './pages/User/UserReservePage.jsx';
 import DoctorDashBoardPage from './pages/Doctor/DoctorDashBoardPage.jsx';
 import DoctorChartPage from './pages/Doctor/DoctorChartPage.jsx';
+import DoctorDetailPage from './pages/Doctor/DoctorDetailPage.jsx'
 import styled from "styled-components";
 import "./App.scss";
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="/userreserve" element={<UserReservePage />} />
           <Route path="/doctordash" element={<DoctorDashBoardPage />} />
           <Route path="/doctorchart" element={<DoctorChartPage />} />
+          <Route path="/doctordetail" element={<DoctorDetailPage />} />
         </Routes>
       </Container>
     </Router>
