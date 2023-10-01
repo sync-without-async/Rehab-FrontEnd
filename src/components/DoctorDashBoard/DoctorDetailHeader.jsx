@@ -38,6 +38,17 @@ const Birth = styled.span`
   margin-left: 10px;
 `;
 
+const getCurrentAge = (birthDateStr) => {
+  const today = new Date();
+  const birthDate = new Date(birthDateStr);
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+};
+
 const DoctorDetailHeader = () => {
   const [patientInfo, setPatientInfo] = useState({});
 
@@ -62,9 +73,10 @@ const DoctorDetailHeader = () => {
     <Container>
       <UserName>{patientInfo.name}</UserName>
       <Gender>{patientInfo.gender}</Gender>
-      <Birth>{patientInfo.birth}</Birth>
+      <Birth>{patientInfo.birth ? `${patientInfo.birth.split('-').join('.')} (만 ${getCurrentAge(patientInfo.birth)}세)` : ""}</Birth>
     </Container>
   );
 };
 
 export default DoctorDetailHeader;
+
