@@ -4,6 +4,7 @@ import BackButton from '../../components/Button/BackButton';
 import DoctorDetailHeader from '../../components/DoctorDashBoard/DoctorDetailHeader';
 import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart';
 import DoctorCheckHW from '../../components/DoctorDashBoard/DoctorCheckHW';
+import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRecord";
 
 const PageContainer = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const DoctorDetailPage = () => {
         <DoctorDetailHeader/>
         <DoctorDetailChart/>
         <DoctorCheckHW/>
+        <DoctorUntactRecord/>
       </CenteredContainer>
     </PageContainer>
   );
