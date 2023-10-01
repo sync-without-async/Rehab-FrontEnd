@@ -11,6 +11,7 @@ const Container = styled.div`
   background-color: #ffffff;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
   position: relative;
+  margin-bottom:20px;
 `;
 
 const Title = styled.h1`

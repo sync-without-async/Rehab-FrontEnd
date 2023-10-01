@@ -22,6 +22,13 @@ const CenteredContainer = styled.div`
   margin-top: 50px; 
 `;
 
+const RowContainer = styled.div`
+  display: flex;
+  align-items: center; 
+  width: 42%;  
+  margin: 20px 0;  
+`;
+
 const DoctorDetailPage = () => {
   return (
     <PageContainer>
@@ -29,8 +36,10 @@ const DoctorDetailPage = () => {
       <CenteredContainer>
         <BackButton pageName="환자 목록" />
         <DoctorDetailHeader/>
-        <DoctorDetailChart/>
-        <DoctorCheckHW/>
+        <RowContainer>
+          <DoctorDetailChart/>
+          <DoctorCheckHW/>
+        </RowContainer>
         <DoctorFaceRecord/>
         <DoctorUntactRecord/>
       </CenteredContainer>
