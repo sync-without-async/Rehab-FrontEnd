@@ -10,6 +10,8 @@ const Outer = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  margin-top: 10px;
+  margin-right: 20px;
 `;
 
 const Inner = styled.div`

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CircularChart from "./CircleChart";
+import { getUserExercises } from "../../librarys/login-api";
 
 const Container = styled.div`
   width: 380px;
@@ -31,14 +32,65 @@ const Divider = styled.hr`
   margin-top: 0px;
 `;
 
+const ExerciseInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-left: 20px;
+`;
+
+const ExerciseItem = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+
+  & > span:first-child {
+    font-size: 16px;
+    color: #000000;
+    margin-right: 60px; 
+  }
+
+  & > span {
+    font-size: 16px;
+    color: #000000;
+  }
+
+  & > span:last-child {
+    color: #D9D9D9;
+  }
+`;
+
 
 const DoctorCheckHW = () => {
+  const userId = "HL0001"; 
   
+  const exercises = getUserExercises(userId);
+  const totalExercises = exercises.length;
+  const passedExercises = exercises.filter(exercise => exercise.judgement === "합격").length;
+  const failedExercises = totalExercises - passedExercises;
+
   return (
     <Container>
       <Title>과제 수행도</Title>
       <Divider />
-      <CircularChart totalExercises={100} passedExercises={72} />
+      <div style={{ display: 'flex' }}>
+        <CircularChart totalExercises={totalExercises} passedExercises={passedExercises} />
+        <ExerciseInfo>
+          <ExerciseItem>
+            <span>총 과제</span>
+            <span>{`${totalExercises}개`}</span>
+          </ExerciseItem>
+          <ExerciseItem>
+            <span>합격한 과제</span>
+            <span>{`${passedExercises}개`}</span>
+          </ExerciseItem>
+          <ExerciseItem>
+            <span>불합격한 과제</span>
+            <span>{`${failedExercises}개`}</span>
+          </ExerciseItem>
+        </ExerciseInfo>
+      </div>
     </Container>
   );
 };
