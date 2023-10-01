@@ -2,7 +2,8 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import BackButton from '../../components/Button/BackButton';
 import DoctorDetailHeader from '../../components/DoctorDashBoard/DoctorDetailHeader';
-import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart'
+import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart';
+import DoctorCheckHW from '../../components/DoctorDashBoard/DoctorCheckHW';
 
 const PageContainer = styled.div`
   display: flex;
@@ -27,6 +28,7 @@ const DoctorDetailPage = () => {
         <BackButton pageName="환자 목록" />
         <DoctorDetailHeader/>
         <DoctorDetailChart/>
+        <DoctorCheckHW/>
       </CenteredContainer>
     </PageContainer>
   );
