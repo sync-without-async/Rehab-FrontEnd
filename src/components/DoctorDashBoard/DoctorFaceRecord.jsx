@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { getFaceRecords } from "../../librarys/login-api";
+import DoctorChartWrite from "./DoctorChartWrite";
+import { useState } from 'react';
 
 const Container = styled.div`
   width: 800px;
@@ -79,14 +81,23 @@ const DoctorInfo = styled.span`
 
 
 const DoctorFaceRecord = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const userId = "HL0001"; 
   const records = getFaceRecords(userId);
+
+  const handleModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <Container>
       <Title>외래 진료 기록</Title>
       <ButtonGroup>
-        <Button>기록 추가</Button>
+      <Button onClick={handleModalOpen}>기록 추가</Button>
       </ButtonGroup>
       <Divider />
       {records && records.map(record => (
@@ -98,6 +109,7 @@ const DoctorFaceRecord = () => {
           </RecordBox>
         </>
       ))}
+      {isModalOpen && <DoctorChartWrite onClose={handleModalClose} />}
     </Container>
   );
 };
