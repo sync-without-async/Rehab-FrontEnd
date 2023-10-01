@@ -2,7 +2,7 @@ import styled from "styled-components";
 import player from "../../assets/icons/player.png";
 import Pagination from "../Pagination/Pagination";
 import { useState, useEffect } from "react";
-import {userLogin,  getUserExercises } from "../../librarys/login-api";
+import { userLogin, getUserExercises } from "../../librarys/login-api";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 
@@ -77,7 +77,7 @@ const TableHeader = styled.th`
   color: #666666;
   text-align: left;
   padding-left: 15px;
-  
+
   &:first-child {
     width: 150px;
   }
@@ -100,10 +100,10 @@ const PlayerIcon = styled.img`
   height: 18px;
 `;
 
-const filterlist=["오늘 외래 순", "최신 등록 순", "수행도 높은 순"];
+const filterlist = ["오늘 외래 순", "최신 등록 순", "수행도 높은 순"];
 
 const DoctorPatientList = () => {
-  const doctorId = "doctor"; 
+  const doctorId = "doctor";
   const [doctorInfo, setDoctorInfo] = useState(null);
   const [patientInfo, setPatientInfo] = useState(null);
 
@@ -123,14 +123,21 @@ const DoctorPatientList = () => {
     return <div>Error: Doctor or Patient info not found.</div>;
   }
 
-  const exercises = getUserExercises(doctorInfo.patient.name);
-  
-  const passedExercises = exercises.filter(exercise => exercise.judgement === "합격").length;
-  const totalExercises = exercises.length;
-  
-  const passRate = Math.round((passedExercises / totalExercises) * 100);
+  const exercises = getUserExercises(patientInfo.id); 
+  console.log("Exercises for:", doctorInfo.patient.id, exercises);
 
-  const totalItems = 40; 
+  // 합격한 과제만 필터링하여 그 갯수를 센다.(이거 나중에 로직 변경 해야됨 임시 데이터에서 보여줄려고 계산하는 것임)
+  const passedExercises = exercises.filter(
+    (exercise) => exercise.judgement === "합격",
+  ).length;
+  const totalExercises = exercises.length;
+
+  const passRate =
+    totalExercises === 0
+      ? 0
+      : Math.round((passedExercises / totalExercises) * 100);
+
+  const totalItems = 40;
   const itemsPerPage = 8;
 
   const handlePageChange = (selectedPage) => {
@@ -156,7 +163,7 @@ const DoctorPatientList = () => {
           </TableRow>
         </thead>
         <tbody>
-        <TableRow>
+          <TableRow>
             <TableCell>{patientInfo.name}</TableCell>
             <TableCell>{patientInfo.birth}</TableCell>
             <TableCell>{passRate}%</TableCell>
@@ -179,4 +186,3 @@ const DoctorPatientList = () => {
 };
 
 export default DoctorPatientList;
-

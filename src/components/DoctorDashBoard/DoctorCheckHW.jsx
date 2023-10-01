@@ -66,6 +66,7 @@ const DoctorCheckHW = () => {
   const userId = "HL0001"; 
   
   const exercises = getUserExercises(userId);
+  console.log("Exercises for:", userId, exercises);
   const totalExercises = exercises.length;
   const passedExercises = exercises.filter(exercise => exercise.judgement === "합격").length;
   const failedExercises = totalExercises - passedExercises;

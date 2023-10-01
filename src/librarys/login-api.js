@@ -52,6 +52,7 @@ export async function userLogin(id, password) {
       user: {
         email: account.id,
         name: account.name,
+        id: account.id,
         access_token: "user_token1",
         refresh_token: "user_token2",
         admin: account.admin,
@@ -75,6 +76,7 @@ export async function userLogin(id, password) {
       refresh_token: "admin1_token2",
       admin: account.admin,
       patient: {
+        id: patient.id,
         name: patient.name,
         gender: patient.gender, 
         birth: patient.birth,
