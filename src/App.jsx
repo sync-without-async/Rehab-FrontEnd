@@ -9,6 +9,7 @@ import DoctorDashBoardPage from './pages/Doctor/DoctorDashBoardPage.jsx';
 import DoctorChartPage from './pages/Doctor/DoctorChartPage.jsx';
 import DoctorDetailPage from './pages/Doctor/DoctorDetailPage.jsx';
 import DoctorPatientListPage from './pages/Doctor/DoctorPatientListPage.jsx';
+import DoctorUntactReservePage from './pages/Doctor/DoctorUntactReservePage.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -32,6 +33,7 @@ function App() {
           <Route path="/doctorchart" element={<DoctorChartPage />} />
           <Route path="/doctordetail" element={<DoctorDetailPage />} />
           <Route path="/doctorpatientlist" element={<DoctorPatientListPage />} />
+          <Route path="/doctoruntactreserve" element={<DoctorUntactReservePage />} />
         </Routes>
       </Container>
     </Router>
