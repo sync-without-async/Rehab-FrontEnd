@@ -55,10 +55,6 @@ const DoctorUntactFullList = () => {
       <Title>비대면 진료 예약 목록</Title>
       <Divider />
       <DoctorSeveralReserve/>
-      <DoctorSeveralReserve/>
-      <DoctorSeveralReserve/>
-      <DoctorSeveralReserve/>
-      <DoctorSeveralReserve/>
       <PaginationWrapper>
         <Pagination
           totalItems={totalItems}

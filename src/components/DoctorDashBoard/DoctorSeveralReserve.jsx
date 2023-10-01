@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import PatientImage from '../../assets/images/user/Opatient.png';
 import IconDate from '../../assets/icons/icondate.png';
+import DoctorCheckDetail from './DoctorCheckDetail';
 
 const CardContainer = styled.div`
   display: flex;
@@ -59,7 +60,6 @@ const InfoText = styled.span`
 `;
 
 const DateContain = styled.div`
-
 `
 
 const Button = styled.button`
@@ -86,26 +86,40 @@ const Button = styled.button`
 
 const DoctorSeveralReserve = () => {
   const [buttonState, setButtonState] = useState(false);
+  const [showDetailModal, setShowDetailModal] = useState(false); 
 
   const toggleButtonState = () => {
     setButtonState(!buttonState);
   }
 
+  const toggleDetailModal = () => {  
+    setShowDetailModal(!showDetailModal);
+  }
+
+  const handleCloseModal = () => {
+    setShowDetailModal(false);
+  }
+
   return (
-    <CardContainer>
-      <ProfileImage src={PatientImage} alt="Profile" />
-      <UserInfo>
-        <UserName>오소현<span>님</span></UserName>
+    <>
+      <CardContainer>
+        <ProfileImage src={PatientImage} alt="Profile" />
+        <UserInfo>
+          <UserName>오소현<span>님</span></UserName>
           <DateContain>
-          <Icon src={IconDate} alt="Date" />
-          <InfoText>2023/08/30 16:00</InfoText>
+            <Icon src={IconDate} alt="Date" />
+            <InfoText>2023/08/30 16:00</InfoText>
           </DateContain>
-      </UserInfo>
-      <Button onClick={toggleButtonState} clicked={buttonState}>
-        {buttonState ? "예약 시간이 아닙니다" : "입장"}
-      </Button>
-      <Button cancelButton topPosition="59px">상세 정보</Button>
-    </CardContainer>
+        </UserInfo>
+        <Button onClick={toggleButtonState} clicked={buttonState}>
+          {buttonState ? "예약 시간이 아닙니다" : "입장"}
+        </Button>
+        <Button cancelButton topPosition="59px" onClick={toggleDetailModal}> 
+          상세 정보
+        </Button>
+      </CardContainer>
+      {showDetailModal && <DoctorCheckDetail onClose={handleCloseModal} />}
+    </>
   );
 };
 
