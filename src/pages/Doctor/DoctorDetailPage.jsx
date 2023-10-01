@@ -5,6 +5,7 @@ import DoctorDetailHeader from '../../components/DoctorDashBoard/DoctorDetailHea
 import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart';
 import DoctorCheckHW from '../../components/DoctorDashBoard/DoctorCheckHW';
 import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRecord";
+import DoctorFaceRecord from '../../components/DoctorDashBoard/DoctorFaceRecord';
 
 const PageContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const DoctorDetailPage = () => {
         <DoctorDetailHeader/>
         <DoctorDetailChart/>
         <DoctorCheckHW/>
+        <DoctorFaceRecord/>
         <DoctorUntactRecord/>
       </CenteredContainer>
     </PageContainer>
