@@ -134,10 +134,12 @@ const DoctorPatientList = () => {
           {exercises.map((exercise, index) => (
             <TableRow key={index}>
               <TableCell>
-                // 담당하는 환자 이름
+                {// 담당하는 환자 이름
+                }
               </TableCell>
               <TableCell>
-                // 담당하는 환자의 생년월일
+                {// 담당하는 환자의 생년월일
+                }
               </TableCell>
               <TableCell>
                 {// 담당하는 환자의 과제 수행도
