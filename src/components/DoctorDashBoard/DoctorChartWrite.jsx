@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import XButton from '../../assets/icons/iconx.png';
-import Calendar from '../Calender/Calender.jsx';
-import { useState } from 'react';
 import InputTextLong from '../Input/InputTextLong';
+import DateSelect from '../Input/DateSelect';
 
 const Overlay = styled.div`
   position: fixed;
@@ -19,7 +18,7 @@ const Overlay = styled.div`
 
 const ModalContainer = styled.div`
   width: 600px;
-  height: 700px;
+  height: 600px;
   background-color: #FFFFFF;
   border-radius: 10px;
   padding: 20px;
@@ -54,28 +53,7 @@ const Divider = styled.hr`
 const DateText = styled.p`
   font-size: 16px;
   margin-top: -10px;
-`;
-
-const TimeButton = styled.button`
-  width: 90px;
-  height: 40px;
-  border-radius: 10px;
-  border: ${({ status }) => (status === 'selected' ? '1px solid #0064FF' : '1px solid #E8E8E8')};
-  background-color: ${({ status }) => (status === 'available' ? '#FAFAFA' : status === 'selected' ? '#F3F1FF' : '#888888')};
-  color: ${({ status }) => (status === 'closed' ? '#444444' : '#000000')};
-  cursor: ${({ status }) => (status === 'closed' ? 'not-allowed' : 'pointer')};
-  margin-right: 5px;
-
-  &:last-child {
-    margin-right: 0;
-  }
-`;
-
-const TimeButtonContainer = styled.div`
-  display: flex;
-  margin-top: 20px;
-  margin-left:8px;
-  gap:5px;
+  font-weight: bold;
 `;
 
 const Button = styled.button`
@@ -96,43 +74,25 @@ const Button = styled.button`
 
 
 export const DoctorChartWrite = ({ onClose }) => {
-  const [selectedTime, setSelectedTime] = useState(null);
-
-  const times = [
-    { label: "18:00", status: "available" },
-    { label: "18:30", status: "available" },
-    { label: "19:00", status: "available" },
-    { label: "19:30", status: "closed" },
-    { label: "20:00", status: "closed" },
-  ];
-
-  const handleTimeSelect = (time) => {
-    setSelectedTime(time);
+  const getCurrentDate = () => {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
   };
 
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <Title>예약 정보 작성</Title>
+        <Title>진료 기록 추가</Title>
         <CloseIcon src={XButton} alt="Close" onClick={onClose} />
         <Divider />
-        <DateText>날짜 선택 *</DateText>
-        <Calendar />
-        <DateText>시간 선택 *</DateText>
-        <TimeButtonContainer>
-          {times.map(time => (
-            <TimeButton
-              key={time.label}
-              status={time.label === selectedTime ? 'selected' : time.status}
-              onClick={() => time.status === 'available' && handleTimeSelect(time.label)}
-              disabled={time.status === 'closed'}
-            >
-              {time.label}
-            </TimeButton>
-          ))}
-        </TimeButtonContainer>
-        <InputTextLong label="진료 희망 사유*" />
-        <Button>예약 신청</Button>
+        <DateText>오늘 날짜: {getCurrentDate()}</DateText> 
+        <InputTextLong label="진료 기록 작성*" />
+        <InputTextLong label="재활치료사 재활 운동 요청서 작성*" />
+        <DateSelect labelText="다음 외래 진료 일정 *" />
+        <Button>기록 추가</Button>
       </ModalContainer>
     </Overlay>
   );

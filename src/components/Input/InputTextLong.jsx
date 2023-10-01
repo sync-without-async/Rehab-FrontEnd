@@ -4,6 +4,7 @@ const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 320px;
+  margin-bottom:20px;
 `;
 
 const Label = styled.label`
