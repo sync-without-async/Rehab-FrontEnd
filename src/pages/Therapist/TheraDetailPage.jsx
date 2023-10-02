@@ -5,6 +5,7 @@ import TheraDetailHeader from '../../components/TherapistDashBoard/TheraDetailHe
 import TheraDetailChart from "../../components/TherapistDashBoard/TheraDetailChart";
 import TheraCheckHW from '../../components/TherapistDashBoard/TheraCheckHw';
 import TheraUntactRecord from '../../components/TherapistDashBoard/TheraUntactRecord';
+import TheraFaceRecord from '../../components/TherapistDashBoard/TheraFaceRecord';
 
 const PageContainer = styled.div`
   display: flex;
@@ -30,6 +31,7 @@ const TheraDetailPage = () => {
       <TheraDetailHeader/>
       <TheraDetailChart/>
       <TheraCheckHW/>
+      <TheraFaceRecord/>
       <TheraUntactRecord/>
       </CenteredContainer>
     </PageContainer>

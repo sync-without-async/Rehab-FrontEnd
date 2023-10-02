@@ -61,6 +61,26 @@ const ExerciseItem = styled.div`
   }
 `;
 
+const ButtonGroup = styled.div`
+  position: absolute;
+  top: 20px;
+  right: 20px;
+`;
+
+const Button = styled.button`
+  width: 140px;
+  height: 30px;
+  background-color: #3592FF;
+  color: #FEFDFD;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  margin-left: 10px;
+  cursor: pointer;
+  &:first-child {
+    margin-left: 0;
+  }
+`;
 
 const TheraCheckHW = () => {
   const userId = "HL0001"; 
@@ -74,6 +94,9 @@ const TheraCheckHW = () => {
   return (
     <Container>
       <Title>과제 수행도</Title>
+      <ButtonGroup>
+      <Button>과제 할당</Button>
+      </ButtonGroup>
       <Divider />
       <div style={{ display: 'flex' }}>
         <CircularChart totalExercises={totalExercises} passedExercises={passedExercises} />
