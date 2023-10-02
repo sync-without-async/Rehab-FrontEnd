@@ -87,6 +87,8 @@ export async function userLogin(id, password) {
       }
     };
   } else if (account.type === "admin2") {
+    const patient = accounts.find(item => item.assignedTherapist === account.name && item.type === "user");
+    
     return {
       email: account.id,
       name: account.name,
@@ -95,8 +97,19 @@ export async function userLogin(id, password) {
       access_token: "admin2_token1",
       refresh_token: "admin2_token2",
       admin: account.admin,
+      patient: {
+        id: patient.id,
+        name: patient.name,
+        gender: patient.gender, 
+        birth: patient.birth,
+        diseaseCode: patient.diseaseCode, 
+        recentVisitDate: patient.recentVisitDate,  
+        nextReservationDate: patient.nextReservationDate,  
+        assignedDoctor: patient.assignedDoctor
+      }
     };
   }
+  
 
   return null;
 }

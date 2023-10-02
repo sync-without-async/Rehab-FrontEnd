@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
-import DoctorDashHeader from '../../components/DoctorDashBoard/DoctorDashHeader';
+import TheraDashHeader from '../../components/TherapistDashBoard/TheraDashHeader'
 import CardhButton from '../../components/Button/CardButton';
-import DoctorUntactList from '../../components/DoctorDashBoard/DoctorUntactList';
+import TheraUntactList from '../../components/TherapistDashBoard/TheraUntactList';
 
 const PageContainer = styled.div`
   display: flex;
@@ -28,21 +28,21 @@ const CardButtonGroup = styled.div`
   margin-bottom :20px;
 `;
 
-const DoctorDashBoardPage = () => {
+const TheraDashBoardPage = () => {
   return (
     <PageContainer>
       <Header/>
       <CenteredContainer>
-        <DoctorDashHeader/>
+        <TheraDashHeader/>
         <CardButtonGroup>
-          <CardhButton mode="list" />
+          <CardhButton mode="exercise" />
           <CardhButton mode="treatment" />
-          <CardhButton mode="register" />
+          <CardhButton mode="add" />
         </CardButtonGroup>
-        <DoctorUntactList/>
+        <TheraUntactList/>
       </CenteredContainer>
     </PageContainer>
   );
 }
 
-export default DoctorDashBoardPage;
+export default TheraDashBoardPage;
