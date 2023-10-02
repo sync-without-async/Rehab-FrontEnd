@@ -4,6 +4,7 @@ import BackButton from '../../components/Button/BackButton';
 import TheraDetailHeader from '../../components/TherapistDashBoard/TheraDetailHeader';
 import TheraDetailChart from "../../components/TherapistDashBoard/TheraDetailChart";
 import TheraCheckHW from '../../components/TherapistDashBoard/TheraCheckHw';
+import TheraUntactRecord from '../../components/TherapistDashBoard/TheraUntactRecord';
 
 const PageContainer = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const TheraDetailPage = () => {
       <TheraDetailHeader/>
       <TheraDetailChart/>
       <TheraCheckHW/>
+      <TheraUntactRecord/>
       </CenteredContainer>
     </PageContainer>
   );
