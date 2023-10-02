@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import DoctorDashHeader from '../../components/DoctorDashBoard/DoctorDashHeader';
-import CardhButton from '../../components/DoctorDashBoard/CardButton';
+import CardhButton from '../../components/Button/CardButton';
 import DoctorUntactList from '../../components/DoctorDashBoard/DoctorUntactList';
 
 const PageContainer = styled.div`

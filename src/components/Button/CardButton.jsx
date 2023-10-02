@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import IconDesktop from "../../assets/icons/icondesktop1.png";
 import IconDoctor from "../../assets/icons/icondoctor1.png";
 import IconList from "../../assets/icons/iconlist1.png";
+import IconExercise from "../../assets/icons/iconexercise.png";
 import PropTypes from 'prop-types';
 
 const Container = styled.div`
@@ -44,17 +45,27 @@ const CardhButton = ({ mode }) => {
     case 'list':
       icon = IconList;
       title = "환자 목록";
-      description = "김정원 님의 담당 환자 목록을 조회할 수 있습니다.";
+      description = "담당 환자 목록을 조회할 수 있습니다.";
       break;
     case 'treatment':
       icon = IconDesktop;
       title = "실시간 <br/> 비대면 진료";
-      description = "김정원님의 담당 환자의 실시간으로 비대면 진료를 진행합니다."
+      description = "담당 환자와 실시간으로 비대면 진료를 진행합니다."
       break;
     case 'register':
       icon = IconDoctor;
       title = "환자 등록";
-      description = "김정원님의 환자에 대한 정보를 등록하고 과제를 할당합니다.";
+      description = "환자에 대한 정보를 등록하고 과제를 할당합니다.";
+      break;
+    case 'exercise':
+      icon = IconExercise;
+      title = "운동 등록";
+      description = "다른 재활치료사가 등록한 운동 목록을 둘러보고 나만의 운동을 등록합니다.";
+      break;
+    case 'add':
+      icon = IconList;
+      title = "환자 목록";
+      description = "배정된 담당 환자 목록을 조회하고 차트를 보며 환자에게 프로그램을 생성해줍니다.";
       break;
     default:
       break;
