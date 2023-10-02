@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Header from '../../components/Header/Header';
 import BackButton from '../../components/Button/BackButton';
 import TheraDetailHeader from '../../components/TherapistDashBoard/TheraDetailHeader';
+import TheraDetailChart from "../../components/TherapistDashBoard/TheraDetailChart";
+import TheraCheckHW from '../../components/TherapistDashBoard/TheraCheckHw';
 
 const PageContainer = styled.div`
   display: flex;
@@ -25,6 +27,8 @@ const TheraDetailPage = () => {
       <CenteredContainer>
       <BackButton pageName="환자 목록" />
       <TheraDetailHeader/>
+      <TheraDetailChart/>
+      <TheraCheckHW/>
       </CenteredContainer>
     </PageContainer>
   );
