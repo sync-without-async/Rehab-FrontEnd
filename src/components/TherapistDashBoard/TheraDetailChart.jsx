@@ -56,14 +56,15 @@ const TheraDetailChart = () => {
     async function fetchPatientInfo() {
       const therapistInfo = await userLogin("therapist", "123456");
       const patient = therapistInfo?.patient;
-
+  
       if (patient) {
         setPatientInfo(patient);
       }
     }
-
+  
     fetchPatientInfo();
   }, []);
+  
 
   return (
     <Container>
