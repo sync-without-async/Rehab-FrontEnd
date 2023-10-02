@@ -13,6 +13,7 @@ import DoctorUntactReservePage from './pages/Doctor/DoctorUntactReservePage.jsx'
 import TheraDashBoardPage from './pages/Therapist/TheraDashBoardPage.jsx';
 import TheraUntactReservePage from './pages/Therapist/TheraUntactReservePage.jsx';
 import TheraPatientListPage from './pages/Therapist/TheraPatientListPage.jsx';
+import TheraDetailPage from './pages/Therapist/TheraDetailPage.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="/theradashboard" element={<TheraDashBoardPage  />} />
           <Route path="/therauntactreserve" element={<TheraUntactReservePage  />} />
           <Route path="/therapatientlist" element={<TheraPatientListPage />} />
+          <Route path="/theradetail" element={<TheraDetailPage />} />
         </Routes>
       </Container>
     </Router>
