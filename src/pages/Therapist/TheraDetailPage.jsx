@@ -3,7 +3,7 @@ import Header from "../../components/Header/Header";
 import BackButton from "../../components/Button/BackButton";
 import TheraDetailHeader from "../../components/TherapistDashBoard/TheraDetailHeader";
 import TheraDetailChart from "../../components/TherapistDashBoard/TheraDetailChart";
-import TheraCheckHW from "../../components/TherapistDashBoard/TheraCheckHw";
+import TheraCheckHW from "../../components/TherapistDashBoard/TheraCheckHW";
 import TheraUntactRecord from "../../components/TherapistDashBoard/TheraUntactRecord";
 import TheraFaceRecord from "../../components/TherapistDashBoard/TheraFaceRecord";
 import TherafromDoctor from "../../components/TherapistDashBoard/TherafromDoctor";
