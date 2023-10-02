@@ -88,7 +88,7 @@ const TheraReserve = () => {
         <Button onClick={toggleButtonState} clicked={buttonState}>
           {buttonState ? "예약 시간이 아님" : "입장"}
         </Button>
-        <Button cancelButton>예약 취소</Button>
+        <Button cancelButton>상세 정보</Button>
       </ButtonContainer>
     </CardContainer>
   );
