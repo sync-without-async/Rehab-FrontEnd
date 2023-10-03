@@ -131,7 +131,7 @@ const TheraMakeAssign = () => {
         <SearchBar />
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
-      
+        {/* 전체 강의 목록 영역 */}
       <DragDropContext onDragEnd={handleChange}>
       <Droppable droppableId="exercises">
         {(provided) => (
@@ -157,6 +157,8 @@ const TheraMakeAssign = () => {
           </ul>
         )}
       </Droppable>
+
+        {/* 환자에게 새로 할당하는 영역 */}
       <SelectedExercisesContainer>
       <Droppable droppableId="selectedExercises">
           {(provided) => (
