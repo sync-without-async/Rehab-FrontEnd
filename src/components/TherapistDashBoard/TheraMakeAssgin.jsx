@@ -2,7 +2,7 @@ import styled from "styled-components";
 import InputDText from "../Input/InputDText";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
   width: 800px;
@@ -95,7 +95,7 @@ const TheraMakeAssign = () => {
           ref={provided.innerRef}
         >
             {exercises.map(({ id, title,time }) => (
-              <li key={id}>{title}{time}</li>
+               <Draggable key={id}>{(provided) => <li>{title}{time}</li>}</Draggable>
             ))}
           </ul>
         )}
