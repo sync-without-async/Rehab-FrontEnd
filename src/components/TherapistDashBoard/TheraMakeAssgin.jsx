@@ -3,7 +3,7 @@ import InputDText from "../Input/InputDText";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import {useState} from "react";
+import { useState } from "react";
 
 const Container = styled.div`
   width: 800px;
@@ -14,7 +14,7 @@ const Container = styled.div`
   border-radius: 10px;
   background-color: #ffffff;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
-  margin-top:10px;
+  margin-top: 10px;
   padding: 20px 40px;
 `;
 
@@ -43,16 +43,16 @@ const OpinionTitle = styled.p`
 const OpinionContent = styled.div`
   width: 720px;
   height: 100px;
-  background-color: #CCCCCC;
-  border: 1px solid #BBBBBB;
+  background-color: #cccccc;
+  border: 1px solid #bbbbbb;
   border-radius: 10px;
   color: #666666;
   font-size: 14px;
   padding: 10px;
   display: flex;
-  align-items: center;  
+  align-items: center;
   justify-content: center;
-  margin-bottom:40px;
+  margin-bottom: 40px;
 `;
 
 const SearchAndFilterContainer = styled.div`
@@ -71,6 +71,19 @@ const SelectedExercisesContainer = styled.div`
   border-radius: 10px;
 `;
 
+const DeleteButton = styled.button`
+  margin-left: 10px;
+  padding: 5px 10px;
+  background-color: #f44336; // 빨간색
+  color: #ffffff; // 텍스트는 흰색
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  &:hover {
+    background-color: #d32f2f; // 호버 시 약간 어두운 빨간색
+  }
+`;
 
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
@@ -87,34 +100,49 @@ const TheraMakeAssign = () => {
     { id: "10", title: "팔 재활 10", time: " 1분 30초" },
     { id: "11", title: "어깨 재활 11", time: " 1분 30초" },
   ]);
-  {/* 환자에게 새로 할당하는 영역 */}
+  {
+    /* 환자에게 새로 할당하는 영역 */
+  }
   const [selectedExercises, setSelectedExercises] = useState([]);
+
+  const handleDelete = (idToDelete) => {
+    setSelectedExercises((prev) =>
+      prev.filter((exercise) => exercise.id !== idToDelete),
+    );
+  };
 
   const handleChange = (result) => {
     const { source, destination } = result;
 
     if (!destination) return;
 
-    if (source.droppableId === "exercises" && destination.droppableId === "selectedExercises") {
+    if (
+      source.droppableId === "exercises" &&
+      destination.droppableId === "selectedExercises"
+    ) {
       const selectedItem = exercises[source.index];
-      setSelectedExercises(prev => [...prev, {...selectedItem, id: `selected-${selectedItem.id}`}]);
-  }
-  
-    else if (source.droppableId === "exercises" && destination.droppableId === "exercises") {
-        const items = [...exercises];
-        const [reorderedItem] = items.splice(source.index, 1);
-        items.splice(destination.index, 0, reorderedItem);
-        setExercises(items);
+      setSelectedExercises((prev) => [
+        ...prev,
+        { ...selectedItem, id: `selected-${selectedItem.id}` },
+      ]);
+    } else if (
+      source.droppableId === "exercises" &&
+      destination.droppableId === "exercises"
+    ) {
+      const items = [...exercises];
+      const [reorderedItem] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, reorderedItem);
+      setExercises(items);
+    } else if (
+      source.droppableId === "selectedExercises" &&
+      destination.droppableId === "selectedExercises"
+    ) {
+      const items = [...selectedExercises];
+      const [reorderedItem] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, reorderedItem);
+      setSelectedExercises(items);
     }
-    else if (source.droppableId === "selectedExercises" && destination.droppableId === "selectedExercises") {
-        const items = [...selectedExercises];
-        const [reorderedItem] = items.splice(source.index, 1);
-        items.splice(destination.index, 0, reorderedItem);
-        setSelectedExercises(items);
-    }
-};
-
-
+  };
 
   return (
     <Container>
@@ -123,7 +151,8 @@ const TheraMakeAssign = () => {
       <InputDText label="프로그램 설명 *" />
       <OpinionTitle>담당 전문의 재활 치료 소견서</OpinionTitle>
       <OpinionContent>
-        이 환자는 특히 팔이 아프고 어쩌고 저쩌고 특히 이부분을 신경써서 과제를 만들어주세요
+        이 환자는 특히 팔이 아프고 어쩌고 저쩌고 특히 이부분을 신경써서 과제를
+        만들어주세요
       </OpinionContent>
       <Divider />
       <OpinionTitle>과제 리스트 지정하기</OpinionTitle>
@@ -131,51 +160,25 @@ const TheraMakeAssign = () => {
         <SearchBar />
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
-        {/* 전체 강의 목록 영역 */}
+      {/* 전체 강의 목록 영역 */}
       <DragDropContext onDragEnd={handleChange}>
-      <Droppable droppableId="exercises">
-        {(provided) => (
-          <ul
-            className="exercises"
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-          >
-            {exercises.map(({ id, title, time }, index) => (
-              <Draggable key={id} draggableId={id} index={index}>
-                {(provided) => (
-                  <li
-                    ref={provided.innerRef}
-                    {...provided.dragHandleProps}
-                    {...provided.draggableProps}
-                  >
-                    {title}{time}
-                  </li>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ul>
-        )}
-      </Droppable>
-
-        {/* 환자에게 새로 할당하는 영역 */}
-      <SelectedExercisesContainer>
-      <Droppable droppableId="selectedExercises">
+        <Droppable droppableId="exercises">
           {(provided) => (
             <ul
-              className="selectedExercises"
+              className="exercises"
               {...provided.droppableProps}
               ref={provided.innerRef}
             >
-              {selectedExercises.map(({ id, title, time }, index) => (
-                <Draggable key={id} draggableId={`selected-${id}`} index={index}>
+              {exercises.map(({ id, title, time }, index) => (
+                <Draggable key={id} draggableId={id} index={index}>
                   {(provided) => (
                     <li
                       ref={provided.innerRef}
                       {...provided.dragHandleProps}
                       {...provided.draggableProps}
                     >
-                      {title}{time}
+                      {title}
+                      {time}
                     </li>
                   )}
                 </Draggable>
@@ -184,6 +187,48 @@ const TheraMakeAssign = () => {
             </ul>
           )}
         </Droppable>
+
+        {/* 환자에게 새로 할당하는 영역 */}
+        <SelectedExercisesContainer>
+          <Droppable droppableId="selectedExercises">
+            {(provided) => (
+              <ul
+                className="selectedExercises"
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+              >
+                {selectedExercises.map(({ id, title, time }, index) => (
+                  <Draggable
+                    key={id}
+                    draggableId={`selected-${id}`}
+                    index={index}
+                  >
+                    {(provided) => (
+                      <li
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        style={{
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between", // 이 스타일을 추가하여 항목과 삭제 버튼 사이에 간격을 줌
+                        }}
+                      >
+                        {title}
+                        {time}
+                        <DeleteButton onClick={() => handleDelete(id)}>
+                          삭제
+                        </DeleteButton>
+                        {/* 삭제 버튼 추가 */}
+                      </li>
+                    )}
+                  </Draggable>
+                ))}
+
+                {provided.placeholder}
+              </ul>
+            )}
+          </Droppable>
         </SelectedExercisesContainer>
       </DragDropContext>
     </Container>
