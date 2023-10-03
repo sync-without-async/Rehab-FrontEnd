@@ -63,6 +63,14 @@ const SearchAndFilterContainer = styled.div`
   width: 720px;
 `;
 
+const SelectedExercisesContainer = styled.div`
+  margin-top: 20px;
+  border: 2px dashed #0064ff;
+  min-height: 150px;
+  padding: 20px;
+  border-radius: 10px;
+`;
+
 
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
@@ -71,17 +79,35 @@ const TheraMakeAssign = () => {
     { id: "2", title: "팔 재활 2", time: " 1분 15초" },
     { id: "3", title: "어깨 재활 3", time: " 2분 30초" },
     { id: "4", title: "다리 재활 4", time: " 3분 30초" },
-    { id: "5", title: "무릎 재활 5", time: " 1분 30초" }
+    { id: "5", title: "무릎 재활 5", time: " 1분 30초" },
+    { id: "6", title: "무릎 재활 6", time: " 1분 30초" },
+    { id: "7", title: "무릎 재활 7", time: " 1분 30초" },
+    { id: "8", title: "다리 재활 8", time: " 1분 30초" },
+    { id: "9", title: "무릎 재활 9", time: " 1분 30초" },
+    { id: "10", title: "팔 재활 10", time: " 1분 30초" },
+    { id: "11", title: "어깨 재활 11", time: " 1분 30초" },
   ]);
-  const handleChange = (result) => {
-    if (!result.destination) return;
-    console.log(result);
-    const items = [...exercises];
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
+  {/* 환자에게 새로 할당하는 영역 */}
+  const [selectedExercises, setSelectedExercises] = useState([]);
 
-    setExercises(items);
-  };
+  const handleChange = (result) => {
+    const { source, destination } = result;
+
+    if (!destination) return;
+
+    if (source.droppableId === "exercises" && destination.droppableId === "selectedExercises") {
+      setSelectedExercises([...selectedExercises, exercises[source.index]]);
+      setExercises(exercises.filter((_, idx) => idx !== source.index));
+    } else if (source.droppableId === "exercises" && destination.droppableId === "exercises") {
+ 
+      const items = [...exercises];
+      const [reorderedItem] = items.splice(source.index, 1);
+      items.splice(destination.index, 0, reorderedItem);
+
+      setExercises(items);
+    }
+    
+};
 
   return (
     <Container>
@@ -124,7 +150,33 @@ const TheraMakeAssign = () => {
           </ul>
         )}
       </Droppable>
-    </DragDropContext>
+      <SelectedExercisesContainer>
+      <Droppable droppableId="selectedExercises">
+          {(provided) => (
+            <ul
+              className="selectedExercises"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+            >
+              {selectedExercises.map(({ id, title, time }, index) => (
+                <Draggable key={id} draggableId={id} index={index}>
+                  {(provided) => (
+                    <li
+                      ref={provided.innerRef}
+                      {...provided.dragHandleProps}
+                      {...provided.draggableProps}
+                    >
+                      {title}{time}
+                    </li>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+        </SelectedExercisesContainer>
+      </DragDropContext>
     </Container>
   );
 };
