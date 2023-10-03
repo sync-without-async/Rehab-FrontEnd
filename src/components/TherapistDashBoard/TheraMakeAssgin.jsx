@@ -5,7 +5,7 @@ import DropdownFilter from "../Dropdown/DropdownFilter";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useState } from "react";
 import IconDelete from "../../assets/icons/iconassignx.png";
-import Pagination from "../Pagination/Pagination";
+
 
 const Container = styled.div`
   width: 800px;
@@ -113,6 +113,12 @@ const DeleteIcon = styled.div`
   cursor: pointer;
 `;
 
+const ListsContainer = styled.div`
+  display: flex;  // Flex를 사용해 옆으로 나열합니다.
+  justify-content: space-between;  // 각 항목 간의 공간을 동일하게 배분합니다.
+  width: 100%;  // 너비를 최대로 사용합니다.
+`;
+
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
   const [exercises, setExercises] = useState([
@@ -171,14 +177,6 @@ const TheraMakeAssign = () => {
     }
   };
 
-  //페이지네이션 영역
-  const totalItems = 40;
-  const itemsPerPage = 8;
-
-  const handlePageChange = (selectedPage) => {
-    console.log("Selected page:", selectedPage);
-  };
-
   return (
     <Container>
       <Title>과제 할당</Title>
@@ -195,7 +193,9 @@ const TheraMakeAssign = () => {
         <SearchBar />
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
+      
       <DragDropContext onDragEnd={handleChange}>
+      <ListsContainer>
         {/* 전체 강의 목록 영역 */}
         <Droppable droppableId="exercises">
           {(provided) => (
@@ -226,11 +226,6 @@ const TheraMakeAssign = () => {
             </Table>
           )}
         </Droppable>
-        <Pagination
-          totalItems={totalItems}
-          itemsPerPage={itemsPerPage}
-          onChange={handlePageChange}
-        />
 
         {/* 환자에게 새로 할당하는 영역 */}
         <SelectedExercisesContainer>
@@ -281,6 +276,9 @@ const TheraMakeAssign = () => {
             )}
           </Droppable>
         </SelectedExercisesContainer>
+      </ListsContainer>
+        
+        
       </DragDropContext>
     </Container>
   );
