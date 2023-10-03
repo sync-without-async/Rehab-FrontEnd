@@ -96,8 +96,10 @@ const TheraMakeAssign = () => {
     if (!destination) return;
 
     if (source.droppableId === "exercises" && destination.droppableId === "selectedExercises") {
-        setSelectedExercises(prev => [...prev, exercises[source.index]]);
-    } 
+      const selectedItem = exercises[source.index];
+      setSelectedExercises(prev => [...prev, {...selectedItem, id: `selected-${selectedItem.id}`}]);
+  }
+  
     else if (source.droppableId === "exercises" && destination.droppableId === "exercises") {
         const items = [...exercises];
         const [reorderedItem] = items.splice(source.index, 1);
@@ -164,7 +166,7 @@ const TheraMakeAssign = () => {
               ref={provided.innerRef}
             >
               {selectedExercises.map(({ id, title, time }, index) => (
-                <Draggable key={id} draggableId={id} index={index}>
+                <Draggable key={id} draggableId={`selected-${id}`} index={index}>
                   {(provided) => (
                     <li
                       ref={provided.innerRef}
