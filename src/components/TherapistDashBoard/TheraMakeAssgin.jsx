@@ -5,6 +5,7 @@ import DropdownFilter from "../Dropdown/DropdownFilter";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useState } from "react";
 import IconDelete from "../../assets/icons/iconassignx.png";
+import Pagination from "../Pagination/Pagination";
 
 const Container = styled.div`
   width: 800px;
@@ -121,6 +122,9 @@ const SelectedTable = styled(Table)`
   width: 350px;
 `;
 
+const PageNationContainer= styled.div`
+  margin-left: -400px;
+`;
 const Button = styled.button`
   width: 210px;
   height: 40px;
@@ -136,6 +140,7 @@ const Button = styled.button`
   margin-left: auto;
   margin-right: auto; 
 `;
+
 
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
@@ -194,6 +199,13 @@ const TheraMakeAssign = () => {
       items.splice(destination.index, 0, reorderedItem);
       setSelectedExercises(items);
     }
+  };
+
+  const totalItems = 30;
+  const itemsPerPage = 6;
+
+  const handlePageChange = (selectedPage) => {
+    console.log("Selected page:", selectedPage);
   };
 
   return (
@@ -300,6 +312,13 @@ const TheraMakeAssign = () => {
           </SelectedExercisesContainer>
         </ListsContainer>
       </DragDropContext>
+      <PageNationContainer>
+      <Pagination
+        totalItems={totalItems}
+        itemsPerPage={itemsPerPage}
+        onChange={handlePageChange}
+      />
+      </PageNationContainer>
       <Button>과제 할당</Button>
     </Container>
   );
