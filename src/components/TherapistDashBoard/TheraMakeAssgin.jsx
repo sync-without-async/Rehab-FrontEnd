@@ -66,11 +66,6 @@ const SearchAndFilterContainer = styled.div`
 `;
 
 const SelectedExercisesContainer = styled.div`
-  margin-top: 20px;
-  border: 2px dashed #0064ff;
-  min-height: 150px;
-  padding: 20px;
-  border-radius: 10px;
 `;
 
 const Table = styled.table`
