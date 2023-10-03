@@ -12,7 +12,7 @@ const Label = styled.div`
 `;
 
 const DropdownContainer = styled.div`
-  width: 230px;
+  width: 210px;
   height: 40px;
   background-color: #FFFFFF;
   border: 0.75px solid #BBBBBB; 
