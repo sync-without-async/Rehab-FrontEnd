@@ -91,12 +91,25 @@ const TheraMakeAssign = () => {
       <DragDropContext>
       <Droppable droppableId="exercises">
         {(provided) => (
-          <ul className="exercises"{...provided.droppableProps}
-          ref={provided.innerRef}
-        >
-            {exercises.map(({ id, title,time }) => (
-               <Draggable key={id}>{(provided) => <li>{title}{time}</li>}</Draggable>
+          <ul
+            className="exercises"
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+          >
+            {exercises.map(({ id, title, time }, index) => (
+              <Draggable key={id} draggableId={id} index={index}>
+                {(provided) => (
+                  <li
+                    ref={provided.innerRef}
+                    {...provided.dragHandleProps}
+                    {...provided.draggableProps}
+                  >
+                    {title}{time}
+                  </li>
+                )}
+              </Draggable>
             ))}
+            {provided.placeholder}
           </ul>
         )}
       </Droppable>
