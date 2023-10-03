@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import InputDText from "../Input/InputDText";
 
 const Container = styled.div`
   width: 800px;
@@ -29,12 +29,38 @@ const Divider = styled.hr`
   margin-bottom: 20px;
 `;
 
+const OpinionTitle = styled.p`
+  color: #000000;
+  font-size: 16px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+`;
+
+const OpinionContent = styled.div`
+  width: 720px;
+  height: 100px;
+  background-color: #CCCCCC;
+  border: 1px solid #BBBBBB;
+  border-radius: 10px;
+  color: #666666;
+  font-size: 14px;
+  padding: 10px;
+  display: flex;
+  align-items: center;  
+  justify-content: center;
+`;
+
 const TheraMakeAssign = () => {
 
   return (
     <Container>
       <Title>과제 할당</Title>
       <Divider />
+      <InputDText label="프로그램 설명 *" />
+      <OpinionTitle>담당 전문의 재활 치료 소견서</OpinionTitle>
+      <OpinionContent>
+        이 환자는 특히 팔이 아프고 어쩌고 저쩌고 특히 이부분을 신경써서 과제를 만들어주세요
+      </OpinionContent>
     </Container>
   );
 };
