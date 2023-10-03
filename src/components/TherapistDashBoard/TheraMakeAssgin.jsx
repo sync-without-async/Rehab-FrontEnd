@@ -97,14 +97,21 @@ const TheraMakeAssign = () => {
 
     if (source.droppableId === "exercises" && destination.droppableId === "selectedExercises") {
         setSelectedExercises(prev => [...prev, exercises[source.index]]);
-        // setExercises의 호출을 삭제하면 항목은 전체 목록에서 사라지지 않습니다.
-    } else if (source.droppableId === "exercises" && destination.droppableId === "exercises") {
+    } 
+    else if (source.droppableId === "exercises" && destination.droppableId === "exercises") {
         const items = [...exercises];
         const [reorderedItem] = items.splice(source.index, 1);
         items.splice(destination.index, 0, reorderedItem);
         setExercises(items);
     }
+    else if (source.droppableId === "selectedExercises" && destination.droppableId === "selectedExercises") {
+        const items = [...selectedExercises];
+        const [reorderedItem] = items.splice(source.index, 1);
+        items.splice(destination.index, 0, reorderedItem);
+        setSelectedExercises(items);
+    }
 };
+
 
 
   return (
