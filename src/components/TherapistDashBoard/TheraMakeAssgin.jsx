@@ -101,7 +101,7 @@ const TableHeader = styled.th`
     width: 200px;
   }
   &:nth-child(2) {
-    width: 150px;
+    width: 100px;
   }
 `;
 
@@ -114,10 +114,15 @@ const DeleteIcon = styled.div`
 `;
 
 const ListsContainer = styled.div`
-  display: flex;  // Flex를 사용해 옆으로 나열합니다.
-  justify-content: space-between;  // 각 항목 간의 공간을 동일하게 배분합니다.
-  width: 100%;  // 너비를 최대로 사용합니다.
+  display: flex;  
+  justify-content: space-between;  
+  width: 720px; 
 `;
+
+const SelectedTable = styled(Table)` 
+  width: 350px; 
+`;
+
 
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
@@ -228,54 +233,54 @@ const TheraMakeAssign = () => {
         </Droppable>
 
         {/* 환자에게 새로 할당하는 영역 */}
-        <SelectedExercisesContainer>
-          <Droppable droppableId="selectedExercises">
-            {(provided) => (
-              <Table ref={provided.innerRef} {...provided.droppableProps}>
-                <thead>
-                  <TableRow>
-                    <TableHeader>운동 이름</TableHeader>
-                    <TableHeader>운동 시간</TableHeader>
-                    <TableHeader>삭제</TableHeader>
-                  </TableRow>
-                </thead>
-                <tbody>
-                  {selectedExercises.map(({ id, title, time }, index) => (
-                    <Draggable
-                      key={id}
-                      draggableId={`selected-${id}`}
-                      index={index}
-                    >
-                      {(provided, snapshot) => (
-                        <TableRow
-                          ref={provided.innerRef}
-                          {...provided.dragHandleProps}
-                          {...provided.draggableProps}
-                          style={{
-                            ...provided.draggableProps.style,
-                            background: snapshot.isDragging
-                              ? "#e0e0e0"
-                              : "transparent",
-                            boxShadow: snapshot.isDragging
-                              ? "0px 0px 8px rgba(0, 0, 0, 0.2)"
-                              : "none",
-                          }}
-                        >
-                          <TableCell>{title}</TableCell>
-                          <TableCell>{time}</TableCell>
-                          <TableCell>
-                            <DeleteIcon onClick={() => handleDelete(id)} />
-                          </TableCell>
-                        </TableRow>
-                      )}
-                    </Draggable>
-                  ))}
-                  {provided.placeholder}
-                </tbody>
-              </Table>
-            )}
-          </Droppable>
-        </SelectedExercisesContainer>
+<SelectedExercisesContainer>
+  <Droppable droppableId="selectedExercises">
+    {(provided) => (
+      <SelectedTable ref={provided.innerRef} {...provided.droppableProps}>
+        <thead>
+          <TableRow>
+            <TableHeader>운동 이름</TableHeader>
+            <TableHeader>운동 시간</TableHeader>
+            <TableHeader>삭제</TableHeader>
+          </TableRow>
+        </thead>
+        <tbody>
+          {selectedExercises.map(({ id, title, time }, index) => (
+            <Draggable
+              key={id}
+              draggableId={`selected-${id}`}
+              index={index}
+            >
+              {(provided, snapshot) => (
+                <TableRow
+                  ref={provided.innerRef}
+                  {...provided.dragHandleProps}
+                  {...provided.draggableProps}
+                  style={{
+                    ...provided.draggableProps.style,
+                    background: snapshot.isDragging
+                      ? "#e0e0e0"
+                      : "transparent",
+                    boxShadow: snapshot.isDragging
+                      ? "0px 0px 8px rgba(0, 0, 0, 0.2)"
+                      : "none",
+                  }}
+                >
+                  <TableCell>{title}</TableCell>
+                  <TableCell>{time}</TableCell>
+                  <TableCell>
+                    <DeleteIcon onClick={() => handleDelete(id)} />
+                  </TableCell>
+                </TableRow>
+              )}
+            </Draggable>
+          ))}
+          {provided.placeholder}
+        </tbody>
+      </SelectedTable>
+    )}
+  </Droppable>
+</SelectedExercisesContainer>
       </ListsContainer>
         
         
