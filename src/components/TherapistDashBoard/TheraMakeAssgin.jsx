@@ -107,10 +107,10 @@ const TheraMakeAssign = () => {
 
   const handleDelete = (idToDelete) => {
     setSelectedExercises((prev) =>
-      prev.filter((exercise) => exercise.id !== idToDelete),
+      prev.filter((exercise) => `selected-${exercise.id}` !== idToDelete)
     );
   };
-
+  
   const handleChange = (result) => {
     const { source, destination } = result;
 
@@ -141,7 +141,7 @@ const TheraMakeAssign = () => {
       const [reorderedItem] = items.splice(source.index, 1);
       items.splice(destination.index, 0, reorderedItem);
       setSelectedExercises(items);
-    }
+    }    
   };
 
   return (
