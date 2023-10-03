@@ -2,7 +2,7 @@ import styled from "styled-components";
 import InputDText from "../Input/InputDText";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
-
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 const Container = styled.div`
   width: 800px;
@@ -62,6 +62,14 @@ const SearchAndFilterContainer = styled.div`
   width: 720px;
 `;
 
+const exercises = [
+  { id: "1", title: "팔 재활 1", time: "1분 30초" },
+  { id: "2", title: "팔 재활 2", time: "1분 15초" },
+  { id: "3", title: "어깨 재활 3", time: "2분 30초" },
+  { id: "4", title: "다리 재활 4", time: "3분 30초" },
+  { id: "5", title: "무릎 재활 5", time: "1분 30초" }
+];
+
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
 
@@ -80,6 +88,19 @@ const TheraMakeAssign = () => {
         <SearchBar />
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
+      <DragDropContext>
+      <Droppable droppableId="exercises">
+        {(provided) => (
+          <ul className="exercises"{...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+            {exercises.map(({ id, title,time }) => (
+              <li key={id}>{title}{time}</li>
+            ))}
+          </ul>
+        )}
+      </Droppable>
+    </DragDropContext>
     </Container>
   );
 };
