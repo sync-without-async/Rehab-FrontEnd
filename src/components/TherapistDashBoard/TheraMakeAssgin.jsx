@@ -198,31 +198,28 @@ const TheraMakeAssign = () => {
                 ref={provided.innerRef}
               >
                 {selectedExercises.map(({ id, title, time }, index) => (
-                  <Draggable
-                    key={id}
-                    draggableId={`selected-${id}`}
-                    index={index}
-                  >
-                    {(provided) => (
-                      <li
-                        ref={provided.innerRef}
-                        {...provided.dragHandleProps}
-                        {...provided.draggableProps}
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "space-between", // 이 스타일을 추가하여 항목과 삭제 버튼 사이에 간격을 줌
-                        }}
-                      >
-                        {title}
-                        {time}
-                        <DeleteButton onClick={() => handleDelete(id)}>
-                          삭제
-                        </DeleteButton>
-                        {/* 삭제 버튼 추가 */}
-                      </li>
-                    )}
-                  </Draggable>
+                  <Draggable key={id} draggableId={`selected-${id}`} index={index}>
+  {(provided, snapshot) => (
+    <li
+      ref={provided.innerRef}
+      {...provided.dragHandleProps}
+      {...provided.draggableProps}
+      style={{
+        ...provided.draggableProps.style, 
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        background: snapshot.isDragging ? "#e0e0e0" : "transparent", 
+        boxShadow: snapshot.isDragging ? "0px 0px 8px rgba(0, 0, 0, 0.2)" : "none", 
+      }}
+    >
+      {title}
+      {time}
+      <DeleteButton onClick={() => handleDelete(id)}>삭제</DeleteButton>
+    </li>
+  )}
+</Draggable>
+
                 ))}
 
                 {provided.placeholder}
