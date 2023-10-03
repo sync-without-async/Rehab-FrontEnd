@@ -32,6 +32,8 @@ const RouteButton = styled.button`
   }
 `;
 
+
+
 const DevelopPage = () => {
     const routes = [
       { path: "/login", name: "030LoginPage" },
@@ -45,6 +47,13 @@ const DevelopPage = () => {
       { path: "/doctordetail", name: "013DoctorDetailPage" },
       { path: "/doctorpatientlist", name: "012DoctorPatientListPage" },
       { path: "/doctoruntactreserve", name: "014DoctorUntactReservePage" },
+      { path: "/theradashboard", name: "018TheraDashBoardPage" },
+      { path: "/therauntactreserve", name: "025TheraUntactReservePage" },
+      { path: "/therapatientlist", name: "027TheraPatientListPage" },
+      { path: "/theradetail", name: "028TheraDetailPage" },
+      { path: "/theraexerciselist", name: "019TheraExerciseListPage" },
+      { path: "/theraexerciseadd", name: "021TheraExerciseAddPage" },
+      { path: "/theramakeassgin", name: "022TheraMakeAssignPage" },
     ];
 
   return (
