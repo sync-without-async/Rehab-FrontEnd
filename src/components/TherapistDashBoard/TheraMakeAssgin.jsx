@@ -4,6 +4,7 @@ import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useState } from "react";
+import IconDelete from "../../assets/icons/iconassignx.png";
 
 const Container = styled.div`
   width: 800px;
@@ -74,14 +75,14 @@ const SelectedExercisesContainer = styled.div`
 const DeleteButton = styled.button`
   margin-left: 10px;
   padding: 5px 10px;
-  background-color: #f44336; // 빨간색
-  color: #ffffff; // 텍스트는 흰색
+  background-color: #f44336; 
+  color: #ffffff; 
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   &:hover {
-    background-color: #d32f2f; // 호버 시 약간 어두운 빨간색
+    background-color: #d32f2f; 
   }
 `;
 
@@ -107,10 +108,10 @@ const TheraMakeAssign = () => {
 
   const handleDelete = (idToDelete) => {
     setSelectedExercises((prev) =>
-      prev.filter((exercise) => `selected-${exercise.id}` !== idToDelete)
+      prev.filter((exercise) => `selected-${exercise.id}` !== idToDelete),
     );
   };
-  
+
   const handleChange = (result) => {
     const { source, destination } = result;
 
@@ -141,7 +142,7 @@ const TheraMakeAssign = () => {
       const [reorderedItem] = items.splice(source.index, 1);
       items.splice(destination.index, 0, reorderedItem);
       setSelectedExercises(items);
-    }    
+    }
   };
 
   return (
@@ -198,30 +199,38 @@ const TheraMakeAssign = () => {
                 ref={provided.innerRef}
               >
                 {selectedExercises.map(({ id, title, time }, index) => (
-                  <Draggable key={id} draggableId={`selected-${id}`} index={index}>
-  {(provided, snapshot) => (
-    <li
-      ref={provided.innerRef}
-      {...provided.dragHandleProps}
-      {...provided.draggableProps}
-      style={{
-        ...provided.draggableProps.style, 
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        background: snapshot.isDragging ? "#e0e0e0" : "transparent", 
-        boxShadow: snapshot.isDragging ? "0px 0px 8px rgba(0, 0, 0, 0.2)" : "none", 
-      }}
-    >
-      {title}
-      {time}
-      <DeleteButton onClick={() => handleDelete(id)}>삭제</DeleteButton>
-    </li>
-  )}
-</Draggable>
-
+                  <Draggable
+                    key={id}
+                    draggableId={`selected-${id}`}
+                    index={index}
+                  >
+                    {(provided, snapshot) => (
+                      <li
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                        style={{
+                          ...provided.draggableProps.style,
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "space-between",
+                          background: snapshot.isDragging
+                            ? "#e0e0e0"
+                            : "transparent",
+                          boxShadow: snapshot.isDragging
+                            ? "0px 0px 8px rgba(0, 0, 0, 0.2)"
+                            : "none",
+                        }}
+                      >
+                        {title}
+                        {time}
+                        <DeleteButton onClick={() => handleDelete(id)}>
+                          삭제
+                        </DeleteButton>
+                      </li>
+                    )}
+                  </Draggable>
                 ))}
-
                 {provided.placeholder}
               </ul>
             )}
