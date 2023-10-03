@@ -73,20 +73,6 @@ const SelectedExercisesContainer = styled.div`
   border-radius: 10px;
 `;
 
-const DeleteButton = styled.button`
-  margin-left: 10px;
-  padding: 5px 10px;
-  background-color: #f44336; 
-  color: #ffffff; 
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-  &:hover {
-    background-color: #d32f2f; 
-  }
-`;
-
 const Table = styled.table`
   width: 300px;
   border-collapse: collapse;
@@ -124,6 +110,14 @@ const TableHeader = styled.th`
   }
 `;
 
+const DeleteIcon = styled.div`
+  width: 20px;
+  height: 20px;
+  background-image: url(${IconDelete});
+  background-size: cover;
+  cursor: pointer;
+`;
+
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
   const [exercises, setExercises] = useState([
@@ -145,10 +139,9 @@ const TheraMakeAssign = () => {
   const [selectedExercises, setSelectedExercises] = useState([]);
 
   const handleDelete = (idToDelete) => {
-    setSelectedExercises((prev) =>
-      prev.filter((exercise) => `selected-${exercise.id}` !== idToDelete),
-    );
+    setSelectedExercises((prev) => prev.filter((exercise) => exercise.id !== idToDelete));
   };
+  
 
   const handleChange = (result) => {
     const { source, destination } = result;
@@ -184,7 +177,7 @@ const TheraMakeAssign = () => {
   };
 
   //페이지네이션 영역
-  const totalItems = 40; 
+  const totalItems = 40;
   const itemsPerPage = 8;
 
   const handlePageChange = (selectedPage) => {
@@ -208,90 +201,92 @@ const TheraMakeAssign = () => {
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
       <DragDropContext onDragEnd={handleChange}>
-  {/* 전체 강의 목록 영역 */}
-  <Droppable droppableId="exercises">
-    {(provided) => (
-      <Table ref={provided.innerRef} {...provided.droppableProps}>
-        <thead>
-          <TableRow>
-            <TableHeader>운동 이름</TableHeader>
-            <TableHeader>운동 시간</TableHeader>
-          </TableRow>
-        </thead>
-        <tbody>
-          {exercises.map(({ id, title, time }, index) => (
-            <Draggable key={id} draggableId={id} index={index}>
-              {(provided) => (
-                <TableRow
-                  ref={provided.innerRef}
-                  {...provided.dragHandleProps}
-                  {...provided.draggableProps}
-                >
-                  <TableCell>{title}</TableCell>
-                  <TableCell>{time}</TableCell>
+        {/* 전체 강의 목록 영역 */}
+        <Droppable droppableId="exercises">
+          {(provided) => (
+            <Table ref={provided.innerRef} {...provided.droppableProps}>
+              <thead>
+                <TableRow>
+                  <TableHeader>운동 이름</TableHeader>
+                  <TableHeader>운동 시간</TableHeader>
                 </TableRow>
-              )}
-            </Draggable>
-          ))}
-          {provided.placeholder}
-        </tbody>
-      </Table>
-    )}
-  </Droppable>
-  <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        onChange={handlePageChange}
-      />
+              </thead>
+              <tbody>
+                {exercises.map(({ id, title, time }, index) => (
+                  <Draggable key={id} draggableId={id} index={index}>
+                    {(provided) => (
+                      <TableRow
+                        ref={provided.innerRef}
+                        {...provided.dragHandleProps}
+                        {...provided.draggableProps}
+                      >
+                        <TableCell>{title}</TableCell>
+                        <TableCell>{time}</TableCell>
+                      </TableRow>
+                    )}
+                  </Draggable>
+                ))}
+                {provided.placeholder}
+              </tbody>
+            </Table>
+          )}
+        </Droppable>
+        <Pagination
+          totalItems={totalItems}
+          itemsPerPage={itemsPerPage}
+          onChange={handlePageChange}
+        />
 
-  {/* 환자에게 새로 할당하는 영역 */}
-  <SelectedExercisesContainer>
-    <Droppable droppableId="selectedExercises">
-      {(provided) => (
-        <Table ref={provided.innerRef} {...provided.droppableProps}>
-          <thead>
-            <TableRow>
-              <TableHeader>운동 이름</TableHeader>
-              <TableHeader>운동 시간</TableHeader>
-              <TableHeader>삭제</TableHeader>
-            </TableRow>
-          </thead>
-          <tbody>
-            {selectedExercises.map(({ id, title, time }, index) => (
-              <Draggable key={id} draggableId={`selected-${id}`} index={index}>
-                {(provided, snapshot) => (
-                  <TableRow
-                    ref={provided.innerRef}
-                    {...provided.dragHandleProps}
-                    {...provided.draggableProps}
-                    style={{
-                      ...provided.draggableProps.style,
-                      background: snapshot.isDragging
-                        ? "#e0e0e0"
-                        : "transparent",
-                      boxShadow: snapshot.isDragging
-                        ? "0px 0px 8px rgba(0, 0, 0, 0.2)"
-                        : "none",
-                    }}
-                  >
-                    <TableCell>{title}</TableCell>
-                    <TableCell>{time}</TableCell>
-                    <TableCell>
-                      <DeleteButton onClick={() => handleDelete(id)}>
-                        삭제
-                      </DeleteButton>
-                    </TableCell>
+        {/* 환자에게 새로 할당하는 영역 */}
+        <SelectedExercisesContainer>
+          <Droppable droppableId="selectedExercises">
+            {(provided) => (
+              <Table ref={provided.innerRef} {...provided.droppableProps}>
+                <thead>
+                  <TableRow>
+                    <TableHeader>운동 이름</TableHeader>
+                    <TableHeader>운동 시간</TableHeader>
+                    <TableHeader>삭제</TableHeader>
                   </TableRow>
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </tbody>
-        </Table>
-      )}
-    </Droppable>
-  </SelectedExercisesContainer>
-</DragDropContext>
+                </thead>
+                <tbody>
+                  {selectedExercises.map(({ id, title, time }, index) => (
+                    <Draggable
+                      key={id}
+                      draggableId={`selected-${id}`}
+                      index={index}
+                    >
+                      {(provided, snapshot) => (
+                        <TableRow
+                          ref={provided.innerRef}
+                          {...provided.dragHandleProps}
+                          {...provided.draggableProps}
+                          style={{
+                            ...provided.draggableProps.style,
+                            background: snapshot.isDragging
+                              ? "#e0e0e0"
+                              : "transparent",
+                            boxShadow: snapshot.isDragging
+                              ? "0px 0px 8px rgba(0, 0, 0, 0.2)"
+                              : "none",
+                          }}
+                        >
+                          <TableCell>{title}</TableCell>
+                          <TableCell>{time}</TableCell>
+                          <TableCell>
+                            <DeleteIcon onClick={() => handleDelete(id)} />
+                          </TableCell>
+                        </TableRow>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </tbody>
+              </Table>
+            )}
+          </Droppable>
+        </SelectedExercisesContainer>
+      </DragDropContext>
     </Container>
   );
 };
