@@ -73,7 +73,7 @@ const TheraExerciseAdd = () => {
         <FilterButton label="운동 태그 *" />
       </FlexContainer>
       <InputDText label="운동 설명 *"/>
-      <Button>기록 추가</Button>
+      <Button>운동 등록</Button>
     </Container>
   );
 };

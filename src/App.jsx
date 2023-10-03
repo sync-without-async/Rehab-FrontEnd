@@ -16,6 +16,7 @@ import TheraPatientListPage from './pages/Therapist/TheraPatientListPage.jsx';
 import TheraDetailPage from './pages/Therapist/TheraDetailPage.jsx';
 import TheraExerciseListPage from './pages/Therapist/TheraExerciseListPage.jsx';
 import TheraExerciseAddPage from './pages/Therapist/TheraExerciseAddPage.jsx';
+import TheraMakeAssignPage from './pages/Therapist/TheraMakeAssignPage.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -46,7 +47,7 @@ function App() {
           <Route path="/theradetail" element={<TheraDetailPage />} />
           <Route path="/theraexerciselist" element={<TheraExerciseListPage />} /> 
           <Route path="/theraexerciseadd" element={<TheraExerciseAddPage/>} />
-
+          <Route path="/theramakeassgin" element={<TheraMakeAssignPage/>} />
         </Routes>
       </Container>
     </Router>
