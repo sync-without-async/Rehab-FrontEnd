@@ -3,6 +3,7 @@ import InputDText from "../Input/InputDText";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import {useState} from "react";
 
 const Container = styled.div`
   width: 800px;
@@ -62,16 +63,25 @@ const SearchAndFilterContainer = styled.div`
   width: 720px;
 `;
 
-const exercises = [
-  { id: "1", title: "팔 재활 1", time: "1분 30초" },
-  { id: "2", title: "팔 재활 2", time: "1분 15초" },
-  { id: "3", title: "어깨 재활 3", time: "2분 30초" },
-  { id: "4", title: "다리 재활 4", time: "3분 30초" },
-  { id: "5", title: "무릎 재활 5", time: "1분 30초" }
-];
 
 const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
 const TheraMakeAssign = () => {
+  const [exercises, setExercises] = useState([
+    { id: "1", title: "팔 재활 1", time: " 1분 30초" },
+    { id: "2", title: "팔 재활 2", time: " 1분 15초" },
+    { id: "3", title: "어깨 재활 3", time: " 2분 30초" },
+    { id: "4", title: "다리 재활 4", time: " 3분 30초" },
+    { id: "5", title: "무릎 재활 5", time: " 1분 30초" }
+  ]);
+  const handleChange = (result) => {
+    if (!result.destination) return;
+    console.log(result);
+    const items = [...exercises];
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setExercises(items);
+  };
 
   return (
     <Container>
@@ -88,7 +98,8 @@ const TheraMakeAssign = () => {
         <SearchBar />
         <DropdownFilter items={filterlist} />
       </SearchAndFilterContainer>
-      <DragDropContext>
+      
+      <DragDropContext onDragEnd={handleChange}>
       <Droppable droppableId="exercises">
         {(provided) => (
           <ul
