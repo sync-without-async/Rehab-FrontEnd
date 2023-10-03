@@ -14,6 +14,7 @@ import TheraDashBoardPage from './pages/Therapist/TheraDashBoardPage.jsx';
 import TheraUntactReservePage from './pages/Therapist/TheraUntactReservePage.jsx';
 import TheraPatientListPage from './pages/Therapist/TheraPatientListPage.jsx';
 import TheraDetailPage from './pages/Therapist/TheraDetailPage.jsx';
+import TheraExerciseListPage from './pages/Therapist/TheraExerciseListPage.jsx';
 import styled from "styled-components";
 import "./App.scss";
 
@@ -42,6 +43,7 @@ function App() {
           <Route path="/therauntactreserve" element={<TheraUntactReservePage  />} />
           <Route path="/therapatientlist" element={<TheraPatientListPage />} />
           <Route path="/theradetail" element={<TheraDetailPage />} />
+          <Route path="/theraexerciselist" element={<TheraExerciseListPage />} />
         </Routes>
       </Container>
     </Router>
