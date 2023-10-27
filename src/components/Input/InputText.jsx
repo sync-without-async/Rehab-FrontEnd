@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 const Item = styled.input`
   width: 240px;
   height: 40px;
+  font-size: 14px;
   border-radius: 10px;
   background-color: #fafafa;
   border: 1px solid #bbbbbb;
