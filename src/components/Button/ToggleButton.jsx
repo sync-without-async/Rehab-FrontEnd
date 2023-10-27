@@ -3,9 +3,9 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const Item = styled.a`
-  width: 210px;
+  width: 90px;
   height: 40px;
-  padding: 0 16px;
+  padding: 0 9px;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -14,22 +14,10 @@ const Item = styled.a`
   font-size: 16px;
   user-select: none;
 
-  background-color: #f3f3f3;
+  background-color: #fafafa;
   color: black;
-  border: 1px solid #bbbbbb;
+  border: 1px solid #e8e8e8;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-
-  &.primary {
-    background-color: #3592ff;
-    color: #fdfdfd;
-  }
-
-  &.icon {
-    background-color: #ffffff;
-    color: #667080;
-    font-weight: 500;
-    font-size: 14px;
-  }
 
   &.disabled {
     background-color: #888888;
@@ -46,19 +34,23 @@ const Item = styled.a`
   }
 `;
 
-const Button = ({ type, children, onClick, className }) => {
+const ToggleButton = ({ selected, disabled, children, onClick, className }) => {
   return (
-    <Item className={classNames(className, type)} onClick={onClick}>
+    <Item
+      className={classNames(className, { selected, disabled })}
+      onClick={onClick}
+    >
       {children}
     </Item>
   );
 };
 
-Button.propTypes = {
+ToggleButton.propTypes = {
   children: PropTypes.node,
-  type: PropTypes.string,
+  selected: PropTypes.bool,
+  disabled: PropTypes.bool,
   onClick: PropTypes.func,
   className: PropTypes.string,
 };
 
-export default Button;
+export default ToggleButton;

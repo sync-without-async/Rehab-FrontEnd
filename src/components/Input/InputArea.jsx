@@ -19,7 +19,7 @@ const Item = styled.textarea`
 
 function InputArea({ value, onInput, className }) {
   return (
-    <Item type="text" value={value} onInput={onInput} className={className} />
+    <Item type="text" value={value} onChange={onInput} className={className} />
   );
 }
 
