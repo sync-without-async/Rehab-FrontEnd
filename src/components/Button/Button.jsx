@@ -12,6 +12,7 @@ const Item = styled.a`
   justify-content: center;
   cursor: pointer;
   font-size: 16px;
+  user-select: none;
 
   background-color: #f3f3f3;
   color: black;
