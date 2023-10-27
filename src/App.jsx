@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header.jsx";
+import Header from "./components/Common/Header.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import MyUserPage from "./pages/User/MyUserPage.jsx";
@@ -22,15 +22,16 @@ import styled from "styled-components";
 import "./App.scss";
 
 const Container = styled.div`
-  background-color: transparent;
-  height: 100%;
+  margin-top: 60px;
+  height: calc(100% - 60px);
+  overflow: auto;
 `;
 
 function App() {
   return (
     <Router>
+      <Header />
       <Container>
-        <Header />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
