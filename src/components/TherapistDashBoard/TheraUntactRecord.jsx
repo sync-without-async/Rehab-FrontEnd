@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { getUntactRecords } from "../../librarys/login-api";
+import { getUntactRecords } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 800px;
@@ -31,7 +31,7 @@ const Divider = styled.hr`
 const DateText = styled.p`
   font-size: 24px;
   font-weight: bold;
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 15px;
   display: inline-block;
 `;
@@ -39,40 +39,38 @@ const DateText = styled.p`
 const RecordBox = styled.div`
   width: 100%;
   height: 122px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 10px;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
   padding: 10px;
   font-size: 16px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   overflow: hidden;
 `;
 
 const DoctorInfo = styled.span`
   font-size: 18px;
-  position: absolute; 
-  margin-top: 15px; 
+  position: absolute;
+  margin-top: 15px;
   right: 20px;
 `;
 
-
 const TheraUntactRecord = () => {
-  const userId = "HL0001"; 
+  const userId = "HL0001";
   const records = getUntactRecords(userId);
 
   return (
     <Container>
       <Title>비대면 진료 기록</Title>
       <Divider />
-      {records && records.map(record => (
-        <>
-          <DateText>{record.date}</DateText>
-          <DoctorInfo>{record.doctorName}</DoctorInfo>
-          <RecordBox>
-            {record.record}
-          </RecordBox>
-        </>
-      ))}
+      {records &&
+        records.map((record) => (
+          <>
+            <DateText>{record.date}</DateText>
+            <DoctorInfo>{record.doctorName}</DoctorInfo>
+            <RecordBox>{record.record}</RecordBox>
+          </>
+        ))}
     </Container>
   );
 };

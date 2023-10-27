@@ -2,7 +2,7 @@ import styled from "styled-components";
 import player from "../../assets/icons/player.png";
 import Pagination from "../Pagination/Pagination";
 import { useState, useEffect } from "react";
-import { userLogin, getUserExercises } from "../../librarys/login-api";
+import { userLogin, getUserExercises } from "../../librarys/dummy-api";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 
@@ -123,7 +123,7 @@ const TheraPatientList = () => {
     return <div>Error: Doctor or Patient info not found.</div>;
   }
 
-  const exercises = getUserExercises(patientInfo.id); 
+  const exercises = getUserExercises(patientInfo.id);
   console.log("Exercises for:", theraInfo.patient.id, exercises);
 
   // 합격한 과제만 필터링하여 그 갯수를 센다.(이거 나중에 로직 변경 해야됨 임시 데이터에서 보여줄려고 계산하는 것임)
