@@ -1,12 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { userLogin } from "../../librarys/login-api";
-import PropTypes from "prop-types";
 import TitleText from "../Common/TitleText";
 import BlockContainer from "../Common/BlockContainer";
 import InputTextContainer from "../Input/InputTextContainer";
 import Button from "../Button/Button";
+import { userLogin } from "../../librarys/api/login";
 
 const InputContainer = styled.div`
   margin: 48px 0;
@@ -34,7 +33,7 @@ const Link = styled.span`
   cursor: pointer;
 `;
 
-const LoginComponents = (props) => {
+const LoginComponents = ({}) => {
   let navigate = useNavigate();
 
   const [id, setId] = useState("");
@@ -44,8 +43,8 @@ const LoginComponents = (props) => {
     const response = await userLogin(id, password);
     if (response) {
       console.log("로그인 성공:", response);
-      navigate("/dashboard"); // 이거 아직 페이지 완성 안됨 임시 로그인 되나만 확인용입니다.
-      props.onLoginSuccess(response);
+      alert("로그인 완료");
+      // navigate("/dashboard"); // 이거 아직 페이지 완성 안됨 임시 로그인 되나만 확인용입니다.
     } else {
       alert("아이디나 비밀번호가 일치하지 않습니다.");
     }
@@ -68,15 +67,13 @@ const LoginComponents = (props) => {
       </InputContainer>
 
       <FooterContainer>
-        <Button type="primary" onClick={handleLogin} text="로그인" />
+        <Button type="primary" onClick={handleLogin}>
+          로그인
+        </Button>
         <Link onClick={() => navigate("/signup")}>아직 계정이 없으신가요?</Link>
       </FooterContainer>
     </BlockContainer>
   );
-};
-
-LoginComponents.propTypes = {
-  onLoginSuccess: PropTypes.func.isRequired,
 };
 
 export default LoginComponents;
