@@ -11,9 +11,3 @@ export const CATEGORY_TYPE = [
   { key: "KNEE", value: "무릎" },
   { key: "THIGH", value: "허벅지" },
 ];
-
-export const POSITION_TYPE = [
-  { key: "STANDING", value: "선" },
-  { key: "SITTING", value: "앉은" },
-  { key: "LYING", value: "누운" },
-];
