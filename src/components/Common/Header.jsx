@@ -8,6 +8,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: absolute;
+  min-width: 1200px;
   width: 100%;
   height: 60px;
   padding: 0 48px;
