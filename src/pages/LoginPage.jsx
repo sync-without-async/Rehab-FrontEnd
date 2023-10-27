@@ -1,20 +1,6 @@
-import styled from "styled-components";
 import LoginComponents from "../components/Accounts/LoginComponents";
 import { useState } from "react";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: -50px;
-`;
+import PageContainer from "../components/Common/PageContainer.jsx";
 
 const LoginPage = () => {
   const [userType, setUserType] = useState(null); // 유저 타입 상태 추가
@@ -26,9 +12,7 @@ const LoginPage = () => {
 
   return (
     <PageContainer>
-      <CenteredContainer>
-        <LoginComponents onLoginSuccess={handleLoginSuccess} />
-      </CenteredContainer>
+      <LoginComponents onLoginSuccess={handleLoginSuccess} />
     </PageContainer>
   );
 };
