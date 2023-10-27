@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import BackIcon from "../../assets/icons/Page-left.png";
 import Button from "./Button";
 import { useNavigate } from "react-router-dom";
+import { MdOutlineArrowBackIos } from "react-icons/md";
 
 const Container = styled.div`
   width: 800px;
@@ -10,12 +11,11 @@ const Container = styled.div`
   display: flex;
 `;
 
-const Icon = styled.img`
+const Icon = styled(MdOutlineArrowBackIos)`
   margin-right: 10px;
   vertical-align: middle;
-  width: 14px;
-  height: 14px;
-  object-fit: contain;
+  width: 20px;
+  height: 20px;
 `;
 
 const Text = styled.span`
