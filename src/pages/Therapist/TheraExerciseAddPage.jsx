@@ -5,7 +5,7 @@ import PageContainer from "../../components/Common/PageContainer";
 const TheraExerciseAddPage = () => {
   return (
     <PageContainer>
-      <BackButton pageName="운동 목록" />
+      <BackButton text="운동 목록으로 돌아가기" />
       <TheraExerciseAdd />
     </PageContainer>
   );
