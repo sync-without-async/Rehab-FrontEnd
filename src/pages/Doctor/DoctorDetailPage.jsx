@@ -1,11 +1,10 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import BackButton from '../../components/Button/BackButton';
-import DoctorDetailHeader from '../../components/DoctorDashBoard/DoctorDetailHeader';
-import DoctorDetailChart from '../../components/DoctorDashBoard/DoctorDetailChart';
-import DoctorCheckHW from '../../components/DoctorDashBoard/DoctorCheckHW';
+import styled from "styled-components";
+import BackButton from "../../components/Button/BackButton";
+import DoctorDetailHeader from "../../components/DoctorDashBoard/DoctorDetailHeader";
+import DoctorDetailChart from "../../components/DoctorDashBoard/DoctorDetailChart";
+import DoctorCheckHW from "../../components/DoctorDashBoard/DoctorCheckHW";
 import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRecord";
-import DoctorFaceRecord from '../../components/DoctorDashBoard/DoctorFaceRecord';
+import DoctorFaceRecord from "../../components/DoctorDashBoard/DoctorFaceRecord";
 
 const PageContainer = styled.div`
   display: flex;
@@ -19,32 +18,31 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 50px; 
+  margin-top: 50px;
 `;
 
 const RowContainer = styled.div`
   display: flex;
-  align-items: center; 
-  width: 42%;  
-  margin: 20px 0;  
+  align-items: center;
+  width: 42%;
+  margin: 20px 0;
 `;
 
 const DoctorDetailPage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <BackButton pageName="환자 목록" />
-        <DoctorDetailHeader/>
+        <DoctorDetailHeader />
         <RowContainer>
-          <DoctorDetailChart/>
-          <DoctorCheckHW/>
+          <DoctorDetailChart />
+          <DoctorCheckHW />
         </RowContainer>
-        <DoctorFaceRecord/>
-        <DoctorUntactRecord/>
+        <DoctorFaceRecord />
+        <DoctorUntactRecord />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default DoctorDetailPage;

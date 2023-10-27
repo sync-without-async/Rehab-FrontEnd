@@ -1,8 +1,6 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
+import styled from "styled-components";
 import BackButton from "../../components/Button/BackButton";
-import UserDoReserve from '../../components/UserDashBoard/UserDoReserve';
-
+import UserDoReserve from "../../components/UserDashBoard/UserDoReserve";
 
 const PageContainer = styled.div`
   display: flex;
@@ -18,17 +16,15 @@ const CenteredContainer = styled.div`
   flex: 1;
 `;
 
-
 const UserReservePage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <BackButton pageName="나의 수강" />
-        <UserDoReserve/>
+        <UserDoReserve />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default UserReservePage;

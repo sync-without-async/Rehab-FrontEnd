@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import Header from "../../components/Header/Header";
 import BackButton from "../../components/Button/BackButton";
 import TheraDetailHeader from "../../components/TherapistDashBoard/TheraDetailHeader";
 import TheraDetailChart from "../../components/TherapistDashBoard/TheraDetailChart";

@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import DoctorDashHeader from '../../components/DoctorDashBoard/DoctorDashHeader';
-import CardhButton from '../../components/Button/CardButton';
-import DoctorUntactList from '../../components/DoctorDashBoard/DoctorUntactList';
+import styled from "styled-components";
+import DoctorDashHeader from "../../components/DoctorDashBoard/DoctorDashHeader";
+import CardhButton from "../../components/Button/CardButton";
+import DoctorUntactList from "../../components/DoctorDashBoard/DoctorUntactList";
 
 const PageContainer = styled.div`
   display: flex;
@@ -16,33 +15,32 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 50px; 
+  margin-top: 50px;
 `;
 
 const CardButtonGroup = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 40px;  
-  margin-top: 20px; 
-  margin-bottom :20px;
+  gap: 40px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 `;
 
 const DoctorDashBoardPage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
-        <DoctorDashHeader/>
+        <DoctorDashHeader />
         <CardButtonGroup>
           <CardhButton mode="list" />
           <CardhButton mode="treatment" />
           <CardhButton mode="register" />
         </CardButtonGroup>
-        <DoctorUntactList/>
+        <DoctorUntactList />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default DoctorDashBoardPage;

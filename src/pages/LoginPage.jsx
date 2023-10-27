@@ -1,12 +1,10 @@
-import styled from 'styled-components';
-import Header from '../components/Header/Header';
+import styled from "styled-components";
 import LoginComponents from "../components/Accounts/LoginComponents";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 const PageContainer = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   height: 100vh;
 `;
 
@@ -14,7 +12,7 @@ const CenteredContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1; 
+  flex: 1;
   margin-top: -50px;
 `;
 
@@ -23,17 +21,16 @@ const LoginPage = () => {
 
   // 로그인 성공시 호출되는 함수
   const handleLoginSuccess = (response) => {
-      setUserType(response.type);
+    setUserType(response.type);
   };
 
   return (
-      <PageContainer>
-          <Header userType={userType} /> 
-          <CenteredContainer>
-              <LoginComponents onLoginSuccess={handleLoginSuccess} />
-          </CenteredContainer>
-      </PageContainer>
+    <PageContainer>
+      <CenteredContainer>
+        <LoginComponents onLoginSuccess={handleLoginSuccess} />
+      </CenteredContainer>
+    </PageContainer>
   );
-}
+};
 
 export default LoginPage;

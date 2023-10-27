@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
+import styled from "styled-components";
 import BackButton from "../../components/Button/BackButton";
-import DoctorUntactFullList from '../../components/DoctorDashBoard/DoctorUntactFullList';
+import DoctorUntactFullList from "../../components/DoctorDashBoard/DoctorUntactFullList";
 
 const PageContainer = styled.div`
   display: flex;
@@ -20,13 +19,12 @@ const CenteredContainer = styled.div`
 const DoctorUntactReservePage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <BackButton pageName="대시보드" />
-        <DoctorUntactFullList/>
+        <DoctorUntactFullList />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default DoctorUntactReservePage;
