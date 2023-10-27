@@ -4,7 +4,7 @@ export async function createVideo(options) {
   const axios = getSpringAxios();
 
   const data = new FormData();
-  data.append("adminId", options.id);
+  data.append("admin_id", options.id);
   data.append("title", options.title);
   data.append("description", options.description);
   data.append("tag", options.category);
