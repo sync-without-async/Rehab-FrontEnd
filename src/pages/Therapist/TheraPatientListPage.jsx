@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import BackButton from '../../components/Button/BackButton';
-import TheraPatientList from '../../components/TherapistDashBoard/TheraPatientList';
+import styled from "styled-components";
+import BackButton from "../../components/Button/BackButton";
+import TheraPatientList from "../../components/TherapistDashBoard/TheraPatientList";
 
 const PageContainer = styled.div`
   display: flex;
@@ -15,19 +14,18 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 50px; 
+  margin-top: 50px;
 `;
 
 const TheraPatientListPage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <BackButton pageName="대시보드" />
-        <TheraPatientList/>
+        <TheraPatientList />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default TheraPatientListPage;

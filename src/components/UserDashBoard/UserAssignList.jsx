@@ -2,7 +2,7 @@ import styled from "styled-components";
 import assigninfo from "../../assets/icons/assigninfo.png";
 import player from "../../assets/icons/player.png";
 import Pagination from "../Pagination/Pagination";
-import { getUserExercises } from "../../librarys/login-api";
+import { getUserExercises } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 800px;
@@ -120,7 +120,6 @@ const PlayerIcon = styled.img`
   height: 18px;
 `;
 
-
 const Accuracy = styled.span`
   color: #000;
 `;
@@ -135,10 +134,10 @@ const Judgement = styled.span`
 `;
 
 const UserAssignList = () => {
-  const userId = "HL0001"; 
+  const userId = "HL0001";
   const exercises = getUserExercises(userId);
 
-  const totalItems = 40; 
+  const totalItems = 40;
   const itemsPerPage = 8;
 
   const handlePageChange = (selectedPage) => {
@@ -199,4 +198,3 @@ const UserAssignList = () => {
 };
 
 export default UserAssignList;
-

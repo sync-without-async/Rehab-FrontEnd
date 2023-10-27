@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import CircularChart from "../DoctorDashBoard/CircleChart";
-import { getUserExercises } from "../../librarys/login-api";
+import { getUserExercises } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 380px;
@@ -48,7 +48,7 @@ const ExerciseItem = styled.div`
   & > span:first-child {
     font-size: 16px;
     color: #000000;
-    margin-right: 60px; 
+    margin-right: 60px;
   }
 
   & > span {
@@ -57,7 +57,7 @@ const ExerciseItem = styled.div`
   }
 
   & > span:last-child {
-    color: #D9D9D9;
+    color: #d9d9d9;
   }
 `;
 
@@ -70,8 +70,8 @@ const ButtonGroup = styled.div`
 const Button = styled.button`
   width: 140px;
   height: 30px;
-  background-color: #3592FF;
-  color: #FEFDFD;
+  background-color: #3592ff;
+  color: #fefdfd;
   font-size: 14px;
   border: none;
   border-radius: 5px;
@@ -83,23 +83,28 @@ const Button = styled.button`
 `;
 
 const TheraCheckHW = () => {
-  const userId = "HL0001"; 
-  
+  const userId = "HL0001";
+
   const exercises = getUserExercises(userId);
   console.log("Exercises for:", userId, exercises);
   const totalExercises = exercises.length;
-  const passedExercises = exercises.filter(exercise => exercise.judgement === "합격").length;
+  const passedExercises = exercises.filter(
+    (exercise) => exercise.judgement === "합격",
+  ).length;
   const failedExercises = totalExercises - passedExercises;
 
   return (
     <Container>
       <Title>과제 수행도</Title>
       <ButtonGroup>
-      <Button>과제 할당</Button>
+        <Button>과제 할당</Button>
       </ButtonGroup>
       <Divider />
-      <div style={{ display: 'flex' }}>
-        <CircularChart totalExercises={totalExercises} passedExercises={passedExercises} />
+      <div style={{ display: "flex" }}>
+        <CircularChart
+          totalExercises={totalExercises}
+          passedExercises={passedExercises}
+        />
         <ExerciseInfo>
           <ExerciseItem>
             <span>총 과제</span>

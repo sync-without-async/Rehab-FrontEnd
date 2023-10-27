@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { getFaceRecords } from "../../librarys/login-api";
+import { getFaceRecords } from "../../librarys/dummy-api";
 import DoctorChartWrite from "./DoctorChartWrite";
-import { useState } from 'react';
+import { useState } from "react";
 
 const Container = styled.div`
   width: 800px;
@@ -13,7 +13,7 @@ const Container = styled.div`
   background-color: #ffffff;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
   position: relative;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
@@ -32,8 +32,8 @@ const ButtonGroup = styled.div`
 const Button = styled.button`
   width: 140px;
   height: 30px;
-  background-color: #3592FF;
-  color: #FEFDFD;
+  background-color: #3592ff;
+  color: #fefdfd;
   font-size: 14px;
   border: none;
   border-radius: 5px;
@@ -55,7 +55,7 @@ const Divider = styled.hr`
 const DateText = styled.p`
   font-size: 24px;
   font-weight: bold;
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 15px;
   display: inline-block;
 `;
@@ -63,26 +63,25 @@ const DateText = styled.p`
 const RecordBox = styled.div`
   width: 100%;
   height: 122px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 10px;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
   padding: 10px;
   font-size: 16px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   overflow: hidden;
 `;
 
 const DoctorInfo = styled.span`
   font-size: 18px;
-  position: absolute; 
-  margin-top: 15px; 
+  position: absolute;
+  margin-top: 15px;
   right: 20px;
 `;
 
-
 const DoctorFaceRecord = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const userId = "HL0001"; 
+  const userId = "HL0001";
   const records = getFaceRecords(userId);
 
   const handleModalOpen = () => {
@@ -97,18 +96,17 @@ const DoctorFaceRecord = () => {
     <Container>
       <Title>외래 진료 기록</Title>
       <ButtonGroup>
-      <Button onClick={handleModalOpen}>기록 추가</Button>
+        <Button onClick={handleModalOpen}>기록 추가</Button>
       </ButtonGroup>
       <Divider />
-      {records && records.map(record => (
-        <>
-          <DateText>{record.date}</DateText>
-          <DoctorInfo>{record.doctorName}</DoctorInfo>
-          <RecordBox>
-            {record.record}
-          </RecordBox>
-        </>
-      ))}
+      {records &&
+        records.map((record) => (
+          <>
+            <DateText>{record.date}</DateText>
+            <DoctorInfo>{record.doctorName}</DoctorInfo>
+            <RecordBox>{record.record}</RecordBox>
+          </>
+        ))}
       {isModalOpen && <DoctorChartWrite onClose={handleModalClose} />}
     </Container>
   );

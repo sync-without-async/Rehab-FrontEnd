@@ -1,7 +1,6 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import DoctorChart from '../../components/DoctorDashBoard/DoctorChart';
-import BackButton from '../../components/Button/BackButton';
+import styled from "styled-components";
+import DoctorChart from "../../components/DoctorDashBoard/DoctorChart";
+import BackButton from "../../components/Button/BackButton";
 
 const PageContainer = styled.div`
   display: flex;
@@ -15,19 +14,18 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 50px; 
+  margin-top: 50px;
 `;
 
 const DoctorChartPage = () => {
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <BackButton pageName="대시보드" />
-        <DoctorChart/>
+        <DoctorChart />
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default DoctorChartPage;

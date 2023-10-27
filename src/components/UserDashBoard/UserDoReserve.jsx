@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { UserSelectCard } from'./UserSelectCard';
-import { userLogin } from "../../librarys/login-api";
+import { UserSelectCard } from "./UserSelectCard";
+import { userLogin } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 800px;
   height: 600px;
-  margin: 0 auto; 
+  margin: 0 auto;
   padding: 20px;
   border: 1px solid #0064ff;
   border-radius: 10px;
@@ -16,10 +16,10 @@ const Container = styled.div`
 `;
 
 const CardWrapper = styled.div`
-  display: flex;      
-  justify-content: center;  
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
-  gap: 30px;  
+  gap: 30px;
 `;
 
 const Title = styled.h1`
@@ -43,18 +43,18 @@ const Info = styled.p`
   font-size: 18px;
   font-weight: 300;
   color: #000000;
-`
+`;
 
 const UserDoReserve = () => {
   const [loginData, setLoginData] = useState(null);
 
   useEffect(() => {
     const fetchLoginData = async () => {
-      const data = await userLogin('HL0001', '123456');
+      const data = await userLogin("HL0001", "123456");
       setLoginData(data);
     };
     fetchLoginData();
-  }, []); 
+  }, []);
 
   if (!loginData) return null;
 

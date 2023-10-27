@@ -1,15 +1,15 @@
-import styled from 'styled-components';
-import RoleButton from '../Button/RoleButton';
-import Dropdown from '../Dropdown/Dropdown';
-import InputText, { Input } from '../Input/InputText';
-import InputImage from '../Input/InputImage';
+import styled from "styled-components";
+import RoleButton from "../Button/RoleButton";
+import Dropdown from "../Dropdown/Dropdown";
+import InputText from "../Input/InputText";
+import InputImage from "../Input/InputImage";
 
 const SignupContainer = styled.div`
   width: 750px;
   height: 750px;
   border-radius: 7.5px;
   background-color: #ffffff;
-  border: 1.5px solid #0064FF;
+  border: 1.5px solid #0064ff;
   position: relative;
   box-shadow: 0px 9px 18px rgba(0, 0, 0, 0.1);
 `;
@@ -17,7 +17,7 @@ const SignupContainer = styled.div`
 const Divider = styled.div`
   width: 675px;
   height: 0.75px;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   margin-top: 7.5px;
   margin-left: 22.5px;
   margin-right: auto;
@@ -25,7 +25,7 @@ const Divider = styled.div`
 
 const Title = styled.h1`
   font-size: 26.25px;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 700;
   margin-left: 22.5px;
   margin-top: 18px;
@@ -34,7 +34,7 @@ const Title = styled.h1`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 580px;  
+  width: 580px;
   margin-top: 60px;
   margin-left: 97.5px;
   gap: 40px;
@@ -47,11 +47,11 @@ const DropdownsContainer = styled.div`
 
 const InputFieldsContainer = styled.div`
   display: flex;
-  justify-content: space-between; 
-  margin-top: 22.5px; 
+  justify-content: space-between;
+  margin-top: 22.5px;
   margin-left: 97.5px;
-  gap: 15px; 
-  width: 525px;  
+  gap: 15px;
+  width: 525px;
 `;
 
 const FlexContainer = styled.div`
@@ -63,20 +63,19 @@ const FlexContainer = styled.div`
   font-size: 16px;
 `;
 
-const StyledInputImage = styled(InputImage)`
-`;
+const StyledInputImage = styled(InputImage)``;
 
 const EmailInputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 3.75px;
-  width: 525px; 
-  margin-left: 97.5px; 
+  width: 525px;
+  margin-left: 97.5px;
   margin-top: 22.5px;
 `;
 
-const EmailInput = styled(Input)`
+const EmailInput = styled(InputText)`
   width: 150%;
 `;
 
@@ -84,9 +83,9 @@ const VerifyButton = styled.button`
   width: 97.5px;
   height: 37.5px;
   background-color: #f0f0f0;
-  border: 0.75px solid #BBBBBB;
+  border: 0.75px solid #bbbbbb;
   border-radius: 7.5px;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 12px;
   font-weight: 700;
   display: flex;
@@ -102,14 +101,14 @@ const VerifyButton = styled.button`
 const Button = styled.button`
   width: 210px;
   height: 45px;
-  background-color: #3592FF;
+  background-color: #3592ff;
   border-radius: 7.5px;
   color: white;
   font-size: 16.5px;
   border: none;
   cursor: pointer;
   position: absolute;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   margin-top: 30px;
   left: 0;
   right: 0;
@@ -118,12 +117,14 @@ const Button = styled.button`
 `;
 
 const SignupComponents = () => {
-  
   // 소속병원 선택
   const hospitals = [
-    "춘천성심병원", "강남성심병원", 
-    "동탄성심병원", "한림성심병원", 
-    "한강성심병원", "강동성심병원"
+    "춘천성심병원",
+    "강남성심병원",
+    "동탄성심병원",
+    "한림성심병원",
+    "한강성심병원",
+    "강동성심병원",
   ];
 
   // 재활 분야 선택

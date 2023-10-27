@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { userLogin } from "../../librarys/login-api"; 
+import { userLogin } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 800px;
@@ -24,7 +24,7 @@ const UserName = styled.span`
 
 const Gender = styled.span`
   font-size: 16px;
-  color: #908B8B;
+  color: #908b8b;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 300;
   margin-left: -450px;
@@ -32,7 +32,7 @@ const Gender = styled.span`
 
 const Birth = styled.span`
   font-size: 16px;
-  color: #908B8B;
+  color: #908b8b;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 300;
   margin-left: 10px;
@@ -61,7 +61,7 @@ const TheraDetailHeader = () => {
         setPatientInfo({
           name: patient.name,
           gender: patient.gender,
-          birth: patient.birth
+          birth: patient.birth,
         });
       }
     }
@@ -73,10 +73,15 @@ const TheraDetailHeader = () => {
     <Container>
       <UserName>{patientInfo.name}</UserName>
       <Gender>{patientInfo.gender}</Gender>
-      <Birth>{patientInfo.birth ? `${patientInfo.birth.split('-').join('.')} (만 ${getCurrentAge(patientInfo.birth)}세)` : ""}</Birth>
+      <Birth>
+        {patientInfo.birth
+          ? `${patientInfo.birth.split("-").join(".")} (만 ${getCurrentAge(
+              patientInfo.birth,
+            )}세)`
+          : ""}
+      </Birth>
     </Container>
   );
 };
 
 export default TheraDetailHeader;
-

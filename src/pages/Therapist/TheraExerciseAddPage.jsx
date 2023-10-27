@@ -1,33 +1,14 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import BackButton from '../../components/Button/BackButton';
-import TheraExerciseAdd from '../../components/TherapistDashBoard/TheraExerciseAdd';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px; 
-`;
+import BackButton from "../../components/Button/BackButton";
+import TheraExerciseAdd from "../../components/TherapistDashBoard/TheraExerciseAdd";
+import PageContainer from "../../components/Common/PageContainer";
 
 const TheraExerciseAddPage = () => {
   return (
     <PageContainer>
-      <Header/>
-      <CenteredContainer>
-      <BackButton pageName="운동 목록" />
-      <TheraExerciseAdd/>
-      </CenteredContainer>
+      <BackButton text="운동 목록으로 돌아가기" />
+      <TheraExerciseAdd />
     </PageContainer>
   );
-}
+};
 
 export default TheraExerciseAddPage;

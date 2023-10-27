@@ -1,52 +1,52 @@
-import { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import DoctorImage from '../../assets/images/user/Odoctor.png';
-import {userLogin} from "../../librarys/login-api";
-import IconDoctor from '../../assets/icons/icondoctor.png';
-import IconHospital from '../../assets/icons/iconhospital.png';
+import { useState, useEffect } from "react";
+import styled from "styled-components";
+import DoctorImage from "../../assets/images/user/Odoctor.png";
+import { userLogin } from "../../librarys/dummy-api";
+import IconDoctor from "../../assets/icons/icondoctor.png";
+import IconHospital from "../../assets/icons/iconhospital.png";
 
 const Container = styled.div`
-    width: 800px;
-    height: 150px;
-    border-radius: 10px;
-    border: 1px solid #0064FF;
-    background-color: #FFFFFF;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 24px 32px;
+  width: 800px;
+  height: 150px;
+  border-radius: 10px;
+  border: 1px solid #0064ff;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 32px;
 `;
 
 const TextContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 `;
 
 const Greeting = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 `;
 
 const UserName = styled.span`
-    font-size: 25px;
-    color: #0064FF;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-weight: 700;
+  font-size: 25px;
+  color: #0064ff;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  font-weight: 700;
 `;
 
 const GreetingText = styled.span`
-    font-size: 16px;
-    color: #000000;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-weight: 500;
+  font-size: 16px;
+  color: #000000;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  font-weight: 500;
 `;
 
 const Avatar = styled.img`
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
 `;
 
 const Icon = styled.img`
@@ -72,7 +72,7 @@ const DoctorDashHeader = () => {
 
   useEffect(() => {
     async function fetchUserData() {
-      const data = await userLogin('doctor', '123456'); 
+      const data = await userLogin("doctor", "123456");
       if (data) {
         setUserData(data);
       }
@@ -101,5 +101,5 @@ const DoctorDashHeader = () => {
       <Avatar src={DoctorImage} alt="User Avatar" />
     </Container>
   );
-}
+};
 export default DoctorDashHeader;

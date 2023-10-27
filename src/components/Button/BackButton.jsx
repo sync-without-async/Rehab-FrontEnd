@@ -1,42 +1,47 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types'; 
-import BackIcon from '../../assets/icons/Page-left.png';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import BackIcon from "../../assets/icons/Page-left.png";
+import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
-const BackButtonContainer = styled.button`
-    width: 210px;
-    height: 40px;
-    background-color: #FFFFFF;
-    border: 1px solid #BBBBBB;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 15px; 
-    margin-top:40px;
-    margin-bottom: 10px;
-    margin-left: -580px;
+const Container = styled.div`
+  width: 800px;
+  margin-bottom: 20px;
+  display: flex;
 `;
 
-const BackImage = styled.img`
-    margin-right: 10px;
+const Icon = styled.img`
+  margin-right: 10px;
+  vertical-align: middle;
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
 `;
 
-const BackText = styled.span`
-    font-size: 14px;
-    color: #667080;
+const Text = styled.span`
+  vertical-align: middle;
 `;
 
-const BackButton = ({ pageName }) => {
-    return (
-        <BackButtonContainer>
-            <BackImage src={BackIcon} alt="Back" />
-            <BackText>{pageName}으로 돌아가기</BackText>
-        </BackButtonContainer>
-    );
-}
+const BackButton = ({ text, to }) => {
+  const navigate = useNavigate();
+  return (
+    <Container>
+      <Button type="icon" onClick={() => navigate(to)}>
+        <Icon src={BackIcon} alt="Back" />
+        <Text>{text}</Text>
+      </Button>
+    </Container>
+  );
+};
 
 BackButton.propTypes = {
-  pageName: PropTypes.string.isRequired, 
+  to: PropTypes.string,
+  text: PropTypes.string.isRequired,
+};
+
+BackButton.defaultProps = {
+  to: "/",
+  text: "이전 페이지",
 };
 
 export default BackButton;

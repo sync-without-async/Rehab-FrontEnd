@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useState, useEffect } from 'react';
-import { userLogin } from '../../librarys/login-api';
+import { useState, useEffect } from "react";
+import { userLogin } from "../../librarys/dummy-api";
 
 const Container = styled.div`
   width: 380px;
@@ -46,7 +46,7 @@ const Label = styled.span`
 `;
 
 const Value = styled.span`
-  color: #908B8B;
+  color: #908b8b;
 `;
 
 const DoctorDetailChart = () => {

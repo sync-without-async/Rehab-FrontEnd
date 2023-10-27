@@ -1,8 +1,7 @@
-import styled from 'styled-components';
-import Header from '../../components/Header/Header';
-import UserDashHeader from '../../components/UserDashBoard/UserDashHeader';
-import UserAssignList from '../../components/UserDashBoard/UserAssignList';
-import UserUntactRecord from '../../components/UserDashBoard/UserUntactRecord';
+import styled from "styled-components";
+import UserDashHeader from "../../components/UserDashBoard/UserDashHeader";
+import UserAssignList from "../../components/UserDashBoard/UserAssignList";
+import UserUntactRecord from "../../components/UserDashBoard/UserUntactRecord";
 
 const PageContainer = styled.div`
   display: flex;
@@ -16,7 +15,7 @@ const CenteredContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex: 1;
-  margin-top: 10px; 
+  margin-top: 10px;
 `;
 
 const StyledComponentWrapper = styled.div`
@@ -27,22 +26,19 @@ const StyledComponentWrapper = styled.div`
   }
 
   &:not(:last-child) {
-    margin-bottom: 28px; 
+    margin-bottom: 28px;
   }
 `;
 
-
 const MyUserPage = () => {
-
   return (
     <PageContainer>
-      <Header/>
       <CenteredContainer>
         <StyledComponentWrapper>
-          <UserDashHeader/>
+          <UserDashHeader />
         </StyledComponentWrapper>
         <StyledComponentWrapper>
-          <UserAssignList/>
+          <UserAssignList />
         </StyledComponentWrapper>
         <StyledComponentWrapper>
           <UserUntactRecord />
@@ -50,6 +46,6 @@ const MyUserPage = () => {
       </CenteredContainer>
     </PageContainer>
   );
-}
+};
 
 export default MyUserPage;
