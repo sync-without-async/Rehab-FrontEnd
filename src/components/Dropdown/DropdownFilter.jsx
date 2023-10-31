@@ -1,99 +1,115 @@
-import  { useState } from 'react';
-import styled from 'styled-components';
+import { useState } from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
 import dropdownicon from "../../assets/icons/dropdownicon.png";
 
+import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+
+const Container = styled.div`
+  position: relative;
+`;
+
 const Label = styled.div`
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
   font-size: 16px;
   margin-bottom: 3.75px;
-  margin-top:-10px;
+  margin-top: -10px;
   padding-top: 7.5px;
 `;
 
 const DropdownContainer = styled.div`
   width: 210px;
   height: 40px;
-  background-color: #FFFFFF;
-  border: 0.75px solid #BBBBBB; 
-  position: relative;
+  padding: 0 8px;
+  border: 0.75px solid #bbbbbb;
+  display: flex;
+  align-items: center;
   cursor: pointer;
-  margin-bottom: 7.5px;
   border-radius: 7.5px;
-  box-shadow: 0px 1.5px 3px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 1.5px 3px rgba(0, 0, 0, 0.1);
 `;
 
-const DropdownText = styled.input`
-  width: calc(100% - 45px); 
-  height: 100%;
+const DropdownText = styled.p`
   border: none;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
   font-weight: 500;
-  font-size: 16px;
-  padding-left: 7.5px;
-  &:focus {
-    outline: none;
-  }
+  font-size: 14px;
+  flex-grow: 1;
 `;
 
-const DropdownIcon = styled.img`
-  position: absolute;
-  right: 7.5px;
-  top: 50%;
-  transform: translateY(-50%);
+const DropdownIcon = styled(MdOutlineKeyboardArrowDown)`
+  width: 36px;
+  height: 36px;
 `;
 
 const DropdownList = styled.div`
-  width: 100%;
-  max-height: ${props => (props.open ? '112.5px' : '0')}; 
+  width: 210px;
+  max-height: ${(props) => (props.open ? "120px" : "0px")};
+  margin-top: 8px;
   overflow-y: auto;
   position: absolute;
-  top: 100%;
-  left: 0;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 0.75px solid #ccc;
+  border-radius: 8px;
   z-index: 1;
+  opacity: ${(props) => (props.open ? "1" : "0")};
+
+  transition: all 0.25s;
 `;
 
 const DropdownItem = styled.div`
   padding: 7.5px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #dfdfdf;
+  }
 `;
 
-function DropdownFilter({ label, items }) {
+function DropdownFilter({ label, items, defaultText, onSelect }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [text, setText] = useState('정렬 선택'); // 초기값을 '정렬 선택'으로 설정
+  const [value, setValue] = useState(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleItemClick = (item) => {
-    setText(item); 
-    setIsOpen(false); 
+    setValue(item);
+    setIsOpen(false);
+    onSelect(item);
   };
 
   return (
-    <div>
-      <Label>{label}</Label>
+    <Container>
+      {label ? <Label>{label}</Label> : null}
       <DropdownContainer onClick={toggleDropdown}>
-        <DropdownText 
-          value={text} 
-          onChange={e => setText(e.target.value)} 
-          style={{fontSize: '14px', color: '#000000'}}
-        />
-        <DropdownIcon src={dropdownicon} alt="Dropdown Icon" />
-        {isOpen && (
-          <DropdownList open={isOpen}>
-            {items.map((item, index) => (
-              <DropdownItem key={index} onClick={() => handleItemClick(item)}>
-                {item}
-              </DropdownItem>
-            ))}
-          </DropdownList>
-        )}
+        <DropdownText>{value?.value || defaultText}</DropdownText>
+        <DropdownIcon />
       </DropdownContainer>
-    </div>
+      <DropdownList open={isOpen}>
+        <DropdownItem onClick={() => handleItemClick(null)}>
+          {defaultText}
+        </DropdownItem>
+        {items.map((item) => (
+          <DropdownItem key={item.key} onClick={() => handleItemClick(item)}>
+            {item.value}
+          </DropdownItem>
+        ))}
+      </DropdownList>
+    </Container>
   );
 }
+
+DropdownFilter.propTypes = {
+  label: PropTypes.string,
+  items: PropTypes.arrayOf(PropTypes.object),
+  defaultText: PropTypes.string,
+  onSelect: PropTypes.func,
+};
+
+DropdownFilter.defaultProps = {
+  defaultText: "선택하기...",
+};
 
 export default DropdownFilter;

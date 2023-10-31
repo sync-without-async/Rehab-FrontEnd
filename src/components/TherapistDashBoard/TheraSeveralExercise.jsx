@@ -1,64 +1,89 @@
-import styled from 'styled-components';
-import TheraExerciseModal from './TheraExerciseModal';
-import {useState} from "react";
+import styled from "styled-components";
+import { useState } from "react";
+import PropTypes from "prop-types";
+import { useDispatch } from "react-redux";
+import { show } from "../../redux/modalSlice.js";
 
-const CardContainer = styled.div`
+const Container = styled.div`
   display: flex;
-  align-items: flex-start;
   padding: 15px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #bbbbbb;
   border-radius: 10px;
-  width: 720px;
-  height: 120px;
   background-color: #ffffff;
-  position: relative;
-  margin-bottom: 20px;
+  cursor: pointer;
+  overflow: hidden;
+
+  gap: 18px;
+
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
 `;
 
-const ExerciseThumbnail = styled.div`
+const Thumbnail = styled.img`
   width: 120px;
   height: 88px;
-  background-color: #DFDFDF;
-  border: 1px solid #ABABAB;
+  background-color: #1f1f1f;
+  border: 1px solid #ababab;
   border-radius: 10px;
-  margin-right: 15px;
+  object-fit: contain;
 `;
 
-const ExerciseTitle = styled.div`
+const Info = styled.div`
+  flex-shrink: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 6px;
+`;
+
+const Title = styled.div`
   font-size: 20px;
   color: #000000;
-  font-weight: bold;
+  font-weight: 800;
 `;
 
-const ExerciseDescription = styled.div`
+const Description = styled.div`
+  height: 53px;
   font-size: 13px;
   color: #000000;
-  margin-top: 5px; 
+  overflow: hidden;
 `;
 
-const TheraSeveralExercise = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+const TheraSeveralExercise = ({ id, title, description, image, video }) => {
+  const dispatch = useDispatch();
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  function onClick() {
+    dispatch(
+      show({
+        id: "therapist_video_preview",
+        props: video,
+      }),
+    );
   }
 
   return (
-    <>
-      <CardContainer onClick={handleOpenModal}>
-        <ExerciseThumbnail />
-        <div>
-          <ExerciseTitle>운동 제목</ExerciseTitle>
-          <ExerciseDescription>운동 설명</ExerciseDescription>
-        </div>
-      </CardContainer>
-      {isModalOpen && <TheraExerciseModal onClose={handleCloseModal} />}
-    </>
+    <Container onClick={onClick}>
+      <Thumbnail src={image} />
+      <Info>
+        <Title>{title}</Title>
+        <Description>{description}</Description>
+      </Info>
+    </Container>
   );
+};
+
+TheraSeveralExercise.propTypes = {
+  id: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.string,
+  video: PropTypes.string,
 };
 
 export default TheraSeveralExercise;

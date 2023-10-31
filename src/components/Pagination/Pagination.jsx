@@ -1,69 +1,94 @@
-import { useState } from 'react';
-import PropTypes from 'prop-types';
-import ReactPaginate from 'react-paginate';
-import styled from 'styled-components';
-import leftArrow from '../../assets/icons/Page-left.png';
-import rightArrow from '../../assets/icons/Page-right.png';
-import './Pagination.css';
+import { useContext, useState } from "react";
+import PropTypes from "prop-types";
+import ReactPaginate from "react-paginate";
+import styled from "styled-components";
+import { ReducerContext } from "../../reducer/context.js";
+import {
+  MdOutlineArrowBackIos,
+  MdOutlineArrowForwardIos,
+} from "react-icons/md";
 
 const StyledPaginateContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 10px 0;
 `;
-const StyledArrow = styled.img`
-  height: 12px;
-  vertical-align: middle;
-`;
 
 const StyledReactPaginate = styled(ReactPaginate)`
   display: flex;
   justify-content: center;
-  list-style: none; 
-  .page-link {
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
-    font-size: 20px;
-    font-weight: 300;
-    line-height: 19px;
-    letter-spacing: -0.02em;
-    text-align: center;
-    color: black;
-    margin: 0 3px;
-    padding: 5px 10px;
+  list-style: none;
+
+  & .previous {
+    display: flex;
+    align-items: center;
+
+    & > a {
+      color: #667080;
+    }
   }
-  .active-link {
-    color: #00418E;
-    font-weight:bold;
+
+  & .next {
+    display: flex;
+    align-items: center;
+
+    & > a {
+      color: #667080;
+    }
+  }
+
+  & .page {
+    display: flex;
+    align-items: center;
+  }
+
+  & .page-link {
+    width: 28px;
+    height: 28px;
+    margin: 0px 4px;
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+    color: #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+  }
+
+  & .active-link {
+    color: #00418e;
+    font-size: 20px;
+    font-weight: 800;
   }
 `;
 
-
-function Pagination({ totalItems, itemsPerPage, onChange }) {
-  const [currentPage, setCurrentPage] = useState(0);
+function Pagination({}) {
+  const [state, dispatch] = useContext(ReducerContext);
+  const { totalPage } = state;
 
   const handlePageClick = (data) => {
-    let selected = data.selected;
-    setCurrentPage(selected);
-
-    if (onChange) {
-      onChange(selected);
-    }
+    console.log(data);
+    dispatch({
+      type: "page",
+      payload: data.selected + 1,
+    });
   };
 
   return (
     <StyledPaginateContainer>
       <StyledReactPaginate
-        previousLabel={<StyledArrow src={leftArrow} alt="Prev" />}
-        nextLabel={<StyledArrow src={rightArrow} alt="Next" />}
+        previousLabel={<MdOutlineArrowBackIos />}
+        nextLabel={<MdOutlineArrowForwardIos />}
         breakLabel="..."
-        pageCount={totalItems / itemsPerPage}
+        pageCount={totalPage}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
         containerClassName={"pagination"}
         subContainerClassName={"pages pagination"}
         activeClassName={"active"}
-        forcePage={currentPage}
         pageClassName={"page"}
         pageLinkClassName={"page-link"}
         previousLinkClassName={"page-link"}
@@ -73,10 +98,5 @@ function Pagination({ totalItems, itemsPerPage, onChange }) {
     </StyledPaginateContainer>
   );
 }
-Pagination.propTypes = {
-  totalItems: PropTypes.number.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
-  onChange: PropTypes.func,
-};
 
 export default Pagination;
