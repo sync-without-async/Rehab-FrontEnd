@@ -1,16 +1,15 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { userLogin } from '../librarys/login-api.js';  
-
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { userLogin } from "../librarys/dummy-api.js";
 
 export const loginUser = createAsyncThunk(
-  'user/loginUser',
+  "user/loginUser",
   async ({ id, password }, thunkAPI) => {
     const response = await userLogin(id, password);
     if (!response) {
-      return thunkAPI.rejectWithValue('Login failed');
+      return thunkAPI.rejectWithValue("Login failed");
     }
     return response;
-  }
+  },
 );
 
 export const userSlice = createSlice({
@@ -51,7 +50,7 @@ export const { logout } = userSlice.actions;
 export const selectName = (state) => state.user.name;
 export const selectEmail = (state) => state.user.email;
 export const selectIsLoggedIn = (state) => state.user.access_token !== null;
-export const selectToken = (state) => state.user.name;  
+export const selectToken = (state) => state.user.name;
 export const selectIsAdmin = (state) => state.user.admin;
 
 export default userSlice.reducer;
