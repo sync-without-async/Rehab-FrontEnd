@@ -1,12 +1,9 @@
-import { CATEGORY_TYPE } from "../librarys/type.js";
-
 export const intialVideoListState = {
   query: "",
   category: null,
   list: [],
   page: 1,
-  totalItems: 80,
-  itemsPerPage: 10,
+  totalPage: 1,
 };
 
 export function videoListReducer(state, action) {
