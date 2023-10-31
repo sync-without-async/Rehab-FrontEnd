@@ -20,3 +20,24 @@ export async function createVideo(options) {
   const response = await axios.post("/video/create", data);
   return response.data;
 }
+
+export async function getVideoList(page, query, category) {
+  const axios = getSpringAxios();
+
+  if (typeof query === "string") {
+    query = query.trim();
+  }
+
+  if (!query) {
+    query = undefined;
+  }
+
+  const params = {
+    page,
+    query,
+    category,
+  };
+
+  const response = await axios.get("/video/list", { params });
+  return response.data;
+}
