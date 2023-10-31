@@ -8,7 +8,7 @@ import { useRef } from "react";
 import { useMemo } from "react";
 import { useContext } from "react";
 import { ReducerContext } from "../../reducer/context.js";
-// import data from "../../librarys/data.js";
+import data from "../../librarys/data.js";
 
 const VideoUploadContainer = styled.div`
   margin-top: 18px;
