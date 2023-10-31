@@ -11,13 +11,6 @@ import { createVideo } from "../../librarys/api/video.js";
 import { useNavigate } from "react-router-dom";
 import { useReducer } from "react";
 
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-`;
-
 const InputText = styled(InputTextContainer)`
   width: 240px;
   margin-right: 32px;
@@ -25,19 +18,6 @@ const InputText = styled(InputTextContainer)`
 
 const InputArea = styled(InputAreaContainer)`
   width: 100%;
-`;
-
-const Divider = styled.hr`
-  width: 100%;
-  height: 1px;
-  background-color: #d9d9d9;
-  border: none;
-  margin-bottom: 20px;
-`;
-
-const TitleA = styled.p`
-  font-size: 16px;
-  margin-bottom: 10px;
 `;
 
 const FlexContainer = styled.div`
@@ -86,10 +66,10 @@ const TheraExerciseAdd = () => {
       return;
     }
 
-    // if (skeleton === null) {
-    //   alert("동영상의 처리가 완료될 때까지 기다려주세요.");
-    //   return;
-    // }
+    if (skeleton === null) {
+      alert("동영상의 처리가 완료될 때까지 기다려주세요.");
+      return;
+    }
 
     if (title.length < 1) {
       alert("제목을 2자 이상 입력해주세요.");
