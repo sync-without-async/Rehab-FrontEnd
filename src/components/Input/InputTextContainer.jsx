@@ -17,7 +17,7 @@ const Label = styled.p`
   margin-bottom: 6px;
 `;
 
-function InputTextContainer({ label, value, onInput, ...props }) {
+function InputTextContainer({ label, required, value, onInput, ...props }) {
   return (
     <InputContainer {...props}>
       <Label>{label}</Label>
@@ -28,8 +28,13 @@ function InputTextContainer({ label, value, onInput, ...props }) {
 
 InputTextContainer.propTypes = {
   label: PropTypes.string,
+  required: PropTypes.bool,
   value: PropTypes.string,
   onInput: PropTypes.func,
+};
+
+InputTextContainer.defaultProps = {
+  required: false,
 };
 
 export default InputTextContainer;

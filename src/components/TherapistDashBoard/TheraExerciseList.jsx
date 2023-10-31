@@ -3,72 +3,85 @@ import Pagination from "../Pagination/Pagination";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import TheraSeveralExercise from "./TheraSeveralExercise";
-
-const Container = styled.div`
-  width: 800px;
-  height: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #0064ff;
-  border-radius: 10px;
-  background-color: #ffffff;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
-  margin-top:10px;
-`;
-
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-`;
-
-const Divider = styled.hr`
-  width: 100%;
-  height: 1px;
-  background-color: #d9d9d9;
-  border: none;
-  margin-bottom: 20px;
-`;
+import { CATEGORY_TYPE } from "../../librarys/type.js";
+import TitleText from "../Common/TitleText.jsx";
+import BlockContainer from "../Common/BlockContainer.jsx";
+import { ReducerContext } from "../../reducer/context.js";
+import { useEffect, useReducer } from "react";
+import {
+  intialVideoListState,
+  videoListReducer,
+} from "../../reducer/video-list.js";
+import { getVideoList } from "../../librarys/api/video.js";
+import TheraExerciseModal from "./TheraExerciseModal.jsx";
 
 const SearchAndFilterContainer = styled.div`
+  margin-top: 28px;
+  margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
-  width: 720px;
 `;
 
-const filterlist = ["팔 재활", "어깨 재활", "허벅지 재활", "무릎 재활"];
+const List = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+`;
+
+const filters = CATEGORY_TYPE.map((item) => item);
 
 const TheraExerciseList = () => {
-  const totalItems = 30;
-  const itemsPerPage = 6;
+  const [state, dispatch] = useReducer(videoListReducer, intialVideoListState);
+  const { list, page, query, category } = state;
 
-  const handlePageChange = (selectedPage) => {
-    console.log("Selected page:", selectedPage);
-  };
+  useEffect(() => {
+    (async () => {
+      const data = await getVideoList(page, query, category);
+      dispatch({
+        type: "data",
+        payload: data,
+      });
+    })();
+  }, [page, query, category]);
+
+  function onCategorySelect(item) {
+    dispatch({
+      type: "category",
+      payload: item?.key,
+    });
+  }
+
   return (
-    <Container>
-      <Title>운동 목록</Title>
-      <Divider />
-      <SearchAndFilterContainer>
-        <SearchBar />
-        <DropdownFilter items={filterlist} />
-      </SearchAndFilterContainer>
-      <TheraSeveralExercise/>
-      <TheraSeveralExercise/>
-      <TheraSeveralExercise/>
-      <TheraSeveralExercise/>
-      <TheraSeveralExercise/>
-      <TheraSeveralExercise/>
-      <Pagination
-        totalItems={totalItems}
-        itemsPerPage={itemsPerPage}
-        onChange={handlePageChange}
-      />
-    </Container>
+    <ReducerContext.Provider value={[state, dispatch]}>
+      <BlockContainer>
+        <TheraExerciseModal />
+        <TitleText text="운동 등록" />
+        <SearchAndFilterContainer>
+          <SearchBar />
+          <DropdownFilter
+            items={filters}
+            defaultText="전체"
+            onSelect={onCategorySelect}
+          />
+        </SearchAndFilterContainer>
+        <List>
+          {list.map((item) => (
+            <TheraSeveralExercise
+              key={item.vno}
+              id={item.vno}
+              title={item.title}
+              description={item.description}
+              image={item.thumbnailURL}
+              video={item.videoURL}
+            />
+          ))}
+        </List>
+
+        <Pagination />
+      </BlockContainer>
+    </ReducerContext.Provider>
   );
 };
 
-export default TheraExerciseList ;
+export default TheraExerciseList;
