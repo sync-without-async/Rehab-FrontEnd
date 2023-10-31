@@ -1,79 +1,40 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import XButton from '../../assets/icons/iconx.png';
+import { styled } from "styled-components";
 
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.4);
+import Modal from "../Common/Modal.jsx";
+
+import { selectProps } from "../../redux/modalSlice.js";
+import { useSelector } from "react-redux";
+import ModalTitleText from "../Common/ModalTitleText.jsx";
+
+const Container = styled.div`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  z-index:1000;
+  gap: 32px;
 `;
 
-const ModalContainer = styled.div`
-  width: 600px;
-  height: 568px;
-  background-color: #FFFFFF;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-`;
-
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  display: inline-block;
-`;
-
-const CloseIcon = styled.img`
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  cursor: pointer;
-  margin-top:10px;
-`;
-
-const Divider = styled.hr`
+const ExerciseVideo = styled.video`
   width: 100%;
-  height: 1px;
-  background-color: #d9d9d9;
-  border: none;
-  margin-top: 10px;
-  margin-bottom: 20px;
-`;
-
-const ExerciseVideo = styled.div`
-  width: 500px;
   height: 400px;
-  background-color: #DFDFDF;
-  border: 1px solid #ABABAB;
+  margin-bottom: 32px;
+  background-color: #dfdfdf;
+  border: 1px solid #ababab;
   border-radius: 10px;
-  margin-left: 30px;
 `;
 
-export const TheraExerciseModal = ({ onClose }) => {
+const id = "therapist_video_preview";
+
+const TheraExerciseModal = () => {
+  const value = useSelector(selectProps(id));
 
   return (
-    <Overlay onClick={onClose}>
-      <ModalContainer onClick={(e) => e.stopPropagation()}>
-        <Title>가이드 영상</Title>
-        <CloseIcon src={XButton} alt="Close" onClick={onClose} />
-        <Divider />
-        <ExerciseVideo/>
-      </ModalContainer>
-    </Overlay>
+    <Modal id={id}>
+      <Container>
+        <ModalTitleText text="가이드 영상" id={id} />
+        <ExerciseVideo src={value} controls />
+      </Container>
+    </Modal>
   );
-}
-
-TheraExerciseModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
 };
 
 export default TheraExerciseModal;
