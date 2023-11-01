@@ -1,8 +1,8 @@
 export const ROLE_TYPE = [
-  { key: "VISITOR", value: 0 },
-  { key: "USER", value: 1 },
-  { key: "ADMIN_DOCTOR", value: 2 },
-  { key: "ADMIN_THERAPIST", value: 3 },
+  { key: "VISITOR", value: "방문자" },
+  { key: "USER", value: "환자" },
+  { key: "ADMIN_DOCTOR", value: "전문의" },
+  { key: "ADMIN_THERAPIST", value: "재활치료사" },
 ];
 
 export const CATEGORY_TYPE = [
@@ -11,3 +11,5 @@ export const CATEGORY_TYPE = [
   { key: "KNEE", value: "무릎" },
   { key: "THIGH", value: "허벅지" },
 ];
+
+export const DAYJS_FORMAT = "YYYY/MM/DD HH:mm";

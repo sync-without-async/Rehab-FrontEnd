@@ -66,7 +66,7 @@ const StyledReactPaginate = styled(ReactPaginate)`
 
 function Pagination({}) {
   const [state, dispatch] = useContext(ReducerContext);
-  const { totalPage } = state;
+  const { totalPage } = state || {};
 
   const handlePageClick = (data) => {
     console.log(data);

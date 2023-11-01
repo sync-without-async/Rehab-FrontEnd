@@ -11,15 +11,23 @@ const Item = styled.textarea`
   border: 1px solid #bbbbbb;
   padding-left: 12px;
   resize: none;
+  overflow: hidden;
 
   &:focus {
     outline: none;
   }
 `;
 
-function InputArea({ value, onInput, className }) {
+function InputArea({ value, onInput, disabled, className }) {
   return (
-    <Item type="text" value={value} onChange={onInput} className={className} />
+    <Item
+      type="text"
+      value={value}
+      onChange={onInput}
+      disabled={disabled}
+      className={className}
+      rows={3}
+    />
   );
 }
 
@@ -27,6 +35,11 @@ InputArea.propTypes = {
   value: PropTypes.string,
   onInput: PropTypes.func,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
+};
+
+InputArea.defaultProps = {
+  disabled: false,
 };
 
 export default InputArea;
