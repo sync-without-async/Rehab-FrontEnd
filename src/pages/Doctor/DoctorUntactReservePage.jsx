@@ -1,28 +1,12 @@
-import styled from "styled-components";
 import BackButton from "../../components/Button/BackButton";
-import DoctorUntactFullList from "../../components/DoctorDashBoard/DoctorUntactFullList";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-`;
+import PageContainer from "../../components/Common/PageContainer";
+import ReservationList from "../../components/Reservation/ReservationList.jsx";
 
 const DoctorUntactReservePage = () => {
   return (
     <PageContainer>
-      <CenteredContainer>
-        <BackButton pageName="대시보드" />
-        <DoctorUntactFullList />
-      </CenteredContainer>
+      <BackButton text="대시보드로 돌아가기" />
+      <ReservationList />
     </PageContainer>
   );
 };
