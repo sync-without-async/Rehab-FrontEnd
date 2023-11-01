@@ -13,4 +13,9 @@
 html {
 }
 
+body {
+  // 가로 스크롤 생기면 이중 스크롤 생기는 문제 수정
+  overflow-y: hidden;
+}
+
 @import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
