@@ -18,9 +18,16 @@ const Item = styled.textarea`
   }
 `;
 
-function InputArea({ value, onInput, className }) {
+function InputArea({ value, onInput, disabled, className }) {
   return (
-    <Item type="text" value={value} onChange={onInput} className={className} />
+    <Item
+      type="text"
+      value={value}
+      onChange={onInput}
+      disabled={disabled}
+      className={className}
+      rows={3}
+    />
   );
 }
 
@@ -28,6 +35,11 @@ InputArea.propTypes = {
   value: PropTypes.string,
   onInput: PropTypes.func,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
+};
+
+InputArea.defaultProps = {
+  disabled: false,
 };
 
 export default InputArea;
