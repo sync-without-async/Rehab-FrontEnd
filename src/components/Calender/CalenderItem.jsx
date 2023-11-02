@@ -1,50 +1,68 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useContext } from "react";
+import { ReducerContext } from "../../reducer/context.js";
+import classNames from "classnames";
 
 const Container = styled.div`
-  width: 50px;
-  height: 40px;
-  aspect-ratio: 1;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  background-color: ${({ isSelected }) => (isSelected ? "#f3f1ff" : "transparent")};
+
+  transition: background-color 0.2s;
 
   &:hover {
-    background-color: #f3f1ff;
+    background-color: #f8f8f8;
   }
-  &.prevMonth,
-  &.nextMonth {
-    color: rgba(21, 21, 21, 0.3);
+
+  &.selected {
+    background-color: #e7e3ff;
+
+    & > p {
+      font-weight: 600;
+    }
+  }
+
+  &.empty {
+    pointer-events: none;
   }
 `;
 
 const Text = styled.p`
   font-size: 16px;
-  font-weight: 300; 
+  font-weight: 300;
+  user-select: none;
 `;
 
-const CalenderItem = ({ date, type, isSelected, onSelectDate }) => {
-  const handleDateClick = () => {
-    onSelectDate(date);
-  };
+const CalenderItem = ({ date }) => {
+  const [state, dispatch] = useContext(ReducerContext);
+  const { date: currentDate } = state;
+  const isSelected = currentDate === date;
+  const isEmpty = date === null;
+  const className = classNames({ selected: isSelected, empty: isEmpty });
+
+  function onClick() {
+    if (isEmpty) return;
+    dispatch({
+      type: "date",
+      payload: date,
+    });
+  }
 
   return (
-    <Container isSelected={isSelected} onClick={handleDateClick}>
-      <Text className={type}>{date}</Text>
+    <Container className={className} onClick={onClick}>
+      <Text>{date}</Text>
     </Container>
   );
 };
 
 CalenderItem.propTypes = {
   date: PropTypes.number,
-  type: PropTypes.string.isRequired,
-  isSelected: PropTypes.bool.isRequired,
-  onSelectDate: PropTypes.func.isRequired,
 };
 
 export default CalenderItem;
-

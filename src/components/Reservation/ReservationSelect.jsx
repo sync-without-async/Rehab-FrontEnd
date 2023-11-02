@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { UserSelectCard } from "../UserDashBoard/UserSelectCard";
-import { userLogin } from "../../librarys/dummy-api";
+import { getDoctorData, userLogin } from "../../librarys/dummy-api";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
+import ReservationCreateModal from "./ReservationCreateModal.jsx";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -18,29 +19,20 @@ const Text = styled.p`
   font-weight: 400;
 `;
 
-const UserDoReserve = () => {
-  const [loginData, setLoginData] = useState(null);
+const { doctor, therapist } = getDoctorData();
 
-  useEffect(() => {
-    const fetchLoginData = async () => {
-      const data = await userLogin("HL0001", "123456");
-      setLoginData(data);
-    };
-    fetchLoginData();
-  }, []);
-
-  if (!loginData) return null;
-
+const ReservationSelect = () => {
   return (
     <BlockContainer>
-      <TitleText text="운동 등록" />
+      <ReservationCreateModal />
+      <TitleText text="비대면 진료 예약" />
       <Text>진료를 희망하는 의료진을 선택해주세요.</Text>
       <CardWrapper>
-        <UserSelectCard userType="admin1" userData={loginData.doctor} />
-        <UserSelectCard userType="admin2" userData={loginData.therapist} />
+        <UserSelectCard userType="admin1" userData={doctor} />
+        <UserSelectCard userType="admin2" userData={therapist} />
       </CardWrapper>
     </BlockContainer>
   );
 };
 
-export default UserDoReserve;
+export default ReservationSelect;

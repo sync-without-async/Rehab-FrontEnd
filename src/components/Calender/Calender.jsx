@@ -1,25 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import styled from "styled-components";
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import CalenderItem from "../Calender/CalenderItem.jsx";
-import IconLeft from "../../assets/icons/Page-left.png";
-import IconRight from "../../assets/icons/Page-right.png";
-
-const SelectorContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-`;
-
-const Icon = styled.img`
-  cursor: pointer;
-  margin: 0 10px;
-`;
-
-const MonthLabel = styled.span`
-  font-size: 1.2rem;
-`;
+import { ReducerContext } from "../../reducer/context.js";
 
 const Container = styled.div`
   width: 100%;
@@ -32,19 +15,11 @@ const Container = styled.div`
 `;
 
 const Calender = () => {
-  const [selectedMonth, setSelectedMonth] = useState(8);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [state, dispatch] = useContext(ReducerContext);
+  const { year, month, date } = state;
 
-  const prevMonth = () => {
-    if (selectedMonth > 8) setSelectedMonth(prev => prev - 1);
-  };
-
-  const nextMonth = () => {
-    if (selectedMonth < 11) setSelectedMonth(prev => prev + 1);
-  };
-
-  const daysInCurrentMonth = dayjs([2023, selectedMonth]).daysInMonth();
-  const startDayOfWeek = dayjs([2023, selectedMonth, 1]).day();
+  const daysInCurrentMonth = dayjs([2023, month]).daysInMonth();
+  const startDayOfWeek = dayjs([2023, month, 1]).day();
 
   let days = [];
   for (let i = 1; i <= daysInCurrentMonth; i++) {
@@ -61,27 +36,11 @@ const Calender = () => {
   }
 
   return (
-    <>
-      <SelectorContainer>
-        <Icon src={IconLeft} alt="Previous Month" onClick={prevMonth} />
-        <MonthLabel>{`2023.${selectedMonth < 9 ? `${selectedMonth }` : selectedMonth }`}</MonthLabel>
-        <Icon src={IconRight} alt="Next Month" onClick={nextMonth} />
-      </SelectorContainer>
-      <Container>
-        {days.map((day, idx) => {
-          let type = day ? "currentMonth" : "paddingDay";
-          return (
-            <CalenderItem
-              key={idx}
-              date={day}
-              type={type}
-              isSelected={selectedDate === day && day !== null}
-              onSelectDate={setSelectedDate}
-            />
-          );
-        })}
-      </Container>
-    </>
+    <Container>
+      {days.map((day, idx) => (
+        <CalenderItem key={idx} date={day} />
+      ))}
+    </Container>
   );
 };
 

@@ -5,6 +5,11 @@ import App from "./App.jsx";
 import store from "./redux/store.js";
 import "./index.scss";
 
+import dayjs from "dayjs";
+import arraySupport from "dayjs/plugin/arraySupport.js";
+
+dayjs.extend(arraySupport);
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
     <App className="root" />

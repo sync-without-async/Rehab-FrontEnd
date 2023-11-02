@@ -263,3 +263,27 @@ export function getReservationListUser(id, page = undefined) {
     ],
   };
 }
+
+export function getDoctorData() {
+  return {
+    doctor: {
+      type: "admin1",
+      id: "doctor",
+      password: "123456",
+      name: "김정원",
+      major: "재활의학과",
+      workplace: "한림대학교 춘천성심병원",
+      admin: true,
+    },
+    // Admin2: 재활치료사
+    therapist: {
+      type: "admin2",
+      id: "therapist",
+      password: "123456",
+      name: "오민혁",
+      major: "팔 재활",
+      workplace: "한림대학교 춘천성심병원 재활의료센터",
+      admin: true,
+    },
+  };
+}
