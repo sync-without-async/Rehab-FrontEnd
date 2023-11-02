@@ -7,14 +7,14 @@ export async function userLogin(id, password) {
       password: "123456",
       name: "오소현",
       admin: false,
-      assignedDoctor: "김정원", 
-      assignedTherapist: "오민혁", 
+      assignedDoctor: "김정원",
+      assignedTherapist: "오민혁",
       recentVisitDate: "2023.09.01",
       nextReservationDate: "2023.09.11",
       gender: "여성",
       birth: "2001-02-24",
-      diseaseCode: "A001"
-    },    
+      diseaseCode: "A001",
+    },
     // Admin1: 전문의
     {
       type: "admin1",
@@ -22,7 +22,7 @@ export async function userLogin(id, password) {
       password: "123456",
       name: "김정원",
       major: "재활의학과",
-      workplace: "한림대학교 춘천성심병원", 
+      workplace: "한림대학교 춘천성심병원",
       admin: true,
     },
     // Admin2: 재활치료사
@@ -32,7 +32,7 @@ export async function userLogin(id, password) {
       password: "123456",
       name: "오민혁",
       major: "팔 재활",
-      workplace: "한림대학교 춘천성심병원 재활의료센터", 
+      workplace: "한림대학교 춘천성심병원 재활의료센터",
       admin: true,
     },
   ];
@@ -43,10 +43,14 @@ export async function userLogin(id, password) {
     return null;
   }
 
-  
   if (account.type === "user") {
-    const doctor = accounts.find(item => item.name === account.assignedDoctor && item.type === "admin1");
-    const therapist = accounts.find(item => item.name === account.assignedTherapist && item.type === "admin2");
+    const doctor = accounts.find(
+      (item) => item.name === account.assignedDoctor && item.type === "admin1",
+    );
+    const therapist = accounts.find(
+      (item) =>
+        item.name === account.assignedTherapist && item.type === "admin2",
+    );
 
     return {
       user: {
@@ -65,8 +69,10 @@ export async function userLogin(id, password) {
       therapist,
     };
   } else if (account.type === "admin1") {
-    const patient = accounts.find(item => item.assignedDoctor === account.name && item.type === "user");
-  
+    const patient = accounts.find(
+      (item) => item.assignedDoctor === account.name && item.type === "user",
+    );
+
     return {
       email: account.id,
       name: account.name,
@@ -78,17 +84,19 @@ export async function userLogin(id, password) {
       patient: {
         id: patient.id,
         name: patient.name,
-        gender: patient.gender, 
+        gender: patient.gender,
         birth: patient.birth,
-        diseaseCode: patient.diseaseCode, 
-        recentVisitDate: patient.recentVisitDate,  
-        nextReservationDate: patient.nextReservationDate,  
-        assignedTherapist: patient.assignedTherapist  
-      }
+        diseaseCode: patient.diseaseCode,
+        recentVisitDate: patient.recentVisitDate,
+        nextReservationDate: patient.nextReservationDate,
+        assignedTherapist: patient.assignedTherapist,
+      },
     };
   } else if (account.type === "admin2") {
-    const patient = accounts.find(item => item.assignedTherapist === account.name && item.type === "user");
-    
+    const patient = accounts.find(
+      (item) => item.assignedTherapist === account.name && item.type === "user",
+    );
+
     return {
       email: account.id,
       name: account.name,
@@ -100,16 +108,15 @@ export async function userLogin(id, password) {
       patient: {
         id: patient.id,
         name: patient.name,
-        gender: patient.gender, 
+        gender: patient.gender,
         birth: patient.birth,
-        diseaseCode: patient.diseaseCode, 
-        recentVisitDate: patient.recentVisitDate,  
-        nextReservationDate: patient.nextReservationDate,  
-        assignedDoctor: patient.assignedDoctor
-      }
+        diseaseCode: patient.diseaseCode,
+        recentVisitDate: patient.recentVisitDate,
+        nextReservationDate: patient.nextReservationDate,
+        assignedDoctor: patient.assignedDoctor,
+      },
     };
   }
-  
 
   return null;
 }
@@ -177,4 +184,82 @@ const userFaceRecords = {
 // 대면 진료 기록을 반환하는 함수
 export function getFaceRecords(userId) {
   return userFaceRecords[userId];
+}
+
+function dummyAlert(name) {
+  console.info(`알림: "${name}" 테스트 데이터 사용 중`);
+}
+
+export function getReservationListAdmin(id, page = undefined) {
+  dummyAlert("Admin 비대면 예약 목록 조회");
+
+  return {
+    page: 1,
+    size: 5,
+    total: 1,
+    start: 1,
+    end: 1,
+    prev: false,
+    next: false,
+    dtoList: [
+      {
+        userName: "사용자",
+        userId: "jyp",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a230",
+        date: "2023-11-10",
+        index: 32,
+      },
+      {
+        userName: "김경재",
+        userId: "jyp",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a130",
+        date: "2023-11-03",
+        index: 41,
+      },
+      {
+        userName: "박주영",
+        userId: "jyp",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a330",
+        date: "2023-11-03",
+        index: 10,
+      },
+    ],
+  };
+}
+
+export function getReservationListUser(id, page = undefined) {
+  dummyAlert("User 비대면 예약 목록 조회");
+
+  return {
+    page: 1,
+    size: 5,
+    total: 1,
+    start: 1,
+    end: 1,
+    prev: false,
+    next: false,
+    dtoList: [
+      {
+        adminName: "홍길동",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a130",
+        rvno: 1,
+        date: "2023-11-14",
+        index: 24,
+      },
+      {
+        adminName: "홍길동",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a230",
+        rvno: 3,
+        date: "2023-11-14",
+        index: 17,
+      },
+      {
+        adminName: "어드민",
+        rno: "b362a342-3605-4efa-aaf3-2115a274a330",
+        rvno: 3,
+        date: "2023-11-19",
+        index: 38,
+      },
+    ],
+  };
 }

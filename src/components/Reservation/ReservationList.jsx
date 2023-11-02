@@ -11,6 +11,12 @@ import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import { getAdminReservationList } from "../../librarys/api/reservation.js";
 import ReservationModal from "./ReservationModal.jsx";
+import { useSelector } from "react-redux";
+import { selectEmail, selectRole } from "../../redux/userSlice.js";
+import {
+  getReservationListAdmin,
+  getReservationListUser,
+} from "../../librarys/dummy-api.js";
 
 const List = styled.div`
   margin: 28px 0;
@@ -25,10 +31,18 @@ const ReservationList = () => {
     intialReservationListState,
   );
   const { list, page } = state;
+  const id = useSelector(selectEmail);
+  const role = useSelector(selectRole);
 
   useEffect(() => {
     (async () => {
-      const data = await getAdminReservationList("ldh", page);
+      let data;
+      if (role === "USER") {
+        data = await getReservationListUser(id, page);
+      } else {
+        data = await getReservationListAdmin(id, page);
+      }
+
       dispatch({
         type: "data",
         payload: data,
@@ -49,23 +63,9 @@ const ReservationList = () => {
               index={item.index}
               dept="한림대학교"
               role="ADMIN_DOCTOR"
-              name="김경재"
+              name={item.adminName || item.userName}
             />
           ))}
-          <ReservationItem
-            date="2023/11/05"
-            index={38}
-            dept="한림대학교"
-            role="ADMIN_DOCTOR"
-            name="사용자"
-          />
-          <ReservationItem
-            date="2023/11/02"
-            index={28}
-            dept="한림대학교"
-            role="ADMIN_THERAPIST"
-            name="홍길동"
-          />
         </List>
         <Pagination />
       </BlockContainer>
