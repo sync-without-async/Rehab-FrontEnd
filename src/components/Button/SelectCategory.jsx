@@ -2,7 +2,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import ToggleButton from "./ToggleButton.jsx";
-import { CATEGORY_TYPE } from "../../librarys/type.js";
+import { CATEGORY_LIST } from "../../librarys/type.js";
 
 const Container = styled.div`
   display: flex;
@@ -38,7 +38,7 @@ function SelectCategory({ onChange }) {
     <Container>
       <Label>운동 태그 *</Label>
       <List>
-        {CATEGORY_TYPE.map(({ key, value }) => (
+        {CATEGORY_LIST.map(({ key, value }) => (
           <Toggle
             key={key}
             selected={selectedTag === key}

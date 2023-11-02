@@ -3,7 +3,7 @@ import Pagination from "../Pagination/Pagination";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import TheraSeveralExercise from "./TheraSeveralExercise";
-import { CATEGORY_TYPE } from "../../librarys/type.js";
+import { CATEGORY_LIST } from "../../librarys/type.js";
 import TitleText from "../Common/TitleText.jsx";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import { ReducerContext } from "../../reducer/context.js";
@@ -29,7 +29,7 @@ const List = styled.div`
   gap: 24px;
 `;
 
-const filters = CATEGORY_TYPE.map((item) => item);
+const filters = CATEGORY_LIST.map((item) => item);
 
 const TheraExerciseList = () => {
   const [state, dispatch] = useReducer(videoListReducer, intialVideoListState);

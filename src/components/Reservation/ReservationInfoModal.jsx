@@ -35,7 +35,7 @@ const ButtonContainer = styled.div`
 
 const id = "reservation_detail";
 
-const ReservationModal = () => {
+const ReservationInfoModal = () => {
   const value = useSelector(selectProps(id));
   const { description, aiSummary } = value || {};
 
@@ -55,6 +55,6 @@ const ReservationModal = () => {
   );
 };
 
-ReservationModal.propTypes = {};
+ReservationInfoModal.propTypes = {};
 
-export default ReservationModal;
+export default ReservationInfoModal;

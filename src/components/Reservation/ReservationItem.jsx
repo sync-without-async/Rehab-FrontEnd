@@ -8,7 +8,7 @@ import DoctorIcon from "../../assets/images/role/role_doctor.png";
 import TherapistIcon from "../../assets/images/role/role_therapist.png";
 
 import { MdLocalHospital, MdCalendarMonth, MdPerson } from "react-icons/md";
-import { DAYJS_FORMAT, ROLE_TYPE } from "../../librarys/type.js";
+import { DAYJS_FORMAT, ROLE_LIST } from "../../librarys/type.js";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -109,7 +109,7 @@ const ReservationItem = ({ name, role, dept, date, index }) => {
   }, [role]);
 
   const roleDisplay = useMemo(() => {
-    const find = ROLE_TYPE.find((item) => item.key === role);
+    const find = ROLE_LIST.find((item) => item.key === role);
 
     if (find) return find.value;
     return "환자";

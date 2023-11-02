@@ -1,9 +1,9 @@
-import { CATEGORY_TYPE } from "../librarys/type.js";
+import { CATEGORY_LIST } from "../librarys/type.js";
 
 export const intialUploadState = {
   title: "",
   description: "",
-  category: CATEGORY_TYPE[0].key,
+  category: CATEGORY_LIST[0].key,
   video: null,
   duration: null,
   skeleton: null,
