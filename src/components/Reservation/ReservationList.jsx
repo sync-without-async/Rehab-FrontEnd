@@ -10,7 +10,7 @@ import {
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import { getAdminReservationList } from "../../librarys/api/reservation.js";
-import ReservationModal from "./ReservationModal.jsx";
+import ReservationInfoModal from "./ReservationInfoModal.jsx";
 import { useSelector } from "react-redux";
 import { selectEmail, selectRole } from "../../redux/userSlice.js";
 import {
@@ -53,7 +53,7 @@ const ReservationList = () => {
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
-        <ReservationModal />
+        <ReservationInfoModal />
         <TitleText text="비대면 진료 예약 목록" />
         <List>
           {list.map((item) => (

@@ -4,7 +4,7 @@ import LoginPage from "./pages/LoginPage.jsx";
 import SignupPage from "./pages/SignupPage.jsx";
 import MyUserPage from "./pages/User/MyUserPage.jsx";
 import DevelopPage from "./pages/DevelopPage.jsx";
-import UserReservePage from "./pages/User/UserReservePage.jsx";
+import ReservationCreatePage from "./pages/Reservation/ReservationCreatePage.jsx";
 import DoctorDashBoardPage from "./pages/Doctor/DoctorDashBoardPage.jsx";
 import DoctorChartPage from "./pages/Doctor/DoctorChartPage.jsx";
 import DoctorDetailPage from "./pages/Doctor/DoctorDetailPage.jsx";
@@ -18,7 +18,7 @@ import TheraMakeAssignPage from "./pages/Therapist/TheraMakeAssignPage.jsx";
 import styled from "styled-components";
 import "./App.scss";
 import { ReducerContext } from "./reducer/context.js";
-import UntactReservePage from "./pages/Untact/UntactReservePage.jsx";
+import ReservationListPage from "./pages/Reservation/ReservationListPage.jsx";
 
 const Container = styled.div`
   margin-top: 60px;
@@ -37,7 +37,7 @@ function App() {
             <Route path="/signup" element={<SignupPage />} />
             <Route path="/" element={<DevelopPage />} />
             <Route path="/userdash" element={<MyUserPage />} />
-            <Route path="/userreserve" element={<UserReservePage />} />
+            <Route path="/userreserve" element={<ReservationCreatePage />} />
             <Route path="/doctordash" element={<DoctorDashBoardPage />} />
             <Route path="/doctorchart" element={<DoctorChartPage />} />
             <Route path="/doctordetail" element={<DoctorDetailPage />} />
@@ -60,7 +60,7 @@ function App() {
               element={<TheraExerciseAddPage />}
             />
             <Route path="/theramakeassgin" element={<TheraMakeAssignPage />} />
-            <Route path="/untact/list" element={<UntactReservePage />} />
+            <Route path="/untact/list" element={<ReservationListPage />} />
           </Routes>
         </Container>
       </Router>
