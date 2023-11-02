@@ -19,7 +19,7 @@ export const userSlice = createSlice({
     refresh_token: null,
     email: null,
     name: null,
-    role: false,
+    role: null,
   },
   reducers: {
     logout: (state) => {
