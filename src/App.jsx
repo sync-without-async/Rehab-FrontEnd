@@ -19,6 +19,7 @@ import styled from "styled-components";
 import "./App.scss";
 import { ReducerContext } from "./reducer/context.js";
 import ReservationListPage from "./pages/Reservation/ReservationListPage.jsx";
+import ReservationMeetingPage from "./pages/Reservation/ReservationMeetingPage.jsx";
 
 const Container = styled.div`
   margin-top: 60px;
@@ -61,6 +62,10 @@ function App() {
             />
             <Route path="/theramakeassgin" element={<TheraMakeAssignPage />} />
             <Route path="/untact/list" element={<ReservationListPage />} />
+            <Route
+              path="/untact/meeting/:uuid"
+              element={<ReservationMeetingPage />}
+            />
           </Routes>
         </Container>
       </Router>
