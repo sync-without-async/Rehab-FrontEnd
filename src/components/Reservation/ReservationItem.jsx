@@ -13,6 +13,7 @@ import dayjs from "dayjs";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
 import { show } from "../../redux/modalSlice.js";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 110px;
@@ -94,8 +95,9 @@ const dummyText = `그러나 한 시와 강아지, 가을 보고, 새워 까닭�
 
 const notReadyText = `아직 비대면 진료 요약이 생성되지 않았습니다.`;
 
-const ReservationItem = ({ name, role, dept, date, index }) => {
+const ReservationItem = ({ id, name, role, dept, date, index }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const image = useMemo(() => {
     switch (role) {
@@ -130,7 +132,11 @@ const ReservationItem = ({ name, role, dept, date, index }) => {
     if (isDone) {
       return <Btn type="disabled">종료되었습니다</Btn>;
     } else if (isOpen) {
-      return <Btn type="primary">입장</Btn>;
+      return (
+        <Btn type="primary" onClick={() => navigate("/untact/meeting/" + id)}>
+          입장
+        </Btn>
+      );
     } else {
       return <Btn type="disabled">예약 시간이 아닙니다</Btn>;
     }
@@ -186,6 +192,7 @@ const ReservationItem = ({ name, role, dept, date, index }) => {
 };
 
 ReservationItem.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   role: PropTypes.string,
   date: PropTypes.string,

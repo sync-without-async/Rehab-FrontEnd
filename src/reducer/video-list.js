@@ -21,13 +21,13 @@ export function videoListReducer(state, action) {
     case "page":
       return {
         ...state,
-        page: action.payload,
+        page: action.payload || 1,
       };
     case "data":
       return {
         ...state,
-        list: action.payload.dtoList,
-        page: action.payload.page,
+        list: action.payload.dtoList || [],
+        page: action.payload.page || 1,
         totalPage: action.payload.end,
       };
     default:

@@ -12,13 +12,13 @@ export const CATEGORY_TYPE = {
   THIGH: "허벅지",
 };
 
-export const ROLE_LIST = Object.entries(ROLE_TYPE).map((key, value) => ({
+export const ROLE_LIST = Object.entries(ROLE_TYPE).map((key, value) => [
   key,
   value,
-}));
+]);
 
 export const CATEGORY_LIST = Object.entries(CATEGORY_TYPE).map(
-  (key, value) => ({
+  ([key, value]) => ({
     key,
     value,
   }),

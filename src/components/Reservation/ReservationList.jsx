@@ -59,6 +59,7 @@ const ReservationList = () => {
           {list.map((item) => (
             <ReservationItem
               key={item.rno}
+              id={item.rno}
               date={item.date}
               index={item.index}
               dept="한림대학교"

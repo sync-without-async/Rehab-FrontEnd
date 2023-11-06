@@ -13,6 +13,7 @@ import {
   reserveCreateReducer,
 } from "../../reducer/reservation-create.js";
 import dayjs from "dayjs";
+import { createReservation } from "../../librarys/api/reservation.js";
 
 const Container = styled.div`
   display: flex;
@@ -69,6 +70,7 @@ export const ReservationCreateModal = () => {
     reserveCreateReducer,
     intialReserveCreateState,
   );
+
   const [times, setTimes] = useState(createTimes());
   const { index, available, description } = state;
 
@@ -93,7 +95,14 @@ export const ReservationCreateModal = () => {
     });
   }
 
-  function onComplete() {
+  async function onComplete() {
+    // const res = await createReservation(
+    //   state.adminId,
+    //   "ldh",
+    //   state.description,
+    //   [state.year, state.month + 1, state.date].join("-"),
+    //   state.index,
+    // );
     console.log(state);
   }
 
