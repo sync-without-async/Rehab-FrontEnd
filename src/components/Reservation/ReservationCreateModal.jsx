@@ -7,13 +7,16 @@ import ToggleButton from "../Button/ToggleButton.jsx";
 import Button from "../Button/Button.jsx";
 import CalenderMonth from "../Calender/CalenderMonth.jsx";
 import { ReducerContext } from "../../reducer/context.js";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import {
   intialReserveCreateState,
   reserveCreateReducer,
 } from "../../reducer/reservation-create.js";
 import dayjs from "dayjs";
-import { createReservation } from "../../librarys/api/reservation.js";
+import {
+  createReservation,
+  getAdminReservationTime,
+} from "../../librarys/api/reservation.js";
 
 const Container = styled.div`
   display: flex;
@@ -72,14 +75,29 @@ export const ReservationCreateModal = () => {
   );
 
   const [times, setTimes] = useState(createTimes());
-  const { index, available, description } = state;
+  const { adminId, index, disabledTime, description, year, month, date } =
+    state;
+  const serverTime = useMemo(
+    () => [year, month + 1, date].join("-"),
+    [year, month, date],
+  );
 
   useEffect(() => {
     dispatch({
-      type: "available",
-      payload: [true, true, true, false, false],
+      type: "disabledTime",
+      payload: [36, 37, 38, 39, 40],
     });
-  }, []);
+
+    (async () => {
+      const response = await getAdminReservationTime(adminId, serverTime);
+      const payload = response.map((item) => item.index);
+
+      dispatch({
+        type: "disabledTime",
+        payload,
+      });
+    })();
+  }, [serverTime]);
 
   function onSelect(id) {
     dispatch({
@@ -100,7 +118,7 @@ export const ReservationCreateModal = () => {
     //   state.adminId,
     //   "ldh",
     //   state.description,
-    //   [state.year, state.month + 1, state.date].join("-"),
+    //   serverTime,
     //   state.index,
     // );
     console.log(state);
@@ -123,7 +141,7 @@ export const ReservationCreateModal = () => {
                 <ToggleButton
                   key={item.index}
                   selected={item.index === index}
-                  disabled={!available[i]}
+                  disabled={disabledTime.includes(item.index)}
                   onClick={() => onSelect(item.index)}
                 >
                   {item.value}
