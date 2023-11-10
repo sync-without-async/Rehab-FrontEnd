@@ -31,3 +31,10 @@ export async function createReservation(
   const response = await axios.post("/reservation/", data);
   return response.data;
 }
+
+export async function removeReservation(id) {
+  const axios = getSpringAxios();
+
+  const response = await axios.put("/reservation/" + id);
+  return response.data;
+}

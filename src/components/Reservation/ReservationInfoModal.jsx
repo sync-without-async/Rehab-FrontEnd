@@ -3,12 +3,14 @@ import PropTypes from "prop-types";
 
 import Modal from "../Common/Modal.jsx";
 
-import { selectProps } from "../../redux/modalSlice.js";
+import { hide, selectProps } from "../../redux/modalSlice.js";
 import { useSelector } from "react-redux";
 import ModalTitleText from "../Common/ModalTitleText.jsx";
 import ChartSummary from "../Chart/ChartSummary.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
+import { removeReservation } from "../../librarys/api/reservation.js";
+import { useDispatch } from "react-redux";
 
 const Container = styled.div`
   display: flex;
@@ -36,8 +38,17 @@ const ButtonContainer = styled.div`
 const id = "reservation_detail";
 
 const ReservationInfoModal = () => {
+  const dispatch = useDispatch();
   const value = useSelector(selectProps(id));
-  const { description, aiSummary } = value || {};
+  const { reservationId, description, aiSummary } = value || {};
+
+  async function onCancelButtonClick() {
+    const response = await removeReservation(reservationId);
+    1;
+    alert("예약이 성공적으로 취소되었습니다.");
+
+    dispatch(hide(id));
+  }
 
   return (
     <Modal id={id}>
@@ -48,7 +59,7 @@ const ReservationInfoModal = () => {
         <Input label="AI 비대면 진료 요약" value={aiSummary} disabled={true} />
         <ButtonContainer>
           <Button type="primary">환자 차트 페이지로</Button>
-          <Button>예약 취소</Button>
+          <Button onClick={onCancelButtonClick}>예약 취소</Button>
         </ButtonContainer>
       </Container>
     </Modal>

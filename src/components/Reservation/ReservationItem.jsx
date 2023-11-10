@@ -157,6 +157,7 @@ const ReservationItem = ({ id, name, role, dept, date, index }) => {
       show({
         id: "reservation_detail",
         props: {
+          reservationId: 999,
           chartDetail: null,
           description: dummyText,
           aiSummary: notReadyText,

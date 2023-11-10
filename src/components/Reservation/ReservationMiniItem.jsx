@@ -99,6 +99,7 @@ const ReservationMiniItem = ({ id, name, date, index }) => {
       show({
         id: "reservation_detail",
         props: {
+          reservationId: 999,
           chartDetail: null,
           description: dummyText,
           aiSummary: notReadyText,
