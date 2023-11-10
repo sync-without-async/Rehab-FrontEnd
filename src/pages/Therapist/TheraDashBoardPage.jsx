@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import TheraDashHeader from "../../components/TherapistDashBoard/TheraDashHeader";
 import CardhButton from "../../components/Button/CardButton";
-import TheraUntactList from "../../components/TherapistDashBoard/TheraUntactList";
+import ReservationMiniList from "../../components/Reservation/ReservationMiniList.jsx";
 
 const PageContainer = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const TheraDashBoardPage = () => {
           <CardhButton mode="treatment" />
           <CardhButton mode="add" />
         </CardButtonGroup>
-        <TheraUntactList />
+        <ReservationMiniList />
       </CenteredContainer>
     </PageContainer>
   );

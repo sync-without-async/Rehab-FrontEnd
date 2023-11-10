@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import ReservationItem from "./ReservationItem";
 import Pagination from "../Pagination/Pagination";
 import { ReducerContext } from "../../reducer/context.js";
 import { useEffect, useReducer } from "react";
@@ -16,15 +15,18 @@ import {
   getReservationListAdmin,
   getReservationListUser,
 } from "../../librarys/dummy-api.js";
+import ReservationMiniItem from "./ReservationMiniItem.jsx";
 
 const List = styled.div`
   margin: 28px 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: 320px 320px;
   flex-direction: column;
-  gap: 28px;
+  justify-content: center;
+  gap: 28px 80px;
 `;
 
-const ReservationList = () => {
+const ReservationMiniList = () => {
   const [state, dispatch] = useReducer(
     reservationListReducer,
     intialReservationListState,
@@ -53,24 +55,21 @@ const ReservationList = () => {
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
         <ReservationInfoModal />
-        <TitleText text="비대면 진료 예약 목록" />
+        <TitleText text="비대면 진료 예약 목록" small />
         <List>
           {list.map((item) => (
-            <ReservationItem
+            <ReservationMiniItem
               key={item.rno}
               id={item.rno}
               date={item.date}
               index={item.index}
-              dept="한림대학교"
-              role="ADMIN_DOCTOR"
               name={item.adminName || item.userName}
             />
           ))}
         </List>
-        <Pagination />
       </BlockContainer>
     </ReducerContext.Provider>
   );
 };
 
-export default ReservationList;
+export default ReservationMiniList;

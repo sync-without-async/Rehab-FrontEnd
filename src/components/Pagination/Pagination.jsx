@@ -69,7 +69,6 @@ function Pagination({}) {
   const { totalPage } = state || {};
 
   const handlePageClick = (data) => {
-    console.log(data);
     dispatch({
       type: "page",
       payload: data.selected + 1,

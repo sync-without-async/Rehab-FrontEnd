@@ -21,10 +21,10 @@ function prevMonthState(state) {
 
 export const intialReserveCreateState = {
   ...getDate(),
-  available: [true, true, true, true, true],
+  disabledTime: [],
   index: null,
   description: "",
-  adminId: null,
+  adminId: "ldh",
 };
 
 export function reserveCreateReducer(state, action) {
@@ -54,10 +54,10 @@ export function reserveCreateReducer(state, action) {
         date: action.payload,
         index: null,
       };
-    case "available":
+    case "disabledTime":
       return {
         ...state,
-        available: action.payload,
+        disabledTime: action.payload,
       };
     case "index":
       return {
