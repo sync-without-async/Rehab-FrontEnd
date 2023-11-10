@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import DoctorDashHeader from "../../components/DoctorDashBoard/DoctorDashHeader";
 import CardhButton from "../../components/Button/CardButton";
-import DoctorUntactList from "../../components/DoctorDashBoard/DoctorUntactList";
+import ReservationMiniList from "../../components/Reservation/ReservationMiniList.jsx";
 
 const PageContainer = styled.div`
   display: flex;
@@ -37,7 +37,7 @@ const DoctorDashBoardPage = () => {
           <CardhButton mode="treatment" />
           <CardhButton mode="register" />
         </CardButtonGroup>
-        <DoctorUntactList />
+        <ReservationMiniList />
       </CenteredContainer>
     </PageContainer>
   );
