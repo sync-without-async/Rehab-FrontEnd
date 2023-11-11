@@ -8,7 +8,7 @@ const Item = styled.div`
   height: 40px;
   border-bottom: 2px solid #d9d9d9;
   display: grid;
-  grid-template-columns: ${(props) => props.template || "1fr"};
+  grid-template-columns: ${(props) => props.$template || "1fr"};
   text-align: center;
   user-select: none;
   background-color: #ffffff;
@@ -26,10 +26,18 @@ const Item = styled.div`
   }
 `;
 
-const TableItem = ({ id, index, header, template, children, dragging }) => {
+const TableItem = ({
+  id,
+  index,
+  header,
+  template,
+  children,
+  dropping,
+  dragging,
+}) => {
   if (header) {
     return (
-      <Item className="header" template={template}>
+      <Item className="header" $template={template}>
         {children}
       </Item>
     );
@@ -37,45 +45,59 @@ const TableItem = ({ id, index, header, template, children, dragging }) => {
 
   return (
     <Draggable draggableId={id} index={index} isDragDisabled={!dragging}>
-      {(provided, snapshot) => (
-        <>
-          <Item
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-            className={classNames({ dragging: snapshot.isDragging })}
-            template={template}
-            style={{
-              ...provided.draggableProps.style,
-              transform: snapshot.isDragging
-                ? provided.draggableProps.style?.transform
-                : "translate(0px, 0px)",
-            }}
-          >
-            {children}
-          </Item>
-          {snapshot.isDragging && (
-            <Item style={{ transform: "none !important" }} template={template}>
+      {(provided, snapshot) => {
+        let style = {
+          ...provided.draggableProps.style,
+        };
+        let ghost = null;
+
+        if (!dropping) {
+          style = {
+            ...style,
+            transform: snapshot.isDragging
+              ? provided.draggableProps.style?.transform
+              : "translate(0px, 0px)",
+          };
+          ghost = snapshot.isDragging && (
+            <Item style={{ transform: "none !important" }} $template={template}>
               {children}
             </Item>
-          )}
-        </>
-      )}
+          );
+        }
+
+        return (
+          <>
+            <Item
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              className={classNames({ dragging: snapshot.isDragging })}
+              $template={template}
+              style={style}
+            >
+              {children}
+            </Item>
+            {ghost}
+          </>
+        );
+      }}
     </Draggable>
   );
 };
 
 TableItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  id: PropTypes.string,
+  index: PropTypes.number,
   header: PropTypes.bool,
   template: PropTypes.string.isRequired,
   children: PropTypes.node,
+  dropping: PropTypes.bool,
   dragging: PropTypes.bool,
 };
 
 TableItem.defaultProps = {
   header: false,
+  dropping: false,
   dragging: false,
 };
 

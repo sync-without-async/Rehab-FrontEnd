@@ -7,6 +7,8 @@ import { useMemo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 
 const Container = styled.div`
+  width: 100%;
+  min-height: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,7 +18,7 @@ const Container = styled.div`
 const Text = styled.p`
   width: 100%;
   height: 100%;
-  text-align: ${(props) => props.align || "left"};
+  text-align: ${(props) => props.$align || "left"};
   padding: 7px 12px;
 
   font-size: 14px;
@@ -35,17 +37,17 @@ const Table = ({
 }) => {
   const children = useMemo(
     () =>
-      data.map((item, index) => (
+      data.slice(1).map((item, index) => (
         <TableItem
           key={[id, index].join("-")}
           id={[id, index].join("-")}
           index={index}
-          header={index === 0}
           template={template}
+          dropping={dropping}
           dragging={dragging}
         >
           {item.map((element, i) => (
-            <Text key={[index, i].join("-")} align={align[i]}>
+            <Text key={[index, i].join("-")} $align={align[i]}>
               {element}
             </Text>
           ))}
@@ -55,18 +57,27 @@ const Table = ({
   );
 
   return (
-    <Droppable droppableId={id} isDropDisabled={!dropping}>
-      {(provided, snapshot) => (
-        <Container
-          {...provided.droppableProps}
-          ref={provided.innerRef}
-          isDraggingOver={snapshot.isDraggingOver}
-          className={className}
-        >
-          {children}
-        </Container>
-      )}
-    </Droppable>
+    <>
+      <TableItem header template={template}>
+        {data[0].map((element, i) => (
+          <Text key={i} $align={align[i]}>
+            {element}
+          </Text>
+        ))}
+      </TableItem>
+      <Droppable droppableId={id} isDropDisabled={!dropping}>
+        {(provided, snapshot) => (
+          <Container
+            {...provided.droppableProps}
+            ref={provided.innerRef}
+            className={className}
+          >
+            {children}
+            {dropping && provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
+    </>
   );
 };
 
