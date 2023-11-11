@@ -50,7 +50,7 @@ const DevelopPage = () => {
     { path: "/theradetail", name: "028TheraDetailPage" },
     { path: "/theraexerciselist", name: "019TheraExerciseListPage" },
     { path: "/theraexerciseadd", name: "021TheraExerciseAddPage" },
-    { path: "/theramakeassgin", name: "022TheraMakeAssignPage" },
+    { path: "/program/assign/test_user_id", name: "022TheraMakeAssignPage" },
   ];
 
   return (

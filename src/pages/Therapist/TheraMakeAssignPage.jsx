@@ -1,29 +1,13 @@
 import styled from "styled-components";
 import BackButton from "../../components/Button/BackButton";
-import TheraMakeAssign from "../../components/TherapistDashBoard/TheraMakeAssgin";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px;
-`;
+import TheraMakeAssign from "../../components/TherapistDashBoard/TheraMakeAssign.jsx";
+import PageContainer from "../../components/Common/PageContainer";
 
 const TheraMakeAssignPage = () => {
   return (
     <PageContainer>
-      <CenteredContainer>
-        <BackButton pageName="대시보드" />
-        <TheraMakeAssign />
-      </CenteredContainer>
+      <BackButton text="대시보드로 돌아가기" />
+      <TheraMakeAssign />
     </PageContainer>
   );
 };

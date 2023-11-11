@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const Item = styled.textarea`
   width: 240px;
@@ -16,16 +17,23 @@ const Item = styled.textarea`
   &:focus {
     outline: none;
   }
+
+  &.disabled {
+    background-color: #cccccc;
+    color: #666666;
+  }
 `;
 
 function InputArea({ value, onInput, disabled, className }) {
+  const displayClassName = classNames(className, { disabled });
+
   return (
     <Item
       type="text"
       value={value}
       onChange={onInput}
       disabled={disabled}
-      className={className}
+      className={displayClassName}
       rows={3}
     />
   );
