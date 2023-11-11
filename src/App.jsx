@@ -60,7 +60,10 @@ function App() {
               path="/theraexerciseadd"
               element={<TheraExerciseAddPage />}
             />
-            <Route path="/theramakeassgin" element={<TheraMakeAssignPage />} />
+            <Route
+              path="/program/assign/:id"
+              element={<TheraMakeAssignPage />}
+            />
             <Route path="/untact/list" element={<ReservationListPage />} />
             <Route
               path="/untact/meeting/:uuid"
