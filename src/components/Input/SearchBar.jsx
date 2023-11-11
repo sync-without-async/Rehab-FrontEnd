@@ -3,6 +3,7 @@ import Iconsearch from "../../assets/icons/iconsearch.png";
 import { useContext } from "react";
 import { ReducerContext } from "../../reducer/context.js";
 import { debounce } from "../../librarys/util.js";
+import PropTypes from "prop-types";
 
 const SearchContainer = styled.div`
   width: 500px;
@@ -36,7 +37,7 @@ const SearchInput = styled.input`
   }
 `;
 
-const SearchBar = () => {
+const SearchBar = ({ placeholder }) => {
   const [state, dispatch] = useContext(ReducerContext);
 
   function onChange(event) {
@@ -52,11 +53,20 @@ const SearchBar = () => {
     <SearchContainer>
       <SearchIcon src={Iconsearch} alt="Search" />
       <SearchInput
+        name="search"
         onChange={debounce(onChange, 400)}
-        placeholder="환자 이름으로 검색...."
+        placeholder={placeholder}
       />
     </SearchContainer>
   );
+};
+
+SearchBar.propTypes = {
+  placeholder: PropTypes.string,
+};
+
+SearchBar.defaultProps = {
+  placeholder: "",
 };
 
 export default SearchBar;

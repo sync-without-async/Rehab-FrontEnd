@@ -58,7 +58,7 @@ const TheraExerciseList = () => {
         <TheraExerciseModal />
         <TitleText text="운동 등록" />
         <SearchAndFilterContainer>
-          <SearchBar />
+          <SearchBar placeholder="환자 이름으로 검색..." />
           <DropdownFilter
             items={filters}
             defaultText="전체"
