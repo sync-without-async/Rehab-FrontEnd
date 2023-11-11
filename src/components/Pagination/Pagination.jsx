@@ -64,7 +64,7 @@ const StyledReactPaginate = styled(ReactPaginate)`
   }
 `;
 
-function Pagination({}) {
+function Pagination({ className }) {
   const [state, dispatch] = useContext(ReducerContext);
   const { totalPage } = state || {};
 
@@ -76,7 +76,7 @@ function Pagination({}) {
   };
 
   return (
-    <StyledPaginateContainer>
+    <StyledPaginateContainer className={className}>
       <StyledReactPaginate
         previousLabel={<MdOutlineArrowBackIos />}
         nextLabel={<MdOutlineArrowForwardIos />}
@@ -97,5 +97,9 @@ function Pagination({}) {
     </StyledPaginateContainer>
   );
 }
+
+Pagination.propTypes = {
+  className: PropTypes.string,
+};
 
 export default Pagination;
