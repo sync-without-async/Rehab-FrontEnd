@@ -196,57 +196,6 @@ const TheraMakeAssign = () => {
       const data = await getVideoList(page, query, tag);
       console.log(data);
 
-      data.dtoList = [
-        {
-          vno: 1,
-          title: "동작 제목1",
-          description: "동작 설명1",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-        {
-          vno: 2,
-          title: "동작 제목2",
-          description: "동작 설명2",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-        {
-          vno: 3,
-          title: "동작 제목3",
-          description: "동작 설명3",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-        {
-          vno: 4,
-          title: "동작 제목4",
-          description: "동작 설명4",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-        {
-          vno: 5,
-          title: "동작 제목5",
-          description: "동작 설명5",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-        {
-          vno: 6,
-          title: "동작 제목6",
-          description: "동작 설명6",
-          tag: "ARM",
-          playTime: 18.5,
-          videoURL: "https://placehold.co/200",
-        },
-      ];
-
       dispatch({
         type: "data",
         payload: data,
