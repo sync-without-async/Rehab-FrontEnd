@@ -49,7 +49,7 @@ const ReservationMiniList = () => {
         payload: data,
       });
     })();
-  }, [page]);
+  }, [id, role, page]);
 
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
