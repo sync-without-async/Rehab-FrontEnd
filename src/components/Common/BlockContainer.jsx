@@ -6,8 +6,8 @@ const BlockContainer = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   background-color: #ffffff;
-  border: 1.5px solid #0064ff;
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid #0064ff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 `;
 
 export default BlockContainer;
