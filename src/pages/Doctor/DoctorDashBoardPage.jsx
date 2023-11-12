@@ -1,21 +1,12 @@
 import styled from "styled-components";
-import DoctorDashHeader from "../../components/DoctorDashBoard/DoctorDashHeader";
-import CardhButton from "../../components/Button/CardButton";
+import CardButton from "../../components/Button/CardButton";
 import ReservationMiniList from "../../components/Reservation/ReservationMiniList.jsx";
+import PageContainer from "../../components/Common/PageContainer.jsx";
+import EmployeeHeader from "../../components/Dashboard/EmployeeHeader.jsx";
+import { MdAssignment, MdPersonAddAlt1, MdVideoChat } from "react-icons/md";
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px;
+const Container = styled(PageContainer)`
+  gap: 28px;
 `;
 
 const CardButtonGroup = styled.div`
@@ -23,23 +14,40 @@ const CardButtonGroup = styled.div`
   justify-content: center;
   align-items: center;
   gap: 40px;
-  margin-top: 20px;
-  margin-bottom: 20px;
 `;
+
+const buttons = [
+  {
+    icon: <MdAssignment />,
+    title: "환자 목록",
+    description: "담당 환자들의 차트를 둘러봅니다.",
+    link: "/doctorpatientlist",
+  },
+  {
+    icon: <MdVideoChat />,
+    title: "실시간 비대면 진료",
+    description: "담당 환자와 실시간 비대면\n진료를 진행합니다.",
+    link: "/untact/list",
+  },
+  {
+    icon: <MdPersonAddAlt1 />,
+    title: "환자 등록",
+    description: "새로운 환자를 등록하고\n차트를 작성합니다.",
+    link: "/doctorchart",
+  },
+];
 
 const DoctorDashBoardPage = () => {
   return (
-    <PageContainer>
-      <CenteredContainer>
-        <DoctorDashHeader />
-        <CardButtonGroup>
-          <CardhButton mode="list" />
-          <CardhButton mode="treatment" />
-          <CardhButton mode="register" />
-        </CardButtonGroup>
-        <ReservationMiniList />
-      </CenteredContainer>
-    </PageContainer>
+    <Container>
+      <EmployeeHeader />
+      <CardButtonGroup>
+        {buttons.map((item, index) => (
+          <CardButton key={index} {...item} />
+        ))}
+      </CardButtonGroup>
+      <ReservationMiniList />
+    </Container>
   );
 };
 

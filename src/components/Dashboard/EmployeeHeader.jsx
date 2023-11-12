@@ -4,6 +4,8 @@ import TheraImage from "../../assets/images/user/Otherapist.png";
 import { userLogin } from "../../librarys/dummy-api";
 import IconDoctor from "../../assets/icons/icondoctor.png";
 import IconHospital from "../../assets/icons/iconhospital.png";
+import { useSelector } from "react-redux";
+import { selectName } from "../../redux/userSlice.js";
 
 const Container = styled.div`
   width: 800px;
@@ -15,6 +17,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 24px 32px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
 `;
 
 const TextContainer = styled.div`
@@ -25,34 +28,33 @@ const TextContainer = styled.div`
 
 const Greeting = styled.div`
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 5px;
 `;
 
 const UserName = styled.span`
   font-size: 25px;
   color: #0064ff;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 700;
+  line-height: 25px;
 `;
 
 const GreetingText = styled.span`
   font-size: 16px;
   color: #000000;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-weight: 500;
 `;
 
 const Avatar = styled.img`
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  border-radius: 120px;
+  background-color: #efefef;
 `;
 
 const Icon = styled.img`
   width: 18px;
   height: 18px;
-  margin-right: 5px;
 `;
 
 const InfoText = styled.span`
@@ -67,39 +69,29 @@ const AppointmentInfo = styled.div`
   margin-top: 5px;
 `;
 
-const DoctorDashHeader = () => {
-  const [userData, setUserData] = useState(null);
-
-  useEffect(() => {
-    async function fetchUserData() {
-      const data = await userLogin("therapist", "123456");
-      if (data) {
-        setUserData(data);
-      }
-    }
-    fetchUserData();
-  }, []);
-
-  if (!userData) return null;
+const EmployeeHeader = () => {
+  const name = useSelector(selectName) || "오민혁";
+  const dept = useSelector(selectName) || "팔 재활 분야";
+  const location = useSelector(selectName) || "한림대학교 춘천성심병원";
 
   return (
     <Container>
       <TextContainer>
         <Greeting>
-          <UserName>{userData.name}</UserName>
+          <UserName>{name}</UserName>
           <GreetingText>님, 안녕하세요.</GreetingText>
         </Greeting>
         <AppointmentInfo>
           <Icon src={IconDoctor} alt="Doctor" />
-          <InfoText>{userData.major}</InfoText>
+          <InfoText>{dept}</InfoText>
         </AppointmentInfo>
         <AppointmentInfo>
           <Icon src={IconHospital} alt="Hospital" />
-          <InfoText>{userData.workplace}</InfoText>
+          <InfoText>{location}</InfoText>
         </AppointmentInfo>
       </TextContainer>
       <Avatar src={TheraImage} alt="User Avatar" />
     </Container>
   );
 };
-export default DoctorDashHeader;
+export default EmployeeHeader;
