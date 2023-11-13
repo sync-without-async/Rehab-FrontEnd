@@ -46,9 +46,13 @@ const Item = styled.a`
   }
 `;
 
-const Button = ({ type, children, onClick, className }) => {
+const Button = ({ type, children, onClick, className, style }) => {
   return (
-    <Item className={classNames(className, type)} onClick={onClick}>
+    <Item
+      style={style}
+      className={classNames(className, type)}
+      onClick={onClick}
+    >
       {children}
     </Item>
   );
