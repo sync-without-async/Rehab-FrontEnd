@@ -34,6 +34,7 @@ const SearchAndFilterContainer = styled.div`
   margin-bottom: 24px;
   display: flex;
   justify-content: space-between;
+  gap: 18px;
   align-items: center;
 `;
 

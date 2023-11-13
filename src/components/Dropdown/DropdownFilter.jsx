@@ -7,6 +7,7 @@ import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 
 const Container = styled.div`
   position: relative;
+  flex-grow: 1;
 `;
 
 const Label = styled.div`
@@ -18,7 +19,7 @@ const Label = styled.div`
 `;
 
 const DropdownContainer = styled.div`
-  width: 210px;
+  width: 100%;
   height: 40px;
   padding: 0 8px;
   border: 0.75px solid #bbbbbb;
@@ -42,7 +43,7 @@ const DropdownIcon = styled(MdOutlineKeyboardArrowDown)`
 `;
 
 const DropdownList = styled.div`
-  width: 210px;
+  width: 100%;
   max-height: ${(props) => (props.open ? "120px" : "0px")};
   margin-top: 8px;
   overflow-y: auto;

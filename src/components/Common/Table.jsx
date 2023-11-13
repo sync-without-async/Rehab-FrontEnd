@@ -6,6 +6,8 @@ import { useMemo } from "react";
 
 import { Droppable } from "react-beautiful-dnd";
 
+const Wrapper = styled.div``;
+
 const Container = styled.div`
   width: 100%;
   min-height: 280px;
@@ -20,10 +22,10 @@ const Text = styled.p`
   height: 100%;
   text-align: ${(props) => props.$align || "left"};
   padding: 7px 12px;
-
   font-size: 14px;
   font-weight: 400;
   line-height: 24px;
+  vertical-align: middle;
 `;
 
 const Table = ({
@@ -57,7 +59,7 @@ const Table = ({
   );
 
   return (
-    <>
+    <Wrapper>
       <TableItem header template={template}>
         {data[0].map((element, i) => (
           <Text key={i} $align={align[i]}>
@@ -77,7 +79,7 @@ const Table = ({
           </Container>
         )}
       </Droppable>
-    </>
+    </Wrapper>
   );
 };
 

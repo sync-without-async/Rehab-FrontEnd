@@ -18,6 +18,7 @@ import TheraExerciseModal from "./TheraExerciseModal.jsx";
 const SearchAndFilterContainer = styled.div`
   margin-top: 28px;
   margin-bottom: 24px;
+  gap: 18px;
   display: flex;
   justify-content: space-between;
   align-items: center;

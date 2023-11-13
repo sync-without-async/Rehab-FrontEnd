@@ -1,10 +1,5 @@
-import styled from "styled-components";
 import SignupComponents from "../components/Accounts/SignupComponents";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+import PageContainer from "../components/Common/PageContainer.jsx";
 
 const SignupPage = () => {
   return (
