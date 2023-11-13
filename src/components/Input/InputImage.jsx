@@ -1,39 +1,18 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-
-const Wrapper = styled.div`
-  width: 240px;
-  height: 160px;
-  display: flex;
-  flex-direction: row;  
-  align-items: flex-start;  
-  margin-top:50px;
-  gap:20px;
-`;
-
-
-const Label = styled.label`
-  width: 90px;
-  height: 30px;
-  display: flex;
-`;
+import { useMemo, useState } from "react";
+import styled from "styled-components";
 
 const UploadBox = styled.div`
-  width: 160px;
-  height: 160px;
-  background-color: #F3F3F3;
-  border: 1px solid #BBBBBB;
+  width: 100%;
+  height: 100%;
+  background-color: #dfdfdf;
+  border: 1px solid #ababab;
+  border-radius: 10px;
+  font-size: 24px;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  position: relative;
-  border-radius: 10px;
-`;
-
-const UploadText = styled.p`
   text-align: center;
-  line-height: 1.5;
+  cursor: pointer;
 `;
 
 const HiddenInput = styled.input`
@@ -41,14 +20,11 @@ const HiddenInput = styled.input`
 `;
 
 const ImagePreview = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
 `;
 
-const InputImage = () => {
+const InputImage = ({ ...props }) => {
   const [preview, setPreview] = useState(null);
 
   const handleImageChange = (e) => {
@@ -66,23 +42,19 @@ const InputImage = () => {
     document.getElementById("imageInput").click();
   };
 
+  const content = useMemo(() => {
+    if (preview) {
+      return <ImagePreview src={preview} alt="Image preview" />;
+    } else {
+      return "이미지 등록하기";
+    }
+  }, [preview]);
+
   return (
-    <Wrapper>
-      <Label>사진 등록 *</Label>
-      <UploadBox onClick={triggerFileInput}>
-        {preview && <ImagePreview src={preview} alt="Image preview" />}
-        {!preview && (
-          <UploadText>
-            이미지<br />등록하기
-          </UploadText>
-        )}
-        <HiddenInput 
-          type="file" 
-          onChange={handleImageChange} 
-          id="imageInput"
-        />
-      </UploadBox>
-    </Wrapper>
+    <UploadBox {...props} onClick={triggerFileInput}>
+      {content}
+      <HiddenInput type="file" onChange={handleImageChange} id="imageInput" />
+    </UploadBox>
   );
 };
 
