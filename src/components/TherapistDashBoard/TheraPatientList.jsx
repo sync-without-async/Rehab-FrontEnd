@@ -35,6 +35,7 @@ const Divider = styled.hr`
 const SearchAndFilterContainer = styled.div`
   display: flex;
   justify-content: space-between;
+  gap: 18px;
   align-items: center;
   margin-bottom: 20px;
 `;
