@@ -1,10 +1,10 @@
 import { getSpringAxios } from "./axios";
 
-export async function userLogin(id, password) {
+export async function userLogin(mid, password) {
   const axios = getSpringAxios();
 
   const body = {
-    id,
+    mid,
     password,
   };
 
