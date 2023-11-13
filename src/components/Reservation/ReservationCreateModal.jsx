@@ -78,8 +78,8 @@ export const ReservationCreateModal = () => {
   const { adminId, index, disabledTime, description, year, month, date } =
     state;
   const serverTime = useMemo(
-    () => [year, month + 1, date].join("-"),
-    [year, month, date],
+    () => dayjs([year, month, date]).format("YYYY-MM-DD"),
+    [(year, month, date)],
   );
 
   useEffect(() => {
