@@ -6,7 +6,7 @@ import { useEffect, useReducer } from "react";
 import {
   intialReservationListState,
   reservationListReducer,
-} from "../../reducer/reservation-list.js";
+} from "../../reducer/meeting-list.js";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import ReservationInfoModal from "./ReservationInfoModal.jsx";
