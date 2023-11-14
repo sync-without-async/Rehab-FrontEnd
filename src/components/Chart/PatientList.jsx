@@ -9,7 +9,6 @@ import BlockContainer from "../Common/BlockContainer.jsx";
 import { chartListReducer, intialChartListState } from "../../reducer/chart.js";
 import TitleText from "../Common/TitleText.jsx";
 import Table from "../Common/Table.jsx";
-import { DragDropContext } from "react-beautiful-dnd";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
 import { selectRole } from "../../redux/userSlice.js";
@@ -132,13 +131,11 @@ const PatientList = () => {
             onSelect={handleSortSelect}
           />
         </SearchAndFilterContainer>
-        <DragDropContext>
-          <Table
-            template="100px 220px 100px 120px 130px 50px"
-            align={["center", "center", "center", "center", "center", "center"]}
-            data={chartData}
-          />
-        </DragDropContext>
+        <Table
+          template="100px 220px 100px 120px 130px 50px"
+          align={["center", "center", "center", "center", "center", "center"]}
+          data={chartData}
+        />
         <Pagination />
       </Container>
     </ReducerContext.Provider>
