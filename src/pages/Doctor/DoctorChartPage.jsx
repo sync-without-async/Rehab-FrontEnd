@@ -1,29 +1,13 @@
 import styled from "styled-components";
 import DoctorChart from "../../components/DoctorDashBoard/DoctorChart";
 import BackButton from "../../components/Button/BackButton";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px;
-`;
+import PageContainer from "../../components/Common/PageContainer.jsx";
 
 const DoctorChartPage = () => {
   return (
     <PageContainer>
-      <CenteredContainer>
-        <BackButton pageName="대시보드" />
-        <DoctorChart />
-      </CenteredContainer>
+      <BackButton text="대시보드로 돌아가기" to="/dashboard" />
+      <DoctorChart />
     </PageContainer>
   );
 };

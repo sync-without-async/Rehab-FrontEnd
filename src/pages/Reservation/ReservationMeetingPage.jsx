@@ -149,7 +149,7 @@ const ReservationMeetingPage = () => {
         </VideoWrapper>
       </VideoContainer>
       <Menu>
-        <Button onClick={() => navigate("/")}>나가기</Button>
+        <Button onClick={() => navigate("/dashboard")}>나가기</Button>
       </Menu>
     </Container>
   );

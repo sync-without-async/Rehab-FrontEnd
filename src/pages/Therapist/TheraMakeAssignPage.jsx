@@ -6,7 +6,7 @@ import PageContainer from "../../components/Common/PageContainer";
 const TheraMakeAssignPage = () => {
   return (
     <PageContainer>
-      <BackButton text="대시보드로 돌아가기" />
+      <BackButton text="대시보드로 돌아가기" to="/dashboard" />
       <TheraMakeAssign />
     </PageContainer>
   );

@@ -11,7 +11,7 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 import {
   intialReserveCreateState,
   reserveCreateReducer,
-} from "../../reducer/reservation-create.js";
+} from "../../reducer/meeting-create.js";
 import dayjs from "dayjs";
 import {
   createReservation,

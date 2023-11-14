@@ -5,21 +5,7 @@ import DoctorDetailChart from "../../components/DoctorDashBoard/DoctorDetailChar
 import DoctorCheckHW from "../../components/DoctorDashBoard/DoctorCheckHW";
 import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRecord";
 import DoctorFaceRecord from "../../components/DoctorDashBoard/DoctorFaceRecord";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px;
-`;
+import PageContainer from "../../components/Common/PageContainer.jsx";
 
 const RowContainer = styled.div`
   display: flex;
@@ -31,16 +17,14 @@ const RowContainer = styled.div`
 const DoctorDetailPage = () => {
   return (
     <PageContainer>
-      <CenteredContainer>
-        <BackButton pageName="환자 목록" />
-        <DoctorDetailHeader />
-        <RowContainer>
-          <DoctorDetailChart />
-          <DoctorCheckHW />
-        </RowContainer>
-        <DoctorFaceRecord />
-        <DoctorUntactRecord />
-      </CenteredContainer>
+      <BackButton text="환자 목록으로 돌아가기" to="/chart" />
+      <DoctorDetailHeader />
+      <RowContainer>
+        <DoctorDetailChart />
+        <DoctorCheckHW />
+      </RowContainer>
+      <DoctorFaceRecord />
+      <DoctorUntactRecord />
     </PageContainer>
   );
 };

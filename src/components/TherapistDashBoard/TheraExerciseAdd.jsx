@@ -96,7 +96,7 @@ const TheraExerciseAdd = () => {
     console.log(programResponse);
 
     alert("비디오를 성공적으로 게시했습니다.");
-    navigate("/");
+    navigate("/video");
   }
 
   return (
