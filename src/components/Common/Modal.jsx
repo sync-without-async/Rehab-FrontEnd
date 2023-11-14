@@ -26,6 +26,10 @@ const Background = styled.div`
 
   &.hidden {
     opacity: 0;
+
+    & > div {
+      transform: translateY(0) scale(0.95);
+    }
   }
 `;
 
@@ -39,13 +43,16 @@ const Content = styled.div`
   box-shadow: 0px 4px 24px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 999;
+
+  transition: transform 0.25s;
 `;
 
 const Modal = ({ id, className, style, children, onToggle }) => {
   const dispatch = useDispatch();
   const isVisible = useSelector(selectVisible(id));
   const [interactable, setInteractable] = useState(false);
-  const ref = useRef(null);
+  const backgroundRef = useRef(null);
+  const contentRef = useRef(null);
 
   const backgroundClass = {
     hidden: !isVisible,
@@ -54,11 +61,11 @@ const Modal = ({ id, className, style, children, onToggle }) => {
 
   const onClick = useCallback(
     (e) => {
-      if (ref.current && !ref.current.contains(e.target)) {
+      if (contentRef.current && !contentRef.current.contains(e.target)) {
         dispatch(hide(id));
       }
     },
-    [ref, dispatch, id],
+    [contentRef, dispatch, id],
   );
 
   useEffect(() => {
@@ -70,14 +77,18 @@ const Modal = ({ id, className, style, children, onToggle }) => {
 
   useEffect(() => {
     onToggle(isVisible);
-  }, [isVisible]);
+    if (backgroundRef && isVisible) {
+      backgroundRef.current.scrollTo(0, 0);
+    }
+  }, [backgroundRef, isVisible]);
 
   return (
     <Background
+      ref={backgroundRef}
       className={classNames(backgroundClass)}
       onTransitionEnd={() => setInteractable(isVisible)}
     >
-      <Content ref={ref} style={style} className={className}>
+      <Content ref={contentRef} style={style} className={className}>
         {children}
       </Content>
     </Background>

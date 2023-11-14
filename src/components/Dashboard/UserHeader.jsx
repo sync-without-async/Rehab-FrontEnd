@@ -73,7 +73,7 @@ const ItemText = styled.p`
 `;
 
 const UserHeader = () => {
-  const name = useSelector(selectName) || "사용자";
+  const name = useSelector(selectName);
 
   return (
     <Container>

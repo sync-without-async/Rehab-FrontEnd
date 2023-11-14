@@ -5,7 +5,11 @@ import { userLogin } from "../../librarys/dummy-api";
 import IconDoctor from "../../assets/icons/icondoctor.png";
 import IconHospital from "../../assets/icons/iconhospital.png";
 import { useSelector } from "react-redux";
-import { selectName } from "../../redux/userSlice.js";
+import {
+  selectDepartment,
+  selectLocation,
+  selectName,
+} from "../../redux/userSlice.js";
 
 const Container = styled.div`
   width: 800px;
@@ -70,9 +74,9 @@ const AppointmentInfo = styled.div`
 `;
 
 const EmployeeHeader = () => {
-  const name = useSelector(selectName) || "오민혁";
-  const dept = useSelector(selectName) || "팔 재활 분야";
-  const location = useSelector(selectName) || "한림대학교 춘천성심병원";
+  const name = useSelector(selectName);
+  const dept = useSelector(selectDepartment);
+  const location = useSelector(selectLocation);
 
   return (
     <Container>

@@ -2,16 +2,20 @@ import { useMemo, useState } from "react";
 import styled from "styled-components";
 
 const UploadBox = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 154px;
+  height: 154px;
+  justify-self: center;
+  color: #878787;
   background-color: #dfdfdf;
   border: 1px solid #ababab;
   border-radius: 10px;
   font-size: 24px;
+  font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  white-space: pre-wrap;
   cursor: pointer;
 `;
 
@@ -20,8 +24,9 @@ const HiddenInput = styled.input`
 `;
 
 const ImagePreview = styled.img`
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 `;
 
 const InputImage = ({ ...props }) => {
@@ -46,7 +51,7 @@ const InputImage = ({ ...props }) => {
     if (preview) {
       return <ImagePreview src={preview} alt="Image preview" />;
     } else {
-      return "이미지 등록하기";
+      return "이미지\n등록하기";
     }
   }, [preview]);
 
