@@ -75,7 +75,9 @@ const LoginComponents = ({}) => {
         <Button type="primary" onClick={handleLogin}>
           로그인
         </Button>
-        <Link onClick={() => navigate("/signup")}>아직 계정이 없으신가요?</Link>
+        <Link onClick={() => navigate("/register")}>
+          아직 계정이 없으신가요?
+        </Link>
       </FooterContainer>
     </BlockContainer>
   );
