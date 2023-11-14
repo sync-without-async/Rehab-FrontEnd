@@ -21,21 +21,21 @@ export async function createVideo(options) {
   return response.data;
 }
 
-export async function getVideoList(page, query, category) {
+export async function getVideoList(page, title, tag) {
   const axios = getSpringAxios();
 
-  if (typeof query === "string") {
-    query = query.trim();
+  if (typeof title === "string") {
+    title = title.trim();
   }
 
-  if (!query) {
-    query = undefined;
+  if (!title) {
+    title = undefined;
   }
 
   const params = {
     page,
-    query,
-    category,
+    title,
+    tag,
   };
 
   const response = await axios.get("/video/list", { params });
