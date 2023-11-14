@@ -1,3 +1,4 @@
+import { ROLE_TYPE } from "./type.js";
 import { sleep } from "./util.js";
 
 export async function userLogin(id, password) {
@@ -129,7 +130,7 @@ export async function dummyLogin(id, password) {
   if (id === "user1") {
     return {
       id: "user1",
-      role: "ADMIN_DOCTOR",
+      role: ROLE_TYPE.ADMIN_DOCTOR,
       name: "전문의",
       location: "한림대학교 춘천성심병원",
       department: "재활의학과",
@@ -137,7 +138,7 @@ export async function dummyLogin(id, password) {
   } else if (id === "user2") {
     return {
       id: "user2",
-      role: "ADMIN_THERAPIST",
+      role: ROLE_TYPE.ADMIN_THERAPIST,
       name: "치료사",
       location: "한림대학교 춘천성심병원",
       department: "팔 재활",
@@ -145,7 +146,7 @@ export async function dummyLogin(id, password) {
   } else if (id === "user3") {
     return {
       id: "user3",
-      role: "USER",
+      role: ROLE_TYPE.USER,
       name: "아파요",
       location: null,
       department: null,
