@@ -11,7 +11,7 @@ import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import ReservationInfoModal from "./ReservationInfoModal.jsx";
 import { useSelector } from "react-redux";
-import { selectEmail, selectRole } from "../../redux/userSlice.js";
+import { selectId, selectRole } from "../../redux/userSlice.js";
 import {
   getReservationListAdmin,
   getReservationListUser,
@@ -30,7 +30,7 @@ const ReservationList = () => {
     intialReservationListState,
   );
   const { list, page } = state;
-  const id = useSelector(selectEmail);
+  const id = useSelector(selectId);
   const role = useSelector(selectRole);
 
   useEffect(() => {

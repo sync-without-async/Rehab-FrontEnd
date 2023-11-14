@@ -1,3 +1,5 @@
+import { sleep } from "./util.js";
+
 export async function userLogin(id, password) {
   const accounts = [
     {
@@ -119,6 +121,38 @@ export async function userLogin(id, password) {
   }
 
   return null;
+}
+
+export async function dummyLogin(id, password) {
+  await sleep(200);
+
+  if (id === "user1") {
+    return {
+      id: "user1",
+      role: "ADMIN_DOCTOR",
+      name: "전문의",
+      location: "한림대학교 춘천성심병원",
+      department: "재활의학과",
+    };
+  } else if (id === "user2") {
+    return {
+      id: "user2",
+      role: "ADMIN_THERAPIST",
+      name: "치료사",
+      location: "한림대학교 춘천성심병원",
+      department: "팔 재활",
+    };
+  } else if (id === "user3") {
+    return {
+      id: "user3",
+      role: "USER",
+      name: "아파요",
+      location: null,
+      department: null,
+    };
+  } else {
+    throw new Error("계정 정보가 없습니다");
+  }
 }
 
 // 임시로 환자에게 할당된 과제 데이터를 추가
