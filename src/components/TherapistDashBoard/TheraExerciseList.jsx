@@ -57,9 +57,9 @@ const TheraExerciseList = () => {
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
         <TheraExerciseModal />
-        <TitleText text="운동 등록" />
+        <TitleText text="운동 목록" />
         <SearchAndFilterContainer>
-          <SearchBar placeholder="환자 이름으로 검색..." />
+          <SearchBar placeholder="운동 이름으로 검색..." />
           <DropdownFilter
             items={filters}
             defaultText="전체"
