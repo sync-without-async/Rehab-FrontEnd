@@ -1,67 +1,109 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import PageContainer from "../components/Common/PageContainer.jsx";
+import BlockContainer from "../components/Common/BlockContainer.jsx";
+import TitleText from "../components/Common/TitleText.jsx";
 
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+const Wrapper = styled.div`
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
 `;
 
-const CenteredContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  flex-direction: column;
-  gap: 20px;
-`;
-
-const RouteButton = styled.button`
+const Btn = styled.button`
+  width: 100%;
   padding: 10px 20px;
-  font-size: 16px;
   cursor: pointer;
   border: none;
   background-color: #3592ff;
-  color: white;
   border-radius: 5px;
   transition: background-color 0.3s;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
 
   &:hover {
     background-color: #2c75e0;
   }
 `;
 
-const DevelopPage = () => {
-  const routes = [
-    { path: "/login", name: "030LoginPage" },
-    { path: "/signup", name: "017SignupPage" },
-    { path: "/", name: "DevelopPage" },
-    { path: "/userdash", name: "001MyUserPage" },
-    { path: "/untact/list?q=1", name: "004UserUntactReservePage" },
-    { path: "/userreserve", name: "005UserReservePage" },
-    { path: "/doctordash", name: "009DoctorDashBoardPage" },
-    { path: "/doctorchart", name: "010DoctorChartPage" },
-    { path: "/doctordetail", name: "013DoctorDetailPage" },
-    { path: "/doctorpatientlist", name: "012DoctorPatientListPage" },
-    { path: "/untact/list?q=2", name: "014DoctorUntactReservePage" },
-    { path: "/theradashboard", name: "018TheraDashBoardPage" },
-    { path: "/untact/list?q=3", name: "025TheraUntactReservePage" },
-    { path: "/therapatientlist", name: "027TheraPatientListPage" },
-    { path: "/theradetail", name: "028TheraDetailPage" },
-    { path: "/theraexerciselist", name: "019TheraExerciseListPage" },
-    { path: "/theraexerciseadd", name: "021TheraExerciseAddPage" },
-    { path: "/program/assign/test_user_id", name: "022TheraMakeAssignPage" },
-  ];
+const Title = styled.p`
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+`;
+const Text = styled.p`
+  font-size: 12px;
+  font-weight: 400;
+  color: #362b6a;
+`;
 
+const routes = [
+  {
+    path: "/",
+    description: "개발 메인 페이지",
+  },
+  {
+    path: "/login",
+    description: "로그인",
+  },
+  {
+    path: "/register",
+    description: "회원가입",
+  },
+  {
+    path: "/dashboard",
+    description: "대시보드",
+  },
+  {
+    path: "/meeting",
+    description: "비대면 진료 예약 목록",
+  },
+  {
+    path: "/meeting/create",
+    description: "비대면 진료 예약 생성",
+  },
+  {
+    path: "/chart",
+    description: "환자 차트 목록",
+  },
+  {
+    path: "/chart/example_id",
+    description: "환자 차트 상세 조회",
+  },
+  {
+    path: "/chart/create",
+    description: "환자 차트 생성",
+  },
+  {
+    path: "/chart/example_id/assign",
+    description: "환자 차트 과제 할당",
+  },
+  {
+    path: "/video",
+    description: "재활치료사 전체 운동 목록",
+  },
+  {
+    path: "/video/create",
+    description: "재활치료사 운동 등록",
+  },
+];
+
+const DevelopPage = () => {
   return (
     <PageContainer>
-      <CenteredContainer>
-        {routes.map((route) => (
-          <Link key={route.path} to={route.path}>
-            <RouteButton>{route.name}</RouteButton>
-          </Link>
-        ))}
-      </CenteredContainer>
+      <BlockContainer>
+        <TitleText text="Developers Page" />
+        <Wrapper>
+          {routes.map((route) => (
+            <Link key={route.path} to={route.path}>
+              <Btn>
+                <Title>{route.path}</Title>
+                <Text>{route.description}</Text>
+              </Btn>
+            </Link>
+          ))}
+        </Wrapper>
+      </BlockContainer>
     </PageContainer>
   );
 };

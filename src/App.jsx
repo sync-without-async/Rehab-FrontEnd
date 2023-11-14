@@ -36,33 +36,21 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<SignupPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/userreserve" element={<ReservationCreatePage />} />
-            <Route path="/doctorchart" element={<DoctorChartPage />} />
-            <Route path="/doctordetail" element={<DoctorDetailPage />} />
-            <Route
-              path="/doctorpatientlist"
-              element={<DoctorPatientListPage />}
-            />
-            <Route
-              path="/therapatientlist"
+            <Route path="/meeting/create" element={<ReservationCreatePage />} />
+            <Route path="/chart/create" element={<DoctorChartPage />} />
+            <Route path="/chart/:id" element={<DoctorDetailPage />} />
+            <Route path="/chart" element={<DoctorPatientListPage />} />
+            {/* <Route
+              path="/chart"
               element={<TheraPatientListPage />}
-            />
-            <Route path="/theradetail" element={<TheraDetailPage />} />
+            /> */}
+            {/* <Route path="/chart/:id" element={<TheraDetailPage />} /> */}
+            <Route path="/video" element={<TheraExerciseListPage />} />
+            <Route path="/video/create" element={<TheraExerciseAddPage />} />
+            <Route path="/chart/:id/assign" element={<TheraMakeAssignPage />} />
+            <Route path="/meeting" element={<ReservationListPage />} />
             <Route
-              path="/theraexerciselist"
-              element={<TheraExerciseListPage />}
-            />
-            <Route
-              path="/theraexerciseadd"
-              element={<TheraExerciseAddPage />}
-            />
-            <Route
-              path="/program/assign/:id"
-              element={<TheraMakeAssignPage />}
-            />
-            <Route path="/untact/list" element={<ReservationListPage />} />
-            <Route
-              path="/untact/meeting/:uuid"
+              path="/meeting/room/:uuid"
               element={<ReservationMeetingPage />}
             />
           </Routes>

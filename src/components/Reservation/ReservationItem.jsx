@@ -149,7 +149,7 @@ const ReservationItem = ({ id, name, role, dept, date, index }) => {
       return;
     }
 
-    navigate("/untact/meeting/" + id);
+    navigate("/meeting/room/" + id);
   }
 
   function onInfoButtonClick() {

@@ -6,7 +6,7 @@ import PageContainer from "../../components/Common/PageContainer";
 const ReservationCreatePage = () => {
   return (
     <PageContainer>
-      <BackButton text="나의 수강으로 돌아가기" />
+      <BackButton text="대시보드로 돌아가기" to="/dashboard" />
       <ReservationSelect />
     </PageContainer>
   );

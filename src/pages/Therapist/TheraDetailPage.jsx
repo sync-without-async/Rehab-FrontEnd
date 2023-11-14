@@ -18,7 +18,7 @@ const RowContainer = styled.div`
 const TheraDetailPage = () => {
   return (
     <PageContainer>
-      <BackButton text="환자 목록으로 돌아가기" />
+      <BackButton text="환자 목록으로 돌아가기" to="/chart" />
       <TheraDetailHeader />
       <RowContainer>
         <TheraDetailChart />
