@@ -6,7 +6,6 @@ import Callout from "../Common/Callout.jsx";
 import { useMemo } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import Table from "../Common/Table.jsx";
-import { DragDropContext } from "react-beautiful-dnd";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -75,16 +74,11 @@ const UserAssignList = () => {
     <Container>
       <TitleText text="과제" small={true} />
       <Callout title="과제 설명" content="어쩌구 저쩌구~~~~~" />
-      <DragDropContext>
-        <Table
-          id="user-assign-table"
-          template="60px 420px 90px 100px 50px"
-          align={["right", "left", "right", "center", "center"]}
-          data={assignData}
-          dropping={false}
-          dragging={false}
-        />
-      </DragDropContext>
+      <Table
+        template="60px 420px 90px 100px 50px"
+        align={["right", "left", "right", "center", "center"]}
+        data={assignData}
+      />
     </Container>
   );
 };

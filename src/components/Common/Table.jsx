@@ -1,10 +1,7 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import TableItem from "./TableItem.jsx";
 import { useMemo } from "react";
-
-import { Droppable } from "react-beautiful-dnd";
 
 const Wrapper = styled.div``;
 
@@ -28,26 +25,11 @@ const Text = styled.p`
   vertical-align: middle;
 `;
 
-const Table = ({
-  id,
-  className,
-  template,
-  align,
-  data,
-  dropping,
-  dragging,
-}) => {
+const Table = ({ className, template, align, data }) => {
   const children = useMemo(
     () =>
       data.slice(1).map((item, index) => (
-        <TableItem
-          key={[id, index].join("-")}
-          id={[id, index].join("-")}
-          index={index}
-          template={template}
-          dropping={dropping}
-          dragging={dragging}
-        >
+        <TableItem key={index} template={template}>
           {item.map((element, i) => (
             <Text key={[index, i].join("-")} $align={align[i]}>
               {element}
@@ -55,7 +37,7 @@ const Table = ({
           ))}
         </TableItem>
       )),
-    [data, template],
+    [data, template, align],
   );
 
   return (
@@ -67,35 +49,16 @@ const Table = ({
           </Text>
         ))}
       </TableItem>
-      <Droppable droppableId={id} isDropDisabled={!dropping}>
-        {(provided, snapshot) => (
-          <Container
-            {...provided.droppableProps}
-            ref={provided.innerRef}
-            className={className}
-          >
-            {children}
-            {dropping && provided.placeholder}
-          </Container>
-        )}
-      </Droppable>
+      <Container className={className}>{children}</Container>
     </Wrapper>
   );
 };
 
 Table.propTypes = {
-  id: PropTypes.string.isRequired,
   className: PropTypes.string,
   template: PropTypes.string.isRequired,
   align: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.array).isRequired,
-  dropping: PropTypes.bool,
-  dragging: PropTypes.bool,
-};
-
-Table.defaultProps = {
-  dropping: false,
-  dragging: false,
 };
 
 export default Table;
