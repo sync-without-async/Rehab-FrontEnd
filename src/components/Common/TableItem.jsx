@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const Item = styled.div`
   width: 100%;
@@ -19,22 +17,9 @@ const Item = styled.div`
     color: #666;
     cursor: default;
   }
-
-  &.dragging {
-    border: 1px dashed #d9d9d9;
-    box-shadow: 2px 2px 4px #0000001f;
-  }
 `;
 
-const TableItem = ({
-  id,
-  index,
-  header,
-  template,
-  children,
-  dropping,
-  dragging,
-}) => {
+const TableItem = ({ header, template, children }) => {
   if (header) {
     return (
       <Item className="header" $template={template}>
@@ -43,46 +28,7 @@ const TableItem = ({
     );
   }
 
-  return (
-    <Draggable draggableId={id} index={index} isDragDisabled={!dragging}>
-      {(provided, snapshot) => {
-        let style = {
-          ...provided.draggableProps.style,
-        };
-        let ghost = null;
-
-        if (!dropping) {
-          style = {
-            ...style,
-            transform: snapshot.isDragging
-              ? provided.draggableProps.style?.transform
-              : "translate(0px, 0px)",
-          };
-          ghost = snapshot.isDragging && (
-            <Item style={{ transform: "none !important" }} $template={template}>
-              {children}
-            </Item>
-          );
-        }
-
-        return (
-          <>
-            <Item
-              ref={provided.innerRef}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
-              className={classNames({ dragging: snapshot.isDragging })}
-              $template={template}
-              style={style}
-            >
-              {children}
-            </Item>
-            {ghost}
-          </>
-        );
-      }}
-    </Draggable>
-  );
+  return <Item $template={template}>{children}</Item>;
 };
 
 TableItem.propTypes = {
@@ -91,14 +37,10 @@ TableItem.propTypes = {
   header: PropTypes.bool,
   template: PropTypes.string.isRequired,
   children: PropTypes.node,
-  dropping: PropTypes.bool,
-  dragging: PropTypes.bool,
 };
 
 TableItem.defaultProps = {
   header: false,
-  dropping: false,
-  dragging: false,
 };
 
 export default TableItem;

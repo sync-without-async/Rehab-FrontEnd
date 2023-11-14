@@ -134,12 +134,9 @@ const PatientList = () => {
         </SearchAndFilterContainer>
         <DragDropContext>
           <Table
-            id="chart-table"
             template="100px 220px 100px 120px 130px 50px"
             align={["center", "center", "center", "center", "center", "center"]}
             data={chartData}
-            dropping={false}
-            dragging={false}
           />
         </DragDropContext>
         <Pagination />

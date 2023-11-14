@@ -77,12 +77,9 @@ const UserAssignList = () => {
       <Callout title="과제 설명" content="어쩌구 저쩌구~~~~~" />
       <DragDropContext>
         <Table
-          id="user-assign-table"
           template="60px 420px 90px 100px 50px"
           align={["right", "left", "right", "center", "center"]}
           data={assignData}
-          dropping={false}
-          dragging={false}
         />
       </DragDropContext>
     </Container>
