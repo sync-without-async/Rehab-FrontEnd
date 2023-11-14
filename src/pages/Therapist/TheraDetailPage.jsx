@@ -6,21 +6,7 @@ import TheraCheckHW from "../../components/TherapistDashBoard/TheraCheckHW";
 import TheraUntactRecord from "../../components/TherapistDashBoard/TheraUntactRecord";
 import TheraFaceRecord from "../../components/TherapistDashBoard/TheraFaceRecord";
 import TherafromDoctor from "../../components/TherapistDashBoard/TherafromDoctor";
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-
-const CenteredContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  margin-top: 50px;
-`;
+import PageContainer from "../../components/Common/PageContainer.jsx";
 
 const RowContainer = styled.div`
   display: flex;
@@ -32,18 +18,15 @@ const RowContainer = styled.div`
 const TheraDetailPage = () => {
   return (
     <PageContainer>
-      <Header />
-      <CenteredContainer>
-        <BackButton pageName="환자 목록" />
-        <TheraDetailHeader />
-        <RowContainer>
-          <TheraDetailChart />
-          <TheraCheckHW />
-        </RowContainer>
-        <TherafromDoctor />
-        <TheraFaceRecord />
-        <TheraUntactRecord />
-      </CenteredContainer>
+      <BackButton text="환자 목록으로 돌아가기" />
+      <TheraDetailHeader />
+      <RowContainer>
+        <TheraDetailChart />
+        <TheraCheckHW />
+      </RowContainer>
+      <TherafromDoctor />
+      <TheraFaceRecord />
+      <TheraUntactRecord />
     </PageContainer>
   );
 };
