@@ -87,7 +87,7 @@ const TheraExerciseAdd = () => {
 
     const options = {
       ...state,
-      id: "ldh",
+      id: "doctor1",
       totalFrame: parseInt(skeleton.video_length),
       skeleton: blob,
     };

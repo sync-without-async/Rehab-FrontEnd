@@ -39,5 +39,23 @@ export async function getVideoList(page, title, tag) {
   };
 
   const response = await axios.get("/video/list", { params });
+
+  response.data.dtoList = [];
+  console.log(page);
+  for (let i = 0; i < 8; i++) {
+    let vno = (page - 1) * 10 + i + 1;
+    response.data.dtoList.push({
+      vno,
+      title: "동작 제목" + vno,
+      description: "동작 설명" + vno,
+      tag: "ARM",
+      playTime: 60.0,
+      thumbnailURL: "https://placehold.co/200",
+      videoURL: "https://placehold.co/800x800.mp4",
+    });
+  }
+  response.data.end = 2;
+  response.data.page = page;
+
   return response.data;
 }

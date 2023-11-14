@@ -14,10 +14,10 @@ import {
 import TitleText from "../Common/TitleText.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import { CATEGORY_LIST } from "../../librarys/type.js";
-import Table from "../Common/Table.jsx";
 import { IoClose } from "react-icons/io5";
 import Button from "../Button/Button.jsx";
 import { getVideoList } from "../../librarys/api/video.js";
+import DnDList from "../Common/DnDList.jsx";
 
 const InputArea = styled(InputAreaContainer)`
   margin-top: 28px;
@@ -46,8 +46,8 @@ const Text = styled.p`
 `;
 
 const RowContainer = styled.div`
-  display: flex;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 300px 350px;
   justify-content: space-between;
 `;
 
@@ -61,14 +61,6 @@ const PaginationElement = styled(Pagination)`
   margin-top: 16px;
 `;
 
-const Icon = styled(IoClose)`
-  width: 24px;
-  height: 24px;
-  color: #667080;
-
-  cursor: pointer;
-`;
-
 const ButtonContainer = styled.div`
   margin-top: 16px;
   display: flex;
@@ -77,13 +69,6 @@ const ButtonContainer = styled.div`
 `;
 
 const filters = CATEGORY_LIST.map((item) => item);
-
-function getDisplayTime(time) {
-  const min = Math.floor(time / 60);
-  const sec = Math.round(time - min * 60);
-
-  return [min, sec].map((item) => item.toString().padStart(2, "0")).join(":");
-}
 
 const TheraMakeAssign = () => {
   const navigate = useNavigate();
@@ -102,26 +87,6 @@ const TheraMakeAssign = () => {
     page,
   } = state;
 
-  const programData = useMemo(
-    () => [
-      ["운동 이름", "운동 길이"],
-      ...programList.map((item) => [item.title, getDisplayTime(item.playTime)]),
-    ],
-    [programList],
-  );
-
-  const assignData = useMemo(
-    () => [
-      ["운동 이름", "운동 길이", "삭제"],
-      ...assignList.map((item, index) => [
-        item.title,
-        getDisplayTime(item.playTime),
-        <Icon key={index} onClick={() => handleRemoveClick(index)} />,
-      ]),
-    ],
-    [assignList],
-  );
-
   const handleAssignDescriptionChange = (event) => {
     dispatch({
       type: "assignDescription",
@@ -136,21 +101,11 @@ const TheraMakeAssign = () => {
     });
   };
 
-  const handleRemoveClick = (id) => {
-    dispatch({
-      type: "removeAssign",
-      payload: id,
-    });
-  };
-
   const handleDragEnd = (event) => {
     console.log(event);
-
     if (event.destination === null) {
       return;
     }
-
-    console.log(assignList);
 
     if (
       event.source.droppableId === "assign-table" &&
@@ -232,25 +187,23 @@ const TheraMakeAssign = () => {
           <DragDropContext onDragEnd={handleDragEnd}>
             <TableContainer>
               <Text>전체 운동 목록</Text>
-              <Table
+              <DnDList
                 id="program-table"
-                template="190px 110px"
-                align={["left", "right"]}
-                data={programData}
+                data={programList}
                 dropping={false}
                 dragging={true}
+                removable={false}
               />
               <PaginationElement />
             </TableContainer>
             <TableContainer>
               <Text>환자에게 할당된 과제</Text>
-              <Table
+              <DnDList
                 id="assign-table"
-                template="190px 110px 50px"
-                align={["left", "right", "center"]}
-                data={assignData}
+                data={assignList}
                 dropping={true}
                 dragging={true}
+                removable={true}
               />
             </TableContainer>
           </DragDropContext>
