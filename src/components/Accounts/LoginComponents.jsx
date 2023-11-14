@@ -6,6 +6,9 @@ import TitleText from "../Common/TitleText";
 import BlockContainer from "../Common/BlockContainer";
 import InputTextContainer from "../Input/InputTextContainer";
 import Button from "../Button/Button";
+import { useDispatch } from "react-redux";
+import { loginUser, selectName } from "../../redux/userSlice.js";
+import { useSelector } from "react-redux";
 
 const InputContainer = styled.div`
   margin: 48px 0;
@@ -34,20 +37,22 @@ const Link = styled.span`
 `;
 
 const LoginComponents = ({}) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const response = await userLogin(id, password);
-    if (response) {
-      console.log("로그인 성공:", response);
-      alert("로그인 완료");
-      // navigate("/dashboard"); // 이거 아직 페이지 완성 안됨 임시 로그인 되나만 확인용입니다.
-    } else {
-      alert("아이디나 비밀번호가 일치하지 않습니다.");
+    const response = await dispatch(loginUser({ id, password }));
+
+    if (response.error) {
+      alert("아이디나 비밀번호를 다시 한번 확인해주세요.");
+      return;
     }
+
+    alert(`${response.payload.name}님, 환영합니다.`);
+    navigate("/");
   };
 
   return (
