@@ -6,8 +6,6 @@ import DevelopPage from "./pages/DevelopPage.jsx";
 import ReservationCreatePage from "./pages/Reservation/ReservationCreatePage.jsx";
 import DoctorChartPage from "./pages/Doctor/DoctorChartPage.jsx";
 import DoctorDetailPage from "./pages/Doctor/DoctorDetailPage.jsx";
-import DoctorPatientListPage from "./pages/Doctor/DoctorPatientListPage.jsx";
-import TheraPatientListPage from "./pages/Therapist/TheraPatientListPage.jsx";
 import TheraDetailPage from "./pages/Therapist/TheraDetailPage.jsx";
 import TheraExerciseListPage from "./pages/Therapist/TheraExerciseListPage.jsx";
 import TheraExerciseAddPage from "./pages/Therapist/TheraExerciseAddPage.jsx";
@@ -18,6 +16,7 @@ import { ReducerContext } from "./reducer/context.js";
 import ReservationListPage from "./pages/Reservation/ReservationListPage.jsx";
 import ReservationMeetingPage from "./pages/Reservation/ReservationMeetingPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
+import PatientListPage from "./pages/PatientListPage.jsx";
 
 const Container = styled.div`
   margin-top: 60px;
@@ -39,11 +38,7 @@ function App() {
             <Route path="/meeting/create" element={<ReservationCreatePage />} />
             <Route path="/chart/create" element={<DoctorChartPage />} />
             <Route path="/chart/:id" element={<DoctorDetailPage />} />
-            <Route path="/chart" element={<DoctorPatientListPage />} />
-            {/* <Route
-              path="/chart"
-              element={<TheraPatientListPage />}
-            /> */}
+            <Route path="/chart" element={<PatientListPage />} />
             {/* <Route path="/chart/:id" element={<TheraDetailPage />} /> */}
             <Route path="/video" element={<TheraExerciseListPage />} />
             <Route path="/video/create" element={<TheraExerciseAddPage />} />
