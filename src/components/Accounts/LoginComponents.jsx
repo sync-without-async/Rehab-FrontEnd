@@ -7,7 +7,7 @@ import BlockContainer from "../Common/BlockContainer";
 import InputTextContainer from "../Input/InputTextContainer";
 import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
-import { loginUser, selectName } from "../../redux/userSlice.js";
+import { getMyInfo, login, selectName } from "../../redux/userSlice.js";
 import { useSelector } from "react-redux";
 
 const InputContainer = styled.div`
@@ -47,14 +47,18 @@ const LoginComponents = () => {
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const response = await dispatch(loginUser({ id, password }));
+    const tokenResponse = await dispatch(login({ id, password }));
 
-    if (response.error) {
+    if (tokenResponse.error) {
       alert("아이디나 비밀번호를 다시 한번 확인해주세요.");
       return;
     }
 
-    alert(`${response.payload.name}님, 환영합니다.`);
+    const infoResponse = await dispatch(getMyInfo(tokenResponse.payload));
+
+    console.log(infoResponse);
+
+    alert(`${infoResponse.payload.name}님, 환영합니다.`);
 
     if (redirect) {
       navigate(redirect);
