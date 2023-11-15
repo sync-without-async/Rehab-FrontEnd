@@ -21,13 +21,31 @@ const RegisterButton = styled(Button)`
 `;
 
 const Signup = () => {
+
+  const hospitalItems = [
+    { key: 'chuncheon', value: '춘천성심병원' },
+    { key: 'dongtan', value: '동탄성심병원' },
+    { key: 'gangnam', value: '강남성심병원' },
+    { key: 'hangang', value: '한강성심병원' },
+    { key: 'gangdong', value: '강동성심병원' },
+    { key: 'hallym', value: '한림성심병원' },
+  ];
+
+  const handleSelectHospital = (hospital) => {
+    console.log("Selected Hospital: ", hospital);
+  };
+
   return (
     <BlockContainer>
       <TitleText text="회원가입" />
       <Grid>
         <RoleButton role="doctor" />
         <RoleButton role="therapist" />
-        <DropdownFilter label="소속 병원명 *" items={[]} />
+        <DropdownFilter 
+          label="소속 병원명 *" 
+          items={hospitalItems}
+          onSelect={handleSelectHospital}
+        />
         <InputImage style={{ gridRowEnd: "span 2" }} />
         <InputTextContainer label="전공 분야 *" />
         <InputTextContainer label="성함 *" />
