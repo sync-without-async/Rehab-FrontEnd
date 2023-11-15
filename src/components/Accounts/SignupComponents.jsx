@@ -7,6 +7,7 @@ import InputTextContainer from "../Input/InputTextContainer.jsx";
 import Button from "../Button/Button.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
 import { useState } from 'react';
+import { userSignup } from '../../librarys/api/signup.js';
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -44,9 +45,39 @@ const Signup = () => {
     setSelectedRole(role);
   };
 
+  //이미지 업로드 api 연결
+  const handleImageSelect = (file) => {
+    const formDataCopy = { ...formData };
+    formDataCopy.file = file;
+    setFormData(formDataCopy);
+  };
+
+  const [formData, setFormData] = useState({
+    mid: '',
+    password: '',
+    name: '',
+    hospital: '',
+    department: '',
+    email: '',
+    phone: '',
+    staffRole: '',
+    fileName: '',
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await userSignup(formData);
+      console.log(response); 
+    } catch (error) {
+      console.error(error); 
+    }
+  };
+
 
   return (
     <BlockContainer>
+      <form onSubmit={handleSubmit}>
       <TitleText text="회원가입" />
       <Grid>
         <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
@@ -56,7 +87,7 @@ const Signup = () => {
           items={hospitalItems}
           onSelect={handleSelectHospital}
         />
-        <InputImage style={{ gridRowEnd: "span 2" }} />
+        <InputImage onImageSelect={handleImageSelect} style={{ gridRowEnd: "span 2" }} />
         <InputTextContainer label="전공 분야 *" />
         <InputTextContainer label="성함 *" />
         <InputTextContainer label="연락처 *" />
@@ -64,10 +95,11 @@ const Signup = () => {
           label="이메일 *"
           style={{ gridColumnEnd: "span 2" }}
         />
-        <InputTextContainer label="인증번호 *" />
+        <InputTextContainer label="아이디 *" />
         <InputTextContainer label="비밀번호 *" />
-        <RegisterButton type="primary">회원가입</RegisterButton>
+        <RegisterButton type="submit">회원가입</RegisterButton>
       </Grid>
+      </form>
     </BlockContainer>
   );
 };

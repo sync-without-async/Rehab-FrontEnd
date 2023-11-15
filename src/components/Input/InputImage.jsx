@@ -29,8 +29,9 @@ const ImagePreview = styled.img`
   object-fit: contain;
 `;
 
-const InputImage = ({ ...props }) => {
+const InputImage = ({ onImageSelect, ...props }) => {
   const [preview, setPreview] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -38,6 +39,8 @@ const InputImage = ({ ...props }) => {
       const reader = new FileReader();
       reader.onloadend = () => {
         setPreview(reader.result);
+        setSelectedFile(file);
+        onImageSelect(file);
       };
       reader.readAsDataURL(file);
     }
