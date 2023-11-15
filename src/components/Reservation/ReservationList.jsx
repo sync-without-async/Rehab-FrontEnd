@@ -16,6 +16,7 @@ import {
   getReservationListAdmin,
   getReservationListUser,
 } from "../../librarys/dummy-api.js";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const List = styled.div`
   margin: 28px 0;
@@ -62,7 +63,7 @@ const ReservationList = () => {
               date={item.date}
               index={item.index}
               dept="한림대학교"
-              role="ADMIN_DOCTOR"
+              role={ROLE_TYPE.DOCTOR}
               name={item.adminName || item.userName}
             />
           ))}
