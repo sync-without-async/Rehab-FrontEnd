@@ -50,12 +50,6 @@ const Big = styled.span`
   font-weight: 800;
 `;
 
-const Line = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 24px;
-`;
-
 const Item = styled.div`
   width: ${(props) => props.width || "auto"};
   vertical-align: middle;
@@ -170,27 +164,17 @@ const ReservationItem = ({ id, name, role, dept, date, index }) => {
     <Container>
       <Image src={image} />
       <Info>
-        <Line>
-          <Item>
-            <Big>{name}</Big>님
-          </Item>
-        </Line>
-        <Line>
-          <Item width="100px" className={isUser}>
-            <MdPerson />
-            {roleDisplay}
-          </Item>
-          <Item>
-            <MdCalendarMonth />
-            {fullDate.format(DAYJS_FORMAT)}
-          </Item>
-        </Line>
-        <Line>
-          <Item className={isUser}>
-            <MdLocalHospital />
-            {dept}
-          </Item>
-        </Line>
+        <Item>
+          <Big>{name}</Big>님
+        </Item>
+        <Item width="100px" className={isUser}>
+          <MdPerson />
+          {roleDisplay}
+        </Item>
+        <Item>
+          <MdCalendarMonth />
+          {fullDate.format(DAYJS_FORMAT)}
+        </Item>
       </Info>
       <ButtonContainer>
         <Btn type={buttonStyle.type} onClick={onJoinButtonClick}>

@@ -40,51 +40,73 @@ const Text = styled.p`
 const routes = [
   {
     path: "/",
+    title: "/",
     description: "개발 메인 페이지",
   },
   {
     path: "/login",
+    title: "/login",
     description: "로그인",
   },
   {
     path: "/register",
+    title: "/register",
     description: "회원가입",
   },
   {
     path: "/dashboard",
+    title: "/dashboard",
     description: "대시보드",
   },
   {
     path: "/meeting",
+    title: "/meeting",
     description: "비대면 진료 예약 목록",
   },
   {
     path: "/meeting/create",
+    title: "/meeting/create",
     description: "비대면 진료 예약 생성",
   },
   {
+    path: "/meeting/room/a5c831ae-0807-447e-8603-242ec8fc3840",
+    title: "/meeting/room/:uuid",
+    description: "비대면 진료 Room 입장",
+  },
+  {
     path: "/chart",
+    title: "/chart",
     description: "환자 차트 목록",
   },
   {
     path: "/chart/example_id",
+    title: "/chart/:id",
     description: "환자 차트 상세 조회",
   },
   {
     path: "/chart/create",
+    title: "/chart/create",
     description: "환자 차트 생성",
   },
   {
     path: "/chart/example_id/assign",
+    title: "/chart/:id/assign",
     description: "환자 차트 과제 할당",
   },
   {
     path: "/video",
+    title: "/video",
     description: "재활치료사 전체 운동 목록",
   },
   {
     path: "/video/create",
+    title: "/video/create",
     description: "재활치료사 운동 등록",
+  },
+  {
+    path: "/program/1",
+    title: "/program/:id",
+    description: "프로그램 수강",
   },
 ];
 
@@ -97,7 +119,7 @@ const DevelopPage = () => {
           {routes.map((route) => (
             <Link key={route.path} to={route.path}>
               <Btn>
-                <Title>{route.path}</Title>
+                <Title>{route.title}</Title>
                 <Text>{route.description}</Text>
               </Btn>
             </Link>

@@ -13,6 +13,14 @@ export const modalSlice = createSlice({
           props: null,
         });
       } else {
+        const findIndex = state.list.findIndex(
+          (item) => item.id === action.payload.id,
+        );
+
+        if (findIndex !== -1) {
+          state.list.splice(findIndex, 1);
+        }
+
         state.list.push({
           id: action.payload.id,
           props: action.payload.props,
