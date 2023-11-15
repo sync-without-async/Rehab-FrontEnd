@@ -15,8 +15,10 @@ import {
 import dayjs from "dayjs";
 import {
   createReservation,
-  getAdminReservationTime,
+  getReserveTime,
 } from "../../librarys/api/reservation.js";
+import { useSelector } from "react-redux";
+import { selectId } from "../../redux/userSlice.js";
 
 const Container = styled.div`
   display: flex;
@@ -73,6 +75,7 @@ export const ReservationCreateModal = () => {
     reserveCreateReducer,
     intialReserveCreateState,
   );
+  const userId = useSelector(selectId);
 
   const [times, setTimes] = useState(createTimes());
   const { adminId, index, disabledTime, description, year, month, date } =
@@ -89,12 +92,11 @@ export const ReservationCreateModal = () => {
     });
 
     (async () => {
-      const response = await getAdminReservationTime(adminId, serverTime);
-      const payload = response.map((item) => item.index);
+      const response = await getReserveTime(adminId, serverTime);
 
       dispatch({
         type: "disabledTime",
-        payload,
+        payload: response,
       });
     })();
   }, [serverTime]);
@@ -114,13 +116,15 @@ export const ReservationCreateModal = () => {
   }
 
   async function onComplete() {
-    // const res = await createReservation(
-    //   state.adminId,
-    //   "ldh",
-    //   state.description,
-    //   serverTime,
-    //   state.index,
-    // );
+    const res = await createReservation({
+      adminId,
+      userId,
+      content: state.description,
+      date: serverTime,
+      index: state.index,
+    });
+
+    console.log(res);
     console.log(state);
   }
 
@@ -137,7 +141,7 @@ export const ReservationCreateModal = () => {
           <Wrapper>
             <Label>시간 선택</Label>
             <ButtonContainer>
-              {times.map((item, i) => (
+              {times.map((item) => (
                 <ToggleButton
                   key={item.index}
                   selected={item.index === index}

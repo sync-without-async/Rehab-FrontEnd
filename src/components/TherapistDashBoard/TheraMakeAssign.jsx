@@ -149,8 +149,7 @@ const TheraMakeAssign = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getVideoList(page, query, tag);
-      console.log(data);
+      const data = await getVideoList({ page, query, tag });
 
       dispatch({
         type: "data",

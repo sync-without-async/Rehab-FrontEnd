@@ -10,6 +10,8 @@ import { intialUploadState, uploadReducer } from "../../reducer/upload.js";
 import { createVideo } from "../../librarys/api/video.js";
 import { useNavigate } from "react-router-dom";
 import { useReducer } from "react";
+import { useSelector } from "react-redux";
+import { selectId, selectToken } from "../../redux/userSlice.js";
 
 const InputText = styled(InputTextContainer)`
   width: 240px;
@@ -48,6 +50,8 @@ const TheraExerciseAdd = () => {
   const navigate = useNavigate();
   const [state, dispatch] = useReducer(uploadReducer, intialUploadState);
   const { title, description, video, skeleton } = state;
+  const id = useSelector(selectId);
+  const token = useSelector(selectToken);
 
   const handleChange = (type) => {
     return (e) => dispatch({ type, payload: e.target.value });
@@ -87,12 +91,12 @@ const TheraExerciseAdd = () => {
 
     const options = {
       ...state,
-      id: "doctor1",
+      id,
       totalFrame: parseInt(skeleton.video_length),
       skeleton: blob,
     };
 
-    const programResponse = await createVideo(options);
+    const programResponse = await createVideo(token, options);
     console.log(programResponse);
 
     alert("비디오를 성공적으로 게시했습니다.");

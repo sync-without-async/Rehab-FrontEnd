@@ -9,7 +9,7 @@ import ModalTitleText from "../Common/ModalTitleText.jsx";
 import ChartSummary from "../Chart/ChartSummary.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
-import { removeReservation } from "../../librarys/api/reservation.js";
+import { deleteReservation } from "../../librarys/api/reservation.js";
 import { useDispatch } from "react-redux";
 
 const Container = styled.div`
@@ -43,9 +43,11 @@ const ReservationInfoModal = () => {
   const { reservationId, description, aiSummary } = value || {};
 
   async function onCancelButtonClick() {
-    const response = await removeReservation(reservationId);
-    1;
-    alert("예약이 성공적으로 취소되었습니다.");
+    const response = await deleteReservation(reservationId);
+
+    if (response.status) {
+      alert("예약이 성공적으로 취소되었습니다.");
+    }
 
     dispatch(hide(id));
   }

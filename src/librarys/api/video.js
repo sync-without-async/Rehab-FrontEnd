@@ -1,61 +1,72 @@
-import { getSpringAxios } from "./axios.js";
+import { createFormData, getSpringAxios } from "./axios.js";
 
-export async function createVideo(options) {
-  const axios = getSpringAxios();
+export async function createVideo(token, req) {
+  const axios = getSpringAxios(token);
 
-  const data = new FormData();
-  data.append("admin_id", options.id);
-  data.append("title", options.title);
-  data.append("description", options.description);
-  data.append("tag", options.category);
-  data.append("frame", options.totalFrame);
-  data.append("playTime", options.duration);
-  data.append("files[0]", options.video);
-  data.append("files[1]", options.skeleton);
+  const body = {
+    staff_id: req.id,
+    title: req.title,
+    description: req.description,
+    tag: req.category,
+    frame: req.totalFrame,
+    playTime: req.duration,
+    "files[0]": req.video,
+    "files[1]": req.skeleton,
+  };
 
-  for (const [key, value] of data.entries()) {
-    console.log(key, ":", value, typeof value);
-  }
+  const response = await axios.post("/video/create", createFormData(body));
 
-  const response = await axios.post("/video/create", data);
-  return response.data;
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
 }
 
-export async function getVideoList(page, title, tag) {
+export async function getVideoList(req) {
   const axios = getSpringAxios();
 
-  if (typeof title === "string") {
-    title = title.trim();
-  }
-
-  if (!title) {
-    title = undefined;
-  }
-
   const params = {
-    page,
-    title,
-    tag,
+    page: req.page,
+    title: req.query || undefined,
+    tag: req.category,
   };
+
+  if (typeof params.title === "string") {
+    params.title = params.title.trim();
+  }
 
   const response = await axios.get("/video/list", { params });
 
-  response.data.dtoList = [];
-  console.log(page);
-  for (let i = 0; i < 8; i++) {
-    let vno = (page - 1) * 10 + i + 1;
-    response.data.dtoList.push({
-      vno,
-      title: "동작 제목" + vno,
-      description: "동작 설명" + vno,
-      tag: "ARM",
-      playTime: 60.0,
-      thumbnailURL: "https://placehold.co/200",
-      videoURL: "https://placehold.co/800x800.mp4",
-    });
-  }
-  response.data.end = 2;
-  response.data.page = page;
+  const data = {
+    page: response.data.page,
+    total: response.data.end,
+    list: (response.data.dtoList || []).map((item) => ({
+      vno: item.vno,
+      title: item.title,
+      description: item.description,
+      tag: item.tag,
+      playTime: item.playTime,
+      videoURL: item.videoURL,
+      thumbnailURL: item.thumbnailURL,
+    })),
+  };
 
-  return response.data;
+  return data;
+}
+
+export async function getVideo(id) {
+  const axios = getSpringAxios();
+
+  const response = await axios.get("/video/" + id);
+
+  const data = {
+    vno: response.data.vno,
+    title: response.data.title,
+    description: response.data.description,
+    videoURL: response.data.videoURL,
+  };
+
+  return data;
 }
