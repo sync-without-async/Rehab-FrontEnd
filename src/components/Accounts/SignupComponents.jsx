@@ -43,6 +43,8 @@ const Signup = () => {
 
   const handleSelectRole = (role) => {
     setSelectedRole(role);
+    const staffRole = role === 'doctor' ? 'ROLE_DOCTOR' : 'ROLE_THERAPIST';
+    setFormData({ ...formData, staffRole: staffRole });
   };
 
   //이미지 업로드 api 연결
@@ -85,7 +87,7 @@ const Signup = () => {
       <form onSubmit={handleSubmit}>
       <TitleText text="회원가입" />
       <Grid>
-        <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
+          <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
           <RoleButton role="therapist" isSelected={selectedRole === 'therapist'} onSelectRole={() => handleSelectRole('therapist')} />
           <DropdownFilter 
             label="소속 병원명 *" 
