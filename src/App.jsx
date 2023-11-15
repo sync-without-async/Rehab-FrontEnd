@@ -17,6 +17,7 @@ import ReservationListPage from "./pages/Reservation/ReservationListPage.jsx";
 import ReservationMeetingPage from "./pages/Reservation/ReservationMeetingPage.jsx";
 import DashboardPage from "./pages/DashboardPage.jsx";
 import PatientListPage from "./pages/PatientListPage.jsx";
+import ProgramPage from "./pages/ProgramPage.jsx";
 
 const Container = styled.div`
   margin-top: 60px;
@@ -48,6 +49,7 @@ function App() {
               path="/meeting/room/:uuid"
               element={<ReservationMeetingPage />}
             />
+            <Route path="/program/:id" element={<ProgramPage />} />
           </Routes>
         </Container>
       </Router>
