@@ -42,8 +42,8 @@ const totalItems = [
     role: [
       ROLE_TYPE.VISITOR,
       ROLE_TYPE.USER,
-      ROLE_TYPE.ADMIN_DOCTOR,
-      ROLE_TYPE.ADMIN_THERAPIST,
+      ROLE_TYPE.DOCTOR,
+      ROLE_TYPE.THERAPIST,
     ],
   },
   {
@@ -56,19 +56,19 @@ const totalItems = [
     id: "add_exercise",
     value: "운동 등록",
     link: "/video/create",
-    role: [ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.THERAPIST],
   },
   {
     id: "dashboard",
     value: "대시보드",
     link: "/",
-    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
   {
     id: "untact_appointment",
     value: "비대면 진료",
     link: "/meeting",
-    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
   {
     id: "login",
@@ -80,7 +80,7 @@ const totalItems = [
     id: "logout",
     value: "로그아웃",
     link: "/logout",
-    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
 ];
 

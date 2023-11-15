@@ -23,8 +23,8 @@ import { ROLE_TYPE } from "./librarys/type.js";
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
-const DOCTOR = ROLE_TYPE.ADMIN_DOCTOR;
-const THERAPIST = ROLE_TYPE.ADMIN_THERAPIST;
+const DOCTOR = ROLE_TYPE.DOCTOR;
+const THERAPIST = ROLE_TYPE.THERAPIST;
 
 const Container = styled.div`
   margin-top: 60px;

@@ -130,7 +130,7 @@ export async function dummyLogin(id, password) {
   if (id === "user1") {
     return {
       id: "user1",
-      role: ROLE_TYPE.ADMIN_DOCTOR,
+      role: ROLE_TYPE.DOCTOR,
       name: "전문의",
       location: "한림대학교 춘천성심병원",
       department: "재활의학과",
@@ -138,7 +138,7 @@ export async function dummyLogin(id, password) {
   } else if (id === "user2") {
     return {
       id: "user2",
-      role: ROLE_TYPE.ADMIN_THERAPIST,
+      role: ROLE_TYPE.THERAPIST,
       name: "치료사",
       location: "한림대학교 춘천성심병원",
       department: "팔 재활",

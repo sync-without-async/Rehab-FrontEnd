@@ -1,8 +1,8 @@
 export const ROLE_TYPE = {
   VISITOR: "방문자",
   USER: "환자",
-  ADMIN_DOCTOR: "전문의",
-  ADMIN_THERAPIST: "재활치료사",
+  DOCTOR: "전문의",
+  THERAPIST: "재활치료사",
 };
 
 export const CATEGORY_TYPE = {
