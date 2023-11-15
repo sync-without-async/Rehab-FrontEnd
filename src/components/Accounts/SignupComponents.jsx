@@ -35,7 +35,8 @@ const Signup = () => {
   ];
 
   const handleSelectHospital = (hospital) => {
-    console.log("Selected Hospital: ", hospital);
+    console.log("Selected Hospital: ", hospital.key);
+    setFormData({...formData, hospital: hospital.key});
   };
 
   // 역할 버튼 상태 로직
@@ -43,7 +44,7 @@ const Signup = () => {
 
   const handleSelectRole = (role) => {
     setSelectedRole(role);
-    const staffRole = role === 'doctor' ? 'ROLE_DOCTOR' : 'ROLE_THERAPIST';
+    const staffRole = role === 'doctor' ? 'DOCTOR' : 'THERAPIST';
     setFormData({ ...formData, staffRole: staffRole });
   };
 
@@ -63,16 +64,28 @@ const Signup = () => {
     email: '',
     phone: '',
     staffRole: '',
-    fileName: '',
+    // fileName: '',
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // const dataToSubmit = new FormData();
+    // Object.keys(formData).forEach(key => {
+    //   if (key !== 'file') {
+    //     dataToSubmit.append(key, formData[key]);
+    //   }
+    // });
+  
+    // if (formData.file) {
+    //   dataToSubmit.append('file', formData.file);
+    // }
+
     try {
       const response = await userSignup(formData);
-      console.log(response); 
+      console.log(response);
     } catch (error) {
-      console.error(error); 
+      console.error(error);
     }
   };
 
@@ -84,7 +97,6 @@ const Signup = () => {
 
   return (
     <BlockContainer>
-      <form onSubmit={handleSubmit}>
       <TitleText text="회원가입" />
       <Grid>
           <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
@@ -107,9 +119,8 @@ const Signup = () => {
           />
           <InputTextContainer label="아이디 *" name="mid" value={formData.mid} onChange={handleInputChange("mid")} />
           <InputTextContainer label="비밀번호 *" name="password" value={formData.password} onChange={handleInputChange("password")} />
-          <RegisterButton type="submit">회원가입</RegisterButton>
+          <RegisterButton onClick={handleSubmit}>회원가입</RegisterButton>
       </Grid>
-      </form>
     </BlockContainer>
   );
 };
