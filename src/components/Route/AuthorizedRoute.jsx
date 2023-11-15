@@ -27,7 +27,7 @@ const AuthorizedRoute = ({ children, to, whitelist }) => {
 
 AuthorizedRoute.propTypes = {
   children: PropTypes.node,
-  whitelist: PropTypes.arrayOf(PropTypes.number),
+  whitelist: PropTypes.arrayOf(PropTypes.string),
   to: PropTypes.string,
 };
 
