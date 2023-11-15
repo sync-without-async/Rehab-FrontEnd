@@ -26,12 +26,12 @@ const Signup = () => {
 
   // 소속 병원 드롭다운 내용
   const hospitalItems = [
-    { key: 'chuncheon', value: '춘천성심병원' },
-    { key: 'dongtan', value: '동탄성심병원' },
-    { key: 'gangnam', value: '강남성심병원' },
-    { key: 'hangang', value: '한강성심병원' },
-    { key: 'gangdong', value: '강동성심병원' },
-    { key: 'hallym', value: '한림성심병원' },
+    { key: '춘천성심병원', value: '춘천성심병원' },
+    { key: '동탄성심병원', value: '동탄성심병원' },
+    { key: '강남성심병원', value: '강남성심병원' },
+    { key: '한강성심병원', value: '한강성심병원' },
+    { key: '강동성심병원', value: '강동성심병원' },
+    { key: '한림성심병원', value: '한림성심병원' },
   ];
 
   const handleSelectHospital = (hospital) => {
