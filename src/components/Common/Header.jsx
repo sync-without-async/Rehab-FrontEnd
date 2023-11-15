@@ -36,10 +36,15 @@ const Item = styled.div`
 
 const totalItems = [
   {
-    id: "intro",
-    value: "서비스 소개",
-    link: "/",
-    role: [ROLE_TYPE.VISITOR],
+    id: "dev",
+    value: "Developer's Page",
+    link: "/dev",
+    role: [
+      ROLE_TYPE.VISITOR,
+      ROLE_TYPE.USER,
+      ROLE_TYPE.DOCTOR,
+      ROLE_TYPE.THERAPIST,
+    ],
   },
   {
     id: "register",
@@ -51,25 +56,19 @@ const totalItems = [
     id: "add_exercise",
     value: "운동 등록",
     link: "/video/create",
-    role: [ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.THERAPIST],
   },
   {
-    id: "user_dashboard",
-    value: "나의 수강",
-    link: "/dashboard",
-    role: [ROLE_TYPE.USER],
-  },
-  {
-    id: "admin_dashboard",
+    id: "dashboard",
     value: "대시보드",
-    link: "/dashboard",
-    role: [ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    link: "/",
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
   {
     id: "untact_appointment",
     value: "비대면 진료",
     link: "/meeting",
-    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
   {
     id: "login",
@@ -81,7 +80,7 @@ const totalItems = [
     id: "logout",
     value: "로그아웃",
     link: "/logout",
-    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST],
   },
 ];
 

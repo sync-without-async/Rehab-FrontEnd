@@ -65,9 +65,9 @@ const QuickLink = () => {
   const role = useSelector(selectRole);
 
   const list = useMemo(() => {
-    if (role === ROLE_TYPE.ADMIN_DOCTOR) {
+    if (role === ROLE_TYPE.DOCTOR) {
       return doctorButtons;
-    } else if (role === ROLE_TYPE.ADMIN_THERAPIST) {
+    } else if (role === ROLE_TYPE.THERAPIST) {
       return therapistButtons;
     } else {
       return [];

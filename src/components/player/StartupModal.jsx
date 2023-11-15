@@ -84,7 +84,7 @@ const StartupModal = () => {
           <Button type={statusType} onClick={() => dispatch(hide(id))}>
             시작하기
           </Button>
-          <Button type="info" onClick={() => navigate("/dashboard")}>
+          <Button type="info" onClick={() => navigate("/")}>
             나가기
           </Button>
         </ButtonWrapper>

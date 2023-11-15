@@ -8,7 +8,7 @@ import DoctorIcon from "../../assets/images/role/role_doctor.png";
 import TherapistIcon from "../../assets/images/role/role_therapist.png";
 
 import { MdLocalHospital, MdCalendarMonth, MdPerson } from "react-icons/md";
-import { DAYJS_FORMAT, ROLE_LIST } from "../../librarys/type.js";
+import { DAYJS_FORMAT, ROLE_LIST, ROLE_TYPE } from "../../librarys/type.js";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -101,9 +101,9 @@ const ReservationItem = ({ id, name, role, dept, date, index }) => {
 
   const image = useMemo(() => {
     switch (role) {
-      case "ADMIN_DOCTOR":
+      case ROLE_TYPE.DOCTOR:
         return DoctorIcon;
-      case "ADMIN_THERAPIST":
+      case ROLE_TYPE.THERAPIST:
         return TherapistIcon;
       default:
         return PatientIcon;
