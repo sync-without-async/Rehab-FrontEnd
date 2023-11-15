@@ -82,6 +82,7 @@ const Modal = ({ id, className, style, children, preventClose, onToggle }) => {
   useEffect(() => {
     onToggle(isVisible);
     if (backgroundRef && isVisible) {
+      setInteractable(true);
       backgroundRef.current.scrollTo(0, 0);
     }
   }, [backgroundRef, isVisible]);

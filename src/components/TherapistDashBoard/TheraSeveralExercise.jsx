@@ -28,7 +28,7 @@ const Container = styled.div`
 const Thumbnail = styled.img`
   width: 120px;
   height: 88px;
-  background-color: #1f1f1f;
+  background-color: #dfdfdf;
   border: 1px solid #ababab;
   border-radius: 10px;
   object-fit: contain;

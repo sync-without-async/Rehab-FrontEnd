@@ -18,6 +18,13 @@ import ReservationMeetingPage from "./pages/Reservation/ReservationMeetingPage.j
 import DashboardPage from "./pages/DashboardPage.jsx";
 import PatientListPage from "./pages/PatientListPage.jsx";
 import ProgramPage from "./pages/ProgramPage.jsx";
+import AuthorizedRoute from "./components/Route/AuthorizedRoute.jsx";
+import { ROLE_TYPE } from "./librarys/type.js";
+
+const VISITOR = ROLE_TYPE.VISITOR;
+const USER = ROLE_TYPE.USER;
+const DOCTOR = ROLE_TYPE.ADMIN_DOCTOR;
+const THERAPIST = ROLE_TYPE.ADMIN_THERAPIST;
 
 const Container = styled.div`
   margin-top: 60px;
@@ -25,36 +32,104 @@ const Container = styled.div`
   overflow: auto;
 `;
 
-function App() {
+const routes = [
+  {
+    path: "/",
+    element: <DevelopPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+    role: [VISITOR],
+  },
+  {
+    path: "/register",
+    element: <SignupPage />,
+    role: [VISITOR],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
+    role: [USER, DOCTOR, THERAPIST],
+  },
+  {
+    path: "/meeting",
+    element: <ReservationListPage />,
+    role: [USER, DOCTOR, THERAPIST],
+  },
+  {
+    path: "/meeting/room/:uuid",
+    element: <ReservationMeetingPage />,
+    role: [USER, DOCTOR, THERAPIST],
+  },
+  {
+    path: "/meeting/create",
+    element: <ReservationCreatePage />,
+    role: [USER],
+  },
+  {
+    path: "/program/:id",
+    element: <ProgramPage />,
+    role: [USER],
+  },
+  {
+    path: "/chart/create",
+    element: <DoctorChartPage />,
+    role: [DOCTOR],
+  },
+  {
+    path: "/chart/:id",
+    element: <DoctorDetailPage />,
+    role: [DOCTOR, THERAPIST],
+  },
+  {
+    path: "/chart",
+    element: <PatientListPage />,
+    role: [DOCTOR, THERAPIST],
+  },
+  {
+    path: "/video",
+    element: <TheraExerciseListPage />,
+    role: [THERAPIST],
+  },
+  {
+    path: "/video/create",
+    element: <TheraExerciseAddPage />,
+    role: [THERAPIST],
+  },
+  {
+    path: "/chart/:id/assign",
+    element: <TheraMakeAssignPage />,
+    role: [THERAPIST],
+  },
+];
+
+routes.forEach((item) => {
+  if (item.role && Array.isArray(item.role)) {
+    item.element = (
+      <AuthorizedRoute whitelist={item.role} to={item.redirect}>
+        {item.element}
+      </AuthorizedRoute>
+    );
+  }
+});
+
+const App = () => {
   return (
     <ReducerContext.Provider value={[null, null]}>
       <Router>
         <Header />
         <Container>
           <Routes>
-            <Route path="/" element={<DevelopPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<SignupPage />} />
-            <Route path="/dashboard" element={<DashboardPage />} />
-            <Route path="/meeting/create" element={<ReservationCreatePage />} />
-            <Route path="/chart/create" element={<DoctorChartPage />} />
-            <Route path="/chart/:id" element={<DoctorDetailPage />} />
-            <Route path="/chart" element={<PatientListPage />} />
+            {routes.map((item, index) => (
+              <Route key={index} path={item.path} element={item.element} />
+            ))}
             {/* <Route path="/chart/:id" element={<TheraDetailPage />} /> */}
-            <Route path="/video" element={<TheraExerciseListPage />} />
-            <Route path="/video/create" element={<TheraExerciseAddPage />} />
-            <Route path="/chart/:id/assign" element={<TheraMakeAssignPage />} />
-            <Route path="/meeting" element={<ReservationListPage />} />
-            <Route
-              path="/meeting/room/:uuid"
-              element={<ReservationMeetingPage />}
-            />
-            <Route path="/program/:id" element={<ProgramPage />} />
           </Routes>
         </Container>
       </Router>
     </ReducerContext.Provider>
   );
-}
+};
 
 export default App;

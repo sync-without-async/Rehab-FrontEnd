@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { userLogin } from "../../librarys/api/login.js";
 import TitleText from "../Common/TitleText";
@@ -36,7 +36,10 @@ const Link = styled.span`
   cursor: pointer;
 `;
 
-const LoginComponents = ({}) => {
+const LoginComponents = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const redirect = searchParams.get("redirect");
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,7 +55,12 @@ const LoginComponents = ({}) => {
     }
 
     alert(`${response.payload.name}님, 환영합니다.`);
-    navigate("/dashboard");
+
+    if (redirect) {
+      navigate(redirect);
+    } else {
+      navigate("/dashboard");
+    }
   };
 
   return (
