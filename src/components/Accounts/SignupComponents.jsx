@@ -2,7 +2,6 @@ import styled from "styled-components";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import RoleButton from "../Button/RoleButton.jsx";
-import Dropdown from "../Dropdown/Dropdown.jsx";
 import InputImage from "../Input/InputImage.jsx";
 import InputTextContainer from "../Input/InputTextContainer.jsx";
 import Button from "../Button/Button.jsx";
@@ -30,7 +29,7 @@ const Signup = () => {
         <RoleButton role="therapist" />
         <DropdownFilter label="소속 병원명 *" items={[]} />
         <InputImage style={{ gridRowEnd: "span 2" }} />
-        <DropdownFilter label="재활 분야 *" items={[]} />
+        <InputTextContainer label="전공 분야 *" />
         <InputTextContainer label="성함 *" />
         <InputTextContainer label="연락처 *" />
         <InputTextContainer
