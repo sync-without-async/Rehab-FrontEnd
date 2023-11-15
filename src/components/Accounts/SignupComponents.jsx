@@ -6,6 +6,7 @@ import InputImage from "../Input/InputImage.jsx";
 import InputTextContainer from "../Input/InputTextContainer.jsx";
 import Button from "../Button/Button.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
+import { useState } from 'react';
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -22,6 +23,7 @@ const RegisterButton = styled(Button)`
 
 const Signup = () => {
 
+  // 소속 병원 드롭다운 내용
   const hospitalItems = [
     { key: 'chuncheon', value: '춘천성심병원' },
     { key: 'dongtan', value: '동탄성심병원' },
@@ -35,12 +37,20 @@ const Signup = () => {
     console.log("Selected Hospital: ", hospital);
   };
 
+  // 역할 버튼 상태 로직
+  const [selectedRole, setSelectedRole] = useState(null);
+
+  const handleSelectRole = (role) => {
+    setSelectedRole(role);
+  };
+
+
   return (
     <BlockContainer>
       <TitleText text="회원가입" />
       <Grid>
-        <RoleButton role="doctor" />
-        <RoleButton role="therapist" />
+        <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
+        <RoleButton role="therapist" isSelected={selectedRole === 'therapist'} onSelectRole={() => handleSelectRole('therapist')} />
         <DropdownFilter 
           label="소속 병원명 *" 
           items={hospitalItems}
