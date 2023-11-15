@@ -14,7 +14,7 @@ const AuthorizedRoute = ({ children, to, whitelist }) => {
     if (userRole === ROLE_TYPE.VISITOR) {
       return "/login?redirect=" + redirect;
     } else {
-      return "/dashboard";
+      return "/";
     }
   }, [userRole]);
 

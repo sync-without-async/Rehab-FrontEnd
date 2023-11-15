@@ -36,10 +36,15 @@ const Item = styled.div`
 
 const totalItems = [
   {
-    id: "intro",
-    value: "서비스 소개",
-    link: "/",
-    role: [ROLE_TYPE.VISITOR],
+    id: "dev",
+    value: "Developer's Page",
+    link: "/dev",
+    role: [
+      ROLE_TYPE.VISITOR,
+      ROLE_TYPE.USER,
+      ROLE_TYPE.ADMIN_DOCTOR,
+      ROLE_TYPE.ADMIN_THERAPIST,
+    ],
   },
   {
     id: "register",
@@ -54,16 +59,10 @@ const totalItems = [
     role: [ROLE_TYPE.ADMIN_THERAPIST],
   },
   {
-    id: "user_dashboard",
-    value: "나의 수강",
-    link: "/dashboard",
-    role: [ROLE_TYPE.USER],
-  },
-  {
-    id: "admin_dashboard",
+    id: "dashboard",
     value: "대시보드",
-    link: "/dashboard",
-    role: [ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
+    link: "/",
+    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
   },
   {
     id: "untact_appointment",

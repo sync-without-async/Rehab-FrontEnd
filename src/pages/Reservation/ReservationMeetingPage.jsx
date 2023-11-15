@@ -168,7 +168,7 @@ const ReservationMeetingPage = () => {
           <Description>상대방</Description>
         </VideoWrapper>
       </VideoContainer>
-      <Button onClick={() => navigate("/dashboard")}>
+      <Button onClick={() => navigate("/")}>
         <Icon />
         나가기
       </Button>

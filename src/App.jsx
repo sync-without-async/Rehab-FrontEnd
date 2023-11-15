@@ -34,7 +34,7 @@ const Container = styled.div`
 
 const routes = [
   {
-    path: "/",
+    path: "/dev",
     element: <DevelopPage />,
   },
   {
@@ -48,7 +48,7 @@ const routes = [
     role: [VISITOR],
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: <DashboardPage />,
     role: [USER, DOCTOR, THERAPIST],
   },

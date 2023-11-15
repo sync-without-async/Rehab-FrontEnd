@@ -59,7 +59,7 @@ const LoginComponents = () => {
     if (redirect) {
       navigate(redirect);
     } else {
-      navigate("/dashboard");
+      navigate("/");
     }
   };
 
