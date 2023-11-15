@@ -60,9 +60,9 @@ export function programAssignReducer(state, action) {
     case "data":
       return {
         ...state,
-        programList: action.payload.dtoList || [],
+        programList: action.payload.list || [],
         page: action.payload.page || 1,
-        totalPage: action.payload.end || 1,
+        totalPage: action.payload.total || 1,
       };
     default:
       console.error("[ProgramAssignReducer] Undefined action: " + action.type);

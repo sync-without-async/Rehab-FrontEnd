@@ -38,7 +38,8 @@ const TheraExerciseList = () => {
 
   useEffect(() => {
     (async () => {
-      const data = await getVideoList(page, query, category);
+      const data = await getVideoList({ page, query, category });
+
       dispatch({
         type: "data",
         payload: data,

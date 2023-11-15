@@ -26,3 +26,13 @@ export function getAIAxios() {
     timeout: TIMEOUT_LONG,
   });
 }
+
+export function createFormData(options) {
+  const form = new FormData();
+
+  for (const [key, value] of Object.entries(options)) {
+    form.append(key, value);
+  }
+
+  return form;
+}

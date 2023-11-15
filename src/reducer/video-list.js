@@ -26,9 +26,9 @@ export function videoListReducer(state, action) {
     case "data":
       return {
         ...state,
-        list: action.payload.dtoList || [],
+        list: action.payload.list || [],
         page: action.payload.page || 1,
-        totalPage: action.payload.end,
+        totalPage: action.payload.total,
       };
     default:
       console.error("[VideoListReducer] Undefined action: " + action.type);

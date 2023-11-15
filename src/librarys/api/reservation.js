@@ -1,48 +1,91 @@
-import { sleep } from "../util.js";
 import { getSpringAxios } from "./axios.js";
 
-export async function getAdminReservationList(id, page = undefined) {
-  const axios = getSpringAxios();
+export async function getAdminReservationList(token, id, page) {
+  const axios = getSpringAxios(token);
 
   const params = {
-    page,
+    page: page || undefined,
   };
 
   const response = await axios.get("/reservation-admin/" + id, { params });
-  return response.data;
-}
-
-export async function createReservation(
-  admin_id,
-  user_id,
-  content,
-  date,
-  index,
-) {
-  const axios = getSpringAxios();
 
   const data = {
-    admin_id,
-    user_id,
-    content,
-    date,
-    index,
+    page: response.data.page,
+    total: response.data.end,
+    list: (response.data.dtoList || []).map((item) => ({
+      rno: item.rno,
+      name: item.userName,
+      date: item.date,
+      index: item.index,
+    })),
   };
-  console.log(data);
-  const response = await axios.post("/reservation/", data);
-  return response.data;
+
+  return data;
 }
 
-export async function removeReservation(id) {
+export async function getUserReservationList(token, id, page) {
+  const axios = getSpringAxios(token);
+
+  const params = {
+    page: page || undefined,
+  };
+
+  const response = await axios.get("/reservation-user/" + id, { params });
+
+  const data = {
+    page: response.data.page,
+    total: response.data.end,
+    list: (response.data.dtoList || []).map((item) => ({
+      rno: item.rno,
+      name: item.adminName,
+      date: item.date,
+      index: item.index,
+    })),
+  };
+
+  return data;
+}
+
+export async function createReservation(req) {
+  const axios = getSpringAxios();
+
+  const body = {
+    admin_id: req.adminId,
+    user_id: req.userId,
+    content: req.description,
+    date: req.date,
+    index: req.index,
+  };
+
+  const response = await axios.post("/reservation/", body);
+
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
+}
+
+export async function deleteReservation(id) {
   const axios = getSpringAxios();
 
   const response = await axios.put("/reservation/" + id);
-  return response.data;
+
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
 }
 
-export async function getAdminReservationTime(id, date) {
+export async function getReserveTime(id, date) {
   const axios = getSpringAxios();
 
   const response = await axios.get(`/reserved-times/${id}/${date}`);
-  return response.data;
+
+  const data = response.data.map((item) => item.index);
+
+  return data;
 }
