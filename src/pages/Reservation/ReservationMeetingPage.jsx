@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { RTCClient } from "../../librarys/webrtc/rtc-client.js";
 import { AudioRecorder } from "../../librarys/webrtc/rtc-recorder.js";
 import dayjs from "dayjs";
+import { ImExit } from "react-icons/im";
 
 const Container = styled.div`
   height: 100%;
@@ -42,7 +43,7 @@ const Description = styled.p`
   text-shadow: 0px 2px 2px #0000007f;
 `;
 
-const Status = styled.p`
+const Status = styled.div`
   top: 50%;
   position: absolute;
   transform: translateY(-50%);
@@ -51,30 +52,37 @@ const Status = styled.p`
   font-size: 3.5vw;
   font-weight: 600;
 `;
-
-const Menu = styled.div`
-  bottom: 64px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 16px;
-  font-size: 16px;
-  background-color: #0000003f;
+const StatusDescription = styled.p`
+  margin-top: 8px;
   color: white;
-  border-radius: 256px;
-  position: absolute;
-  display: flex;
-  gap: 16px;
+  text-align: center;
+  font-size: 1.2vw;
+  font-weight: 400;
+  white-space: pre-wrap;
+`;
+
+const Icon = styled(ImExit)`
+  width: 24px;
+  height: 24px;
 `;
 
 const Button = styled.button`
-  padding: 2px 16px;
-  border-radius: 256px;
-  background: none;
+  top: 72px;
+  left: 16px;
+  padding: 8px 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: absolute;
+  font-size: 16px;
+  background-color: #f51643;
+  color: white;
   border: none;
   cursor: pointer;
 
   &:hover {
-    background-color: #0000001f;
+    background-color: #ba0b2e;
   }
 `;
 
@@ -83,7 +91,10 @@ const ReservationMeetingPage = () => {
   const clientVideo = useRef(null);
   const remoteVideo = useRef(null);
   const { uuid } = useParams();
-  const [remoteStatus, setRemoteStatus] = useState("연결되지 않음");
+  const [status, setStatus] = useState("연결되지 않음");
+  const [statusDescription, setStatusDescription] = useState(
+    "아직 상대방이 접속하지 않았어요.\n상대방이 접속할 때까지 기다려주세요.",
+  );
   const [peer, setPeer] = useState(new RTCClient());
   const [recorder, setRecorder] = useState(new AudioRecorder());
 
@@ -93,11 +104,17 @@ const ReservationMeetingPage = () => {
     };
 
     peer.addEventListener("stream", onStream);
+
     peer.addEventListener("disconnect", () => {
       recorder.stop();
-      setRemoteStatus("연결 종료");
+      setStatus("연결 종료");
+      setStatusDescription("비대면 진료가 종료되었어요.");
     });
-    peer.addEventListener("open", () => setRemoteStatus(""));
+
+    peer.addEventListener("open", () => {
+      setStatus("");
+      setStatusDescription("");
+    });
 
     recorder.addEventListener("complete", (event) => {
       const blob = event.detail.data;
@@ -144,13 +161,17 @@ const ReservationMeetingPage = () => {
         </VideoWrapper>
         <VideoWrapper>
           <Video ref={remoteVideo} autoPlay />
-          <Status>{remoteStatus}</Status>
+          <Status>
+            {status}
+            <StatusDescription>{statusDescription}</StatusDescription>
+          </Status>
           <Description>상대방</Description>
         </VideoWrapper>
       </VideoContainer>
-      <Menu>
-        <Button onClick={() => navigate("/dashboard")}>나가기</Button>
-      </Menu>
+      <Button onClick={() => navigate("/dashboard")}>
+        <Icon />
+        나가기
+      </Button>
     </Container>
   );
 };
