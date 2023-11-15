@@ -17,24 +17,21 @@ const Label = styled.p`
   margin-bottom: 6px;
 `;
 
-function InputTextContainer({ label, required, value, onInput, ...props }) {
+function InputTextContainer({ label, name, required, value, onChange, ...props }) {
   return (
     <InputContainer {...props}>
       <Label>{label}</Label>
-      <Input value={value} onInput={onInput} />
+      <Input name={name} value={value} onChange={onChange} required={required} />
     </InputContainer>
   );
 }
 
 InputTextContainer.propTypes = {
   label: PropTypes.string,
+  name: PropTypes.string,
   required: PropTypes.bool,
   value: PropTypes.string,
-  onInput: PropTypes.func,
-};
-
-InputTextContainer.defaultProps = {
-  required: false,
+  onChange: PropTypes.func,
 };
 
 export default InputTextContainer;

@@ -74,6 +74,11 @@ const Signup = () => {
     }
   };
 
+  const handleInputChange = (id) => {
+    return (e) => {
+      setFormData({ ...formData, [id]: e.target.value });
+    }
+  };
 
   return (
     <BlockContainer>
@@ -81,23 +86,26 @@ const Signup = () => {
       <TitleText text="회원가입" />
       <Grid>
         <RoleButton role="doctor" isSelected={selectedRole === 'doctor'} onSelectRole={() => handleSelectRole('doctor')} />
-        <RoleButton role="therapist" isSelected={selectedRole === 'therapist'} onSelectRole={() => handleSelectRole('therapist')} />
-        <DropdownFilter 
-          label="소속 병원명 *" 
-          items={hospitalItems}
-          onSelect={handleSelectHospital}
-        />
-        <InputImage onImageSelect={handleImageSelect} style={{ gridRowEnd: "span 2" }} />
-        <InputTextContainer label="전공 분야 *" />
-        <InputTextContainer label="성함 *" />
-        <InputTextContainer label="연락처 *" />
-        <InputTextContainer
-          label="이메일 *"
-          style={{ gridColumnEnd: "span 2" }}
-        />
-        <InputTextContainer label="아이디 *" />
-        <InputTextContainer label="비밀번호 *" />
-        <RegisterButton type="submit">회원가입</RegisterButton>
+          <RoleButton role="therapist" isSelected={selectedRole === 'therapist'} onSelectRole={() => handleSelectRole('therapist')} />
+          <DropdownFilter 
+            label="소속 병원명 *" 
+            items={hospitalItems}
+            onSelect={handleSelectHospital}
+          />
+          <InputImage onImageSelect={handleImageSelect} style={{ gridRowEnd: "span 2" }} />
+          <InputTextContainer label="전공 분야 *" name="department" value={formData.department} onChange={handleInputChange("department")} />
+          <InputTextContainer label="성함 *" name="name" value={formData.name} onChange={handleInputChange("name")} />
+          <InputTextContainer label="연락처 *" name="phone" value={formData.phone} onChange={handleInputChange("phone")} />
+          <InputTextContainer
+            label="이메일 *"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange("email")}
+            style={{ gridColumnEnd: "span 2" }}
+          />
+          <InputTextContainer label="아이디 *" name="mid" value={formData.mid} onChange={handleInputChange("mid")} />
+          <InputTextContainer label="비밀번호 *" name="password" value={formData.password} onChange={handleInputChange("password")} />
+          <RegisterButton type="submit">회원가입</RegisterButton>
       </Grid>
       </form>
     </BlockContainer>
