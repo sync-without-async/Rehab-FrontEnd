@@ -29,13 +29,11 @@ export async function getVideoList(req) {
 
   const params = {
     page: req.page,
-    title: req.query,
+    title: req.query || undefined,
     tag: req.category,
   };
 
-  if (!params.title) {
-    params.title = undefined;
-  } else if (typeof params.title === "string") {
+  if (typeof params.title === "string") {
     params.title = params.title.trim();
   }
 
