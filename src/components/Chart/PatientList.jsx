@@ -88,9 +88,9 @@ const PatientList = () => {
   };
 
   const [roleText, roleKey] = useMemo(() => {
-    if (role === ROLE_TYPE.ADMIN_DOCTOR) {
+    if (role === ROLE_TYPE.DOCTOR) {
       return ["재활치료사", "therapist"];
-    } else if (role === ROLE_TYPE.ADMIN_THERAPIST) {
+    } else if (role === ROLE_TYPE.THERAPIST) {
       return ["전문의", "doctor"];
     } else {
       return ["", ""];

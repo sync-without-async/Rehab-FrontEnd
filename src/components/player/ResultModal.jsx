@@ -118,7 +118,7 @@ const ResultModal = () => {
       <Container>
         <TitleText text="운동 결과" small />
         <List>{percentage ? ResultBlock : LoadingBlock}</List>
-        <Button type="primary" onClick={() => navigate("/dashboard")}>
+        <Button type="primary" onClick={() => navigate("/")}>
           종료하기
         </Button>
       </Container>

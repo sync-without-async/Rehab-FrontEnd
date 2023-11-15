@@ -1,6 +1,6 @@
 import axios from "axios";
-const SPRING_URL = import.meta.env.VITE_SPRING_URL;
-const AI_URL = import.meta.env.VITE_AI_URL;
+export const SPRING_URL = import.meta.env.VITE_SPRING_URL;
+export const AI_URL = import.meta.env.VITE_AI_URL;
 
 const TIMEOUT_LONG = 1000 * 60 * 60 * 24; // 하루
 const TIMEOUT_SHORT = 1000 * 15; // 15초

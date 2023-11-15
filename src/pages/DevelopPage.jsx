@@ -39,8 +39,8 @@ const Text = styled.p`
 
 const routes = [
   {
-    path: "/",
-    title: "/",
+    path: "/dev",
+    title: "/dev",
     description: "개발 메인 페이지",
   },
   {
@@ -54,8 +54,8 @@ const routes = [
     description: "회원가입",
   },
   {
-    path: "/dashboard",
-    title: "/dashboard",
+    path: "/",
+    title: "/",
     description: "대시보드",
   },
   {
