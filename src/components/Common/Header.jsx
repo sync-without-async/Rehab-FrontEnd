@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectRole } from "../../redux/userSlice.js";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const HeaderContainer = styled.div`
   top: 0;
@@ -36,53 +39,54 @@ const totalItems = [
     id: "intro",
     value: "서비스 소개",
     link: "/",
-    role: ["VISITOR"],
+    role: [ROLE_TYPE.VISITOR],
   },
   {
     id: "register",
     value: "회원가입",
-    link: "/signup",
-    role: ["VISITOR"],
+    link: "/register",
+    role: [ROLE_TYPE.VISITOR],
   },
   {
     id: "add_exercise",
     value: "운동 등록",
-    link: "/theraexerciseadd",
-    role: ["ADMIN_DOCTOR"],
+    link: "/video/create",
+    role: [ROLE_TYPE.ADMIN_THERAPIST],
   },
   {
     id: "user_dashboard",
     value: "나의 수강",
-    link: "/",
-    role: ["USER"],
+    link: "/dashboard",
+    role: [ROLE_TYPE.USER],
   },
   {
     id: "admin_dashboard",
     value: "대시보드",
-    link: "/",
-    role: ["ADMIN_DOCTOR", "ADMIN_THERAPIST"],
+    link: "/dashboard",
+    role: [ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
   },
   {
     id: "untact_appointment",
     value: "비대면 진료",
-    link: "/theramakeassgin",
-    role: ["USER", "ADMIN_DOCTOR", "ADMIN_THERAPIST"],
+    link: "/meeting",
+    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
   },
   {
     id: "login",
     value: "로그인",
     link: "/login",
-    role: ["VISITOR"],
+    role: [ROLE_TYPE.VISITOR],
   },
   {
     id: "logout",
     value: "로그아웃",
     link: "/logout",
-    role: ["USER", "ADMIN_DOCTOR", "ADMIN_THERAPIST"],
+    role: [ROLE_TYPE.USER, ROLE_TYPE.ADMIN_DOCTOR, ROLE_TYPE.ADMIN_THERAPIST],
   },
 ];
 
-export default function Header({ role }) {
+const Header = () => {
+  const role = useSelector(selectRole);
   const navigate = useNavigate();
   const menuItems = totalItems.filter((item) => item.role.includes(role));
 
@@ -98,12 +102,6 @@ export default function Header({ role }) {
       </Navigation>
     </HeaderContainer>
   );
-}
-
-Header.propTypes = {
-  role: PropTypes.string,
 };
 
-Header.defaultProps = {
-  role: "VISITOR",
-};
+export default Header;

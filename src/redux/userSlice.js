@@ -1,5 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { dummyLogin } from "../librarys/dummy-api.js";
+import { userLogin } from "../librarys/api/login.js";
+import { ROLE_TYPE } from "../librarys/type.js";
 
 export const loginUser = createAsyncThunk(
   "user/loginUser",
@@ -19,7 +21,7 @@ export const userSlice = createSlice({
     refresh_token: null,
     id: null,
     name: null,
-    role: null,
+    role: ROLE_TYPE.VISITOR,
     location: null,
     department: null,
     doctor: null,
