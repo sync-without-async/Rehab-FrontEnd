@@ -1,12 +1,9 @@
 import { styled } from "styled-components";
-
 import Modal from "../Common/Modal.jsx";
-import PropTypes from "prop-types";
 
 import { useDispatch } from "react-redux";
 import { hide } from "../../redux/modalSlice.js";
 import TitleText from "../Common/TitleText.jsx";
-import ModalTitleText from "../Common/ModalTitleText.jsx";
 import Button from "../Button/Button.jsx";
 import { useNavigate } from "react-router-dom";
 import { useContext, useMemo } from "react";
@@ -43,10 +40,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 16px;
-`;
-
-const ButtonText = styled.p`
-  font-size: 12px;
 `;
 
 const id = "startup_notice";
