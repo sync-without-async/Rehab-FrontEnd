@@ -15,15 +15,15 @@ const Item = styled.input`
   }
 `;
 
-function InputText({ value, onInput, className }) {
+function InputText({ value, onChange, className }) {
   return (
-    <Item type="text" value={value} onChange={onInput} className={className} />
+    <Item type="text" value={value} onChange={onChange} className={className} />
   );
 }
 
 InputText.propTypes = {
   value: PropTypes.string,
-  onInput: PropTypes.func,
+  onChange: PropTypes.func,
   className: PropTypes.string,
 };
 

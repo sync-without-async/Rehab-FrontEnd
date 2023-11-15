@@ -27,8 +27,7 @@ const Icon = styled.img`
   height: 40px; 
 `;
 
-const RoleButton = ({ role }) => {
-  const [isSelected, setIsSelected] = useState(false);
+const RoleButton = ({ role, isSelected, onSelectRole }) => {
   let iconSrc, buttonText;
 
   switch(role) {
@@ -48,12 +47,8 @@ const RoleButton = ({ role }) => {
       throw new Error("Invalid role provided");
   }
 
-  const handleButtonClick = () => {
-    setIsSelected(!isSelected);
-  }
-
   return (
-    <Button isSelected={isSelected} onClick={handleButtonClick}>
+    <Button isSelected={isSelected} onClick={onSelectRole}>
       <Icon src={iconSrc} alt={buttonText} />
       {buttonText}
     </Button>
