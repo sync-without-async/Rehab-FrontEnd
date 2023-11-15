@@ -11,13 +11,14 @@ const Item = styled.div`
   margin-top: 12px;
   width: 100%;
   height: 72px;
+  border: 1px solid #bbbbbb;
   background-color: #ffffff;
   cursor: pointer;
   display: flex;
   gap: 12px;
 
   border-radius: 10px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 
   &.ghost {
@@ -89,7 +90,7 @@ const Close = styled.button`
   width: 50px;
   height: 80px;
   border: none;
-  background: #ff5252;
+  background-color: white;
   cursor: pointer;
 
   &:not(.removable) {
@@ -100,7 +101,7 @@ const Close = styled.button`
 const Icon = styled(IoClose)`
   width: 28px;
   height: 28px;
-  color: white;
+  color: #ff5252;
 `;
 
 function getDisplayTime(time) {
