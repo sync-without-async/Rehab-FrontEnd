@@ -47,7 +47,7 @@ const Content = styled.div`
   transition: transform 0.25s;
 `;
 
-const Modal = ({ id, className, style, children, onToggle }) => {
+const Modal = ({ id, className, style, children, preventClose, onToggle }) => {
   const dispatch = useDispatch();
   const isVisible = useSelector(selectVisible(id));
   const [interactable, setInteractable] = useState(false);
@@ -61,7 +61,11 @@ const Modal = ({ id, className, style, children, onToggle }) => {
 
   const onClick = useCallback(
     (e) => {
-      if (contentRef.current && !contentRef.current.contains(e.target)) {
+      if (
+        !preventClose &&
+        contentRef.current &&
+        !contentRef.current.contains(e.target)
+      ) {
         dispatch(hide(id));
       }
     },
@@ -100,11 +104,13 @@ Modal.propTypes = {
   className: PropTypes.string,
   style: PropTypes.object,
   children: PropTypes.node,
+  preventClose: PropTypes.bool,
   onToggle: PropTypes.func,
 };
 
 Modal.defaultProps = {
   id: "modal",
+  preventClose: false,
   onToggle: () => {},
 };
 

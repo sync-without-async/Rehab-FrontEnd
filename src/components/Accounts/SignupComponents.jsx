@@ -2,7 +2,6 @@ import styled from "styled-components";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import RoleButton from "../Button/RoleButton.jsx";
-import Dropdown from "../Dropdown/Dropdown.jsx";
 import InputImage from "../Input/InputImage.jsx";
 import InputTextContainer from "../Input/InputTextContainer.jsx";
 import Button from "../Button/Button.jsx";

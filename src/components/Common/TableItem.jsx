@@ -12,10 +12,21 @@ const Item = styled.div`
   background-color: #ffffff;
   cursor: pointer;
 
+  transition:
+    transform 0.25s,
+    background-color 0.25s;
+
   &.header {
     background-color: #f3f3f3;
     color: #666;
     cursor: default;
+  }
+
+  &:not(.header) {
+    &:hover {
+      background-color: #f3f3f3;
+      transform: scale(1.01);
+    }
   }
 `;
 
