@@ -6,6 +6,8 @@ import InputTextContainer from "../Input/InputTextContainer.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
+import { registerChart } from "../../librarys/api/chart";
+import { useState } from "react";
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -24,12 +26,51 @@ const Btn = styled(Button)`
 `;
 
 const DoctorChart = () => {
+
+  const genderChoice = [
+    { key: "남성", value: "남성" },
+    { key: "여성", value: "여성" }
+  ];
+
+  const handlegenderChoice = (gender) => {
+    console.log("Selected Gender: ", gender.key);
+    setChartData({ ...chartData, gender: gender.key });
+  };
+
+  const [chartData, setChartData] = useState({
+    cd: "",
+    patientName: "",
+    phone: "",
+    sex: "",
+    birth: "",
+    //doctor_id: "",
+    //therapist_id: "", 
+    schedule: "",
+    treatmentRecord: "",
+    exerciseRequest: ""
+  });
+
+  const handleInputChange = (e) => {
+    setChartData({ ...chartData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await registerChart(chartData);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  
   return (
     <BlockContainer>
       <TitleText text="환자 차트 작성" />
       <Grid>
         <InputTextContainer label="질병 분류 번호 *" />
-        <DropdownFilter label="환자 성별 *" items={[]} />
+        <DropdownFilter label="환자 성별 *" items={genderChoice} onSelect={handlegenderChoice} />
         <InputTextContainer label="환자 성함 *" />
         <DateSelect labelText="환자 생년월일 *" />
         <InputTextContainer label="환자 전화번호 *" />
