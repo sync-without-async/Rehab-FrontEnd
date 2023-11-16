@@ -1,14 +1,12 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Icondoctor from "../../assets/icons/icondoctor.png";
-import Iconmajor from "../../assets/icons/iconmajor.png";
-import Iconhospital from "../../assets/icons/iconhospital.png";
 import DoctorImage from "../../assets/images/user/Odoctor.png";
-import TherapistImage from "../../assets/images/user/Otherapist.png";
-import { ReservationCreateModal } from "../Reservation/ReservationCreateModal";
 import { useDispatch } from "react-redux";
 import { show } from "../../redux/modalSlice.js";
+
+import { FaUser } from "react-icons/fa";
+import { MdLocalHospital, MdLocationOn } from "react-icons/md";
 
 const Card = styled.div`
   width: 280px;
@@ -18,7 +16,6 @@ const Card = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin: 20px;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   background-color: #ffffff;
 `;
 
@@ -52,14 +49,18 @@ const Avatar = styled.img`
 const UserName = styled.span`
   font-size: 30px;
   font-weight: bold;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
 `;
 
 const Info = styled.div`
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 12px;
   margin-bottom: 10px;
   text-align: left;
+  & > svg {
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
 `;
 
 const Button = styled.button`
@@ -72,17 +73,6 @@ const Button = styled.button`
   border: none;
   align-self: center;
   font-size: 12px;
-`;
-
-const Icon = styled.img`
-  height: 12px;
-  width: 12px;
-  margin-right: 5px;
-  vertical-align: middle;
-`;
-
-const MidSection = styled.div`
-  background-color: rgba(0, 100, 255, 0.03);
 `;
 
 export const UserSelectCard = ({
@@ -109,21 +99,19 @@ export const UserSelectCard = ({
       <Card>
         <Title>담당 {role} 프로필</Title>
         <Separator />
-        <MidSection>
-          <ImageContainer>
-            <Avatar src={image} alt="avatar" />
-          </ImageContainer>
-          <UserName>{name}</UserName>
-        </MidSection>
+        <ImageContainer>
+          <Avatar src={image} alt="avatar" />
+        </ImageContainer>
+        <UserName>{name}</UserName>
         <Separator />
         <Info>
-          <Icon src={Icondoctor} alt="icon" /> {role}
+          <FaUser /> {role}
         </Info>
         <Info>
-          <Icon src={Iconhospital} alt="icon" /> {hospital}
+          <MdLocalHospital /> {hospital}
         </Info>
         <Info>
-          <Icon src={Iconmajor} alt="icon" /> {department}
+          <MdLocationOn /> {department}
         </Info>
         <Separator />
         <Button onClick={handleClick}>진료 예약</Button>
