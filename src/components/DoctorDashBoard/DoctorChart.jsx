@@ -26,10 +26,9 @@ const Btn = styled(Button)`
 `;
 
 const DoctorChart = () => {
-
   const genderChoice = [
     { key: "남성", value: "남성" },
-    { key: "여성", value: "여성" }
+    { key: "여성", value: "여성" },
   ];
 
   const handlegenderChoice = (gender) => {
@@ -44,14 +43,16 @@ const DoctorChart = () => {
     sex: "",
     birth: "",
     //doctor_id: "",
-    //therapist_id: "", 
+    //therapist_id: "",
     schedule: "",
     treatmentRecord: "",
-    exerciseRequest: ""
+    exerciseRequest: "",
   });
 
-  const handleInputChange = (e) => {
-    setChartData({ ...chartData, [e.target.name]: e.target.value });
+  const handleInputChange = (id) => {
+    return (e) => {
+      setChartData({ ...chartData, [id]: e.target.value });
+    };
   };
 
   const handleSubmit = async (e) => {
@@ -64,14 +65,25 @@ const DoctorChart = () => {
     }
   };
 
-  
   return (
     <BlockContainer>
       <TitleText text="환자 차트 작성" />
       <Grid>
-        <InputTextContainer label="질병 분류 번호 *" />
-        <DropdownFilter label="환자 성별 *" items={genderChoice} onSelect={handlegenderChoice} />
-        <InputTextContainer label="환자 성함 *" />
+        <InputTextContainer label="질병 분류 번호 *" 
+          name="cd"
+          value={chartData.cd}
+          onChange={handleInputChange("cd")}
+        />
+        <DropdownFilter
+          label="환자 성별 *"
+          items={genderChoice}
+          onSelect={handlegenderChoice}
+        />
+        <InputTextContainer label="환자 성함 *"
+          name="patientName"
+          value={chartData.patientName}
+          onChange={handleInputChange("patientName")}
+        />
         <DateSelect labelText="환자 생년월일 *" />
         <InputTextContainer label="환자 전화번호 *" />
         <DropdownFilter label="담당 치료사 *" items={[]} />
