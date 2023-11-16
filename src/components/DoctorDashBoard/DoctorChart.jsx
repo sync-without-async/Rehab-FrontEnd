@@ -64,6 +64,7 @@ const DoctorChart = () => {
   };
 
   const accessToken = useSelector(selectToken);
+console.log("Access Token:", accessToken);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
