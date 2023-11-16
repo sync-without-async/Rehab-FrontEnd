@@ -9,7 +9,7 @@ import Button from "../Button/Button.jsx";
 import { registerChart } from "../../librarys/api/chart";
 import { useState } from "react";
 import { useSelector } from 'react-redux';
-import { selectToken } from '../../redux/userSlice'
+import { selectId, selectToken } from '../../redux/userSlice'
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -28,14 +28,16 @@ const Btn = styled(Button)`
 `;
 
 const DoctorChart = () => {
+  const id = useSelector(selectId);
+  
   const genderChoice = [
     { key: "남성", value: "남성" },
     { key: "여성", value: "여성" },
   ];
 
-  const handlegenderChoice = (gender) => {
-    console.log("Selected Gender: ", gender.key);
-    setChartData({ ...chartData, gender: gender.key });
+  const handlegenderChoice = (sex) => {
+    console.log("Selected Gender: ", sex.key);
+    setChartData({ ...chartData,  sex:  sex.key });
   };
 
   const [chartData, setChartData] = useState({
@@ -64,7 +66,7 @@ const DoctorChart = () => {
   };
 
   const accessToken = useSelector(selectToken);
-console.log("Access Token:", accessToken);
+  console.log("Access Token:", accessToken);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
