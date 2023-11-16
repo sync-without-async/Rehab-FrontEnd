@@ -92,9 +92,17 @@ const DoctorChart = () => {
         <DropdownFilter label="담당 치료사 *" items={[]} />
         <DateSelect labelText="다음 외래 일정 *" />
         <div />
-        <InputArea label="진료 기록 작성 *" />
-        <InputArea label="재활치료사 재활 운동 요청서 작성 *" />
-        <Btn type="primary">차트 등록하기</Btn>
+        <InputArea label="진료 기록 작성 *"           
+          name="treatmentRecord"
+          value={chartData.treatmentRecord}
+          onChange={handleInputChange("treatmentRecord")}
+          />
+        <InputArea label="재활치료사 재활 운동 요청서 작성 *"           
+          name="exerciseRequest"
+          value={chartData.exerciseRequest}
+          onChange={handleInputChange("exerciseRequest")}
+          />
+        <Btn type="primary" onClick={handleSubmit}>차트 등록하기</Btn> 
       </Grid>
     </BlockContainer>
   );
