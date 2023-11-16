@@ -1,4 +1,5 @@
-import { modifyMetrics, getMetrics } from "./api/program.js";
+import { modifyMetrics } from "./api/program.js";
+import { getMetrics } from "./api/ai.js";
 import { sleep } from "./util.js";
 
 class Player {
