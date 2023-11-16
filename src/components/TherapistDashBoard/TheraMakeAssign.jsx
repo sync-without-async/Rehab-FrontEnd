@@ -6,7 +6,7 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import { ReducerContext } from "../../reducer/context.js";
 import BlockContainer from "../Common/BlockContainer.jsx";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   intialprogramAssignState,
   programAssignReducer,
@@ -18,6 +18,9 @@ import { IoClose } from "react-icons/io5";
 import Button from "../Button/Button.jsx";
 import { getVideoList } from "../../librarys/api/video.js";
 import DnDList from "../Common/DnDList.jsx";
+import { modifyProgram } from "../../librarys/api/program.js";
+import { useSelector } from "react-redux";
+import { selectId } from "../../redux/userSlice.js";
 
 const InputArea = styled(InputAreaContainer)`
   margin-top: 28px;
@@ -76,6 +79,8 @@ const TheraMakeAssign = () => {
     programAssignReducer,
     intialprogramAssignState,
   );
+  const { id } = useParams();
+  const adminId = useSelector(selectId);
 
   const {
     programList,
@@ -99,6 +104,33 @@ const TheraMakeAssign = () => {
       type: "tag",
       payload: item?.key,
     });
+  };
+
+  const handleSubmit = async () => {
+    if (assignDescription === "" || assignDescription.length < 4) {
+      alert("과제 설명을 4자 이상 적어주세요.");
+      return;
+    }
+
+    if (assignList === null || assignList.length < 1) {
+      alert("환자에게 운동을 할당해주세요!");
+      return;
+    }
+
+    console.log(assignList);
+
+    const response = await modifyProgram({
+      adminId,
+      userId: id,
+      description: assignDescription,
+      list: assignList.map((item) => item.vno),
+    });
+
+    console.log(response);
+
+    alert("과제 할당이 완료되었습니다.");
+
+    navigate("/");
   };
 
   const handleDragEnd = (event) => {
@@ -208,7 +240,9 @@ const TheraMakeAssign = () => {
           </DragDropContext>
         </RowContainer>
         <ButtonContainer>
-          <Button type="primary">과제 할당</Button>
+          <Button type="primary" onClick={handleSubmit}>
+            과제 할당
+          </Button>
         </ButtonContainer>
       </BlockContainer>
     </ReducerContext.Provider>
