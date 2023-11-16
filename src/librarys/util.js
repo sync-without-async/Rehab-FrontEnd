@@ -21,3 +21,5 @@ export const throttle = (callback, delay) => {
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export const getByPath = (o, p) => p.split(".").reduce((a, v) => a[v], o);

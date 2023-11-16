@@ -1,14 +1,12 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Icondoctor from "../../assets/icons/icondoctor.png";
-import Iconmajor from "../../assets/icons/iconmajor.png";
-import Iconhospital from "../../assets/icons/iconhospital.png";
 import DoctorImage from "../../assets/images/user/Odoctor.png";
-import TherapistImage from "../../assets/images/user/Otherapist.png";
-import { ReservationCreateModal } from "../Reservation/ReservationCreateModal";
 import { useDispatch } from "react-redux";
 import { show } from "../../redux/modalSlice.js";
+
+import { FaUser } from "react-icons/fa";
+import { MdLocalHospital, MdLocationOn } from "react-icons/md";
 
 const Card = styled.div`
   width: 280px;
@@ -18,7 +16,6 @@ const Card = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   margin: 20px;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   background-color: #ffffff;
 `;
 
@@ -52,14 +49,18 @@ const Avatar = styled.img`
 const UserName = styled.span`
   font-size: 30px;
   font-weight: bold;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
 `;
 
 const Info = styled.div`
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 12px;
   margin-bottom: 10px;
   text-align: left;
+  & > svg {
+    height: 16px;
+    width: 16px;
+    margin-right: 5px;
+    vertical-align: middle;
+  }
 `;
 
 const Button = styled.button`
@@ -74,67 +75,62 @@ const Button = styled.button`
   font-size: 12px;
 `;
 
-const Icon = styled.img`
-  height: 12px;
-  width: 12px;
-  margin-right: 5px;
-  vertical-align: middle;
-`;
-
-const MidSection = styled.div`
-  background-color: rgba(0, 100, 255, 0.03);
-`;
-
-export const UserSelectCard = ({ userType, userData }) => {
+export const UserSelectCard = ({
+  id,
+  role,
+  name,
+  image,
+  hospital,
+  department,
+}) => {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    dispatch(show("reservation_create"));
+  const handleClick = () => {
+    dispatch(
+      show({
+        id: "reservation_create",
+        props: id,
+      }),
+    );
   };
-
-  if (!userData) return null;
-
-  const imageUrl = userType === "admin1" ? DoctorImage : TherapistImage;
-  const title =
-    userType === "admin1" ? "담당 전문의 프로필" : "담당 재활치료사 프로필";
 
   return (
     <>
       <Card>
-        <Title>{title}</Title>
+        <Title>담당 {role} 프로필</Title>
         <Separator />
-        <MidSection>
-          <ImageContainer>
-            <Avatar src={imageUrl} alt="avatar" />
-          </ImageContainer>
-          <UserName>{userData.name}</UserName>
-        </MidSection>
+        <ImageContainer>
+          <Avatar src={image} alt="avatar" />
+        </ImageContainer>
+        <UserName>{name}</UserName>
         <Separator />
         <Info>
-          <Icon src={Icondoctor} alt="icon" />{" "}
-          {userType === "admin1" ? "전문의" : "재활치료사"}
+          <FaUser /> {role}
         </Info>
         <Info>
-          <Icon src={Iconhospital} alt="icon" /> {userData.workplace}
+          <MdLocalHospital /> {hospital}
         </Info>
         <Info>
-          <Icon src={Iconmajor} alt="icon" /> {userData.major}
+          <MdLocationOn /> {department}
         </Info>
         <Separator />
-        <Button onClick={toggleModal}>진료 예약</Button>
+        <Button onClick={handleClick}>진료 예약</Button>
       </Card>
     </>
   );
 };
 
 UserSelectCard.propTypes = {
-  userType: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    name: PropTypes.string,
-    workplace: PropTypes.string,
-    major: PropTypes.string,
-  }).isRequired,
+  id: PropTypes.string,
+  role: PropTypes.string,
+  name: PropTypes.string,
+  image: PropTypes.string,
+  hospital: PropTypes.string,
+  department: PropTypes.string,
+};
+
+UserSelectCard.defaultProps = {
+  image: DoctorImage,
 };
 
 export default UserSelectCard;

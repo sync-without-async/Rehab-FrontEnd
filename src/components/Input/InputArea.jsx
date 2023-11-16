@@ -30,7 +30,7 @@ function InputArea({ value, onInput, disabled, className }) {
   return (
     <Item
       type="text"
-      value={value}
+      defaultValue={value}
       onChange={onInput}
       disabled={disabled}
       className={displayClassName}
