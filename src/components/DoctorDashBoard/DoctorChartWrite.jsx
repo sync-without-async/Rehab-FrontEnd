@@ -87,20 +87,19 @@ export const DoctorChartWrite = ({ onClose ,  onSubmit}) => {
   const [recordData, setRecordData] = useState({
     treatmentRecord: '',
     exerciseRequest: '',
-    nextSchedule: getCurrentDate() // 기본값으로 오늘 날짜 설정
+    nextSchedule: getCurrentDate()
   });
 
-  // 입력 처리 핸들러
   const handleInputChange = (e) => {
-    setRecordData({ ...recordData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setRecordData(prevData => ({ ...prevData, [name]: value }));
   };
 
-  // 날짜 변경 처리 핸들러
+
   const handleDateChange = (date) => {
     setRecordData({ ...recordData, nextSchedule: date });
   };
 
-  // 제출 핸들러
   const handleSubmit = () => {
     onSubmit(recordData);
     onClose();
@@ -115,13 +114,13 @@ export const DoctorChartWrite = ({ onClose ,  onSubmit}) => {
         <Divider />
         <DateText>오늘 날짜: {getCurrentDate()}</DateText> 
         <InputTextLong 
-          label="진료 기록 작성*" 
+          label="진료 기록 작성 *" 
           name="treatmentRecord" 
           value={recordData.treatmentRecord} 
           onChange={handleInputChange} 
         />
         <InputTextLong 
-          label="재활치료사 재활 운동 요청서 작성*" 
+          label="재활치료사 재활 운동 요청서 작성 *" 
           name="exerciseRequest" 
           value={recordData.exerciseRequest} 
           onChange={handleInputChange} 
