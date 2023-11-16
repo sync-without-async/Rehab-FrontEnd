@@ -3,9 +3,17 @@ import Pagination from "../Pagination/Pagination";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import Callout from "../Common/Callout.jsx";
-import { useMemo } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import { MdArrowForwardIos } from "react-icons/md";
 import Table from "../Common/Table.jsx";
+import { useSelector } from "react-redux";
+import { selectId, selectToken } from "../../redux/userSlice.js";
+import { getUserPrograms } from "../../librarys/api/program.js";
+import { ReducerContext } from "../../reducer/context.js";
+import {
+  intialProgramListState,
+  programListReducer,
+} from "../../reducer/program-list.js";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -26,24 +34,6 @@ const Icon = styled(MdArrowForwardIos)`
   cursor: pointer;
 `;
 
-const data = [];
-
-for (let i = 1; i <= 10; i++) {
-  let score;
-
-  if (Math.random() < 0.5) {
-    score = 0;
-  } else {
-    score = Math.floor(Math.random() * 800) / 1000 + 0.2;
-  }
-  data.push({
-    pno: i,
-    ord: i,
-    title: "운동 이름 " + i,
-    metrics: score,
-  });
-}
-
 function getMetricsDisplay(value) {
   return Math.round(value * 1000) / 10 + "%";
 }
@@ -59,9 +49,18 @@ function getGrade(value) {
 }
 
 const UserAssignList = () => {
+  const [state, dispatch] = useReducer(
+    programListReducer,
+    intialProgramListState,
+  );
+  const token = useSelector(selectToken);
+  const id = useSelector(selectId);
+
+  const { list, description } = state;
+
   const assignData = [
     ["번호", "과제 이름", "정확도", "판정", "수강"],
-    ...data.map((item) => [
+    ...list.map((item) => [
       item.ord,
       item.title,
       getMetricsDisplay(item.metrics),
@@ -70,10 +69,22 @@ const UserAssignList = () => {
     ]),
   ];
 
+  useEffect(() => {
+    (async () => {
+      const response = await getUserPrograms(token, id);
+      console.log(response);
+
+      dispatch({
+        type: "data",
+        payload: response,
+      });
+    })();
+  }, [id]);
+
   return (
     <Container>
       <TitleText text="과제" small={true} />
-      <Callout title="과제 설명" content="어쩌구 저쩌구~~~~~" />
+      <Callout title="과제 설명" content={description} />
       <Table
         template="60px 420px 90px 100px 50px"
         align={["right", "left", "right", "center", "center"]}

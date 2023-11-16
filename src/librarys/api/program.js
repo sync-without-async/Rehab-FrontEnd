@@ -16,10 +16,14 @@ export async function getVideo(id) {
   };
 }
 
-export async function getUserPrograms(token, id) {
+export async function getUserPrograms(token, id, page) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/video/list/" + id);
+  const params = {
+    page,
+  };
+
+  const response = await axios.get("/video/list/" + id, { params });
 
   const data = {
     description: response.data.first,
@@ -28,7 +32,7 @@ export async function getUserPrograms(token, id) {
     list: (response.data.second.dtoList || []).map((item) => ({
       id: item.ord,
       title: item.title,
-      videoId: item.id,
+      videoId: item.vno,
       metrics: item.metrics,
     })),
   };
@@ -48,8 +52,8 @@ export async function createProgram(req) {
   const axios = getSpringAxios(req.token);
 
   const body = {
-    adminId: req.adminId,
-    userId: req.userId,
+    staff_id: req.adminId,
+    patient_id: req.userId,
     description: req.description,
     ord_map: req.list.reduce(
       (result, item, index) => ({

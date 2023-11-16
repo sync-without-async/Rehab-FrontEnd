@@ -33,10 +33,30 @@ export async function getChartList(token, id) {
 
   const response = await axios.get("/chart/auth/list/" + id);
 
-  const data = response.data.map((item) => ({
-    // TODO: 명세 정확하게 알아올것
-    ...item,
-  }));
+  const data = {
+    page: response.data.page,
+    total: response.data.end,
+    list: (response.data.dtoList || []).map((item) => ({
+      id: item.cno,
+      diseaseCode: item.cd,
+      name: item.name,
+      phone: item.phone,
+      gender: item.sex,
+      birthday: item.birth,
+      doctor_id: item.doctor_id,
+      therapist_id: item.therapist_id,
+      medicalRecords: (item.medicalRecords || []).map((item) => ({
+        id: item.record_no,
+        date: item.schedule,
+        treatmentRecord: item.treatmentRecord,
+        exerciseRequest: item.exerciseRequest,
+      })),
+      onlineRecords: (item.onlineRecords || []).map((item) => ({
+        // TODO: 정확한 명세 알아올 것
+        ...item,
+      })),
+    })),
+  };
 
   return data;
 }
@@ -102,9 +122,8 @@ export async function createRecord(req) {
   return data;
 }
 
-
 export async function getChartOne(chartId, token) {
-  const axios = getSpringAxios(token); 
+  const axios = getSpringAxios(token);
 
   try {
     const response = await axios.get(`/chart/${chartId}`);
