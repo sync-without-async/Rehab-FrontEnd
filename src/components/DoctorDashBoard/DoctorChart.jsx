@@ -7,7 +7,7 @@ import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
 import { registerChart } from "../../librarys/api/chart";
-import { useState } from "react";
+import { useState, useEffect  } from "react";
 import { useSelector } from 'react-redux';
 import { selectId, selectToken } from '../../redux/userSlice'
 
@@ -29,7 +29,11 @@ const Btn = styled(Button)`
 
 const DoctorChart = () => {
   const id = useSelector(selectId);
-  
+
+  useEffect(() => {
+    setChartData((prevData) => ({ ...prevData, doctor_id: id }));
+  }, [id]);
+
   const genderChoice = [
     { key: "남성", value: "남성" },
     { key: "여성", value: "여성" },
@@ -46,7 +50,7 @@ const DoctorChart = () => {
     phone: "",
     sex: "",
     birth: "",
-    //doctor_id: "",
+    doctor_id: "",
     //therapist_id: "",
     schedule: "",
     treatmentRecord: "",
