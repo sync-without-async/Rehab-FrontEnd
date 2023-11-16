@@ -6,7 +6,7 @@ import InputTextContainer from "../Input/InputTextContainer.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
-import { registerChart } from "../../librarys/api/chart";
+import { registerChart, getTherapistList  } from "../../librarys/api/chart";
 import { useState, useEffect  } from "react";
 import { useSelector } from 'react-redux';
 import { selectId, selectToken } from '../../redux/userSlice'
@@ -51,7 +51,7 @@ const DoctorChart = () => {
     sex: "",
     birth: "",
     doctor_id: "",
-    //therapist_id: "",
+    therapist_id: "",
     schedule: "",
     treatmentRecord: "",
     exerciseRequest: "",
@@ -69,8 +69,27 @@ const DoctorChart = () => {
     };
   };
 
+  const [therapistList, setTherapistList] = useState([]);
   const accessToken = useSelector(selectToken);
   console.log("Access Token:", accessToken);
+
+  useEffect(() => {
+    const fetchTherapists = async () => {
+      try {
+        const therapists = await getTherapistList(accessToken);
+        setTherapistList(therapists.map(t => ({ key: t.mid, value: t.name + " (" + t.department + ")" })));
+      } catch (error) {
+        console.error("재활치료사 목록 조회가 안됩니다.", error);
+      }
+    };
+
+    fetchTherapists();
+  }, [accessToken]);
+
+  const handleTherapistSelect = (therapist) => {
+    console.log("Selected Therapist: ", therapist);
+    setChartData({ ...chartData, therapist_id: therapist.key });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -111,7 +130,11 @@ const DoctorChart = () => {
           name="phone"
           value={chartData.phone}
           onChange={handleInputChange("phone")}/>
-        <DropdownFilter label="담당 치료사 *" items={[]} />
+        <DropdownFilter
+          label="담당 치료사 *"
+          items={therapistList}
+          onSelect={handleTherapistSelect}
+        />
         <DateSelect
           labelText="다음 외래 일정 *"
           value={chartData.schedule}
