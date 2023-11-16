@@ -108,3 +108,18 @@ export async function modifyPassword(token, mid, currentPassword, newPassword) {
 
   return data;
 }
+
+export async function getTherapistList(token) {
+  const axios = getSpringAxios(token);
+
+  const response = await axios.get("/auth/getTherapistList");
+
+  const data = response.data.map((item) => ({
+    mid: item.mid,
+    name: item.name,
+    location: item.location,
+    department: item.department,
+  }));
+
+  return data;
+}
