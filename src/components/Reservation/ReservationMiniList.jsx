@@ -10,12 +10,12 @@ import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import ReservationInfoModal from "./ReservationInfoModal.jsx";
 import { useSelector } from "react-redux";
-import { selectId, selectRole } from "../../redux/userSlice.js";
-import {
-  getReservationListAdmin,
-  getReservationListUser,
-} from "../../librarys/dummy-api.js";
+import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
 import ReservationMiniItem from "./ReservationMiniItem.jsx";
+import {
+  getAdminReservationList,
+  getUserReservationList,
+} from "../../librarys/api/reservation.js";
 
 const List = styled.div`
   margin: 28px 0;
@@ -32,16 +32,18 @@ const ReservationMiniList = () => {
     intialReservationListState,
   );
   const { list, page } = state;
+  const token = useSelector(selectToken);
   const id = useSelector(selectId);
   const role = useSelector(selectRole);
 
   useEffect(() => {
     (async () => {
       let data;
+
       if (role === "USER") {
-        data = await getReservationListUser(id, page);
+        data = await getUserReservationList(token, id, page);
       } else {
-        data = await getReservationListAdmin(id, page);
+        data = await getAdminReservationList(token, id, page);
       }
 
       dispatch({
@@ -49,7 +51,7 @@ const ReservationMiniList = () => {
         payload: data,
       });
     })();
-  }, [id, role, page]);
+  }, [token, id, page, role]);
 
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
@@ -60,10 +62,14 @@ const ReservationMiniList = () => {
           {list.map((item) => (
             <ReservationMiniItem
               key={item.rno}
-              id={item.rno}
+              id={item.id}
+              uuid={item.uuid}
               date={item.date}
               index={item.index}
-              name={item.adminName || item.userName}
+              role={item.role}
+              name={item.name}
+              description={item.description}
+              summary={item.summary}
             />
           ))}
         </List>

@@ -37,10 +37,12 @@ const ButtonContainer = styled.div`
 
 const id = "reservation_detail";
 
+const notReadyText = "아직 비대면 진료 요약이 생성되지 않았습니다.";
+
 const ReservationInfoModal = () => {
   const dispatch = useDispatch();
   const value = useSelector(selectProps(id));
-  const { reservationId, description, aiSummary } = value || {};
+  const { reservationId, description, summary } = value || {};
 
   async function onCancelButtonClick() {
     const response = await deleteReservation(reservationId);
@@ -56,9 +58,12 @@ const ReservationInfoModal = () => {
     <Modal id={id}>
       <Container>
         <ModalTitleText text="진료 예약 상세 정보" id={id} />
-        <Chart />
         <Input label="진료 희망 사유" value={description} disabled={true} />
-        <Input label="AI 비대면 진료 요약" value={aiSummary} disabled={true} />
+        <Input
+          label="AI 비대면 진료 요약"
+          value={summary || notReadyText}
+          disabled={true}
+        />
         <ButtonContainer>
           <Button type="primary">환자 차트 페이지로</Button>
           <Button onClick={onCancelButtonClick}>예약 취소</Button>

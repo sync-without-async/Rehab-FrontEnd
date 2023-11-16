@@ -19,6 +19,7 @@ import {
 } from "../../librarys/api/reservation.js";
 import { useSelector } from "react-redux";
 import { selectId } from "../../redux/userSlice.js";
+import { selectProps } from "../../redux/modalSlice.js";
 
 const Container = styled.div`
   display: flex;
@@ -76,10 +77,10 @@ export const ReservationCreateModal = () => {
     intialReserveCreateState,
   );
   const userId = useSelector(selectId);
+  const adminId = useSelector(selectProps(id));
 
   const [times, setTimes] = useState(createTimes());
-  const { adminId, index, disabledTime, description, year, month, date } =
-    state;
+  const { index, disabledTime, description, year, month, date } = state;
   const serverTime = useMemo(
     () => dayjs([year, month, date]).format("YYYY-MM-DD"),
     [(year, month, date)],
@@ -92,6 +93,9 @@ export const ReservationCreateModal = () => {
     });
 
     (async () => {
+      if (!adminId) {
+        return;
+      }
       const response = await getReserveTime(adminId, serverTime);
 
       dispatch({
@@ -99,7 +103,7 @@ export const ReservationCreateModal = () => {
         payload: response,
       });
     })();
-  }, [serverTime]);
+  }, [adminId, serverTime]);
 
   function onSelect(id) {
     dispatch({
@@ -119,7 +123,7 @@ export const ReservationCreateModal = () => {
     const res = await createReservation({
       adminId,
       userId,
-      content: state.description,
+      description: state.description,
       date: serverTime,
       index: state.index,
     });
