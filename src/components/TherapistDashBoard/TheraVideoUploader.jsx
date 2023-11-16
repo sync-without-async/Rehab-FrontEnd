@@ -2,7 +2,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import { useState } from "react";
 import SkeletonVideo from "../Skeleton/SkeletonVideo";
-import { getSkeletons } from "../../librarys/api/skeleton.js";
+import { getSkeletons } from "../../librarys/api/ai.js";
 import classNames from "classnames";
 import { useRef } from "react";
 import { useMemo } from "react";
