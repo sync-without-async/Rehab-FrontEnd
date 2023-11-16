@@ -66,7 +66,7 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-const DateSelect = ({ labelText }) => {
+const DateSelect = ({ labelText, onChange }) => {
   const [date, setDate] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -80,6 +80,7 @@ const DateSelect = ({ labelText }) => {
     const formattedDate = selected.format(format);
     setDate(formattedDate);
     setOpen(false);
+    if (onChange) onChange(formattedDate);
   };
 
   const getSeparator = () => {
@@ -118,6 +119,7 @@ const DateSelect = ({ labelText }) => {
     }
 
     setDate(currentDate);
+    if (onChange) onChange(currentDate);
   };
 
   const modalRef = useRef(null);
@@ -166,7 +168,8 @@ const DateSelect = ({ labelText }) => {
 };
 
 DateSelect.propTypes = {
-  labelText: PropTypes.string.isRequired
+  labelText: PropTypes.string.isRequired,
+  onChange: PropTypes.func
 };
 
 export default DateSelect;
