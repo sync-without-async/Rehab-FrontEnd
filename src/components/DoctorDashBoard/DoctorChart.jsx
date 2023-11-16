@@ -85,7 +85,10 @@ const DoctorChart = () => {
           onChange={handleInputChange("patientName")}
         />
         <DateSelect labelText="환자 생년월일 *" />
-        <InputTextContainer label="환자 전화번호 *" />
+        <InputTextContainer label="환자 전화번호 *"           
+          name="phone"
+          value={chartData.phone}
+          onChange={handleInputChange("phone")}/>
         <DropdownFilter label="담당 치료사 *" items={[]} />
         <DateSelect labelText="다음 외래 일정 *" />
         <div />
