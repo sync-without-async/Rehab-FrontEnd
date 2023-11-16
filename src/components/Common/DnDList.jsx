@@ -48,7 +48,7 @@ const DnDList = ({ id, data, dropping, dragging, removable }) => {
 
 DnDList.propTypes = {
   id: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(PropTypes.array).isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
   dropping: PropTypes.bool,
   dragging: PropTypes.bool,
   removable: PropTypes.bool,
