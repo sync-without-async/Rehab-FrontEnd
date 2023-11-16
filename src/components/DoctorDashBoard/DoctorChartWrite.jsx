@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import XButton from '../../assets/icons/iconx.png';
 import InputTextLong from '../Input/InputTextLong';
 import DateSelect from '../Input/DateSelect';
+import { useState } from 'react';
+import { createRecord } from "../../librarys/api/chart"
 
 const Overlay = styled.div`
   position: fixed;
@@ -73,7 +75,7 @@ const Button = styled.button`
 `;
 
 
-export const DoctorChartWrite = ({ onClose }) => {
+export const DoctorChartWrite = ({ onClose ,  onSubmit}) => {
   const getCurrentDate = () => {
     const date = new Date();
     const year = date.getFullYear();
@@ -82,6 +84,29 @@ export const DoctorChartWrite = ({ onClose }) => {
     return `${year}-${month}-${day}`;
   };
 
+  const [recordData, setRecordData] = useState({
+    treatmentRecord: '',
+    exerciseRequest: '',
+    nextSchedule: getCurrentDate() // 기본값으로 오늘 날짜 설정
+  });
+
+  // 입력 처리 핸들러
+  const handleInputChange = (e) => {
+    setRecordData({ ...recordData, [e.target.name]: e.target.value });
+  };
+
+  // 날짜 변경 처리 핸들러
+  const handleDateChange = (date) => {
+    setRecordData({ ...recordData, nextSchedule: date });
+  };
+
+  // 제출 핸들러
+  const handleSubmit = () => {
+    onSubmit(recordData);
+    onClose();
+  };
+
+
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
@@ -89,10 +114,24 @@ export const DoctorChartWrite = ({ onClose }) => {
         <CloseIcon src={XButton} alt="Close" onClick={onClose} />
         <Divider />
         <DateText>오늘 날짜: {getCurrentDate()}</DateText> 
-        <InputTextLong label="진료 기록 작성*" />
-        <InputTextLong label="재활치료사 재활 운동 요청서 작성*" />
-        <DateSelect labelText="다음 외래 진료 일정 *" />
-        <Button>기록 추가</Button>
+        <InputTextLong 
+          label="진료 기록 작성*" 
+          name="treatmentRecord" 
+          value={recordData.treatmentRecord} 
+          onChange={handleInputChange} 
+        />
+        <InputTextLong 
+          label="재활치료사 재활 운동 요청서 작성*" 
+          name="exerciseRequest" 
+          value={recordData.exerciseRequest} 
+          onChange={handleInputChange} 
+        />
+        <DateSelect 
+          labelText="다음 외래 진료 일정 *" 
+          value={recordData.nextSchedule}
+          onChange={handleDateChange} 
+        />
+        <Button onClick={handleSubmit}>기록 추가</Button>
       </ModalContainer>
     </Overlay>
   );
@@ -100,6 +139,7 @@ export const DoctorChartWrite = ({ onClose }) => {
 
 DoctorChartWrite.propTypes = {
   onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default DoctorChartWrite;

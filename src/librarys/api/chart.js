@@ -82,6 +82,7 @@ export async function createChart(req) {
   return data;
 }
 
+//진료 기록 추가
 export async function createRecord(req) {
   const axios = getSpringAxios(req.token);
 
