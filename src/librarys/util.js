@@ -23,3 +23,7 @@ export function sleep(ms) {
 }
 
 export const getByPath = (o, p) => p.split(".").reduce((a, v) => a[v], o);
+
+export const getJwtPayload = (token) => {
+  return token ? JSON.parse(atob(token.split(".")[1])) : null;
+};

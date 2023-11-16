@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import {
   intialprogramAssignState,
   programAssignReducer,
-} from "../../reducer/chart-assign.js";
+} from "../../reducer/program-assign.js";
 import TitleText from "../Common/TitleText.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import { CATEGORY_LIST } from "../../librarys/type.js";

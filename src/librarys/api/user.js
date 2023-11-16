@@ -1,4 +1,5 @@
 import { ROLE_LIST, ROLE_TYPE } from "../type.js";
+import { getJwtPayload } from "../util.js";
 import { SPRING_URL, getSpringAxios } from "./axios";
 
 // get ~~
@@ -19,7 +20,24 @@ export async function getUserToken(mid, password) {
   const data = {
     accessToken: response.data.accessToken,
     refreshToken: response.data.refreshToken,
+    id: null,
+    role: null,
+    expire: null,
   };
+
+  const payload = getJwtPayload(data.accessToken);
+
+  const ROLE_CONVERT = {
+    ROLE_PATIENT: "USER",
+    ROLE_DOCTOR: "DOCTOR",
+    ROLE_THERAPIST: "THERAPIST",
+  };
+
+  data.id = payload.mid;
+  data.role = ROLE_CONVERT[payload.role];
+  data.expire = payload.exp;
+
+  data.role = ROLE_TYPE[data.role];
 
   return data;
 }
@@ -54,7 +72,7 @@ export async function createAccount(req) {
     email: req.email,
     phone: req.phone,
     staffRole: req.role,
-    // fileName: req.image || "",
+    profileUrl: req.image,
   };
 
   const response = await axios.post("/join", body);
@@ -67,10 +85,10 @@ export async function createAccount(req) {
   return data;
 }
 
-export async function getUserInfo(token, id) {
+export async function getStaffInfo(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/auth/user/info/" + id);
+  const response = await axios.get("/auth/staff/info/" + id);
 
   const data = {
     id: response.data.mid,
@@ -84,8 +102,25 @@ export async function getUserInfo(token, id) {
   };
 
   data.role = data.role && data.role.slice(1, -1);
-  data.role = ROLE_TYPE[data.role || "VISITOR"];
+  data.role = ROLE_TYPE[data.role];
   data.image = SPRING_URL + "view/" + data.image;
+
+  return data;
+}
+
+export async function getPatientInfo(token, id) {
+  const axios = getSpringAxios(token);
+
+  const response = await axios.get("/auth/patient/info/" + id);
+
+  const data = {
+    id: response.data.mid,
+    name: response.data.name,
+    birthday: response.data.birth,
+    gender: response.data.sex,
+    phone: response.data.phone,
+    role: ROLE_TYPE.USER,
+  };
 
   return data;
 }
