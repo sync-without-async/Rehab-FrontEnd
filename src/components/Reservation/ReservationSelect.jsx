@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { UserSelectCard } from "../UserDashBoard/UserSelectCard";
-import { getDoctorData, userLogin } from "../../librarys/dummy-api";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import ReservationCreateModal from "./ReservationCreateModal.jsx";
@@ -19,8 +18,6 @@ const Text = styled.p`
   font-weight: 400;
 `;
 
-const { doctor, therapist } = getDoctorData();
-
 const ReservationSelect = () => {
   return (
     <BlockContainer>
@@ -28,8 +25,20 @@ const ReservationSelect = () => {
       <TitleText text="비대면 진료 예약" />
       <Text>진료를 희망하는 의료진을 선택해주세요.</Text>
       <CardWrapper>
-        <UserSelectCard userType="admin1" userData={doctor} />
-        <UserSelectCard userType="admin2" userData={therapist} />
+        <UserSelectCard
+          id="doctor1"
+          role="전문의"
+          name="사용자"
+          hospital="춘천성심병원"
+          department="재활의학과"
+        />
+        <UserSelectCard
+          id="therapist1"
+          role="재활치료사"
+          name="사용자"
+          hospital="춘천성심병원"
+          department="재활의학과"
+        />
       </CardWrapper>
     </BlockContainer>
   );

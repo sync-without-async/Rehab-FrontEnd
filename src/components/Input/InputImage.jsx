@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
+import { createImage } from "../../librarys/api/image.js";
 
 const UploadBox = styled.div`
   width: 154px;
@@ -29,25 +31,34 @@ const ImagePreview = styled.img`
   object-fit: contain;
 `;
 
-const InputImage = ({ onImageSelect, ...props }) => {
+const InputImage = ({ onUpload, ...props }) => {
   const [preview, setPreview] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const ref = useRef(null);
 
-  const handleImageChange = (e) => {
+  const handleInputChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        setSelectedFile(file);
-        onImageSelect(file);
-      };
-      reader.readAsDataURL(file);
+
+    if (!file) {
+      return;
     }
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      handleUpload(reader.result, file);
+    };
+    reader.readAsDataURL(file);
   };
 
-  const triggerFileInput = () => {
-    document.getElementById("imageInput").click();
+  const handleUpload = async (image, file) => {
+    setPreview(image);
+    const response = await createImage(file);
+    onUpload(response.link);
+  };
+
+  const handleClick = () => {
+    if (ref) {
+      ref.current.click();
+    }
   };
 
   const content = useMemo(() => {
@@ -59,11 +70,15 @@ const InputImage = ({ onImageSelect, ...props }) => {
   }, [preview]);
 
   return (
-    <UploadBox {...props} onClick={triggerFileInput}>
+    <UploadBox {...props} onClick={handleClick}>
       {content}
-      <HiddenInput type="file" onChange={handleImageChange} id="imageInput" />
+      <HiddenInput ref={ref} type="file" onChange={handleInputChange} />
     </UploadBox>
   );
+};
+
+InputImage.propTypes = {
+  onUpload: PropTypes.func,
 };
 
 export default InputImage;

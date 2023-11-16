@@ -46,7 +46,7 @@ export async function createAccount(req) {
   const axios = getSpringAxios();
 
   const body = {
-    mid: req.mid,
+    mid: req.id,
     name: req.name,
     password: req.password,
     hospital: req.hospital,
@@ -54,7 +54,7 @@ export async function createAccount(req) {
     email: req.email,
     phone: req.phone,
     staffRole: req.role,
-    fileName: req.image,
+    // fileName: req.image || "",
   };
 
   const response = await axios.post("/join", body);
