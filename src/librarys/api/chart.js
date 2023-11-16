@@ -82,6 +82,7 @@ export async function createChart(req) {
   return data;
 }
 
+//진료 기록 추가
 export async function createRecord(req) {
   const axios = getSpringAxios(req.token);
 
@@ -99,4 +100,17 @@ export async function createRecord(req) {
   };
 
   return data;
+}
+
+
+export async function getChartOne(chartId, token) {
+  const axios = getSpringAxios(token); 
+
+  try {
+    const response = await axios.get(`/chart/${chartId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chart data:", error);
+    throw error;
+  }
 }

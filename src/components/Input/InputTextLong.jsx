@@ -29,14 +29,15 @@ const TextArea = styled.textarea`
   }
 `;
 
-function InputLongText({ label }) {
+function InputLongText({ label, name, value, onChange }) {
   return (
     <InputContainer>
       <Label>{label}</Label>
-      <TextArea />
+      <TextArea name={name} value={value} onChange={onChange} />
     </InputContainer>
   );
 }
 
 export { TextArea };
 export default InputLongText;
+
