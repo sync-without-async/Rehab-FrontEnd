@@ -8,6 +8,8 @@ import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
 import { registerChart } from "../../librarys/api/chart";
 import { useState } from "react";
+import { useSelector } from 'react-redux';
+import { selectToken } from '../../redux/userSlice'
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -61,10 +63,13 @@ const DoctorChart = () => {
     };
   };
 
+  const accessToken = useSelector(selectToken);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await registerChart(chartData);
+      const response = await registerChart(chartData, accessToken);
       console.log(response);
     } catch (error) {
       console.error(error);
