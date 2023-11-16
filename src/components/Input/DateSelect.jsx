@@ -66,7 +66,7 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-const DateSelect = ({ labelText, onChange }) => {
+const DateSelect = ({ labelText, value, onChange, ...props }) => {
   const [date, setDate] = useState('');
   const [open, setOpen] = useState(false);
 
@@ -169,6 +169,7 @@ const DateSelect = ({ labelText, onChange }) => {
 
 DateSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
+  value: PropTypes.string,
   onChange: PropTypes.func
 };
 

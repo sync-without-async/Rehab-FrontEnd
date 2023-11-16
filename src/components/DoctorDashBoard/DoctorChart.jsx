@@ -55,6 +55,12 @@ const DoctorChart = () => {
     };
   };
 
+  const handleDateChange = (name) => {
+    return (value) => {
+      setChartData({ ...chartData, [name]: value });
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -84,13 +90,21 @@ const DoctorChart = () => {
           value={chartData.patientName}
           onChange={handleInputChange("patientName")}
         />
-        <DateSelect labelText="환자 생년월일 *" />
+        <DateSelect
+          labelText="환자 생년월일 *"
+          value={chartData.birth}
+          onChange={handleDateChange("birth")}
+        />
         <InputTextContainer label="환자 전화번호 *"           
           name="phone"
           value={chartData.phone}
           onChange={handleInputChange("phone")}/>
         <DropdownFilter label="담당 치료사 *" items={[]} />
-        <DateSelect labelText="다음 외래 일정 *" />
+        <DateSelect
+          labelText="다음 외래 일정 *"
+          value={chartData.schedule}
+          onChange={handleDateChange("schedule")}
+        />
         <div />
         <InputArea label="진료 기록 작성 *"           
           name="treatmentRecord"
