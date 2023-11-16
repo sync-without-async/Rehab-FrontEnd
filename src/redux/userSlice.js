@@ -1,6 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { ROLE_TYPE } from "../librarys/type.js";
-import { getUserToken, getUserInfo } from "../librarys/api/user.js";
+import {
+  getUserToken,
+  getStaffInfo,
+  getPatientInfo,
+} from "../librarys/api/user.js";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -12,9 +16,13 @@ export const login = createAsyncThunk(
 
 export const getMyInfo = createAsyncThunk(
   "user/getMyInfo",
-  async ({ id, accessToken }, thunkAPI) => {
-    const response = await getUserInfo(accessToken, id);
-    return response;
+  async ({ id, role, accessToken }, thunkAPI) => {
+    if (role === ROLE_TYPE.USER) {
+      return await getPatientInfo(accessToken, id);
+    } else if ([ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST].includes(role)) {
+      return await getStaffInfo(accessToken, id);
+    }
+    return {};
   },
 );
 
@@ -51,15 +59,23 @@ export const userSlice = createSlice({
       state.accessToken = action.payload.accessToken;
       state.refreshToken = action.payload.refreshToken;
       state.id = action.payload.id;
+      state.role = action.payload.role;
     });
 
     builder.addCase(getMyInfo.fulfilled, (state, action) => {
-      state.id = action.payload.id;
-      state.name = action.payload.name;
-      state.role = action.payload.role;
-      state.location = action.payload.location;
-      state.department = action.payload.department;
-      state.image = action.payload.image;
+      if (action.payload.role === ROLE_TYPE.USER) {
+        state.id = action.payload.id;
+        state.name = action.payload.name;
+        state.phone = action.payload.phone;
+        state.role = action.payload.role;
+      } else {
+        state.id = action.payload.id;
+        state.name = action.payload.name;
+        state.role = action.payload.role;
+        state.location = action.payload.location;
+        state.department = action.payload.department;
+        state.image = action.payload.image;
+      }
     });
   },
 });

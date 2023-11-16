@@ -55,8 +55,6 @@ const LoginComponents = () => {
 
     const infoResponse = await dispatch(getMyInfo(tokenResponse.payload));
 
-    console.log(infoResponse);
-
     alert(`${infoResponse.payload.name}님, 환영합니다.`);
 
     if (redirect) {
