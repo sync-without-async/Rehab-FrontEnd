@@ -85,56 +85,64 @@ const MidSection = styled.div`
   background-color: rgba(0, 100, 255, 0.03);
 `;
 
-export const UserSelectCard = ({ userType, userData }) => {
+export const UserSelectCard = ({
+  id,
+  role,
+  name,
+  image,
+  hospital,
+  department,
+}) => {
   const dispatch = useDispatch();
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = () => {
-    dispatch(show("reservation_create"));
+  const handleClick = () => {
+    dispatch(
+      show({
+        id: "reservation_create",
+        props: id,
+      }),
+    );
   };
-
-  if (!userData) return null;
-
-  const imageUrl = userType === "admin1" ? DoctorImage : TherapistImage;
-  const title =
-    userType === "admin1" ? "담당 전문의 프로필" : "담당 재활치료사 프로필";
 
   return (
     <>
       <Card>
-        <Title>{title}</Title>
+        <Title>담당 {role} 프로필</Title>
         <Separator />
         <MidSection>
           <ImageContainer>
-            <Avatar src={imageUrl} alt="avatar" />
+            <Avatar src={image} alt="avatar" />
           </ImageContainer>
-          <UserName>{userData.name}</UserName>
+          <UserName>{name}</UserName>
         </MidSection>
         <Separator />
         <Info>
-          <Icon src={Icondoctor} alt="icon" />{" "}
-          {userType === "admin1" ? "전문의" : "재활치료사"}
+          <Icon src={Icondoctor} alt="icon" /> {role}
         </Info>
         <Info>
-          <Icon src={Iconhospital} alt="icon" /> {userData.workplace}
+          <Icon src={Iconhospital} alt="icon" /> {hospital}
         </Info>
         <Info>
-          <Icon src={Iconmajor} alt="icon" /> {userData.major}
+          <Icon src={Iconmajor} alt="icon" /> {department}
         </Info>
         <Separator />
-        <Button onClick={toggleModal}>진료 예약</Button>
+        <Button onClick={handleClick}>진료 예약</Button>
       </Card>
     </>
   );
 };
 
 UserSelectCard.propTypes = {
-  userType: PropTypes.string.isRequired,
-  userData: PropTypes.shape({
-    name: PropTypes.string,
-    workplace: PropTypes.string,
-    major: PropTypes.string,
-  }).isRequired,
+  id: PropTypes.string,
+  role: PropTypes.string,
+  name: PropTypes.string,
+  image: PropTypes.string,
+  hospital: PropTypes.string,
+  department: PropTypes.string,
+};
+
+UserSelectCard.defaultProps = {
+  image: DoctorImage,
 };
 
 export default UserSelectCard;
