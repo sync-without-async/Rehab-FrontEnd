@@ -5,19 +5,19 @@ import { createFormData, getSpringAxios } from "./axios";
 // modify ~~
 // delete ~~
 
-export async function createImage(files) {
+export async function createImage(file) {
   const axios = getSpringAxios();
 
   const body = {
-    files,
+    file,
   };
 
   const response = await axios.post("/upload", createFormData(body));
 
   const data = {
-    uuid: response.data.uuid,
-    fileName: response.data.fileName,
-    link: response.data.link,
+    // uuid: response.data.uuid,
+    // fileName: response.data.fileName,
+    link: response.data.profileUrl,
   };
 
   return data;

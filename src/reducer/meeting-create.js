@@ -24,16 +24,10 @@ export const intialReserveCreateState = {
   disabledTime: [],
   index: null,
   description: "",
-  adminId: "ldh",
 };
 
 export function reserveCreateReducer(state, action) {
   switch (action.type) {
-    case "adminId":
-      return {
-        ...state,
-        adminId: action.payload,
-      };
     case "prevMonth":
       return {
         ...state,

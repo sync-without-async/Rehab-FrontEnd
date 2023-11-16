@@ -1,10 +1,11 @@
-export const intialReservationListState = {
+export const intialProgramListState = {
   list: [],
   page: 1,
   totalPage: 1,
+  description: "",
 };
 
-export function reservationListReducer(state, action) {
+export function programListReducer(state, action) {
   switch (action.type) {
     case "page":
       return {
@@ -14,14 +15,13 @@ export function reservationListReducer(state, action) {
     case "data":
       return {
         ...state,
+        description: action.payload.description,
         list: action.payload.list || [],
         page: action.payload.page || 1,
-        totalPage: action.payload.end || 1,
+        totalPage: action.payload.total || 1,
       };
     default:
-      console.error(
-        "[ReservationListReducer] Undefined action: " + action.type,
-      );
+      console.error("[ProgramListReducer] Undefined action: " + action.type);
       return state;
   }
 }

@@ -1,3 +1,4 @@
+import { ROLE_TYPE } from "../type.js";
 import { getSpringAxios } from "./axios.js";
 
 export async function getAdminReservationList(token, id, page) {
@@ -14,9 +15,12 @@ export async function getAdminReservationList(token, id, page) {
     total: response.data.end,
     list: (response.data.dtoList || []).map((item) => ({
       rno: item.rno,
-      name: item.userName,
+      name: item.patientName,
       date: item.date,
       index: item.index,
+      description: item.content,
+      summary: item.aiSummary,
+      role: ROLE_TYPE.USER,
     })),
   };
 
@@ -36,10 +40,14 @@ export async function getUserReservationList(token, id, page) {
     page: response.data.page,
     total: response.data.end,
     list: (response.data.dtoList || []).map((item) => ({
-      rno: item.rno,
+      id: item.rvno,
+      uuid: item.rno,
       name: item.adminName,
       date: item.date,
       index: item.index,
+      description: item.content,
+      summary: item.aiSummary,
+      role: ROLE_TYPE.DOCTOR,
     })),
   };
 
@@ -50,11 +58,11 @@ export async function createReservation(req) {
   const axios = getSpringAxios();
 
   const body = {
-    admin_id: req.adminId,
-    user_id: req.userId,
+    staff_id: req.adminId,
+    patient_id: req.userId,
     content: req.description,
     date: req.date,
-    index: req.index,
+    index: req.index.toString(),
   };
 
   const response = await axios.post("/reservation/", body);

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import player from "../../assets/icons/player.png";
 import Pagination from "../Pagination/Pagination";
 import { useState, useEffect, useReducer, useMemo } from "react";
-import { userLogin, getUserExercises } from "../../librarys/dummy-api";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import BlockContainer from "../Common/BlockContainer.jsx";
@@ -11,10 +10,11 @@ import TitleText from "../Common/TitleText.jsx";
 import Table from "../Common/Table.jsx";
 import dayjs from "dayjs";
 import { useSelector } from "react-redux";
-import { selectRole } from "../../redux/userSlice.js";
+import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
 import { MdArrowForwardIos } from "react-icons/md";
 import { ReducerContext } from "../../reducer/context.js";
+import { getChartList } from "../../librarys/api/chart.js";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -80,6 +80,9 @@ const PatientList = () => {
   const [state, dispatch] = useReducer(chartListReducer, intialChartListState);
   const { list } = state;
 
+  const token = useSelector(selectToken);
+  const id = useSelector(selectId);
+
   const handleSortSelect = (item) => {
     dispatch({
       type: "sort",
@@ -99,25 +102,28 @@ const PatientList = () => {
 
   const chartData = useMemo(
     () => [
-      [
-        "환자 이름",
-        "생년월일",
-        "과제 수행도",
-        "담당 " + roleText,
-        "다음 외래 일정",
-        "차트",
-      ],
+      ["환자 이름", "생년월일", "담당 " + roleText, "다음 외래 일정", "차트"],
       ...list.map((item) => [
         item.name,
         getDisplayBirthday(item.birthday),
-        getDisplayPercentage(item.metrics),
         item[roleKey],
-        getDisplayDate(item.nextDate),
+        getDisplayDate(item.medicalRecords[0].date),
         <Icon key={item.id} />,
       ]),
     ],
     [list, roleText, roleKey],
   );
+
+  useEffect(() => {
+    (async () => {
+      const response = await getChartList(token, id);
+
+      dispatch({
+        type: "data",
+        payload: response,
+      });
+    })();
+  }, [id, token]);
 
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
@@ -132,8 +138,8 @@ const PatientList = () => {
           />
         </SearchAndFilterContainer>
         <Table
-          template="100px 220px 100px 120px 130px 50px"
-          align={["center", "center", "center", "center", "center", "center"]}
+          template="100px 320px 120px 130px 50px"
+          align={["center", "center", "center", "center", "center"]}
           data={chartData}
         />
         <Pagination />

@@ -54,16 +54,22 @@ const Btn = styled(Button)`
 3. Done    isOpen &&  isDone     완료된 예약
 */
 
-const dummyText = `그러나 한 시와 강아지, 가을 보고, 새워 까닭입니다. 까닭이요, 이름을 옥 별들을 많은 까닭입니다. 그리워 동경과 둘 이런 이런 계절이 거외다. 나의 오면 언덕 하나 무덤 이런 아직 있습니다. 자랑처럼 하나 무성할 패, 까닭입니다. 하나의 별 사람들의 너무나 별 피어나듯이 당신은 북간도에 봅니다.그러나 한 시와 강아지, 가을 보고, 새워 까닭입니다. 까닭이요, 이름을 옥 별들을 많은 까닭입니다. 그리워 동경과 둘 이런 이런 계절이 거외다. 나의 오면 언덕 하나 무덤 이런 아직 있습니다. 자랑처럼 하나 무성할 패, 까닭입니다. 하나의 별 사람들의 너무나 별 피어나듯이 당신은 북간도에 봅니다.`;
-const notReadyText = `아직 비대면 진료 요약이 생성되지 않았습니다.`;
-
 const buttonStyleList = {
   normal: { type: "primary", text: "입장" },
   complete: { type: "disabled", text: "종료되었습니다" },
   notReady: { type: "disabled", text: "예약 시간이 아님" },
 };
 
-const ReservationMiniItem = ({ id, name, date, index }) => {
+const ReservationMiniItem = ({
+  id,
+  uuid,
+  name,
+  role,
+  date,
+  index,
+  description,
+  summary,
+}) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -91,7 +97,7 @@ const ReservationMiniItem = ({ id, name, date, index }) => {
       return;
     }
 
-    navigate("/meeting/room/" + id);
+    navigate("/meeting/room/" + uuid);
   }
 
   function onInfoButtonClick() {
@@ -99,10 +105,10 @@ const ReservationMiniItem = ({ id, name, date, index }) => {
       show({
         id: "reservation_detail",
         props: {
-          reservationId: 999,
+          reservationId: id,
           chartDetail: null,
-          description: dummyText,
-          aiSummary: notReadyText,
+          description,
+          summary,
         },
       }),
     );
@@ -131,9 +137,17 @@ const ReservationMiniItem = ({ id, name, date, index }) => {
 
 ReservationMiniItem.propTypes = {
   id: PropTypes.string,
+  uuid: PropTypes.string,
   name: PropTypes.string,
+  role: PropTypes.string,
   date: PropTypes.string,
   index: PropTypes.number,
+  description: PropTypes.string,
+  summary: PropTypes.string,
+};
+
+ReservationMiniItem.defaultProps = {
+  role: "DOCTOR",
 };
 
 export default ReservationMiniItem;

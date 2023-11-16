@@ -33,7 +33,7 @@ const ReservationSelect = () => {
           department="재활의학과"
         />
         <UserSelectCard
-          id="therapist1"
+          id="the1"
           role="재활치료사"
           name="사용자"
           hospital="춘천성심병원"
