@@ -134,6 +134,8 @@ export async function getChartOne(chartId, token) {
 }
 
 
+/// ChartSummary
+
 //cno로 환자 상세 차트 조회
 export async function getChartSummary(token, staffId) {
   const axios = getSpringAxios(token);
@@ -146,3 +148,17 @@ export async function getChartSummary(token, staffId) {
     throw error;
   }
 }
+
+//환자의 mid로 차트 상세 정보를 조회
+export async function getChartByPatient(token, patientMid) {
+  const axios = getSpringAxios(token);
+
+  try {
+    const response = await axios.get(`/chart/auth/patient/${patientMid}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chart data by patient:", error);
+    throw error;
+  }
+}
+
