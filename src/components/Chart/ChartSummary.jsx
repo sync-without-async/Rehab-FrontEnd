@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getChartByPatient } from "../../librarys/api/chart";
-import { selectToken } from '../../redux/userSlice';
+import { selectToken } from "../../redux/userSlice";
 
 const Container = styled.div`
   width: 380px;
@@ -62,9 +62,9 @@ const ChartSummary = () => {
         const chartInfo = await getChartByPatient(accessToken, patientMid);
         setPatientInfo({
           diseaseCode: chartInfo.cd,
-          recentVisitDate: '백엔드에서 제공되지 않음',
+          recentVisitDate: "백엔드에서 제공되지 않음",
           nextReservationDate: chartInfo.schedule,
-          assignedTherapist: chartInfo.therapist_name
+          assignedTherapist: chartInfo.therapist_name,
         });
       } catch (error) {
         console.error("환자 차트 정보를 불러오는데 실패하였습니다.", error);
@@ -73,8 +73,6 @@ const ChartSummary = () => {
 
     fetchPatientInfo();
   }, [patientMid, accessToken]);
-
-
 
   return (
     <Container>

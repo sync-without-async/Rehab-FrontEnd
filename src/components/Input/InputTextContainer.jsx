@@ -17,11 +17,23 @@ const Label = styled.p`
   margin-bottom: 6px;
 `;
 
-function InputTextContainer({ label, name, required, value, onChange, ...props }) {
+function InputTextContainer({
+  label,
+  name,
+  required,
+  value,
+  onChange,
+  ...props
+}) {
   return (
     <InputContainer {...props}>
       <Label>{label}</Label>
-      <Input name={name} value={value} onChange={onChange} required={required} />
+      <Input
+        name={name}
+        value={value}
+        onChange={onChange}
+        required={required}
+      />
     </InputContainer>
   );
 }

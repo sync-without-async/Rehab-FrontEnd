@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import DoctorChartWrite from "./DoctorChartWrite";
 import React, { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
-import { selectId, selectToken } from '../../redux/userSlice';
+import { useSelector } from "react-redux";
+import { selectId, selectToken } from "../../redux/userSlice";
 import { createRecord, getChartOne } from "../../librarys/api/chart";
 import { useParams } from "react-router-dom";
 
@@ -86,7 +86,7 @@ const DoctorFaceRecord = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [records, setRecords] = useState([]);
   const userId = useSelector(selectId);
-  const {id: patientId} = useParams();
+  const { id: patientId } = useParams();
   const accessToken = useSelector(selectToken);
 
   const handleModalOpen = () => {
@@ -116,7 +116,7 @@ const DoctorFaceRecord = () => {
     const req = {
       ...recordData,
       id: userId,
-      token: accessToken
+      token: accessToken,
     };
 
     try {
@@ -136,16 +136,16 @@ const DoctorFaceRecord = () => {
       <Divider />
       {records.map((record, index) => (
         <React.Fragment key={index}>
-        <DateText>{record.schedule}</DateText>
-        <RecordBox>{record.treatmentRecord}</RecordBox>
-      </React.Fragment>
-    ))}
-    {isModalOpen && (
-      <DoctorChartWrite 
-        onClose={handleModalClose} 
-        onSubmit={handleRecordSubmit} 
-      />
-    )}
+          <DateText>{record.schedule}</DateText>
+          <RecordBox>{record.treatmentRecord}</RecordBox>
+        </React.Fragment>
+      ))}
+      {isModalOpen && (
+        <DoctorChartWrite
+          onClose={handleModalClose}
+          onSubmit={handleRecordSubmit}
+        />
+      )}
     </Container>
   );
 };

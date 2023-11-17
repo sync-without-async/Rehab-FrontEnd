@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getChartByPatient } from "../../librarys/api/chart";
-import { selectToken } from '../../redux/userSlice';
-
+import { selectToken } from "../../redux/userSlice";
 
 const Container = styled.div`
   width: 800px;

@@ -133,7 +133,6 @@ export async function getChartOne(chartId, token) {
   }
 }
 
-
 /// ChartSummary
 
 //cno로 환자 상세 차트 조회
@@ -161,4 +160,3 @@ export async function getChartByPatient(token, patientMid) {
     throw error;
   }
 }
-

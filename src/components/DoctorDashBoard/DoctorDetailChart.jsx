@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getChartSummary } from "../../librarys/api/chart";
-import { selectToken } from '../../redux/userSlice';
+import { selectToken } from "../../redux/userSlice";
 
 const Container = styled.div`
   width: 380px;
@@ -54,7 +54,7 @@ const Value = styled.span`
 
 const DoctorDetailChart = () => {
   const [patientInfo, setPatientInfo] = useState({});
-  const { staffId } = useParams(); 
+  const { staffId } = useParams();
   const accessToken = useSelector(selectToken);
 
   useEffect(() => {
@@ -63,9 +63,9 @@ const DoctorDetailChart = () => {
         const summary = await getChartSummary(accessToken, staffId);
         setPatientInfo({
           diseaseCode: summary.cd,
-          recentVisitDate: '아직 백엔드에서 넘겨주지 않음',
+          recentVisitDate: "아직 백엔드에서 넘겨주지 않음",
           nextReservationDate: summary.schedule,
-          assignedTherapist: summary.therapist_name
+          assignedTherapist: summary.therapist_name,
         });
       } catch (error) {
         console.error("환자 요약 정보를 불러오는데 실패하였습니다.", error);

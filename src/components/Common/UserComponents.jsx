@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import doctorImage from "../../assets/images/user/doctor.png";
 import userImage from "../../assets/images/user/user.png";
 import therapistImage from "../../assets/images/user/therapist.png";
@@ -33,15 +33,15 @@ const UserComponent = ({ userType, userName }) => {
   let jobTitle, userImg;
 
   switch (userType) {
-    case 'user':
+    case "user":
       jobTitle = "재활의학과 환자"; //임시 구현
       userImg = userImage;
       break;
-    case 'admin1':
+    case "admin1":
       jobTitle = "재활의학과 전문의"; //임시 구현
       userImg = doctorImage;
       break;
-    case 'admin2':
+    case "admin2":
       jobTitle = "재활치료사"; //임시 구현
       userImg = therapistImage;
       break;

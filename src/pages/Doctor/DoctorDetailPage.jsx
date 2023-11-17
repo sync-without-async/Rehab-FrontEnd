@@ -14,8 +14,6 @@ const Grid = styled.div`
   gap: 40px;
 `;
 
-
-
 const DoctorDetailPage = () => {
   return (
     <PageContainer>
@@ -24,7 +22,7 @@ const DoctorDetailPage = () => {
       <Grid>
         <DoctorDetailChart />
         <DoctorCheckHW />
-        </Grid>
+      </Grid>
       <DoctorFaceRecord />
       <DoctorUntactRecord />
     </PageContainer>

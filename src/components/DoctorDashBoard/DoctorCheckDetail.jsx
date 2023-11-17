@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import XButton from "../../assets/icons/iconx.png"
-import InputTextLong from '../Input/InputTextLong';
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import XButton from "../../assets/icons/iconx.png";
+import InputTextLong from "../Input/InputTextLong";
 import DoctorDetailChart from "../../components/DoctorDashBoard/DoctorDetailChart";
 
 const Overlay = styled.div`
@@ -19,7 +19,7 @@ const Overlay = styled.div`
 const ModalContainer = styled.div`
   width: 600px;
   height: 600px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -38,7 +38,7 @@ const CloseIcon = styled.img`
   right: 20px;
   top: 20px;
   cursor: pointer;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 
 const Divider = styled.hr`
@@ -53,16 +53,16 @@ const Divider = styled.hr`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 290px; 
+  width: 290px;
   margin: 20px auto 0;
 `;
 
 const Button = styled.button`
   width: 140px;
   height: 30px;
-  background-color: ${props => props.primary ? "#3592FF" : "#F3F3F3"};
-  color: ${props => props.primary ? "#FEFDFD" : "#000000"};
-  border: ${props => props.primary ? "none" : "1px solid #BBBBBB"};
+  background-color: ${(props) => (props.primary ? "#3592FF" : "#F3F3F3")};
+  color: ${(props) => (props.primary ? "#FEFDFD" : "#000000")};
+  border: ${(props) => (props.primary ? "none" : "1px solid #BBBBBB")};
   font-weight: 300;
   font-size: 14px;
   border-radius: 10px;
@@ -73,7 +73,6 @@ const StyledInputTextLong = styled(InputTextLong)`
   margin-top: 30px;
 `;
 
-
 export const DoctorCheckDetail = ({ onClose }) => {
   return (
     <Overlay onClick={onClose}>
@@ -81,7 +80,7 @@ export const DoctorCheckDetail = ({ onClose }) => {
         <Title>진료 예약 상세 정보</Title>
         <CloseIcon src={XButton} alt="Close" onClick={onClose} />
         <Divider />
-        <DoctorDetailChart  />
+        <DoctorDetailChart />
         <StyledInputTextLong label="진료 희망 사유" />
         <ButtonContainer>
           <Button primary>환자 차트 페이지로</Button>
@@ -90,7 +89,7 @@ export const DoctorCheckDetail = ({ onClose }) => {
       </ModalContainer>
     </Overlay>
   );
-}
+};
 
 DoctorCheckDetail.propTypes = {
   onClose: PropTypes.func.isRequired,
