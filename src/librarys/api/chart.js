@@ -132,3 +132,15 @@ export async function getChartOne(chartId, token) {
     throw error;
   }
 }
+
+export async function getChartSummary(token, staffId) {
+  const axios = getSpringAxios(token);
+
+  try {
+    const response = await axios.get(`/chart/auth/staff/${staffId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chart summary:", error);
+    throw error;
+  }
+}
