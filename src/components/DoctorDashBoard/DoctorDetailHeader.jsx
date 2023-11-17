@@ -1,6 +1,10 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { userLogin } from "../../librarys/dummy-api";
+import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import styled from "styled-components";
+import { getChartByPatient } from "../../librarys/api/chart";
+import { selectToken } from '../../redux/userSlice';
+
 
 const Container = styled.div`
   width: 800px;
@@ -51,23 +55,27 @@ const getCurrentAge = (birthDateStr) => {
 
 const DoctorDetailHeader = () => {
   const [patientInfo, setPatientInfo] = useState({});
+  const { patientMid } = useParams();
+  const accessToken = useSelector(selectToken);
 
   useEffect(() => {
-    async function fetchPatientInfo() {
-      const doctorInfo = await userLogin("doctor", "123456");
-      const patient = doctorInfo?.patient;
-
-      if (patient) {
-        setPatientInfo({
-          name: patient.name,
-          gender: patient.gender,
-          birth: patient.birth,
-        });
+    async function fetchPatientChart() {
+      try {
+        const chartDetail = await getChartByPatient(accessToken, patientMid);
+        if (chartDetail) {
+          setPatientInfo({
+            name: chartDetail.patient_name,
+            gender: chartDetail.sex,
+            birth: chartDetail.birth,
+          });
+        }
+      } catch (error) {
+        console.error("환자 차트 정보를 불러오는데 실패하였습니다.", error);
       }
     }
 
-    fetchPatientInfo();
-  }, []);
+    fetchPatientChart();
+  }, [patientMid, accessToken]);
 
   return (
     <Container>
