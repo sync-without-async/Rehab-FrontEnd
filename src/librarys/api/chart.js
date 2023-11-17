@@ -52,7 +52,6 @@ export async function getChartList(token, id) {
         exerciseRequest: item.exerciseRequest,
       })),
       onlineRecords: (item.onlineRecords || []).map((item) => ({
-        // TODO: 정확한 명세 알아올 것
         ...item,
       })),
     })),
