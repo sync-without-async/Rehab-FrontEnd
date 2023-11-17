@@ -133,6 +133,8 @@ export async function getChartOne(chartId, token) {
   }
 }
 
+
+//cno로 환자 상세 차트 조회
 export async function getChartSummary(token, staffId) {
   const axios = getSpringAxios(token);
 
