@@ -1,5 +1,9 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import styled from "styled-components";
-import { getUntactRecords } from "../../librarys/dummy-api";
+import { getAIRecordDetails } from "../../librarys/api/chart";
+import { selectToken } from '../../redux/userSlice';
 
 const Container = styled.div`
   width: 800px;
@@ -56,21 +60,35 @@ const DoctorInfo = styled.span`
 `;
 
 const DoctorUntactRecord = () => {
-  const userId = "HL0001";
-  const records = getUntactRecords(userId);
+  const [records, setRecords] = useState([]);
+  const { patientMid } = useParams();
+  const accessToken = useSelector(selectToken);
+
+  useEffect(() => {
+    async function fetchAIRecords() {
+      try {
+        const aiRecords = await getAIRecordDetails(accessToken, patientMid);
+        setRecords(aiRecords);
+      } catch (error) {
+        console.error("비대면 진료 기록을 불러오는데 실패하였습니다.", error);
+      }
+    }
+
+    fetchAIRecords();
+  }, [patientMid, accessToken]);
+
 
   return (
     <Container>
       <Title>비대면 진료 기록</Title>
       <Divider />
-      {records &&
-        records.map((record) => (
-          <>
-            <DateText>{record.date}</DateText>
-            <DoctorInfo>{record.doctorName}</DoctorInfo>
-            <RecordBox>{record.record}</RecordBox>
-          </>
-        ))}
+      {records.map((record, index) => (
+        <React.Fragment key={index}>
+          <DateText>{record.regDate}</DateText>
+          <DoctorInfo>{record.staff_id}</DoctorInfo>
+          <RecordBox>{record.summary}</RecordBox>
+        </React.Fragment>
+      ))}
     </Container>
   );
 };
