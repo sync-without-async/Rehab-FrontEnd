@@ -141,7 +141,7 @@ export async function getChartSummary(token, staffId) {
 
   try {
     const response = await axios.get(`/chart/auth/staff/${staffId}`);
-      return response.data;
+    return response.data;
   } catch (error) {
     console.error("Error fetching chart summary:", error);
     throw error;
@@ -160,7 +160,6 @@ export async function getChartByPatient(token, patientMid) {
     throw error;
   }
 }
-
 
 // 환자의 mid로 비대면 진료 기록을 조회
 export async function getAIRecordDetails(token, patientMid) {
