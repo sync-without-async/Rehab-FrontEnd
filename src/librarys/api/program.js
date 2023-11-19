@@ -78,8 +78,8 @@ export async function modifyProgram(req) {
   const axios = getSpringAxios(req.token);
 
   const body = {
-    adminId: req.adminId,
-    userId: req.userId,
+    staff_id: req.adminId,
+    patient_id: req.userId,
     description: req.description,
     ord_map: req.list.reduce(
       (result, item, index) => ({
@@ -90,7 +90,7 @@ export async function modifyProgram(req) {
     ),
   };
 
-  const response = await axios.put("/program/" + req.id, body);
+  const response = await axios.put("/program/" + req.userId, body);
 
   const data = {
     status: true,
