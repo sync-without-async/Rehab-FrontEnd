@@ -25,11 +25,21 @@ const Text = styled.p`
   vertical-align: middle;
 `;
 
-const Table = ({ className, template, align, data }) => {
+const Table = ({ className, template, align, data, onClick }) => {
+  const handleItemClick = (data, index) => {
+    return () => {
+      onClick(data, index);
+    };
+  };
+
   const children = useMemo(
     () =>
       data.slice(1).map((item, index) => (
-        <TableItem key={index} template={template}>
+        <TableItem
+          key={index}
+          template={template}
+          onClick={handleItemClick(item, index)}
+        >
           {item.map((element, i) => (
             <Text key={[index, i].join("-")} $align={align[i]}>
               {element}
@@ -59,6 +69,7 @@ Table.propTypes = {
   template: PropTypes.string.isRequired,
   align: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.arrayOf(PropTypes.array).isRequired,
+  onClick: PropTypes.func,
 };
 
 export default Table;

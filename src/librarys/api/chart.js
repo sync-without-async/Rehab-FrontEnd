@@ -39,20 +39,19 @@ export async function getChartList(token, id) {
     list: (response.data.dtoList || []).map((item) => ({
       id: item.cno,
       diseaseCode: item.cd,
-      name: item.name,
+      name: item.patient_name,
       phone: item.phone,
       gender: item.sex,
       birthday: item.birth,
-      doctor_id: item.doctor_id,
-      therapist_id: item.therapist_id,
+      metrics: item.metrics_rate,
+      patient_id: item.patient_id,
+      doctor_name: item.doctor_name,
+      therapist_name: item.therapist_name,
       medicalRecords: (item.medicalRecords || []).map((item) => ({
         id: item.record_no,
         date: item.schedule,
         treatmentRecord: item.treatmentRecord,
         exerciseRequest: item.exerciseRequest,
-      })),
-      onlineRecords: (item.onlineRecords || []).map((item) => ({
-        ...item,
       })),
     })),
   };

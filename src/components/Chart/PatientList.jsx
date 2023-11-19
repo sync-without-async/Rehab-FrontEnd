@@ -15,6 +15,7 @@ import { ROLE_TYPE } from "../../librarys/type.js";
 import { MdArrowForwardIos } from "react-icons/md";
 import { ReducerContext } from "../../reducer/context.js";
 import { getChartList } from "../../librarys/api/chart.js";
+import { useNavigate } from "react-router";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -76,6 +77,7 @@ function getDisplayDate(date) {
 }
 
 const PatientList = () => {
+  const navigate = useNavigate();
   const role = useSelector(selectRole);
   const [state, dispatch] = useReducer(chartListReducer, intialChartListState);
   const { list } = state;
@@ -90,11 +92,15 @@ const PatientList = () => {
     });
   };
 
+  const handleClick = (data, index) => {
+    navigate("/chart/" + list[index].id);
+  };
+
   const [roleText, roleKey] = useMemo(() => {
     if (role === ROLE_TYPE.DOCTOR) {
-      return ["재활치료사", "therapist"];
+      return ["재활치료사", "therapist_name"];
     } else if (role === ROLE_TYPE.THERAPIST) {
-      return ["전문의", "doctor"];
+      return ["전문의", "doctor_name"];
     } else {
       return ["", ""];
     }
@@ -141,6 +147,7 @@ const PatientList = () => {
           template="100px 320px 120px 130px 50px"
           align={["center", "center", "center", "center", "center"]}
           data={chartData}
+          onClick={handleClick}
         />
         <Pagination />
       </Container>
