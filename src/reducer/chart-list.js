@@ -26,7 +26,7 @@ export function chartListReducer(state, action) {
     case "data":
       return {
         ...state,
-        list: action.payload.dtoList || [],
+        list: action.payload.list || [],
         page: action.payload.page || 1,
         totalPage: action.payload.end || 1,
       };

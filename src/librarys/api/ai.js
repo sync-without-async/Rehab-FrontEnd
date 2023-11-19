@@ -12,13 +12,13 @@ export async function getMetrics(formData) {
   return response.data;
 }
 
-export async function createMeetingResult(req) {
-  const axios = getSpringAxios();
+export async function createMeetingSummary(req) {
+  const axios = getSpringAxios(req.token);
 
   const body = {
-    audio: req.audio,
-    uuid: req.uuid,
-    id: req.id,
+    audioFile: req.audio,
+    rno: req.uuid,
+    is_patient: req.is_patient,
   };
 
   const response = await axios.post("/audio", createFormData(body));

@@ -24,6 +24,8 @@ export class RTCClient extends EventTarget {
   /** @type {MediaStream} */
   remoteStream = null;
 
+  state = false;
+
   get readyState() {
     return this.peer.connectionState;
   }
@@ -45,33 +47,22 @@ export class RTCClient extends EventTarget {
   }
 
   async connect(id, role, stream) {
-    if (this.signaling.readyState) {
+    if (this.state || this.signaling.readyState) {
       return;
     }
     this.id = id;
     this.role = role;
     this.setClientStream(stream);
+    this.state = true;
     await this.signaling.connect(this.id);
     await this.call();
   }
 
   disconnect() {
-    if (this.dataChannel) {
-      this.dataChannel.close();
-      this.dataChannel = null;
+    if (this.state === false) {
+      return;
     }
 
-    this.peer.close();
-    this.signaling.send("disconnect", {});
-
-    this.setRTCPeer();
-    this.setClientStream(this.clientStream);
-    this.remoteStream = null;
-
-    this.dispatchEvent(new CustomEvent("disconnect"));
-  }
-
-  destory() {
     if (this.dataChannel) {
       this.dataChannel.close();
       this.dataChannel = null;
@@ -85,6 +76,8 @@ export class RTCClient extends EventTarget {
 
     this.clientStream = null;
     this.remoteStream = null;
+
+    this.state = false;
 
     this.dispatchEvent(new CustomEvent("disconnect"));
   }

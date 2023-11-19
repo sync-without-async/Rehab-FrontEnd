@@ -8,7 +8,6 @@ const Item = styled.div`
   display: grid;
   grid-template-columns: ${(props) => props.$template || "1fr"};
   text-align: center;
-  user-select: none;
   background-color: #ffffff;
   cursor: pointer;
 
@@ -30,7 +29,7 @@ const Item = styled.div`
   }
 `;
 
-const TableItem = ({ header, template, children }) => {
+const TableItem = ({ header, template, children, onClick }) => {
   if (header) {
     return (
       <Item className="header" $template={template}>
@@ -39,7 +38,11 @@ const TableItem = ({ header, template, children }) => {
     );
   }
 
-  return <Item $template={template}>{children}</Item>;
+  return (
+    <Item $template={template} onClick={onClick}>
+      {children}
+    </Item>
+  );
 };
 
 TableItem.propTypes = {
@@ -48,10 +51,12 @@ TableItem.propTypes = {
   header: PropTypes.bool,
   template: PropTypes.string.isRequired,
   children: PropTypes.node,
+  onClick: PropTypes.func,
 };
 
 TableItem.defaultProps = {
   header: false,
+  onClick: () => {},
 };
 
 export default TableItem;

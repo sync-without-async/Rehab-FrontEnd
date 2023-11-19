@@ -39,7 +39,7 @@ const ReservationList = () => {
     (async () => {
       let data;
 
-      if (role === "USER") {
+      if (role === ROLE_TYPE.USER) {
         data = await getUserReservationList(token, id, page);
       } else {
         data = await getAdminReservationList(token, id, page);

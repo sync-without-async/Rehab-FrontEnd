@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 
 import { MdCalendarMonth } from "react-icons/md";
-import { DAYJS_FORMAT } from "../../librarys/type.js";
+import { DATE_FORMAT } from "../../librarys/type.js";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -121,7 +121,7 @@ const ReservationMiniItem = ({
       </Row>
       <Row>
         <Icon />
-        {fullDate.format(DAYJS_FORMAT)}
+        {fullDate.format(DATE_FORMAT)}
       </Row>
       <Row>
         <Btn type={buttonStyle.type} onClick={onJoinButtonClick}>

@@ -5,7 +5,10 @@ import { useState, useEffect, useReducer, useMemo } from "react";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import BlockContainer from "../Common/BlockContainer.jsx";
-import { chartListReducer, intialChartListState } from "../../reducer/chart.js";
+import {
+  chartListReducer,
+  intialChartListState,
+} from "../../reducer/chart-list.js";
 import TitleText from "../Common/TitleText.jsx";
 import Table from "../Common/Table.jsx";
 import dayjs from "dayjs";
@@ -15,6 +18,8 @@ import { ROLE_TYPE } from "../../librarys/type.js";
 import { MdArrowForwardIos } from "react-icons/md";
 import { ReducerContext } from "../../reducer/context.js";
 import { getChartList } from "../../librarys/api/chart.js";
+import { useNavigate } from "react-router";
+import { getDisplayBirthday } from "../../librarys/util.js";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -53,20 +58,6 @@ const filters = [
   },
 ];
 
-function getDisplayBirthday(birthday) {
-  const date = dayjs(birthday);
-  const displayDate = date.format("YYYY/MM/DD");
-  const currentYear = dayjs().get("year");
-  const patientYear = date.get("year");
-  let age = currentYear - patientYear;
-
-  if (date.set("year", currentYear).isAfter(dayjs())) {
-    age--;
-  }
-
-  return `${displayDate} (${age}세)`;
-}
-
 function getDisplayPercentage(metrics) {
   return Math.round(metrics * 1000) / 10 + "%";
 }
@@ -76,6 +67,7 @@ function getDisplayDate(date) {
 }
 
 const PatientList = () => {
+  const navigate = useNavigate();
   const role = useSelector(selectRole);
   const [state, dispatch] = useReducer(chartListReducer, intialChartListState);
   const { list } = state;
@@ -90,11 +82,15 @@ const PatientList = () => {
     });
   };
 
+  const handleClick = (data, index) => {
+    navigate("/chart/" + list[index].id);
+  };
+
   const [roleText, roleKey] = useMemo(() => {
     if (role === ROLE_TYPE.DOCTOR) {
-      return ["재활치료사", "therapist"];
+      return ["재활치료사", "therapist_name"];
     } else if (role === ROLE_TYPE.THERAPIST) {
-      return ["전문의", "doctor"];
+      return ["전문의", "doctor_name"];
     } else {
       return ["", ""];
     }
@@ -141,6 +137,7 @@ const PatientList = () => {
           template="100px 320px 120px 130px 50px"
           align={["center", "center", "center", "center", "center"]}
           data={chartData}
+          onClick={handleClick}
         />
         <Pagination />
       </Container>

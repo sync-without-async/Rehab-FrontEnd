@@ -1,101 +1,77 @@
 import styled from "styled-components";
 import CircularChart from "./CircleChart";
 import { getUserExercises } from "../../librarys/dummy-api";
+import { useContext } from "react";
+import { ReducerContext } from "../../reducer/context.js";
+import { METRICS_PASS } from "../../librarys/type.js";
+import BlockContainer from "../Common/BlockContainer.jsx";
+import TitleText from "../Common/TitleText.jsx";
 
-const Container = styled.div`
+const Container = styled(BlockContainer)`
   width: 380px;
-  height: 200px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #0064ff;
-  border-radius: 10px;
-  background-color: #ffffff;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
-  position: relative;
+  padding: 8px 24px;
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
 `;
 
-const Title = styled.h1`
-  font-size: 28px;
-  font-weight: bold;
-  color: #333;
-  display: inline-block;
-`;
-
-const Divider = styled.hr`
-  width: 100%;
-  height: 1px;
-  background-color: #d9d9d9;
-  border: none;
-  margin-top: 0px;
+const Wrapper = styled.div`
+  margin-top: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ExerciseInfo = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
-  margin-left: 20px;
+  gap: 12px;
 `;
 
 const ExerciseItem = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
-
-  & > span:first-child {
-    font-size: 16px;
-    color: #000000;
-    margin-right: 60px;
-  }
-
-  & > span {
-    font-size: 16px;
-    color: #000000;
-  }
+  color: #000000;
+  font-size: 16px;
+  gap: 80px;
 
   & > span:last-child {
-    color: #d9d9d9;
+    color: #908b8b;
   }
 `;
 
 const DoctorCheckHW = () => {
-  const userId = "HL0001";
+  const [state, dispatch] = useContext(ReducerContext);
+  const { metrics } = state;
 
-  const exercises = getUserExercises(userId);
-  console.log("Exercises for:", userId, exercises);
-  const totalExercises = exercises.length;
-  const passedExercises = exercises.filter(
-    (exercise) => exercise.judgement === "합격",
-  ).length;
-  const failedExercises = totalExercises - passedExercises;
+  const totalItems = metrics.length;
+  const passedItems = metrics.filter((item) => item >= METRICS_PASS).length;
+  const failedItems = totalItems - passedItems;
 
   return (
     <Container>
-      <Title>과제 수행도</Title>
-      <Divider />
-      <div style={{ display: "flex" }}>
+      <TitleText text="과제 수행도" small />
+      <Wrapper>
         <CircularChart
-          totalExercises={totalExercises}
-          passedExercises={passedExercises}
+          totalExercises={totalItems}
+          passedExercises={passedItems}
         />
         <ExerciseInfo>
           <ExerciseItem>
-            <span>총 과제</span>
-            <span>{`${totalExercises}개`}</span>
+            <span>전체 과제</span>
+            <span>{totalItems}개</span>
           </ExerciseItem>
           <ExerciseItem>
-            <span>합격한 과제</span>
-            <span>{`${passedExercises}개`}</span>
+            <span>합격</span>
+            <span>{passedItems}개</span>
           </ExerciseItem>
           <ExerciseItem>
-            <span>불합격한 과제</span>
-            <span>{`${failedExercises}개`}</span>
+            <span>불합격</span>
+            <span>{failedItems}개</span>
           </ExerciseItem>
         </ExerciseInfo>
-      </div>
+      </Wrapper>
     </Container>
   );
 };

@@ -6,10 +6,11 @@ import { RTCClient } from "../../librarys/webrtc/rtc-client.js";
 import { AudioRecorder } from "../../librarys/webrtc/rtc-recorder.js";
 import dayjs from "dayjs";
 import { ImExit } from "react-icons/im";
-import { createMeetingResult } from "../../librarys/api/ai.js";
+import { createMeetingSummary } from "../../librarys/api/ai.js";
 import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../redux/userSlice.js";
+import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
 import {} from "react-router";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const Container = styled.div`
   height: 100%;
@@ -102,11 +103,11 @@ const ReservationMeetingPage = () => {
   const [peer, setPeer] = useState(new RTCClient());
   const [recorder, setRecorder] = useState(new AudioRecorder());
   const token = useSelector(selectToken);
-  const id = useSelector(selectId);
+  const role = useSelector(selectRole);
 
   useEffect(() => {
     const unload = () => {
-      peer.destory();
+      peer.disconnect();
     };
 
     peer.addEventListener("stream", onStream);
@@ -126,10 +127,11 @@ const ReservationMeetingPage = () => {
       const blob = event.detail.data;
       const sampleRate = event.detail.sampleRate;
 
-      const response = await createMeetingResult({
+      const response = await createMeetingSummary({
+        token,
         audio: blob,
         uuid,
-        id,
+        is_patient: role === ROLE_TYPE.USER,
       });
 
       console.log(response);
@@ -150,7 +152,7 @@ const ReservationMeetingPage = () => {
     })();
 
     return () => {
-      peer.destory();
+      peer.disconnect();
       window.removeEventListener("beforeunload", unload);
     };
   }, []);

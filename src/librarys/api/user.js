@@ -28,16 +28,14 @@ export async function getUserToken(mid, password) {
   const payload = getJwtPayload(data.accessToken);
 
   const ROLE_CONVERT = {
-    ROLE_PATIENT: "USER",
-    ROLE_DOCTOR: "DOCTOR",
-    ROLE_THERAPIST: "THERAPIST",
+    ROLE_PATIENT: ROLE_TYPE.USER,
+    ROLE_DOCTOR: ROLE_TYPE.DOCTOR,
+    ROLE_THERAPIST: ROLE_TYPE.THERAPIST,
   };
 
   data.id = payload.mid;
   data.role = ROLE_CONVERT[payload.role];
   data.expire = payload.exp;
-
-  data.role = ROLE_TYPE[data.role];
 
   return data;
 }
@@ -103,7 +101,6 @@ export async function getStaffInfo(token, id) {
 
   data.role = data.role && data.role.slice(1, -1);
   data.role = ROLE_TYPE[data.role];
-  data.image = SPRING_URL + "view/" + data.image;
 
   return data;
 }

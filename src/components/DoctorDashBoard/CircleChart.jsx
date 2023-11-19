@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { useMemo } from "react";
 import styled from "styled-components";
 
 const Outer = styled.div`
@@ -9,9 +10,6 @@ const Outer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  margin-top: 10px;
-  margin-right: 20px;
 `;
 
 const Inner = styled.div`
@@ -26,13 +24,20 @@ const Inner = styled.div`
 `;
 
 const CircularChart = ({ className, totalExercises, passedExercises }) => {
-  const passedPercentage = Math.round((passedExercises / totalExercises) * 100);
+  const percentage =
+    Math.round((passedExercises / totalExercises) * 100) || null;
+  const gradientCss = `conic-gradient(#3592FF 0% ${percentage}%, #D9D9D9 ${
+    percentage || 0
+  }% 100%)`;
 
-  const gradientCss = `conic-gradient(#3592FF 0% ${passedPercentage}%, #D9D9D9 ${passedPercentage}% 100%)`;
+  const text = useMemo(
+    () => (percentage !== null ? percentage + "%" : ""),
+    [percentage],
+  );
 
   return (
     <Outer className={className} style={{ background: gradientCss }}>
-      <Inner>{`${passedPercentage}%`}</Inner>
+      <Inner>{text}</Inner>
     </Outer>
   );
 };

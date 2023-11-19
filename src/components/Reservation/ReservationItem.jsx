@@ -8,7 +8,7 @@ import DoctorIcon from "../../assets/images/role/role_doctor.png";
 import TherapistIcon from "../../assets/images/role/role_therapist.png";
 
 import { MdCalendarMonth, MdPerson } from "react-icons/md";
-import { DAYJS_FORMAT, ROLE_LIST, ROLE_TYPE } from "../../librarys/type.js";
+import { DATE_FORMAT, ROLE_LIST, ROLE_TYPE } from "../../librarys/type.js";
 import dayjs from "dayjs";
 import classNames from "classnames";
 import { useDispatch } from "react-redux";
@@ -178,7 +178,7 @@ const ReservationItem = ({
         </Item>
         <Item>
           <MdCalendarMonth />
-          {fullDate.format(DAYJS_FORMAT)}
+          {fullDate.format(DATE_FORMAT)}
         </Item>
       </Info>
       <ButtonContainer>

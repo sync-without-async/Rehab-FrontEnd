@@ -17,12 +17,24 @@ export async function getTherapistList(token) {
 export async function getChart(token, id) {
   const axios = getSpringAxios(token);
 
-  // TODO: 명세 정확하게 알아올것
-  const response = await axios.get("/chart/" + id);
+  const response = await axios.get("/chart/auth/staff/" + id);
 
   const data = {
-    // TODO: 명세 정확하게 알아올것
-    ...response.data,
+    cno: response.data.cno,
+    diseaseCode: response.data.cd,
+    phone: response.data.phone,
+    gender: response.data.sex,
+    birthday: response.data.birth,
+    account_id: response.data.patient_id,
+    name: response.data.patient_name,
+    doctor_name: response.data.doctor_name,
+    therapist_name: response.data.therapist_name,
+    medicalRecords: (response.data.medicalRecords || []).map((item) => ({
+      id: item.record_no,
+      date: item.schedule,
+      treatmentRecord: item.treatmentRecord,
+      exerciseRequest: item.exerciseRequest,
+    })),
   };
 
   return data;
@@ -39,20 +51,19 @@ export async function getChartList(token, id) {
     list: (response.data.dtoList || []).map((item) => ({
       id: item.cno,
       diseaseCode: item.cd,
-      name: item.name,
+      name: item.patient_name,
       phone: item.phone,
       gender: item.sex,
       birthday: item.birth,
-      doctor_id: item.doctor_id,
-      therapist_id: item.therapist_id,
+      metrics: item.metrics_rate,
+      patient_id: item.patient_id,
+      doctor_name: item.doctor_name,
+      therapist_name: item.therapist_name,
       medicalRecords: (item.medicalRecords || []).map((item) => ({
         id: item.record_no,
         date: item.schedule,
         treatmentRecord: item.treatmentRecord,
         exerciseRequest: item.exerciseRequest,
-      })),
-      onlineRecords: (item.onlineRecords || []).map((item) => ({
-        ...item,
       })),
     })),
   };

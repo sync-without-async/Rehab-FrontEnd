@@ -14,8 +14,12 @@ export async function getAdminReservationList(token, id, page) {
     page: response.data.page,
     total: response.data.end,
     list: (response.data.dtoList || []).map((item) => ({
-      rno: item.rno,
+      id: item.rvno,
+      uuid: item.rno,
       name: item.patientName,
+      image: null,
+      hospital: null,
+      patient: item.patientId,
       date: item.date,
       index: item.index,
       description: item.content,
@@ -36,18 +40,27 @@ export async function getUserReservationList(token, id, page) {
 
   const response = await axios.get("/reservation-user/" + id, { params });
 
+  const ROLE_CONVERT = {
+    ROLE_PATIENT: ROLE_TYPE.USER,
+    ROLE_DOCTOR: ROLE_TYPE.DOCTOR,
+    ROLE_THERAPIST: ROLE_TYPE.THERAPIST,
+  };
+
   const data = {
     page: response.data.page,
     total: response.data.end,
     list: (response.data.dtoList || []).map((item) => ({
       id: item.rvno,
       uuid: item.rno,
-      name: item.adminName,
+      name: item.staffName,
+      image: item.profileUrl,
+      hospital: item.hospital,
+      patient: null,
       date: item.date,
       index: item.index,
       description: item.content,
       summary: item.aiSummary,
-      role: ROLE_TYPE.DOCTOR,
+      role: ROLE_CONVERT[item.role],
     })),
   };
 
