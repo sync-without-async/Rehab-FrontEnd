@@ -1,16 +1,20 @@
 import styled from "styled-components";
 
+import { FFmpeg } from "@ffmpeg/ffmpeg";
+import { fetchFile, toBlobURL } from "@ffmpeg/util";
+
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RTCClient } from "../../librarys/webrtc/rtc-client.js";
 import { AudioRecorder } from "../../librarys/webrtc/rtc-recorder.js";
-import dayjs from "dayjs";
 import { ImExit } from "react-icons/im";
 import { createMeetingSummary } from "../../librarys/api/ai.js";
 import { useSelector } from "react-redux";
 import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
-import {} from "react-router";
 import { ROLE_TYPE } from "../../librarys/type.js";
+
+import patientAudio from "../../assets/patient.wav";
+import doctorAudio from "../../assets/doctor.wav";
 
 const Container = styled.div`
   height: 100%;
@@ -104,8 +108,40 @@ const ReservationMeetingPage = () => {
   const [recorder, setRecorder] = useState(new AudioRecorder());
   const token = useSelector(selectToken);
   const role = useSelector(selectRole);
+  const [loaded, setLoaded] = useState(false);
+  const ffmpegRef = useRef(new FFmpeg());
+
+  const loadLib = async () => {
+    const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.4/dist/esm";
+    const ffmpeg = ffmpegRef.current;
+
+    ffmpeg.on("log", ({ message }) => {
+      console.log(message);
+    });
+
+    await ffmpeg.load({
+      coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, "text/javascript"),
+      wasmURL: await toBlobURL(
+        `${baseURL}/ffmpeg-core.wasm`,
+        "application/wasm",
+      ),
+    });
+    console.log("done");
+    setLoaded(true);
+  };
+
+  const transcode = async (blob) => {
+    console.log(blob);
+    const ffmpeg = ffmpegRef.current;
+    await ffmpeg.writeFile("input.webm", await fetchFile(blob));
+    await ffmpeg.exec(["-i", "input.webm", "output.wav"]);
+    const data = await ffmpeg.readFile("output.wav", "");
+    return data;
+  };
 
   useEffect(() => {
+    loadLib();
+
     const unload = () => {
       peer.disconnect();
     };
@@ -127,9 +163,29 @@ const ReservationMeetingPage = () => {
       const blob = event.detail.data;
       const sampleRate = event.detail.sampleRate;
 
+      const data = await transcode(blob);
+
+      console.log(blob);
+      console.log(data);
+
+      const convertedBlob = new Blob([data]);
+      // let convertedBlob;
+
+      // if (role === ROLE_TYPE.USER) {
+      //   convertedBlob = new Blob([await fetchFile(patientAudio, "audio/wav")], {
+      //     type: "audio/wav",
+      //   });
+      // } else {
+      //   convertedBlob = new Blob([await fetchFile(doctorAudio, "audio/wav")], {
+      //     type: "audio/wav",
+      //   });
+      // }
+
+      console.log(convertedBlob);
+
       const response = await createMeetingSummary({
         token,
-        audio: blob,
+        audio: convertedBlob,
         uuid,
         is_patient: role === ROLE_TYPE.USER,
       });
