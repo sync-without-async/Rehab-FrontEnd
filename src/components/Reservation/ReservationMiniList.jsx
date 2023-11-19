@@ -16,6 +16,7 @@ import {
   getAdminReservationList,
   getUserReservationList,
 } from "../../librarys/api/reservation.js";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const List = styled.div`
   margin: 28px 0;
@@ -40,7 +41,7 @@ const ReservationMiniList = () => {
     (async () => {
       let data;
 
-      if (role === "USER") {
+      if (role === ROLE_TYPE.USER) {
         data = await getUserReservationList(token, id, page);
       } else {
         data = await getAdminReservationList(token, id, page);
