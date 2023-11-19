@@ -19,6 +19,7 @@ import { MdArrowForwardIos } from "react-icons/md";
 import { ReducerContext } from "../../reducer/context.js";
 import { getChartList } from "../../librarys/api/chart.js";
 import { useNavigate } from "react-router";
+import { getDisplayBirthday } from "../../librarys/util.js";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -56,20 +57,6 @@ const filters = [
     value: "수행도순",
   },
 ];
-
-function getDisplayBirthday(birthday) {
-  const date = dayjs(birthday);
-  const displayDate = date.format("YYYY/MM/DD");
-  const currentYear = dayjs().get("year");
-  const patientYear = date.get("year");
-  let age = currentYear - patientYear;
-
-  if (date.set("year", currentYear).isAfter(dayjs())) {
-    age--;
-  }
-
-  return `${displayDate} (${age}세)`;
-}
 
 function getDisplayPercentage(metrics) {
   return Math.round(metrics * 1000) / 10 + "%";
