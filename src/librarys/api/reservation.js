@@ -23,7 +23,7 @@ export async function getAdminReservationList(token, id, page) {
       date: item.date,
       index: item.index,
       description: item.content,
-      summary: item.aiSummary,
+      summary: item.summary,
       role: ROLE_TYPE.USER,
     })),
   };
@@ -59,7 +59,7 @@ export async function getUserReservationList(token, id, page) {
       date: item.date,
       index: item.index,
       description: item.content,
-      summary: item.aiSummary,
+      summary: item.summary,
       role: ROLE_CONVERT[item.role],
     })),
   };
