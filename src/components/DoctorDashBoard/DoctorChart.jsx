@@ -6,7 +6,11 @@ import InputTextContainer from "../Input/InputTextContainer.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
-import { registerChart, getTherapistList } from "../../librarys/api/chart";
+import {
+  registerChart,
+  getTherapistList,
+  createChart,
+} from "../../librarys/api/chart";
 import { useState, useEffect, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../redux/userSlice";
@@ -18,6 +22,7 @@ import { getByPath } from "../../librarys/util.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { GENDER_LIST } from "../../librarys/type.js";
+import { createProgram } from "../../librarys/api/program.js";
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -44,10 +49,8 @@ const DoctorChart = () => {
     diseaseCode,
     name,
     phone,
-    gender,
     birthday,
-    doctor_id,
-    therapist_id,
+    therapist,
     schedule,
     treatmentRecord,
     exerciseRequest,
@@ -56,6 +59,7 @@ const DoctorChart = () => {
 
   const navigate = useNavigate();
 
+  const id = useSelector(selectId);
   const token = useSelector(selectToken);
 
   function setData(key, path) {
@@ -77,7 +81,7 @@ const DoctorChart = () => {
   function updateTherapists(list) {
     const dropdownList = list.map((t) => ({
       key: t.mid,
-      value: t.name + " (" + t.department + ")",
+      value: `${t.name} (${t.department}) (${t.mid})`,
     }));
 
     dispatch({
@@ -98,9 +102,20 @@ const DoctorChart = () => {
   }, [token]);
 
   const handleSubmit = async (e) => {
+    console.log(state);
     try {
-      const response = await registerChart({ ...state, token });
-      console.log(response);
+      const { account_id } = await createChart({ ...state, doctor: id, token });
+      const response = await createProgram({
+        adminId: therapist,
+        userId: account_id,
+        description: "",
+        list: [],
+      });
+
+      alert(
+        `${name}님의 차트가 성공적으로 생성되었습니다!\n${name}님의 아이디는 ${account_id}, 비밀번호는 1111 입니다.`,
+      );
+
       navigate("/chart");
     } catch (error) {
       console.error(error);
@@ -134,12 +149,12 @@ const DoctorChart = () => {
         <InputTextContainer
           label="환자 전화번호 *"
           value={phone}
-          onChange={setData("phone")}
+          onChange={setData("phone", "target.value")}
         />
         <DropdownFilter
           label="담당 치료사 *"
           items={therapistList}
-          onSelect={setData("therapist_id", "key")}
+          onSelect={setData("therapist", "key")}
         />
         <DateSelect
           labelText="다음 외래 일정 *"

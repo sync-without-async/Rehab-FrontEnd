@@ -71,15 +71,16 @@ export async function getChartList(token, id) {
   return data;
 }
 
-export async function getChartRecord(token, id) {
+export async function getChartAiRecord(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/record/" + id);
+  const response = await axios.get("/chart/auth/aiRecord/" + id);
 
-  const data = {
-    // TODO: 명세 정확하게 알아올것
-    ...response.data,
-  };
+  const data = response.data.map((item) => ({
+    id: item.staff_id,
+    summary: item.summary,
+    date: item.regDate,
+  }));
 
   return data;
 }
@@ -88,25 +89,23 @@ export async function createChart(req) {
   const axios = getSpringAxios(req.token);
 
   const body = {
-    cd: req.code,
+    cd: req.diseaseCode,
     patientName: req.name,
     phone: req.phone,
     sex: req.gender,
     birth: req.birthday,
     doctor_id: req.doctor,
     therapist_id: req.therapist,
-    schedule: req.nextSchedule,
+    schedule: req.schedule,
     treatmentRecord: req.treatmentRecord,
     exerciseRequest: req.exerciseRequest,
   };
 
-  const response = await axios.post("/record/register/" + req.id, body);
-
-  // response에 id 받아와야 함
+  const response = await axios.post("/chart/auth/register", body);
 
   const data = {
     status: true,
-    message: response.data,
+    account_id: response.data,
   };
 
   return data;

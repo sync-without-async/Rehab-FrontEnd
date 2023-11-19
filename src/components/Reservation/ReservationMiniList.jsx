@@ -54,11 +54,30 @@ const ReservationMiniList = () => {
     })();
   }, [token, id, page, role]);
 
+  const buttons =
+    role === ROLE_TYPE.USER
+      ? [
+          {
+            text: "나의 예약 목록",
+            to: "/meeting",
+          },
+          {
+            text: "예약 신청",
+            to: "/meeting/create",
+          },
+        ]
+      : [
+          {
+            text: "나의 예약 목록",
+            to: "/meeting",
+          },
+        ];
+
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
         <ReservationInfoModal />
-        <TitleText text="비대면 진료 예약 목록" small />
+        <TitleText text="비대면 진료 예약 목록" small buttons={buttons} />
         <List>
           {list.map((item) => (
             <ReservationMiniItem

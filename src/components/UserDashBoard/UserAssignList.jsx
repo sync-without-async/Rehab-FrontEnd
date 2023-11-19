@@ -56,7 +56,14 @@ const UserAssignList = () => {
   const token = useSelector(selectToken);
   const id = useSelector(selectId);
 
-  const { list, description } = state;
+  const { list } = state;
+  const description = useMemo(
+    () =>
+      state.description
+        ? state.description
+        : "아직 재활치료사가 과제를 할당하지 않았습니다. 조금만 기다려주세요!",
+    [state],
+  );
 
   const assignData = [
     ["번호", "과제 이름", "정확도", "판정", "수강"],

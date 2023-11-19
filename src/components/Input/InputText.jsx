@@ -17,12 +17,7 @@ const Item = styled.input`
 
 function InputText({ value, onChange, className }) {
   return (
-    <Item
-      type="text"
-      defaultValue={value}
-      onChange={onChange}
-      className={className}
-    />
+    <Item type="text" value={value} onChange={onChange} className={className} />
   );
 }
 

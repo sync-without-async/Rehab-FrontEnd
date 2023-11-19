@@ -52,11 +52,21 @@ const ReservationList = () => {
     })();
   }, [token, id, page, role]);
 
+  const buttons =
+    role === ROLE_TYPE.USER
+      ? [
+          {
+            text: "예약 신청",
+            to: "/meeting/create",
+          },
+        ]
+      : [];
+
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
         <ReservationInfoModal />
-        <TitleText text="비대면 진료 예약 목록" />
+        <TitleText text="비대면 진료 예약 목록" buttons={buttons} />
         <List>
           {list.map((item) => (
             <ReservationItem

@@ -96,7 +96,6 @@ const UserHeader = () => {
           </ItemContainer>
         </ItemRow>
       </TextContainer>
-      <Avatar src={TheraImage} alt="User Avatar" />
     </Container>
   );
 };

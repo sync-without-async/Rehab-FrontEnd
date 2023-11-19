@@ -7,20 +7,27 @@ import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRec
 import DoctorFaceRecord from "../../components/DoctorDashBoard/DoctorFaceRecord";
 import PageContainer from "../../components/Common/PageContainer.jsx";
 import { ReducerContext } from "../../reducer/context.js";
-import { useEffect, useReducer } from "react";
+import { useEffect, useMemo, useReducer } from "react";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../redux/userSlice.js";
 import { useParams } from "react-router";
-import { getChart } from "../../librarys/api/chart.js";
+import { getChart, getChartAiRecord } from "../../librarys/api/chart.js";
 import {
   chartDetailReducer,
   intialChartDetailState,
 } from "../../reducer/chart-detail.js";
 import { getUserPrograms } from "../../librarys/api/program.js";
+import DoctorRecord from "../../components/DoctorDashBoard/DoctorRecord.jsx";
+import dayjs from "dayjs";
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+`;
 
 const Grid = styled.div`
   height: 200px;
-  margin: 20px 20px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
@@ -28,7 +35,6 @@ const Grid = styled.div`
 
 const DoctorDetailPage = () => {
   const { id } = useParams();
-  const adminId = useSelector(selectId);
   const token = useSelector(selectToken);
 
   const [state, dispatch] = useReducer(
@@ -36,24 +42,47 @@ const DoctorDetailPage = () => {
     intialChartDetailState,
   );
 
+  const { medicalRecords, summaryRecords } = state;
+
+  const mediacalData = useMemo(
+    () =>
+      medicalRecords.map((item) => ({
+        date: dayjs(item.date).format("YYYY/MM/DD"),
+        content: item.treatmentRecord,
+      })),
+    [medicalRecords],
+  );
+
+  const summaryData = useMemo(
+    () =>
+      summaryRecords.map((item) => ({
+        date: dayjs(item.date).format("YYYY/MM/DD"),
+        content: item.summary,
+      })),
+    [summaryRecords],
+  );
+
   useEffect(() => {
     (async () => {
       const chartResponse = await getChart(token, id);
-      try {
-        const assignmentResponse = await getUserPrograms(
-          token,
-          chartResponse.account_id,
-        );
+      const patientId = chartResponse.account_id;
 
-        dispatch({
-          type: "metrics",
-          payload: assignmentResponse.list.map((item) => item.metrics),
-        });
-      } catch (e) {}
+      const assignmentResponse = await getUserPrograms(token, patientId);
+      const aiSummaryResponse = await getChartAiRecord(token, patientId);
 
       dispatch({
         type: "data",
         payload: chartResponse,
+      });
+
+      dispatch({
+        type: "metrics",
+        payload: assignmentResponse.list.map((item) => item.metrics),
+      });
+
+      dispatch({
+        type: "summaryRecords",
+        payload: aiSummaryResponse,
       });
     })();
   }, []);
@@ -62,13 +91,15 @@ const DoctorDetailPage = () => {
     <ReducerContext.Provider value={[state, dispatch]}>
       <PageContainer>
         <BackButton text="환자 목록으로 돌아가기" to="/chart" />
-        <DoctorDetailHeader />
-        <Grid>
-          <DoctorDetailChart />
-          <DoctorCheckHW />
-        </Grid>
-        <DoctorFaceRecord />
-        <DoctorUntactRecord />
+        <Wrapper>
+          <DoctorDetailHeader />
+          <Grid>
+            <DoctorDetailChart />
+            <DoctorCheckHW />
+          </Grid>
+          <DoctorRecord title="외래 진료 기록" data={mediacalData} />
+          <DoctorRecord title="비대면 진료 기록" data={summaryData} />
+        </Wrapper>
       </PageContainer>
     </ReducerContext.Provider>
   );

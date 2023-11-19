@@ -10,6 +10,7 @@ export const intialChartDetailState = {
   therapist_name: null,
   metrics: [],
   medicalRecords: [],
+  summaryRecords: [],
 };
 
 export function chartDetailReducer(state, action) {
@@ -32,6 +33,11 @@ export function chartDetailReducer(state, action) {
       return {
         ...state,
         metrics: action.payload,
+      };
+    case "summaryRecords":
+      return {
+        ...state,
+        summaryRecords: action.payload,
       };
     default:
       console.error("[ChartDetailReducer] Undefined action: " + action.type);

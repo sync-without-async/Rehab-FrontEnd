@@ -54,11 +54,18 @@ const TheraExerciseList = () => {
     });
   }
 
+  const buttons = [
+    {
+      text: "운동 등록",
+      to: "/video/create",
+    },
+  ];
+
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
       <BlockContainer>
         <TheraExerciseModal />
-        <TitleText text="운동 목록" />
+        <TitleText text="운동 목록" buttons={buttons} />
         <SearchAndFilterContainer>
           <SearchBar placeholder="운동 이름으로 검색..." />
           <DropdownFilter

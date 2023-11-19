@@ -3,9 +3,11 @@ import CircularChart from "./CircleChart";
 import { getUserExercises } from "../../librarys/dummy-api";
 import { useContext } from "react";
 import { ReducerContext } from "../../reducer/context.js";
-import { METRICS_PASS } from "../../librarys/type.js";
+import { METRICS_PASS, ROLE_TYPE } from "../../librarys/type.js";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
+import { useSelector } from "react-redux";
+import { selectRole } from "../../redux/userSlice.js";
 
 const Container = styled(BlockContainer)`
   width: 380px;
@@ -42,16 +44,27 @@ const ExerciseItem = styled.div`
 `;
 
 const DoctorCheckHW = () => {
+  const role = useSelector(selectRole);
   const [state, dispatch] = useContext(ReducerContext);
-  const { metrics } = state;
+  const { account_id, metrics } = state;
 
   const totalItems = metrics.length;
   const passedItems = metrics.filter((item) => item >= METRICS_PASS).length;
   const failedItems = totalItems - passedItems;
 
+  const buttons =
+    role === ROLE_TYPE.THERAPIST
+      ? [
+          {
+            text: "과제 할당",
+            to: `/chart/${account_id}/assign`,
+          },
+        ]
+      : [];
+
   return (
     <Container>
-      <TitleText text="과제 수행도" small />
+      <TitleText text="과제 수행도" small buttons={buttons} />
       <Wrapper>
         <CircularChart
           totalExercises={totalItems}
