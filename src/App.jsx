@@ -6,7 +6,6 @@ import DevelopPage from "./pages/DevelopPage.jsx";
 import ReservationCreatePage from "./pages/Reservation/ReservationCreatePage.jsx";
 import DoctorChartPage from "./pages/Doctor/DoctorChartPage.jsx";
 import DoctorDetailPage from "./pages/Doctor/DoctorDetailPage.jsx";
-import TheraDetailPage from "./pages/Therapist/TheraDetailPage.jsx";
 import TheraExerciseListPage from "./pages/Therapist/TheraExerciseListPage.jsx";
 import TheraExerciseAddPage from "./pages/Therapist/TheraExerciseAddPage.jsx";
 import TheraMakeAssignPage from "./pages/Therapist/TheraMakeAssignPage.jsx";
