@@ -35,7 +35,6 @@ const Grid = styled.div`
 
 const DoctorDetailPage = () => {
   const { id } = useParams();
-  const adminId = useSelector(selectId);
   const token = useSelector(selectToken);
 
   const [state, dispatch] = useReducer(

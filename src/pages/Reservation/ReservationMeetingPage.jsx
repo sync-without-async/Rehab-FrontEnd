@@ -13,9 +13,6 @@ import { useSelector } from "react-redux";
 import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
 
-import patientAudio from "../../assets/patient.wav";
-import doctorAudio from "../../assets/doctor.wav";
-
 const Container = styled.div`
   height: 100%;
 `;

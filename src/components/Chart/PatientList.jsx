@@ -66,6 +66,13 @@ function getDisplayDate(date) {
   return dayjs(date).format("YYYY/MM/DD");
 }
 
+const headerButtons = [
+  {
+    text: "차트 생성",
+    to: "/chart/create",
+  },
+];
+
 const PatientList = () => {
   const navigate = useNavigate();
   const role = useSelector(selectRole);
@@ -121,10 +128,12 @@ const PatientList = () => {
     })();
   }, [id, token]);
 
+  const buttons = role === ROLE_TYPE.DOCTOR ? headerButtons : [];
+
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
       <Container>
-        <TitleText text="환자 목록" />
+        <TitleText text="환자 목록" buttons={buttons} />
         <SearchAndFilterContainer>
           <SearchBar placeholder="환자 이름으로 검색..." />
           <DropdownFilter
