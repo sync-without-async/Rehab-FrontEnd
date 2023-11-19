@@ -11,6 +11,8 @@ import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
 import { deleteReservation } from "../../librarys/api/reservation.js";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -48,7 +50,7 @@ const ReservationInfoModal = () => {
     const response = await deleteReservation(reservationId);
 
     if (response.status) {
-      alert("예약이 성공적으로 취소되었습니다.");
+      toast.success("예약이 성공적으로 취소되었습니다.");
     }
 
     dispatch(hide(id));

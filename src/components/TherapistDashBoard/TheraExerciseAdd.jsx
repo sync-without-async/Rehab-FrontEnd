@@ -12,6 +12,8 @@ import { useNavigate } from "react-router-dom";
 import { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../redux/userSlice.js";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const InputText = styled(InputTextContainer)`
   width: 240px;
@@ -66,22 +68,22 @@ const TheraExerciseAdd = () => {
 
   async function upload() {
     if (video === null) {
-      alert("동영상을 업로드해주세요.");
+      toast.error("동영상을 업로드해주세요.");
       return;
     }
 
     if (skeleton === null) {
-      alert("동영상의 처리가 완료될 때까지 기다려주세요.");
+      toast.error("동영상의 처리가 완료될 때까지 기다려주세요.");
       return;
     }
 
     if (title.length < 1) {
-      alert("제목을 2자 이상 입력해주세요.");
+      toast.error("제목을 2자 이상 입력해주세요.");
       return;
     }
 
     if (description.length < 1) {
-      alert("설명을 2자 이상 입력해주세요.");
+      toast.error("설명을 2자 이상 입력해주세요.");
       return;
     }
 
@@ -99,7 +101,7 @@ const TheraExerciseAdd = () => {
     const programResponse = await createVideo(token, options);
     console.log(programResponse);
 
-    alert("비디오를 성공적으로 게시했습니다.");
+    toast.success("비디오를 성공적으로 게시했습니다.");
     navigate("/video");
   }
 
