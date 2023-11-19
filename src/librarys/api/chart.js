@@ -71,15 +71,16 @@ export async function getChartList(token, id) {
   return data;
 }
 
-export async function getChartRecord(token, id) {
+export async function getChartAiRecord(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/record/" + id);
+  const response = await axios.get("/chart/auth/aiRecord/" + id);
 
-  const data = {
-    // TODO: 명세 정확하게 알아올것
-    ...response.data,
-  };
+  const data = response.data.map((item) => ({
+    id: item.staff_id,
+    summary: item.summary,
+    date: item.regDate,
+  }));
 
   return data;
 }
