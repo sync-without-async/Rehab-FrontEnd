@@ -32,6 +32,14 @@ const Navigation = styled.div`
 
 const Item = styled.div`
   cursor: pointer;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border-radius: 10px;
+  transition: background-color 0.3s;
+
+  &:hover {
+    background-color: rgba(228, 228, 228, 0.5);
+  }
 `;
 
 const totalItems = [
