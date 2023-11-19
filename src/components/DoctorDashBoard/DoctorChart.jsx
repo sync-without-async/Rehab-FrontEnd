@@ -17,6 +17,7 @@ import {
 import { getByPath } from "../../librarys/util.js";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { GENDER_LIST } from "../../librarys/type.js";
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -33,11 +34,6 @@ const Btn = styled(Button)`
   grid-column-end: span 2;
   justify-self: center;
 `;
-
-const genders = [
-  { key: "Male", value: "남성" },
-  { key: "Female", value: "여성" },
-];
 
 const DoctorChart = () => {
   const [state, dispatch] = useReducer(
@@ -122,7 +118,7 @@ const DoctorChart = () => {
         />
         <DropdownFilter
           label="환자 성별 *"
-          items={genders}
+          items={GENDER_LIST}
           onSelect={setData("gender", "key")}
         />
         <InputTextContainer

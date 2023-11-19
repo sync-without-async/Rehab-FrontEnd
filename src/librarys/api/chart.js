@@ -17,12 +17,24 @@ export async function getTherapistList(token) {
 export async function getChart(token, id) {
   const axios = getSpringAxios(token);
 
-  // TODO: 명세 정확하게 알아올것
-  const response = await axios.get("/chart/" + id);
+  const response = await axios.get("/chart/auth/staff/" + id);
 
   const data = {
-    // TODO: 명세 정확하게 알아올것
-    ...response.data,
+    cno: response.data.cno,
+    diseaseCode: response.data.cd,
+    phone: response.data.phone,
+    gender: response.data.sex,
+    birthday: response.data.birth,
+    account_id: response.data.patient_id,
+    name: response.data.patient_name,
+    doctor_name: response.data.doctor_name,
+    therapist_name: response.data.therapist_name,
+    medicalRecords: (response.data.medicalRecords || []).map((item) => ({
+      id: item.record_no,
+      date: item.schedule,
+      treatmentRecord: item.treatmentRecord,
+      exerciseRequest: item.exerciseRequest,
+    })),
   };
 
   return data;

@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import DoctorChartWrite from "./DoctorChartWrite";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../redux/userSlice";
 import { createRecord, getChartOne } from "../../librarys/api/chart";
 import { useParams } from "react-router-dom";
+import { ReducerContext } from "../../reducer/context.js";
 
 const Container = styled.div`
   width: 800px;
@@ -83,69 +84,23 @@ const DoctorInfo = styled.span`
 `;
 
 const DoctorFaceRecord = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [records, setRecords] = useState([]);
-  const userId = useSelector(selectId);
-  const { id: patientId } = useParams();
-  const accessToken = useSelector(selectToken);
+  const [state, dispatch] = useContext(ReducerContext);
+  const { medicalRecords } = state;
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
-
-  useEffect(() => {
-    const fetchChart = async () => {
-      try {
-        const chartData = await getChartOne(patientId, accessToken);
-        setRecords(chartData.medicalRecords || []);
-      } catch (error) {
-        console.error("Error fetching chart data:", error);
-      }
-    };
-
-    fetchChart();
-  }, [patientId, accessToken]);
-
-  const id = useSelector(selectId);
-
-  const handleRecordSubmit = async (recordData) => {
-    const req = {
-      ...recordData,
-      id: userId,
-      token: accessToken,
-    };
-
-    try {
-      const response = await createRecord(req);
-      console.log("Record created:", response);
-      fetchChart();
-    } catch (error) {
-      console.error("Error creating record:", error);
-    }
-  };
   return (
     <Container>
       <Title>외래 진료 기록</Title>
       <ButtonGroup>
-        <Button onClick={handleModalOpen}>기록 추가</Button>
+        <Button>기록 추가</Button>
       </ButtonGroup>
       <Divider />
-      {records.map((record, index) => (
+      {medicalRecords.slice(0, 2).map((record, index) => (
         <React.Fragment key={index}>
-          <DateText>{record.schedule}</DateText>
+          <DateText>{record.date}</DateText>
           <RecordBox>{record.treatmentRecord}</RecordBox>
         </React.Fragment>
       ))}
-      {isModalOpen && (
-        <DoctorChartWrite
-          onClose={handleModalClose}
-          onSubmit={handleRecordSubmit}
-        />
-      )}
+      {/* <DoctorChartWrite /> */}
     </Container>
   );
 };
