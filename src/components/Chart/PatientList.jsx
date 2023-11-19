@@ -5,7 +5,10 @@ import { useState, useEffect, useReducer, useMemo } from "react";
 import SearchBar from "../Input/SearchBar";
 import DropdownFilter from "../Dropdown/DropdownFilter";
 import BlockContainer from "../Common/BlockContainer.jsx";
-import { chartListReducer, intialChartListState } from "../../reducer/chart.js";
+import {
+  chartListReducer,
+  intialChartListState,
+} from "../../reducer/chart-list.js";
 import TitleText from "../Common/TitleText.jsx";
 import Table from "../Common/Table.jsx";
 import dayjs from "dayjs";
