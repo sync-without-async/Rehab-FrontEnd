@@ -7,6 +7,7 @@ import IconHospital from "../../assets/icons/iconhospital.png";
 import { useSelector } from "react-redux";
 import {
   selectDepartment,
+  selectImage,
   selectLocation,
   selectName,
 } from "../../redux/userSlice.js";
@@ -77,6 +78,7 @@ const EmployeeHeader = () => {
   const name = useSelector(selectName);
   const dept = useSelector(selectDepartment);
   const location = useSelector(selectLocation);
+  const image = useSelector(selectImage) || "https://placehold.co/256";
 
   return (
     <Container>
@@ -94,7 +96,7 @@ const EmployeeHeader = () => {
           <InfoText>{location}</InfoText>
         </AppointmentInfo>
       </TextContainer>
-      <Avatar src={TheraImage} alt="User Avatar" />
+      <Avatar src={image} alt="User Avatar" />
     </Container>
   );
 };

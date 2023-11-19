@@ -101,7 +101,6 @@ export async function getStaffInfo(token, id) {
 
   data.role = data.role && data.role.slice(1, -1);
   data.role = ROLE_TYPE[data.role];
-  data.image = SPRING_URL + "view/" + data.image;
 
   return data;
 }

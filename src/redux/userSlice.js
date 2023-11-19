@@ -86,6 +86,7 @@ export const selectToken = (state) => state.user.accessToken;
 export const selectRefreshToken = (state) => state.user.refreshToken;
 export const selectId = (state) => state.user.id;
 export const selectName = (state) => state.user.name;
+export const selectImage = (state) => state.user.image;
 export const selectRole = (state) => state.user.role;
 export const selectLocation = (state) => state.user.location;
 export const selectDepartment = (state) => state.user.department;
