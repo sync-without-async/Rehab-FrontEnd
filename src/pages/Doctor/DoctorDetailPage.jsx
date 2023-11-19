@@ -7,11 +7,11 @@ import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRec
 import DoctorFaceRecord from "../../components/DoctorDashBoard/DoctorFaceRecord";
 import PageContainer from "../../components/Common/PageContainer.jsx";
 
-const RowContainer = styled.div`
-  display: flex;
-  align-items: center;
-  width: 42%;
-  margin: 20px 0;
+const Grid = styled.div`
+  margin: 20px 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 `;
 
 const DoctorDetailPage = () => {
@@ -19,10 +19,10 @@ const DoctorDetailPage = () => {
     <PageContainer>
       <BackButton text="환자 목록으로 돌아가기" to="/chart" />
       <DoctorDetailHeader />
-      <RowContainer>
+      <Grid>
         <DoctorDetailChart />
         <DoctorCheckHW />
-      </RowContainer>
+      </Grid>
       <DoctorFaceRecord />
       <DoctorUntactRecord />
     </PageContainer>

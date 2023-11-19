@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const InputContainer = styled.div`
   display: flex;
@@ -6,7 +6,7 @@ const InputContainer = styled.div`
 `;
 
 const Label = styled.label`
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
@@ -16,9 +16,9 @@ const Input = styled.input`
   width: 720px;
   height: 100px;
   border-radius: 10px;
-  background-color: #FAFAFA;
-  border: 1px solid #BBBBBB;
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  background-color: #fafafa;
+  border: 1px solid #bbbbbb;
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   padding-left: 0px;
 
   &:focus {

@@ -1,10 +1,10 @@
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import XButton from '../../assets/icons/iconx.png';
-import InputTextLong from '../Input/InputTextLong';
-import DateSelect from '../Input/DateSelect';
-import { useState } from 'react';
-import { createRecord } from "../../librarys/api/chart"
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import XButton from "../../assets/icons/iconx.png";
+import InputTextLong from "../Input/InputTextLong";
+import DateSelect from "../Input/DateSelect";
+import { useState } from "react";
+import { createRecord } from "../../librarys/api/chart";
 
 const Overlay = styled.div`
   position: fixed;
@@ -21,7 +21,7 @@ const Overlay = styled.div`
 const ModalContainer = styled.div`
   width: 600px;
   height: 600px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
@@ -40,7 +40,7 @@ const CloseIcon = styled.img`
   right: 20px;
   top: 20px;
   cursor: pointer;
-  margin-top:10px;
+  margin-top: 10px;
 `;
 
 const Divider = styled.hr`
@@ -61,40 +61,38 @@ const DateText = styled.p`
 const Button = styled.button`
   width: 140px;
   height: 30px;
-  background-color: #3592FF;
+  background-color: #3592ff;
   font-weight: 300;
-  color: #FEFDFD;
+  color: #fefdfd;
   font-size: 14px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top:20px;
-  display: block;     
+  margin-top: 20px;
+  display: block;
   margin-left: auto;
-  margin-right: auto; 
+  margin-right: auto;
 `;
 
-
-export const DoctorChartWrite = ({ onClose ,  onSubmit}) => {
+export const DoctorChartWrite = ({ onClose, onSubmit }) => {
   const getCurrentDate = () => {
     const date = new Date();
     const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0'); 
-    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
   };
 
   const [recordData, setRecordData] = useState({
-    treatmentRecord: '',
-    exerciseRequest: '',
-    nextSchedule: getCurrentDate()
+    treatmentRecord: "",
+    exerciseRequest: "",
+    nextSchedule: getCurrentDate(),
   });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setRecordData(prevData => ({ ...prevData, [name]: value }));
+    setRecordData((prevData) => ({ ...prevData, [name]: value }));
   };
-
 
   const handleDateChange = (date) => {
     setRecordData({ ...recordData, nextSchedule: date });
@@ -105,36 +103,35 @@ export const DoctorChartWrite = ({ onClose ,  onSubmit}) => {
     onClose();
   };
 
-
   return (
     <Overlay onClick={onClose}>
       <ModalContainer onClick={(e) => e.stopPropagation()}>
         <Title>진료 기록 추가</Title>
         <CloseIcon src={XButton} alt="Close" onClick={onClose} />
         <Divider />
-        <DateText>오늘 날짜: {getCurrentDate()}</DateText> 
-        <InputTextLong 
-          label="진료 기록 작성 *" 
-          name="treatmentRecord" 
-          value={recordData.treatmentRecord} 
-          onChange={handleInputChange} 
+        <DateText>오늘 날짜: {getCurrentDate()}</DateText>
+        <InputTextLong
+          label="진료 기록 작성 *"
+          name="treatmentRecord"
+          value={recordData.treatmentRecord}
+          onChange={handleInputChange}
         />
-        <InputTextLong 
-          label="재활치료사 재활 운동 요청서 작성 *" 
-          name="exerciseRequest" 
-          value={recordData.exerciseRequest} 
-          onChange={handleInputChange} 
+        <InputTextLong
+          label="재활치료사 재활 운동 요청서 작성 *"
+          name="exerciseRequest"
+          value={recordData.exerciseRequest}
+          onChange={handleInputChange}
         />
-        <DateSelect 
-          labelText="다음 외래 진료 일정 *" 
+        <DateSelect
+          labelText="다음 외래 진료 일정 *"
           value={recordData.nextSchedule}
-          onChange={handleDateChange} 
+          onChange={handleDateChange}
         />
         <Button onClick={handleSubmit}>기록 추가</Button>
       </ModalContainer>
     </Overlay>
   );
-}
+};
 
 DoctorChartWrite.propTypes = {
   onClose: PropTypes.func.isRequired,

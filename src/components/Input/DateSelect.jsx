@@ -1,9 +1,9 @@
-import styled from 'styled-components';
-import { useState, useRef, useEffect } from 'react';
-import Datetime from 'react-datetime';
-import IconCalender from '../../assets/icons/iconcalender.png';
-import 'react-datetime/css/react-datetime.css';
-import PropTypes from 'prop-types';
+import styled from "styled-components";
+import { useState, useRef, useEffect } from "react";
+import Datetime from "react-datetime";
+import IconCalender from "../../assets/icons/iconcalender.png";
+import "react-datetime/css/react-datetime.css";
+import PropTypes from "prop-types";
 
 const Container = styled.div`
   display: flex;
@@ -16,24 +16,24 @@ const DateInput = styled.input`
   width: 200px;
   height: 40px;
   border-radius: 10px;
-  background-color: #FAFAFA;
-  border: 1px solid #BBBBBB;
-  margin-right: 10px;  
+  background-color: #fafafa;
+  border: 1px solid #bbbbbb;
+  margin-right: 10px;
 `;
 
 const CalendarButton = styled.button`
   width: 40px;
   height: 40px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   cursor: pointer;
   border: none;
   color: white;
   border-radius: 10px;
   background-image: url(${IconCalender});
-  background-size: 25px 25px; 
+  background-size: 25px 25px;
   background-repeat: no-repeat;
   background-position: center;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
 `;
 
 const CalendarModal = styled.div`
@@ -60,17 +60,17 @@ const InputContainer = styled.div`
 `;
 
 const Label = styled.label`
-  font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+  font-family: "Spoqa Han Sans Neo", "sans-serif";
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 5px;
 `;
 
 const DateSelect = ({ labelText, value, onChange, ...props }) => {
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState("");
   const [open, setOpen] = useState(false);
 
-  const format = 'YYYY-MM-DD';
+  const format = "YYYY-MM-DD";
 
   const handleClickButton = () => {
     setOpen(!open);
@@ -139,15 +139,15 @@ const DateSelect = ({ labelText, value, onChange, ...props }) => {
 
   return (
     <Container>
-      {labelText && <Label>{labelText}</Label>} 
+      {labelText && <Label>{labelText}</Label>}
       <InputContainer>
         <DateInput
-          type='text'
+          type="text"
           value={date}
-          placeholder='   날짜를 선택해주세요.'
+          placeholder="   날짜를 선택해주세요."
           onChange={handleChangeDate}
         />
-        <CalendarButton type='button' onClick={handleClickButton} />
+        <CalendarButton type="button" onClick={handleClickButton} />
       </InputContainer>
       {open && (
         <>
@@ -170,7 +170,7 @@ const DateSelect = ({ labelText, value, onChange, ...props }) => {
 DateSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   value: PropTypes.string,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default DateSelect;

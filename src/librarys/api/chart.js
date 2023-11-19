@@ -52,7 +52,6 @@ export async function getChartList(token, id) {
         exerciseRequest: item.exerciseRequest,
       })),
       onlineRecords: (item.onlineRecords || []).map((item) => ({
-        // TODO: 정확한 명세 알아올 것
         ...item,
       })),
     })),
@@ -130,6 +129,47 @@ export async function getChartOne(chartId, token) {
     return response.data;
   } catch (error) {
     console.error("Error fetching chart data:", error);
+    throw error;
+  }
+}
+
+/// ChartSummary
+
+//cno로 환자 상세 차트 조회
+export async function getChartSummary(token, staffId) {
+  const axios = getSpringAxios(token);
+
+  try {
+    const response = await axios.get(`/chart/auth/staff/${staffId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chart summary:", error);
+    throw error;
+  }
+}
+
+//환자의 mid로 차트 상세 정보를 조회
+export async function getChartByPatient(token, patientMid) {
+  const axios = getSpringAxios(token);
+
+  try {
+    const response = await axios.get(`/chart/auth/patient/${patientMid}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching chart data by patient:", error);
+    throw error;
+  }
+}
+
+// 환자의 mid로 비대면 진료 기록을 조회
+export async function getAIRecordDetails(token, patientMid) {
+  const axios = getSpringAxios(token);
+
+  try {
+    const response = await axios.get(`/chart/auth/aiRecord/${patientMid}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching AI record details:", error);
     throw error;
   }
 }

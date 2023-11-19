@@ -2,8 +2,8 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const Outer = styled.div`
-  width: 100px;  
-  height: 100px; 
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
   background: #dfdfdf;
   display: flex;
@@ -15,20 +15,19 @@ const Outer = styled.div`
 `;
 
 const Inner = styled.div`
-  width: 70px;   
-  height: 70px;  
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   background-color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;  
+  font-size: 20px;
 `;
-
 
 const CircularChart = ({ className, totalExercises, passedExercises }) => {
   const passedPercentage = Math.round((passedExercises / totalExercises) * 100);
-  
+
   const gradientCss = `conic-gradient(#3592FF 0% ${passedPercentage}%, #D9D9D9 ${passedPercentage}% 100%)`;
 
   return (

@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { userLogin } from "../../librarys/dummy-api";
+import { getChartSummary } from "../../librarys/api/chart";
+import { selectToken } from "../../redux/userSlice";
 
 const Container = styled.div`
   width: 380px;
@@ -51,19 +54,26 @@ const Value = styled.span`
 
 const DoctorDetailChart = () => {
   const [patientInfo, setPatientInfo] = useState({});
+  const { staffId } = useParams();
+  const accessToken = useSelector(selectToken);
 
   useEffect(() => {
-    async function fetchPatientInfo() {
-      const doctorInfo = await userLogin("doctor", "123456");
-      const patient = doctorInfo?.patient;
-
-      if (patient) {
-        setPatientInfo(patient);
+    const fetchPatientSummary = async () => {
+      try {
+        const summary = await getChartSummary(accessToken, staffId);
+        setPatientInfo({
+          diseaseCode: summary.cd,
+          recentVisitDate: "아직 백엔드에서 넘겨주지 않음",
+          nextReservationDate: summary.schedule,
+          assignedTherapist: summary.therapist_name,
+        });
+      } catch (error) {
+        console.error("환자 요약 정보를 불러오는데 실패하였습니다.", error);
       }
-    }
+    };
 
-    fetchPatientInfo();
-  }, []);
+    fetchPatientSummary();
+  }, [staffId, accessToken]);
 
   return (
     <Container>

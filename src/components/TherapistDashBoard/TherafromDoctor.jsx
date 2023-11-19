@@ -10,7 +10,7 @@ const Container = styled.div`
   background-color: #ffffff;
   font-family: "Spoqa Han Sans Neo", "sans-serif";
   position: relative;
-  margin-bottom:20px;
+  margin-bottom: 20px;
 `;
 
 const Title = styled.h1`
@@ -31,7 +31,7 @@ const Divider = styled.hr`
 const DateText = styled.p`
   font-size: 24px;
   font-weight: bold;
-  margin-top:10px;
+  margin-top: 10px;
   margin-bottom: 15px;
   display: inline-block;
 `;
@@ -39,24 +39,22 @@ const DateText = styled.p`
 const RecordBox = styled.div`
   width: 100%;
   height: 122px;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   border-radius: 10px;
-  border: 1px solid #BBBBBB;
+  border: 1px solid #bbbbbb;
   padding: 10px;
   font-size: 16px;
-  word-wrap: break-word; 
+  word-wrap: break-word;
   overflow: hidden;
 `;
 
 const TherafromDoctor = () => {
-
   return (
     <Container>
       <Title>재활 운동 요청서</Title>
       <Divider />
-          <DateText>2023.08.31</DateText>
-          <RecordBox>
-          </RecordBox>
+      <DateText>2023.08.31</DateText>
+      <RecordBox></RecordBox>
     </Container>
   );
 };

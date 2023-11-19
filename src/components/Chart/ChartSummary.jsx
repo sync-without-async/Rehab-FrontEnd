@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { userLogin } from "../../librarys/dummy-api";
+import { getChartByPatient } from "../../librarys/api/chart";
+import { selectToken } from "../../redux/userSlice";
 
 const Container = styled.div`
   width: 380px;
@@ -10,7 +13,6 @@ const Container = styled.div`
   border: 1px solid #0064ff;
   border-radius: 10px;
   background-color: #ffffff;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -49,24 +51,31 @@ const Value = styled.span`
   color: #908b8b;
 `;
 
-const ChartSummary = ({ ...props }) => {
+const ChartSummary = () => {
   const [patientInfo, setPatientInfo] = useState({});
+  const { patientMid } = useParams();
+  const accessToken = useSelector(selectToken);
 
   useEffect(() => {
-    async function fetchPatientInfo() {
-      const doctorInfo = await userLogin("doctor", "123456");
-      const patient = doctorInfo?.patient;
-
-      if (patient) {
-        setPatientInfo(patient);
+    const fetchPatientInfo = async () => {
+      try {
+        const chartInfo = await getChartByPatient(accessToken, patientMid);
+        setPatientInfo({
+          diseaseCode: chartInfo.cd,
+          recentVisitDate: "백엔드에서 제공되지 않음",
+          nextReservationDate: chartInfo.schedule,
+          assignedTherapist: chartInfo.therapist_name,
+        });
+      } catch (error) {
+        console.error("환자 차트 정보를 불러오는데 실패하였습니다.", error);
       }
-    }
+    };
 
     fetchPatientInfo();
-  }, []);
+  }, [patientMid, accessToken]);
 
   return (
-    <Container {...props}>
+    <Container>
       <Title>차트 정보</Title>
       <Divider />
       <Row>

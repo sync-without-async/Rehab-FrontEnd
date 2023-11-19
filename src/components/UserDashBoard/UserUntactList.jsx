@@ -1,20 +1,20 @@
-import { useState } from 'react';
-import styled from 'styled-components';
-import DoctorImage from '../../assets/images/user/Odoctor.png';
-import IconDoctor from '../../assets/icons/icondoctor.png';
-import IconHospital from '../../assets/icons/iconhospital.png';
-import IconDate from '../../assets/icons/icondate.png';
+import { useState } from "react";
+import styled from "styled-components";
+import DoctorImage from "../../assets/images/user/Odoctor.png";
+import IconDoctor from "../../assets/icons/icondoctor.png";
+import IconHospital from "../../assets/icons/iconhospital.png";
+import IconDate from "../../assets/icons/icondate.png";
 
 const CardContainer = styled.div`
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;
   padding: 15px;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   width: 700px;
   height: 110px;
   background-color: #ffffff;
-  position: relative; 
+  position: relative;
   margin-bottom: 20px;
 `;
 
@@ -67,26 +67,28 @@ const AppointmentInfo = styled.div`
 
 const DateContain = styled.div`
   margin-left: 20px;
-`
+`;
 
 const Button = styled.button`
   width: 160px;
   height: 32px;
-  background-color: ${props => props.cancelButton ? "#F3F3F3" : (props.clicked ? "#888888" : "#3592FF")};
-  color: ${props => props.cancelButton ? "#000000" : (props.clicked ? "#444444" : "#FEFDFD")};
-  border: ${props => props.cancelButton ? "1px solid #BBBBBB" : "none"};
+  background-color: ${(props) =>
+    props.cancelButton ? "#F3F3F3" : props.clicked ? "#888888" : "#3592FF"};
+  color: ${(props) =>
+    props.cancelButton ? "#000000" : props.clicked ? "#444444" : "#FEFDFD"};
+  border: ${(props) => (props.cancelButton ? "1px solid #BBBBBB" : "none")};
   border-radius: 10px;
   border: none;
   cursor: pointer;
   font-size: 14px;
   position: absolute;
   margin-left: 500px;
-  top: ${props => (props.topPosition ? props.topPosition : "19px")};
+  top: ${(props) => (props.topPosition ? props.topPosition : "19px")};
 
   &:nth-child(2) {
-    background-color: #F3F3F3;
+    background-color: #f3f3f3;
     color: #000000;
-    border: 1px solid #BBBBBB;
+    border: 1px solid #bbbbbb;
     top: 59px;
   }
 `;
@@ -96,19 +98,21 @@ const UserUntactList = () => {
 
   const toggleButtonState = () => {
     setButtonState(!buttonState);
-  }
+  };
 
   return (
     <CardContainer>
       <ProfileImage src={DoctorImage} alt="Profile" />
       <UserInfo>
-        <UserName>김정원<span>님</span></UserName>
+        <UserName>
+          김정원<span>님</span>
+        </UserName>
         <AppointmentInfo>
           <Icon src={IconDoctor} alt="Doctor" />
           <InfoText>재활의학과 전문의</InfoText>
           <DateContain>
-          <Icon src={IconDate} alt="Date" />
-          <InfoText>2023/08/30 16:00</InfoText>
+            <Icon src={IconDate} alt="Date" />
+            <InfoText>2023/08/30 16:00</InfoText>
           </DateContain>
         </AppointmentInfo>
         <AppointmentInfo>
@@ -119,7 +123,9 @@ const UserUntactList = () => {
       <Button onClick={toggleButtonState} clicked={buttonState}>
         {buttonState ? "예약 시간이 아닙니다" : "입장"}
       </Button>
-      <Button cancelButton topPosition="59px">예약 취소</Button>
+      <Button cancelButton topPosition="59px">
+        예약 취소
+      </Button>
     </CardContainer>
   );
 };
