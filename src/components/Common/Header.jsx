@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectRole } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
+import mainlogo from "../../assets/icons/MainLogo.png";
 
 const HeaderContainer = styled.div`
   top: 0;
@@ -19,9 +20,8 @@ const HeaderContainer = styled.div`
   box-shadow: 0 0px 12px rgba(0, 0, 0, 0.1);
 `;
 
-const Logo = styled.div`
-  font-size: 24px;
-  font-weight: bold;
+const LogoImage = styled.img`
+  width: 10%; 
   cursor: pointer;
 `;
 
@@ -91,7 +91,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <Logo onClick={() => navigate("/")}>Re:Hab</Logo>
+        <LogoImage src={mainlogo} alt="Main Logo" onClick={() => navigate("/")} />
       <Navigation>
         {menuItems.map((item) => (
           <Item key={item.id} onClick={() => navigate(item.link)}>
