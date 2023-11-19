@@ -19,6 +19,7 @@ import PatientListPage from "./pages/PatientListPage.jsx";
 import ProgramPage from "./pages/ProgramPage.jsx";
 import AuthorizedRoute from "./components/Route/AuthorizedRoute.jsx";
 import { ROLE_TYPE } from "./librarys/type.js";
+import { ToastContainer } from 'react-toastify';
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
@@ -114,7 +115,7 @@ routes.forEach((item) => {
 });
 
 const App = () => {
-  return (
+  return (     
     <ReducerContext.Provider value={[null, null]}>
       <Router>
         <Header />
@@ -123,10 +124,10 @@ const App = () => {
             {routes.map((item, index) => (
               <Route key={index} path={item.path} element={item.element} />
             ))}
-            {/* <Route path="/chart/:id" element={<TheraDetailPage />} /> */}
           </Routes>
         </Container>
       </Router>
+      <ToastContainer /> 
     </ReducerContext.Provider>
   );
 };
