@@ -21,6 +21,8 @@ import DnDList from "../Common/DnDList.jsx";
 import { modifyProgram } from "../../librarys/api/program.js";
 import { useSelector } from "react-redux";
 import { selectId } from "../../redux/userSlice.js";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const InputArea = styled(InputAreaContainer)`
   margin-top: 28px;
@@ -108,12 +110,12 @@ const TheraMakeAssign = () => {
 
   const handleSubmit = async () => {
     if (assignDescription === "" || assignDescription.length < 4) {
-      alert("과제 설명을 4자 이상 적어주세요.");
+      toast.error("과제 설명을 4자 이상 적어주세요.");
       return;
     }
 
     if (assignList === null || assignList.length < 1) {
-      alert("환자에게 운동을 할당해주세요!");
+      toast.error("환자에게 운동을 할당해주세요!");
       return;
     }
 
@@ -128,7 +130,7 @@ const TheraMakeAssign = () => {
 
     console.log(response);
 
-    alert("과제 할당이 완료되었습니다.");
+    toast.success("과제 할당이 완료되었습니다.");
 
     navigate("/");
   };
