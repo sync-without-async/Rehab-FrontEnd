@@ -16,6 +16,8 @@ import { createAccount } from "../../librarys/api/user.js";
 import { useDispatch } from "react-redux";
 import { getMyInfo, login } from "../../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -69,48 +71,44 @@ const Signup = () => {
 
   async function clickRegisterButton() {
     if (id === "" || id.length < 3) {
-      alert("아이디는 4글자 이상으로 입력해주세요.");
+      toast.error("아이디는 4글자 이상으로 입력해주세요.");
       return;
     }
     if (password === "" || password.length < 3) {
-      alert("비밀번호는 4글자 이상으로 입력해주세요.");
+      toast.error("비밀번호는 4글자 이상으로 입력해주세요.");
       return;
     }
     if (name === "") {
-      alert("이름을 입력하세요.");
+      toast.error("이름을 입력하세요.");
       return;
     }
     if (hospital === "") {
-      alert("소속 병원을 입력하세요.");
+      toast.error("소속 병원을 입력하세요.");
       return;
     }
     if (department === "") {
-      alert("소속 부서를 입력하세요.");
+      toast.error("소속 부서를 입력하세요.");
       return;
     }
     if (email === "") {
-      alert("이메일을 입력하세요.");
+      toast.error("이메일을 입력하세요.");
       return;
     }
     if (phone === "") {
-      alert("핸드폰 번호를 입력하세요.");
+      toast.error("핸드폰 번호를 입력하세요.");
       return;
     }
-    console.log(state);
-
+  
     try {
       await createAccount(state);
+      toast.success(name + "님의 회원가입이 완료되었습니다!");
+      const tokenResponse = await reduxDispatch(login({ id, password }));
+      await reduxDispatch(getMyInfo(tokenResponse.payload));
+      navigate("/");
     } catch (error) {
       console.error(error);
-      alert("회원가입에 실패했습니다.");
-      return;
+      toast.error("회원가입에 실패했습니다.");
     }
-
-    alert(name + "님의 회원가입이 완료되었습니다!");
-    const tokenResponse = await reduxDispatch(login({ id, password }));
-    await reduxDispatch(getMyInfo(tokenResponse.payload));
-
-    navigate("/");
   }
 
   return (

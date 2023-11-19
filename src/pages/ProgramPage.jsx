@@ -17,6 +17,8 @@ import { show, hide } from "../redux/modalSlice.js";
 import BorderBox from "../components/player/BorderBox.jsx";
 import { ReducerContext } from "../reducer/context.js";
 import { getVideo } from "../librarys/api/program.js";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   width: 100%;
@@ -85,7 +87,7 @@ const ProgramPage = () => {
   useEffect(() => {
     getVideo(Number(id)).then((data) => {
       if (!data) {
-        alert("프로그램 데이터를 불러오는데 실패했습니다.");
+        toast.error("프로그램 데이터를 불러오는데 실패했습니다.");
         return;
       }
 
