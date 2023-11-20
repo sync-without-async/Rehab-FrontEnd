@@ -81,7 +81,7 @@ const DoctorChart = () => {
   function updateTherapists(list) {
     const dropdownList = list.map((t) => ({
       key: t.mid,
-      value: `${t.name} (${t.department}) (${t.mid})`,
+      value: `${t.name} (${t.department})`,
     }));
 
     dispatch({
