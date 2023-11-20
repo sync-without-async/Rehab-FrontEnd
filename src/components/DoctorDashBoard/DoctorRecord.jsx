@@ -1,14 +1,12 @@
 import styled from "styled-components";
-import DoctorChartWrite from "./DoctorChartWrite";
-import React, { useState, useEffect, useContext } from "react";
-import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../redux/userSlice";
-import { createRecord, getChartOne } from "../../librarys/api/chart";
-import { useParams } from "react-router-dom";
-import { ReducerContext } from "../../reducer/context.js";
 import PropTypes from "prop-types";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
+import { useDispatch } from "react-redux";
+import { show } from "../../redux/modalSlice.js";
+import { useSelector } from "react-redux";
+import { selectRole } from "../../redux/userSlice.js";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const Item = styled.div`
   width: 100%;
@@ -56,10 +54,23 @@ const List = styled.div`
   gap: 24px;
 `;
 
-const DoctorRecord = ({ title, data }) => {
+const DoctorRecord = ({ title, data, button }) => {
+  const dispatch = useDispatch();
+  const role = useSelector(selectRole);
+
+  const buttons =
+    button && role === ROLE_TYPE.DOCTOR
+      ? [
+          {
+            text: "진료 기록 추가",
+            callback: () => dispatch(show("chart_record_create")),
+          },
+        ]
+      : [];
+
   return (
     <BlockContainer>
-      <TitleText text={title} small />
+      <TitleText text={title} small buttons={buttons} />
       <List>
         {data.slice(0, 2).map((item, index) => (
           <RecordItem key={index} date={item.date} content={item.content} />
@@ -75,10 +86,12 @@ DoctorRecord.propTypes = {
     date: PropTypes.string,
     content: PropTypes.string,
   }),
+  button: PropTypes.bool,
 };
 
 DoctorRecord.defaultProps = {
   data: [],
+  button: false,
 };
 
 export default DoctorRecord;
