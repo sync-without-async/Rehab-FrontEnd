@@ -19,7 +19,8 @@ import PatientListPage from "./pages/PatientListPage.jsx";
 import ProgramPage from "./pages/ProgramPage.jsx";
 import AuthorizedRoute from "./components/Route/AuthorizedRoute.jsx";
 import { ROLE_TYPE } from "./librarys/type.js";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
+import LogoutPage from "./pages/LogoutPage.jsx";
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
@@ -41,6 +42,11 @@ const routes = [
     path: "/login",
     element: <LoginPage />,
     role: [VISITOR],
+  },
+  {
+    path: "/logout",
+    element: <LogoutPage />,
+    role: [VISITOR, USER, DOCTOR, THERAPIST],
   },
   {
     path: "/register",
@@ -115,7 +121,7 @@ routes.forEach((item) => {
 });
 
 const App = () => {
-  return (     
+  return (
     <ReducerContext.Provider value={[null, null]}>
       <Router>
         <Header />
@@ -127,7 +133,7 @@ const App = () => {
           </Routes>
         </Container>
       </Router>
-      <ToastContainer /> 
+      <ToastContainer />
     </ReducerContext.Provider>
   );
 };
