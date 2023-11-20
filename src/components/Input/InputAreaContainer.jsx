@@ -5,6 +5,7 @@ import classNames from "classnames";
 
 const Input = styled(InputArea)`
   width: 100% !important;
+  height: 100%;
 `;
 
 const InputContainer = styled.div`
