@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useReducer, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { RTCClient } from "../../librarys/webrtc/rtc-client.js";
 import { AudioRecorder } from "../../librarys/webrtc/rtc-recorder.js";
@@ -12,6 +12,15 @@ import { createMeetingSummary } from "../../librarys/api/ai.js";
 import { useSelector } from "react-redux";
 import { selectId, selectRole, selectToken } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
+import MeetingStartupModal from "../../components/Meeting/MeetingStartupModal.jsx";
+import { useDispatch } from "react-redux";
+import { hide, show } from "../../redux/modalSlice.js";
+import { ReducerContext } from "../../reducer/context.js";
+import {
+  intialMeetingRoomState,
+  meetingRoomReducer,
+} from "../../reducer/meeting-room.js";
+import MeetingResultModal from "../../components/Meeting/MeetingResultModal.jsx";
 
 const Container = styled.div`
   height: 100%;
@@ -93,6 +102,13 @@ const Button = styled.button`
 `;
 
 const ReservationMeetingPage = () => {
+  // What the hell here??
+
+  const [state, dispatch] = useReducer(
+    meetingRoomReducer,
+    intialMeetingRoomState,
+  );
+
   const navigate = useNavigate();
   const clientVideo = useRef(null);
   const remoteVideo = useRef(null);
@@ -107,6 +123,7 @@ const ReservationMeetingPage = () => {
   const role = useSelector(selectRole);
   const [loaded, setLoaded] = useState(false);
   const ffmpegRef = useRef(new FFmpeg());
+  const reduxDispatch = useDispatch();
 
   const loadLib = async () => {
     const baseURL = "https://unpkg.com/@ffmpeg/core@0.12.4/dist/esm";
@@ -123,7 +140,6 @@ const ReservationMeetingPage = () => {
         "application/wasm",
       ),
     });
-    console.log("done");
     setLoaded(true);
   };
 
@@ -137,6 +153,9 @@ const ReservationMeetingPage = () => {
   };
 
   useEffect(() => {
+    reduxDispatch(hide("meeting_result"));
+    reduxDispatch(show("meeting_startup"));
+
     loadLib();
 
     const unload = () => {
@@ -146,6 +165,12 @@ const ReservationMeetingPage = () => {
     peer.addEventListener("stream", onStream);
 
     peer.addEventListener("disconnect", () => {
+      reduxDispatch(
+        show({
+          id: "meeting_result",
+          props: false,
+        }),
+      );
       recorder.stop();
       setStatus("연결 종료");
       setStatusDescription("비대면 진료가 종료되었어요.");
@@ -165,29 +190,19 @@ const ReservationMeetingPage = () => {
       console.log(blob);
       console.log(data);
 
-      const convertedBlob = new Blob([data]);
-      // let convertedBlob;
-
-      // if (role === ROLE_TYPE.USER) {
-      //   convertedBlob = new Blob([await fetchFile(patientAudio, "audio/wav")], {
-      //     type: "audio/wav",
-      //   });
-      // } else {
-      //   convertedBlob = new Blob([await fetchFile(doctorAudio, "audio/wav")], {
-      //     type: "audio/wav",
-      //   });
-      // }
-
-      console.log(convertedBlob);
-
       const response = await createMeetingSummary({
         token,
-        audio: convertedBlob,
+        audio: new Blob([data]),
         uuid,
         is_patient: role === ROLE_TYPE.USER,
       });
 
-      console.log(response);
+      reduxDispatch(
+        show({
+          id: "meeting_result",
+          props: true,
+        }),
+      );
     });
 
     window.addEventListener("beforeunload", unload);
@@ -196,6 +211,11 @@ const ReservationMeetingPage = () => {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
         audio: true,
+      });
+
+      dispatch({
+        type: "setCameraStatus",
+        payload: true,
       });
 
       peer.connect(uuid, "user", stream);
@@ -221,27 +241,39 @@ const ReservationMeetingPage = () => {
     remoteVideo.current.srcObject = stream;
   }
 
+  function onQuitClick() {
+    if (peer.state === false) {
+      navigate("/");
+    } else {
+      peer.disconnect();
+    }
+  }
+
   return (
-    <Container>
-      <VideoContainer>
-        <VideoWrapper>
-          <Video ref={clientVideo} autoPlay />
-          <Description>클라이언트</Description>
-        </VideoWrapper>
-        <VideoWrapper>
-          <Video ref={remoteVideo} autoPlay />
-          <Status>
-            {status}
-            <StatusDescription>{statusDescription}</StatusDescription>
-          </Status>
-          <Description>상대방</Description>
-        </VideoWrapper>
-      </VideoContainer>
-      <Button onClick={() => peer.disconnect()}>
-        <Icon />
-        나가기
-      </Button>
-    </Container>
+    <ReducerContext.Provider value={[state, dispatch]}>
+      <Container>
+        <MeetingStartupModal />
+        <MeetingResultModal />
+        <VideoContainer>
+          <VideoWrapper>
+            <Video ref={clientVideo} autoPlay />
+            <Description>클라이언트</Description>
+          </VideoWrapper>
+          <VideoWrapper>
+            <Video ref={remoteVideo} autoPlay />
+            <Status>
+              {status}
+              <StatusDescription>{statusDescription}</StatusDescription>
+            </Status>
+            <Description>상대방</Description>
+          </VideoWrapper>
+        </VideoContainer>
+        <Button onClick={onQuitClick}>
+          <Icon />
+          나가기
+        </Button>
+      </Container>
+    </ReducerContext.Provider>
   );
 };
 
