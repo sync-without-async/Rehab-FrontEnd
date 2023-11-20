@@ -5,7 +5,11 @@ import { userLogin } from "../../librarys/dummy-api";
 import IconDoctor from "../../assets/icons/icondoctor.png";
 import IconHospital from "../../assets/icons/iconhospital.png";
 import { useSelector } from "react-redux";
-import { selectName } from "../../redux/userSlice.js";
+import {
+  selectName,
+  selectNextScheduleDate,
+  selectRecentVisitDate,
+} from "../../redux/userSlice.js";
 
 const Container = styled.div`
   width: 800px;
@@ -74,6 +78,8 @@ const ItemText = styled.p`
 
 const UserHeader = () => {
   const name = useSelector(selectName);
+  const recentVisitDate = useSelector(selectRecentVisitDate);
+  const nextScheduleDate = useSelector(selectNextScheduleDate);
 
   return (
     <Container>
@@ -88,11 +94,11 @@ const UserHeader = () => {
         <ItemRow>
           <ItemContainer>
             <ItemHeader>최근 외래 진료일</ItemHeader>
-            <ItemText>2023.09.01</ItemText>
+            <ItemText>{recentVisitDate}</ItemText>
           </ItemContainer>
           <ItemContainer>
             <ItemHeader>다음 외래 예약일</ItemHeader>
-            <ItemText>2023.09.12</ItemText>
+            <ItemText>{nextScheduleDate}</ItemText>
           </ItemContainer>
         </ItemRow>
       </TextContainer>

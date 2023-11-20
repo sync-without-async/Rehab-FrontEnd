@@ -181,7 +181,7 @@ class Player {
 
   async onRecordComplete(data) {
     const formData = new FormData();
-    formData.append("vno", this.videoId);
+    formData.append("vno", this.id);
     formData.append("video_file", data);
 
     let response;
@@ -190,15 +190,15 @@ class Player {
     this.onComplete(null, null);
 
     try {
-      await sleep(1200);
-      // response = await getMetrics(formData);
+      // await sleep(1200);
+      response = await getMetrics(formData);
       // console.log(response);
     } catch (e) {
       console.log(e);
     }
 
-    // const score = response ? response.metrics : 0.01;
-    const score = (Math.floor(Math.random() * 200) + 700) / 1000;
+    const score = response ? response.metrics : 0.01;
+    // const score = (Math.floor(Math.random() * 200) + 700) / 1000;
 
     this.onComplete(time, score);
   }

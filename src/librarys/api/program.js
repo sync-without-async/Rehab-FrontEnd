@@ -33,6 +33,7 @@ export async function getUserPrograms(token, id, page) {
       id: item.ord,
       title: item.title,
       videoId: item.vno,
+      programId: item.pno,
       metrics: item.metrics,
     })),
   };
@@ -40,12 +41,24 @@ export async function getUserPrograms(token, id, page) {
   return data;
 }
 
-export async function modifyMetrics(data) {
-  const axios = getSpringAxios();
-  const params = {};
-  const response = await axios.put("/metrics", { params });
+export async function modifyMetrics(req) {
+  const axios = getSpringAxios(req.token);
 
-  return response.data;
+  const body = {
+    patient_id: req.id,
+    pno: Number(req.pno),
+    vno: Number(req.vno),
+    ord: Number(req.ord),
+    metrics: req.metrics,
+  };
+
+  const response = await axios.put("/metrics", body);
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
 }
 
 export async function createProgram(req) {

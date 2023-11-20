@@ -37,11 +37,11 @@ const DoctorDetailChart = () => {
   const [state, dispatch] = useContext(ReducerContext);
   const { diseaseCode, medicalRecords, therapist_name } = state;
 
-  const recentVisitDate = useMemo(() => {
+  const [recentVisitDate, nextScheduleDate] = useMemo(() => {
     if (medicalRecords && medicalRecords.length > 0) {
-      return medicalRecords[0].date;
+      return [medicalRecords[0].date, medicalRecords[0].nextSchedule];
     } else {
-      return "-";
+      return ["-", "-"];
     }
   }, [medicalRecords]);
 
@@ -56,7 +56,7 @@ const DoctorDetailChart = () => {
     },
     {
       key: "다음 진료 예약일",
-      value: null,
+      value: nextScheduleDate,
     },
     {
       key: "담당 재활 치료사",

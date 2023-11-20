@@ -12,6 +12,8 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  z-index: 2;
 `;
 
 const Video = styled.video`

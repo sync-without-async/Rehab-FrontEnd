@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 
 import Player from "../librarys/player.js";
@@ -16,8 +16,10 @@ import { useDispatch } from "react-redux";
 import { show, hide } from "../redux/modalSlice.js";
 import BorderBox from "../components/player/BorderBox.jsx";
 import { ReducerContext } from "../reducer/context.js";
-import { getVideo } from "../librarys/api/program.js";
+import { getVideo, modifyMetrics } from "../librarys/api/program.js";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+import { selectId, selectToken } from "../redux/userSlice.js";
 
 const Container = styled.div`
   width: 100%;
@@ -34,10 +36,14 @@ const Camera = styled.video`
 `;
 
 const ProgramPage = () => {
-  const { id } = useParams();
+  const { pno, ord } = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const vno = searchParams.get("video");
   const [state, dispatch] = useReducer(playerReducer, intialPlayerState);
   const modalDispatch = useDispatch();
-  const { subtitle, videoId } = state;
+  const { subtitle } = state;
+  const userId = useSelector(selectId);
+  const token = useSelector(selectToken);
   const cameraRef = useRef(null);
 
   useEffect(() => {
@@ -58,7 +64,19 @@ const ProgramPage = () => {
 
     Player.clearInstance();
 
-    Player.onComplete = (time, percentage) => {
+    Player.onComplete = async (time, percentage) => {
+      if (percentage !== null) {
+        const response = await modifyMetrics({
+          token,
+          id: userId,
+          vno,
+          pno,
+          ord,
+          metrics: percentage,
+        });
+        console.log(response);
+      }
+
       modalDispatch(
         show({
           id: "exercise_result",
@@ -71,7 +89,7 @@ const ProgramPage = () => {
     };
 
     Player.dispatch = dispatch;
-    Player.id = id;
+    Player.id = vno;
     Player.getVideoStream()
       .then((stream) => {
         if (cameraRef) {
@@ -84,7 +102,7 @@ const ProgramPage = () => {
   }, []);
 
   useEffect(() => {
-    getVideo(Number(id)).then((data) => {
+    getVideo(Number(vno)).then((data) => {
       if (!data) {
         toast.error("프로그램 데이터를 불러오는데 실패했습니다.");
         return;
@@ -101,12 +119,6 @@ const ProgramPage = () => {
       Player.name = data.title;
     });
   }, []);
-
-  useEffect(() => {
-    if (videoId) {
-      Player.videoId = videoId;
-    }
-  }, [videoId]);
 
   return (
     <ReducerContext.Provider value={[state, dispatch]}>

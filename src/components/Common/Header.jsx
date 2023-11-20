@@ -43,17 +43,17 @@ const Item = styled.div`
 `;
 
 const totalItems = [
-  {
-    id: "dev",
-    value: "Developer's Page",
-    link: "/dev",
-    role: [
-      ROLE_TYPE.VISITOR,
-      ROLE_TYPE.USER,
-      ROLE_TYPE.DOCTOR,
-      ROLE_TYPE.THERAPIST,
-    ],
-  },
+  // {
+  //   id: "dev",
+  //   value: "Developer's Page",
+  //   link: "/dev",
+  //   role: [
+  //     ROLE_TYPE.VISITOR,
+  //     ROLE_TYPE.USER,
+  //     ROLE_TYPE.DOCTOR,
+  //     ROLE_TYPE.THERAPIST,
+  //   ],
+  // },
   {
     id: "register",
     value: "회원가입",

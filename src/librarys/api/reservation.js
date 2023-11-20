@@ -40,12 +40,6 @@ export async function getUserReservationList(token, id, page) {
 
   const response = await axios.get("/reservation-user/" + id, { params });
 
-  const ROLE_CONVERT = {
-    ROLE_PATIENT: ROLE_TYPE.USER,
-    ROLE_DOCTOR: ROLE_TYPE.DOCTOR,
-    ROLE_THERAPIST: ROLE_TYPE.THERAPIST,
-  };
-
   const data = {
     page: response.data.page,
     total: response.data.end,
@@ -60,7 +54,7 @@ export async function getUserReservationList(token, id, page) {
       index: item.index,
       description: item.content,
       summary: item.summary,
-      role: ROLE_CONVERT[item.role],
+      role: ROLE_TYPE[item.role.slice(1, -1)],
     })),
   };
 

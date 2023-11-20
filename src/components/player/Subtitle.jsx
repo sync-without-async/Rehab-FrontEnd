@@ -3,7 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 
 const Container = styled.div`
-  max-width: 700px;
+  max-width: 800px;
   width: 100%;
   position: absolute;
 
@@ -19,6 +19,8 @@ const Container = styled.div`
   font-size: 28px;
   font-weight: 700;
   color: rgba(255, 255, 255, 1);
+
+  z-index: 2;
 
   text-shadow:
     -1px -1px 1px rgba(0, 0, 0, 0.5),

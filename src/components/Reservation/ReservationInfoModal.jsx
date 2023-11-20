@@ -11,6 +11,9 @@ import Button from "../Button/Button.jsx";
 import { deleteReservation } from "../../librarys/api/reservation.js";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
+import { selectRole } from "../../redux/userSlice.js";
+import { ROLE_TYPE } from "../../librarys/type.js";
 
 const Container = styled.div`
   display: flex;
@@ -36,9 +39,16 @@ const notReadyText = "아직 비대면 진료 요약이 생성되지 않았습�
 
 const ReservationInfoModal = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const value = useSelector(selectProps(id));
-  const { reservationId, description, summary } = value || {};
+  const { patientId, reservationId, description, summary } = value || {};
+  const role = useSelector(selectRole);
 
+  async function onChartButtonClick() {
+    navigate("/chart-id/" + patientId);
+
+    dispatch(hide(id));
+  }
   async function onCancelButtonClick() {
     const response = await deleteReservation(reservationId);
 
@@ -60,7 +70,11 @@ const ReservationInfoModal = () => {
           disabled={true}
         />
         <ButtonContainer>
-          <Button type="primary">환자 차트 페이지로</Button>
+          {role !== ROLE_TYPE.USER ? (
+            <Button type="primary" onClick={onChartButtonClick}>
+              환자 차트 페이지로
+            </Button>
+          ) : null}
           <Button onClick={onCancelButtonClick}>예약 취소</Button>
         </ButtonContainer>
       </Container>

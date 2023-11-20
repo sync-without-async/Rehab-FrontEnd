@@ -20,8 +20,9 @@ import { getVideoList } from "../../librarys/api/video.js";
 import DnDList from "../Common/DnDList.jsx";
 import { modifyProgram } from "../../librarys/api/program.js";
 import { useSelector } from "react-redux";
-import { selectId } from "../../redux/userSlice.js";
+import { selectId, selectToken } from "../../redux/userSlice.js";
 import { toast } from "react-toastify";
+import { getChart, getChartWithId } from "../../librarys/api/chart.js";
 
 const InputArea = styled(InputAreaContainer)`
   margin-top: 28px;
@@ -82,6 +83,7 @@ const TheraMakeAssign = () => {
   );
   const { id } = useParams();
   const adminId = useSelector(selectId);
+  const token = useSelector(selectToken);
 
   const {
     programList,
@@ -170,12 +172,11 @@ const TheraMakeAssign = () => {
 
   useEffect(() => {
     (async () => {
-      // Fetch GET endpoint here
-      // const res = await getUserAssignment(user_id);
+      const response = await getChartWithId(token, id);
 
       dispatch({
         type: "doctorDescription",
-        payload: "테스트입니다~~~",
+        payload: response.medicalRecords[0]?.exerciseRequest,
       });
     })();
   }, []);

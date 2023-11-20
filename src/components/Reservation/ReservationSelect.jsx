@@ -4,6 +4,8 @@ import { UserSelectCard } from "../UserDashBoard/UserSelectCard";
 import BlockContainer from "../Common/BlockContainer.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import ReservationCreateModal from "./ReservationCreateModal.jsx";
+import { useSelector } from "react-redux";
+import { selectDoctor, selectTherapist } from "../../redux/userSlice.js";
 
 const CardWrapper = styled.div`
   display: flex;
@@ -19,6 +21,8 @@ const Text = styled.p`
 `;
 
 const ReservationSelect = () => {
+  const doctor = useSelector(selectDoctor) || {};
+  const therapist = useSelector(selectTherapist) || {};
   return (
     <BlockContainer>
       <ReservationCreateModal />
@@ -26,18 +30,20 @@ const ReservationSelect = () => {
       <Text>진료를 희망하는 의료진을 선택해주세요.</Text>
       <CardWrapper>
         <UserSelectCard
-          id="doctor1"
-          role="전문의"
-          name="사용자"
-          hospital="춘천성심병원"
-          department="재활의학과"
+          id={doctor.id}
+          role={doctor.role}
+          name={doctor.name}
+          hospital={doctor.hospital}
+          department={doctor.department}
+          image={doctor.image}
         />
         <UserSelectCard
-          id="the1"
-          role="재활치료사"
-          name="사용자"
-          hospital="춘천성심병원"
-          department="재활의학과"
+          id={therapist.id}
+          role={therapist.role}
+          name={therapist.name}
+          hospital={therapist.hospital}
+          department={therapist.department}
+          image={therapist.image}
         />
       </CardWrapper>
     </BlockContainer>

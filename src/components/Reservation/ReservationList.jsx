@@ -76,7 +76,9 @@ const ReservationList = () => {
               date={item.date}
               index={item.index}
               role={item.role}
+              patient={item.patient}
               name={item.name}
+              image={item.image}
               description={item.description}
               summary={item.summary}
             />

@@ -14,6 +14,8 @@ import {
   intialProgramListState,
   programListReducer,
 } from "../../reducer/program-list.js";
+import { useNavigate } from "react-router-dom";
+import { METRICS_PASS } from "../../librarys/type.js";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -41,7 +43,7 @@ function getMetricsDisplay(value) {
 function getGrade(value) {
   if (value === 0) {
     return <Grade>미수강</Grade>;
-  } else if (value < 0.6) {
+  } else if (value < METRICS_PASS) {
     return <Grade $color="#c71737">불합격</Grade>;
   } else {
     return <Grade $color="#0085ff">합격</Grade>;
@@ -55,6 +57,7 @@ const UserAssignList = () => {
   );
   const token = useSelector(selectToken);
   const id = useSelector(selectId);
+  const navigate = useNavigate();
 
   const { list } = state;
   const description = useMemo(
@@ -68,11 +71,11 @@ const UserAssignList = () => {
   const assignData = [
     ["번호", "과제 이름", "정확도", "판정", "수강"],
     ...list.map((item) => [
-      item.ord,
+      item.id,
       item.title,
       getMetricsDisplay(item.metrics),
       getGrade(item.metrics),
-      <Icon key={item.ord} />,
+      <Icon key={item.id} />,
     ]),
   ];
 
@@ -88,6 +91,14 @@ const UserAssignList = () => {
     })();
   }, [id]);
 
+  function onClick(row) {
+    const index = row[0];
+    const item = list[index - 1];
+    console.log(item, index);
+
+    navigate(`/program/${item.programId}/${item.id}?video=${item.videoId}`);
+  }
+
   return (
     <Container>
       <TitleText text="과제" small={true} />
@@ -96,6 +107,7 @@ const UserAssignList = () => {
         template="60px 420px 90px 100px 50px"
         align={["right", "left", "right", "center", "center"]}
         data={assignData}
+        onClick={onClick}
       />
     </Container>
   );

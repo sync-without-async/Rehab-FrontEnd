@@ -4,7 +4,9 @@ import {
   getUserToken,
   getStaffInfo,
   getPatientInfo,
+  getPatientStaffInfo,
 } from "../librarys/api/user.js";
+import { getPatientDate } from "../librarys/api/chart.js";
 
 export const login = createAsyncThunk(
   "user/login",
@@ -18,7 +20,10 @@ export const getMyInfo = createAsyncThunk(
   "user/getMyInfo",
   async ({ id, role, accessToken }, thunkAPI) => {
     if (role === ROLE_TYPE.USER) {
-      return await getPatientInfo(accessToken, id);
+      const info = await getPatientInfo(accessToken, id);
+      const staff = await getPatientStaffInfo(accessToken, id);
+      const chart = await getPatientDate(accessToken, id);
+      return { ...info, ...staff, ...chart };
     } else if ([ROLE_TYPE.DOCTOR, ROLE_TYPE.THERAPIST].includes(role)) {
       return await getStaffInfo(accessToken, id);
     }
@@ -39,6 +44,8 @@ export const userSlice = createSlice({
     image: null,
     doctor: null,
     therapist: null,
+    recentVisitDate: null,
+    nextScheduleDate: null,
   },
   reducers: {
     logout: (state) => {
@@ -52,6 +59,8 @@ export const userSlice = createSlice({
       state.image = null;
       state.doctor = null;
       state.therapist = null;
+      state.recentVisitDate = null;
+      state.nextScheduleDate = null;
     },
   },
   extraReducers: (builder) => {
@@ -68,6 +77,10 @@ export const userSlice = createSlice({
         state.name = action.payload.name;
         state.phone = action.payload.phone;
         state.role = action.payload.role;
+        state.doctor = action.payload.doctor;
+        state.therapist = action.payload.therapist;
+        state.recentVisitDate = action.payload.recentVisitDate;
+        state.nextScheduleDate = action.payload.nextScheduleDate;
       } else {
         state.id = action.payload.id;
         state.name = action.payload.name;
@@ -92,6 +105,8 @@ export const selectLocation = (state) => state.user.location;
 export const selectDepartment = (state) => state.user.department;
 export const selectDoctor = (state) => state.user.doctor;
 export const selectTherapist = (state) => state.user.therapist;
+export const selectRecentVisitDate = (state) => state.user.recentVisitDate;
+export const selectNextScheduleDate = (state) => state.user.nextScheduleDate;
 export const selectIsLoggedIn = (state) => state.user.accessToken !== null;
 
 export default userSlice.reducer;
