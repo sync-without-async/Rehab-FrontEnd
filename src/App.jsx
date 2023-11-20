@@ -21,6 +21,7 @@ import AuthorizedRoute from "./components/Route/AuthorizedRoute.jsx";
 import { ROLE_TYPE } from "./librarys/type.js";
 import { ToastContainer } from "react-toastify";
 import LogoutPage from "./pages/LogoutPage.jsx";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
@@ -107,6 +108,11 @@ const routes = [
     path: "/chart/:id/assign",
     element: <TheraMakeAssignPage />,
     role: [THERAPIST],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
+    role: [VISITOR, USER, DOCTOR, THERAPIST],
   },
 ];
 
