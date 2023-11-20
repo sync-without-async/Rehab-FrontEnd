@@ -16,8 +16,7 @@ import { createAccount } from "../../librarys/api/user.js";
 import { useDispatch } from "react-redux";
 import { getMyInfo, login } from "../../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -98,7 +97,7 @@ const Signup = () => {
       toast.error("핸드폰 번호를 입력하세요.");
       return;
     }
-  
+
     try {
       await createAccount(state);
       toast.success(name + "님의 회원가입이 완료되었습니다!");
@@ -168,10 +167,13 @@ const Signup = () => {
         <InputTextContainer
           label="비밀번호 *"
           name="password"
+          password
           value={password}
           onChange={setData("password", "target.value")}
         />
-        <RegisterButton onClick={clickRegisterButton}>회원가입</RegisterButton>
+        <RegisterButton type="primary" onClick={clickRegisterButton}>
+          회원가입
+        </RegisterButton>
       </Grid>
     </BlockContainer>
   );

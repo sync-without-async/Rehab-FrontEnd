@@ -76,6 +76,7 @@ const LoginComponents = () => {
         />
         <Input
           label="비밀번호"
+          password
           value={password}
           onInput={(e) => setPassword(e.target.value)}
         />

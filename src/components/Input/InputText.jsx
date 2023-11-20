@@ -15,9 +15,14 @@ const Item = styled.input`
   }
 `;
 
-function InputText({ value, onChange, className }) {
+function InputText({ value, onChange, className, password }) {
   return (
-    <Item type="text" value={value} onChange={onChange} className={className} />
+    <Item
+      type={password ? "password" : "text"}
+      value={value}
+      onChange={onChange}
+      className={className}
+    />
   );
 }
 
@@ -25,6 +30,11 @@ InputText.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   className: PropTypes.string,
+  password: PropTypes.bool,
+};
+
+InputText.defaultProps = {
+  password: false,
 };
 
 export default InputText;
