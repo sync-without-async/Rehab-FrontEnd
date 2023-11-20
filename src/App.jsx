@@ -139,7 +139,17 @@ const App = () => {
           </Routes>
         </Container>
       </Router>
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss={false}
+        draggable={false}
+        pauseOnHover
+        theme="colored"
+      />
     </ReducerContext.Provider>
   );
 };
