@@ -16,11 +16,10 @@ const AuthorizedRoute = ({ children, to, whitelist }) => {
     } else {
       return "/";
     }
-  }, [userRole]);
+  }, [userRole, redirect]);
 
-  const authorized = true; // For testing only
-
-  // const authorized = whitelist === null || whitelist.includes(userRole);
+  // const authorized = true; // For testing only
+  const authorized = whitelist === null || whitelist.includes(userRole);
 
   return authorized ? <>{children}</> : <Navigate to={url} />;
 };

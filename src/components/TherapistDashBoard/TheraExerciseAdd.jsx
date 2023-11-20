@@ -12,8 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { useReducer } from "react";
 import { useSelector } from "react-redux";
 import { selectId, selectToken } from "../../redux/userSlice.js";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const InputText = styled(InputTextContainer)`
   width: 240px;

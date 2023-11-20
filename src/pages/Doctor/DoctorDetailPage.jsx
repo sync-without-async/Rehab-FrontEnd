@@ -3,13 +3,11 @@ import BackButton from "../../components/Button/BackButton";
 import DoctorDetailHeader from "../../components/DoctorDashBoard/DoctorDetailHeader";
 import DoctorDetailChart from "../../components/DoctorDashBoard/DoctorDetailChart";
 import DoctorCheckHW from "../../components/DoctorDashBoard/DoctorCheckHW";
-import DoctorUntactRecord from "../../components/DoctorDashBoard/DoctorUntactRecord";
-import DoctorFaceRecord from "../../components/DoctorDashBoard/DoctorFaceRecord";
 import PageContainer from "../../components/Common/PageContainer.jsx";
 import { ReducerContext } from "../../reducer/context.js";
 import { useEffect, useMemo, useReducer } from "react";
 import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../redux/userSlice.js";
+import { selectToken } from "../../redux/userSlice.js";
 import { useParams } from "react-router";
 import { getChart, getChartAiRecord } from "../../librarys/api/chart.js";
 import {
@@ -19,6 +17,7 @@ import {
 import { getUserPrograms } from "../../librarys/api/program.js";
 import DoctorRecord from "../../components/DoctorDashBoard/DoctorRecord.jsx";
 import dayjs from "dayjs";
+import DoctorCreateModal from "../../components/DoctorDashBoard/DoctorCreateModal.jsx";
 
 const Wrapper = styled.div`
   display: flex;
@@ -89,6 +88,7 @@ const DoctorDetailPage = () => {
 
   return (
     <ReducerContext.Provider value={[state, dispatch]}>
+      <DoctorCreateModal />
       <PageContainer>
         <BackButton text="환자 목록으로 돌아가기" to="/chart" />
         <Wrapper>
@@ -97,7 +97,7 @@ const DoctorDetailPage = () => {
             <DoctorDetailChart />
             <DoctorCheckHW />
           </Grid>
-          <DoctorRecord title="외래 진료 기록" data={mediacalData} />
+          <DoctorRecord title="외래 진료 기록" data={mediacalData} button />
           <DoctorRecord title="비대면 진료 기록" data={summaryData} />
         </Wrapper>
       </PageContainer>

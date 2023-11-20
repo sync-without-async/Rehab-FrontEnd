@@ -21,8 +21,7 @@ import DnDList from "../Common/DnDList.jsx";
 import { modifyProgram } from "../../librarys/api/program.js";
 import { useSelector } from "react-redux";
 import { selectId } from "../../redux/userSlice.js";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const InputArea = styled(InputAreaContainer)`
   margin-top: 28px;

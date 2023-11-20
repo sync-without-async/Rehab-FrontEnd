@@ -21,6 +21,7 @@ function InputTextContainer({
   label,
   name,
   required,
+  password,
   value,
   onChange,
   ...props
@@ -31,6 +32,7 @@ function InputTextContainer({
       <Input
         name={name}
         value={value}
+        password={password}
         onChange={onChange}
         required={required}
       />
@@ -42,6 +44,7 @@ InputTextContainer.propTypes = {
   label: PropTypes.string,
   name: PropTypes.string,
   required: PropTypes.bool,
+  password: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
 };

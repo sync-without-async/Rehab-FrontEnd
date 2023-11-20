@@ -15,26 +15,26 @@ const HeaderContainer = styled.div`
   min-width: 1200px;
   width: 100%;
   height: 60px;
-  padding: 0 48px;
+  padding: 0 24px;
   background-color: #ffffff;
   box-shadow: 0 0px 12px rgba(0, 0, 0, 0.1);
 `;
 
 const LogoImage = styled.img`
-  width: 10%; 
+  width: 10%;
   cursor: pointer;
 `;
 
 const Navigation = styled.div`
   display: flex;
-  gap: 64px;
+  gap: 8px;
 `;
 
 const Item = styled.div`
   cursor: pointer;
-  padding: 10px 15px;
+  padding: 8px 24px;
   margin: 0 5px;
-  border-radius: 10px;
+  border-radius: 24px;
   transition: background-color 0.3s;
 
   &:hover {
@@ -99,7 +99,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-        <LogoImage src={mainlogo} alt="Main Logo" onClick={() => navigate("/")} />
+      <LogoImage src={mainlogo} alt="Main Logo" onClick={() => navigate("/")} />
       <Navigation>
         {menuItems.map((item) => (
           <Item key={item.id} onClick={() => navigate(item.link)}>

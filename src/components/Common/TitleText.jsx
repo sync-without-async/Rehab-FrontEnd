@@ -52,7 +52,7 @@ const TitleText = ({ small, text, buttons }) => {
         <LinkButton
           key={index}
           type="primary"
-          onClick={() => navigate(item.to)}
+          onClick={() => (item.callback ? item.callback() : navigate(item.to))}
         >
           {item.text}
         </LinkButton>
