@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectRole } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
-import mainlogo from "../../assets/icons/MainLogo.png";
+import mainlogo from "../../assets/images/Logo.png";
 
 const HeaderContainer = styled.div`
   top: 0;
@@ -21,7 +21,9 @@ const HeaderContainer = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 10%;
+  max-width: 200px;
+  max-height: 48px;
+  object-fit: contain;
   cursor: pointer;
 `;
 
