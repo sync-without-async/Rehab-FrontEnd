@@ -8,8 +8,7 @@ import Button from "../Button/Button";
 import { useDispatch } from "react-redux";
 import { getMyInfo, login, selectName } from "../../redux/userSlice.js";
 import { useSelector } from "react-redux";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const InputContainer = styled.div`
   margin: 48px 0;
@@ -49,16 +48,16 @@ const LoginComponents = () => {
 
   const handleLogin = async () => {
     const tokenResponse = await dispatch(login({ id, password }));
-  
+
     if (tokenResponse.error) {
       toast.error("아이디나 비밀번호를 다시 한번 확인해주세요.");
       return;
     }
-  
+
     const infoResponse = await dispatch(getMyInfo(tokenResponse.payload));
-  
+
     toast.success(`${infoResponse.payload.name}님, 환영합니다.`);
-  
+
     if (redirect) {
       navigate(redirect);
     } else {
