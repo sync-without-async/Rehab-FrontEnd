@@ -6,24 +6,17 @@ import Modal from "../Common/Modal.jsx";
 import { hide, selectProps } from "../../redux/modalSlice.js";
 import { useSelector } from "react-redux";
 import ModalTitleText from "../Common/ModalTitleText.jsx";
-import ChartSummary from "../Chart/ChartSummary.jsx";
 import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
 import { deleteReservation } from "../../librarys/api/reservation.js";
 import { useDispatch } from "react-redux";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 28px;
-`;
-
-const Chart = styled(ChartSummary)`
-  margin-top: 16px;
-  width: 100%;
 `;
 
 const Input = styled(InputAreaContainer)`

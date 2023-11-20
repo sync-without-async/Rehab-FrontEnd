@@ -17,8 +17,7 @@ import { show, hide } from "../redux/modalSlice.js";
 import BorderBox from "../components/player/BorderBox.jsx";
 import { ReducerContext } from "../reducer/context.js";
 import { getVideo } from "../librarys/api/program.js";
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 
 const Container = styled.div`
   width: 100%;
