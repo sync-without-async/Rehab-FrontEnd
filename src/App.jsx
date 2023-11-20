@@ -22,6 +22,7 @@ import { ROLE_TYPE } from "./librarys/type.js";
 import { ToastContainer } from "react-toastify";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
+import ConvertChartPage from "./pages/ConvertChartPage.jsx";
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
@@ -75,7 +76,7 @@ const routes = [
     role: [USER],
   },
   {
-    path: "/program/:id",
+    path: "/program/:pno/:ord",
     element: <ProgramPage />,
     role: [USER],
   },
@@ -87,6 +88,11 @@ const routes = [
   {
     path: "/chart/:id",
     element: <DoctorDetailPage />,
+    role: [DOCTOR, THERAPIST],
+  },
+  {
+    path: "/chart-id/:id",
+    element: <ConvertChartPage />,
     role: [DOCTOR, THERAPIST],
   },
   {

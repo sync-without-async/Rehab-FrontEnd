@@ -26,6 +26,8 @@ const Container = styled.div`
   gap: 8px;
   align-items: center;
   justify-content: center;
+
+  z-index: 2;
 `;
 
 const ButtonContainer = styled.div`

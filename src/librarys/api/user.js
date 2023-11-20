@@ -122,6 +122,38 @@ export async function getPatientInfo(token, id) {
   return data;
 }
 
+export async function getPatientStaffInfo(token, id) {
+  const axios = getSpringAxios(token);
+
+  const response = await axios.get("/auth/myStaff/" + id);
+
+  const ROLE_CONVERT = {
+    ROLE_PATIENT: ROLE_TYPE.USER,
+    ROLE_DOCTOR: ROLE_TYPE.DOCTOR,
+    ROLE_THERAPIST: ROLE_TYPE.THERAPIST,
+  };
+
+  const getData = (data) => ({
+    id: data.mid,
+    name: data.name,
+    hospital: data.hospital,
+    department: data.department,
+    email: data.email,
+    phone: data.phone,
+    role: ROLE_CONVERT[data.staffRole],
+    image: data.fileName,
+  });
+
+  const data = {
+    doctor: getData(response.data.doctor_info),
+    therapist: getData(response.data.therapist_info),
+  };
+
+  console.log(data);
+
+  return data;
+}
+
 export async function modifyPassword(token, mid, currentPassword, newPassword) {
   const axios = getSpringAxios(token);
 

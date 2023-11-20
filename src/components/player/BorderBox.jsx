@@ -3,8 +3,9 @@ import styled from "styled-components";
 import { ReducerContext } from "../../reducer/context.js";
 
 const Container = styled.div`
+  top: 60px;
   width: 100%;
-  height: 100%;
+  height: calc(100% - 60px);
   position: absolute;
   display: grid;
 
@@ -12,6 +13,8 @@ const Container = styled.div`
   grid-template-rows: 1fr 12fr 1fr;
 
   transition: opacity 0.2s;
+
+  z-index: 1;
 
   &.disable {
     opacity: 0;

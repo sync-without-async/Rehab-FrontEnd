@@ -45,16 +45,12 @@ const Icon = styled(MdArrowForwardIos)`
 
 const filters = [
   {
-    key: "NEWEST",
+    key: "newest",
     value: "최신순",
   },
   {
-    key: "OLDEST",
+    key: "oldest",
     value: "오래된순",
-  },
-  {
-    key: "PERCENT",
-    value: "수행도순",
   },
 ];
 
@@ -77,7 +73,7 @@ const PatientList = () => {
   const navigate = useNavigate();
   const role = useSelector(selectRole);
   const [state, dispatch] = useReducer(chartListReducer, intialChartListState);
-  const { list } = state;
+  const { list, sort, query } = state;
 
   const token = useSelector(selectToken);
   const id = useSelector(selectId);
@@ -105,10 +101,18 @@ const PatientList = () => {
 
   const chartData = useMemo(
     () => [
-      ["환자 이름", "생년월일", "담당 " + roleText, "다음 외래 일정", "차트"],
+      [
+        "환자 이름",
+        "생년월일",
+        "과제 수행도",
+        "담당 " + roleText,
+        "다음 외래 일정",
+        "차트",
+      ],
       ...list.map((item) => [
         item.name,
         getDisplayBirthday(item.birthday),
+        item.metrics + "%",
         item[roleKey],
         getDisplayDate(item.medicalRecords[0].date),
         <Icon key={item.id} />,
@@ -119,14 +123,14 @@ const PatientList = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await getChartList(token, id);
+      const response = await getChartList({ token, id, sort, query });
 
       dispatch({
         type: "data",
         payload: response,
       });
     })();
-  }, [id, token]);
+  }, [id, token, sort, query]);
 
   const buttons = role === ROLE_TYPE.DOCTOR ? headerButtons : [];
 
@@ -143,8 +147,8 @@ const PatientList = () => {
           />
         </SearchAndFilterContainer>
         <Table
-          template="100px 320px 120px 130px 50px"
-          align={["center", "center", "center", "center", "center"]}
+          template="100px 220px 100px 120px 130px 50px"
+          align={["center", "center", "center", "center", "center", "center"]}
           data={chartData}
           onClick={handleClick}
         />

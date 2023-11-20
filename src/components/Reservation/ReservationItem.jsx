@@ -3,9 +3,7 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import Button from "../Button/Button.jsx";
 
-import PatientIcon from "../../assets/images/role/role_patient.png";
-import DoctorIcon from "../../assets/images/role/role_doctor.png";
-import TherapistIcon from "../../assets/images/role/role_therapist.png";
+import ProfileImage from "../../assets/images/user/default.png";
 
 import { MdCalendarMonth, MdPerson } from "react-icons/md";
 import { DATE_FORMAT, ROLE_LIST, ROLE_TYPE } from "../../librarys/type.js";
@@ -98,29 +96,13 @@ const ReservationItem = ({
   role,
   date,
   index,
+  patient,
+  image,
   description,
   summary,
 }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const image = useMemo(() => {
-    switch (role) {
-      case ROLE_TYPE.DOCTOR:
-        return DoctorIcon;
-      case ROLE_TYPE.THERAPIST:
-        return TherapistIcon;
-      default:
-        return PatientIcon;
-    }
-  }, [role]);
-
-  const roleDisplay = useMemo(() => {
-    const find = ROLE_LIST.find((item) => item.key === role);
-
-    if (find) return find.value;
-    return "환자";
-  }, [role]);
 
   const fullDate = useMemo(
     () => dayjs(date).add(index * 30, "minute"),
@@ -156,6 +138,7 @@ const ReservationItem = ({
       show({
         id: "reservation_detail",
         props: {
+          patientId: patient,
           reservationId: id,
           chartDetail: null,
           description,
@@ -167,14 +150,14 @@ const ReservationItem = ({
 
   return (
     <Container>
-      <Image src={image} />
+      <Image src={image || ProfileImage} />
       <Info>
         <Item>
           <Big>{name}</Big>님
         </Item>
         <Item width="100px" className={isUser}>
           <MdPerson />
-          {roleDisplay}
+          {role}
         </Item>
         <Item>
           <MdCalendarMonth />
@@ -200,12 +183,16 @@ ReservationItem.propTypes = {
   role: PropTypes.string,
   date: PropTypes.string,
   index: PropTypes.number,
+  image: PropTypes.string,
+  patient: PropTypes.string,
   description: PropTypes.string,
   summary: PropTypes.string,
 };
 
 ReservationItem.defaultProps = {
   role: "USER",
+  image: ProfileImage,
+  patient: null,
 };
 
 export default ReservationItem;

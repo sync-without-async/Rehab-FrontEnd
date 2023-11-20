@@ -12,6 +12,7 @@ import { ImSpinner2 } from "react-icons/im";
 import Button from "../Button/Button.jsx";
 import TitleText from "../Common/TitleText.jsx";
 import { useDispatch } from "react-redux";
+import { METRICS_GRADE } from "../../librarys/type.js";
 
 const Container = styled.div`
   min-height: 180px;
@@ -78,19 +79,11 @@ const ResultModal = () => {
   const second = time - minute * 60;
 
   const score = useMemo(() => {
-    if (percentage > 0.9) {
-      return "Perfect";
+    for (const { metrics, grade } of METRICS_GRADE) {
+      if (percentage <= metrics) {
+        return grade;
+      }
     }
-
-    if (percentage > 0.75) {
-      return "Great";
-    }
-
-    if (percentage > 0.5) {
-      return "Good";
-    }
-
-    return "Bad;";
   }, [percentage]);
 
   const LoadingBlock = (
@@ -102,7 +95,7 @@ const ResultModal = () => {
 
   const ResultBlock = (
     <>
-      <Text>전체 소요 시간</Text>
+      <Text>치료 소요 시간</Text>
       <Text>
         {minute}:{second}
       </Text>
@@ -116,7 +109,7 @@ const ResultModal = () => {
   return (
     <Modal id={id} preventClose>
       <Container>
-        <TitleText text="운동 결과" small />
+        <TitleText text="치료 결과" small />
         <List>{percentage ? ResultBlock : LoadingBlock}</List>
         <Button type="primary" onClick={() => navigate("/")}>
           종료하기

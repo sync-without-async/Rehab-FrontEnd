@@ -20,6 +20,8 @@ import {
 import { useSelector } from "react-redux";
 import { selectId } from "../../redux/userSlice.js";
 import { selectProps } from "../../redux/modalSlice.js";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   display: flex;
@@ -58,7 +60,7 @@ const ButtonContainer = styled.div`
 
 const id = "reservation_create";
 
-function createTimes(start = 36, count = 5) {
+function createTimes(start = 43, count = 5) {
   const date = dayjs("2023-01-01T00:00:00+09:00");
   const times = [];
   for (let i = start; i < start + count; i++) {
@@ -72,6 +74,7 @@ function createTimes(start = 36, count = 5) {
 }
 
 export const ReservationCreateModal = () => {
+  const navigate = useNavigate();
   const [state, dispatch] = useReducer(
     reserveCreateReducer,
     intialReserveCreateState,
@@ -128,8 +131,8 @@ export const ReservationCreateModal = () => {
       index: state.index,
     });
 
-    console.log(res);
-    console.log(state);
+    toast.success("예약이 성공적으로 등록되었습니다.");
+    navigate("/");
   }
 
   return (

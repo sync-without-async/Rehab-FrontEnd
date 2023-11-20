@@ -1,9 +1,10 @@
+import dayjs from "dayjs";
 import { getSpringAxios } from "./axios";
 
 export async function registerChart(data, token) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.post("/chart/auth/register", data);
+  const response = await axios.post("/auth/chart/register", data);
   return response.data;
 }
 
@@ -17,7 +18,7 @@ export async function getTherapistList(token) {
 export async function getChart(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/chart/auth/staff/" + id);
+  const response = await axios.get("/auth/chart/" + id);
 
   const data = {
     cno: response.data.cno,
@@ -29,21 +30,105 @@ export async function getChart(token, id) {
     name: response.data.patient_name,
     doctor_name: response.data.doctor_name,
     therapist_name: response.data.therapist_name,
-    medicalRecords: (response.data.medicalRecords || []).map((item) => ({
-      id: item.record_no,
-      date: item.schedule,
-      treatmentRecord: item.treatmentRecord,
-      exerciseRequest: item.exerciseRequest,
-    })),
+    medicalRecords: (response.data.medicalRecords || [])
+      .map((item) => ({
+        id: item.record_no,
+        nextSchedule: item.schedule,
+        date: item.regDate,
+        treatmentRecord: item.treatmentRecord,
+        exerciseRequest: item.exerciseRequest,
+      }))
+      .sort((a, b) => {
+        const date = dayjs(b.date).valueOf() - dayjs(a.date).valueOf();
+
+        if (date !== 0) {
+          return date;
+        }
+
+        return b.id - a.id;
+      }),
+  };
+
+  return data;
+}
+export async function getChartWithId(token, id) {
+  const axios = getSpringAxios(token);
+
+  const response = await axios.get("/chart/patient/" + id);
+
+  const data = {
+    cno: response.data.cno,
+    diseaseCode: response.data.cd,
+    phone: response.data.phone,
+    gender: response.data.sex,
+    birthday: response.data.birth,
+    account_id: response.data.patient_id,
+    name: response.data.patient_name,
+    doctor_name: response.data.doctor_name,
+    therapist_name: response.data.therapist_name,
+    medicalRecords: (response.data.medicalRecords || [])
+      .map((item) => ({
+        id: item.record_no,
+        nextSchedule: item.schedule,
+        date: item.regDate,
+        treatmentRecord: item.treatmentRecord,
+        exerciseRequest: item.exerciseRequest,
+      }))
+      .sort((a, b) => {
+        const date = dayjs(b.date).valueOf() - dayjs(a.date).valueOf();
+
+        if (date !== 0) {
+          return date;
+        }
+
+        return b.id - a.id;
+      }),
   };
 
   return data;
 }
 
-export async function getChartList(token, id) {
+export async function getPatientDate(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/chart/auth/list/" + id);
+  const response = await axios.get("/chart/patient/" + id);
+
+  const records = (response.data.medicalRecords || [])
+    .map((item) => ({
+      id: item.record_no,
+      nextSchedule: item.schedule,
+      date: item.regDate,
+      treatmentRecord: item.treatmentRecord,
+      exerciseRequest: item.exerciseRequest,
+    }))
+    .sort((a, b) => {
+      const date = dayjs(b.date).valueOf() - dayjs(a.date).valueOf();
+
+      if (date !== 0) {
+        return date;
+      }
+
+      return b.id - a.id;
+    });
+
+  const data = {
+    recentVisitDate: records[0]?.date,
+    nextScheduleDate: records[0]?.nextSchedule,
+  };
+
+  return data;
+}
+
+export async function getChartList(req) {
+  const axios = getSpringAxios(req.token);
+
+  const params = {
+    sortBy: req.sort,
+    keyword: req.query || undefined,
+    type: "patient",
+  };
+
+  const response = await axios.get("/auth/chart/list/" + req.id, { params });
 
   const data = {
     page: response.data.page,
@@ -74,7 +159,7 @@ export async function getChartList(token, id) {
 export async function getChartAiRecord(token, id) {
   const axios = getSpringAxios(token);
 
-  const response = await axios.get("/chart/auth/aiRecord/" + id);
+  const response = await axios.get("/auth/aiRecordList/" + id);
 
   const data = response.data.map((item) => ({
     id: item.staff_id,
@@ -101,7 +186,7 @@ export async function createChart(req) {
     exerciseRequest: req.exerciseRequest,
   };
 
-  const response = await axios.post("/chart/auth/register", body);
+  const response = await axios.post("/auth/chart/register", body);
 
   const data = {
     status: true,
@@ -115,7 +200,7 @@ export async function createRecord(req) {
   const axios = getSpringAxios(req.token);
 
   const body = {
-    schedule: req.nextSchedule,
+    schedule: req.schedule,
     treatmentRecord: req.treatmentRecord,
     exerciseRequest: req.exerciseRequest,
   };
