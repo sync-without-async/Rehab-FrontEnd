@@ -81,7 +81,7 @@ const DoctorDetailPage = () => {
 
       dispatch({
         type: "summaryRecords",
-        payload: aiSummaryResponse,
+        payload: aiSummaryResponse.filter((item) => item.summary !== null),
       });
     })();
   }, []);
