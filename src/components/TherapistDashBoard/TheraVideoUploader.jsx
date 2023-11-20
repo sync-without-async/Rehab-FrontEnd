@@ -66,8 +66,8 @@ const TheraVideoUploader = () => {
     // AI에게 영상 binary를 전송
     const formData = new FormData();
     formData.append("video_file", file);
-    // const skeleton = await getSkeletons(formData);
-    const skeleton = JSON.parse(data);
+    const skeleton = await getSkeletons(formData);
+    // const skeleton = JSON.parse(data);
 
     // 스켈레톤 받아오면 등록
     dispatch({
