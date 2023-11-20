@@ -12,7 +12,7 @@ const Item = styled.textarea`
   border: 1px solid #bbbbbb;
   padding-left: 12px;
   resize: none;
-  overflow: hidden;
+  overflow: auto;
 
   &:focus {
     outline: none;

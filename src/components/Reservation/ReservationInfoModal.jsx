@@ -24,10 +24,14 @@ const Container = styled.div`
 
 const Input = styled(InputAreaContainer)`
   width: 100%;
+
+  &:nth-child(3) {
+    height: 240px;
+  }
 `;
 
 const ButtonContainer = styled.div`
-  margin-top: 8px;
+  margin-top: 24px;
   margin-bottom: 32px;
   display: flex;
   gap: 24px;
