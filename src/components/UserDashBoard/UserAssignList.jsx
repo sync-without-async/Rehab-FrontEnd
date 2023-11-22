@@ -16,6 +16,7 @@ import {
 } from "../../reducer/program-list.js";
 import { useNavigate } from "react-router-dom";
 import { METRICS_PASS } from "../../librarys/type.js";
+import Empty from "../Common/Empty.jsx";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -94,7 +95,11 @@ const UserAssignList = () => {
   function onClick(row) {
     const index = row[0];
     const item = list[index - 1];
-    console.log(item, index);
+
+    if (index > 1 && list[index - 2].metrics < METRICS_PASS) {
+      alert("아직 이전 강의를 수강하지 않았습니다.");
+      return;
+    }
 
     navigate(`/program/${item.programId}/${item.id}?video=${item.videoId}`);
   }
@@ -109,6 +114,7 @@ const UserAssignList = () => {
         data={assignData}
         onClick={onClick}
       />
+      {list.length == 0 && <Empty />}
     </Container>
   );
 };

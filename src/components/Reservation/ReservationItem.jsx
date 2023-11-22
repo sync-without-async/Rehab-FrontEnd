@@ -98,6 +98,7 @@ const ReservationItem = ({
   index,
   patient,
   image,
+  deleted,
   description,
   summary,
 }) => {
@@ -118,21 +119,23 @@ const ReservationItem = ({
   const isReservationDone = time > 300;
 
   const buttonStyle = useMemo(() => {
-    if (isReservationDone) {
+    if (deleted) {
+      return buttonStyleList.complete;
+    } else if (isReservationDone) {
       return buttonStyleList.complete;
     } else if (isRoomOpen) {
       return buttonStyleList.normal;
     } else {
       return buttonStyleList.notReady;
     }
-  }, [isRoomOpen, isReservationDone]);
+  }, [isRoomOpen, isReservationDone, deleted]);
 
   function onJoinButtonClick() {
     if (isReservationDone || !isRoomOpen) {
       return;
     }
 
-    navigate("/meeting/room/" + uuid);
+    navigate(`/meeting/room/${uuid}?rvno=${id}`);
   }
 
   function onInfoButtonClick() {
@@ -189,6 +192,7 @@ ReservationItem.propTypes = {
   image: PropTypes.string,
   patient: PropTypes.string,
   description: PropTypes.string,
+  deleted: PropTypes.bool,
   summary: PropTypes.string,
 };
 

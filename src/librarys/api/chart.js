@@ -140,7 +140,6 @@ export async function getChartList(req) {
       phone: item.phone,
       gender: item.sex,
       birthday: item.birth,
-      metrics: item.metrics_rate,
       patient_id: item.patient_id,
       doctor_name: item.doctor_name,
       therapist_name: item.therapist_name,

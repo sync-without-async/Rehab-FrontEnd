@@ -35,11 +35,11 @@ export const getMyInfo = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    access_token: null,
-    refresh_token: null,
-    id: null,
+    accessToken: Cookies.get("accessToken") || null,
+    refreshToken: Cookies.get("refreshToken") || null,
+    id: Cookies.get("id") || null,
     name: null,
-    role: ROLE_TYPE.VISITOR,
+    role: Cookies.get("role") || ROLE_TYPE.VISITOR,
     location: null,
     department: null,
     image: null,
@@ -49,6 +49,12 @@ export const userSlice = createSlice({
     nextScheduleDate: null,
   },
   reducers: {
+    tempLogin: (state, action) => {
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.accessToken;
+      state.id = action.payload.id;
+      state.role = action.payload.role;
+    },
     logout: (state) => {
       state.accessToken = null;
       state.refreshToken = null;
@@ -119,7 +125,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { loadTokens, logout } = userSlice.actions;
+export const { tempLogin, loadTokens, logout } = userSlice.actions;
 
 export const selectToken = (state) => state.user.accessToken;
 export const selectRefreshToken = (state) => state.user.refreshToken;

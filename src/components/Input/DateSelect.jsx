@@ -21,6 +21,9 @@ const DateInput = styled.input`
   margin-right: 10px;
   padding-left: 12px;
   font-size: 14px;
+  outline: none;
+  caret-color: transparent;
+  cursor: pointer;
 `;
 
 const CalendarButton = styled.button`
@@ -146,7 +149,7 @@ const DateSelect = ({ labelText, value, onChange, ...props }) => {
           type="text"
           value={date}
           placeholder="날짜를 선택해주세요."
-          onChange={handleChangeDate}
+          onClick={handleClickButton}
         />
         <CalendarButton type="button" onClick={handleClickButton} />
       </InputContainer>

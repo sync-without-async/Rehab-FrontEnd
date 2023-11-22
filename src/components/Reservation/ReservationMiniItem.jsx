@@ -68,6 +68,7 @@ const ReservationMiniItem = ({
   date,
   index,
   patient,
+  deleted,
   description,
   summary,
 }) => {
@@ -86,7 +87,9 @@ const ReservationMiniItem = ({
   const isReservationDone = time > 300;
 
   const buttonStyle = useMemo(() => {
-    if (isReservationDone) {
+    if (deleted) {
+      return buttonStyleList.complete;
+    } else if (isReservationDone) {
       return buttonStyleList.complete;
     } else if (isRoomOpen) {
       return buttonStyleList.normal;
@@ -100,7 +103,7 @@ const ReservationMiniItem = ({
       return;
     }
 
-    navigate("/meeting/room/" + uuid);
+    navigate(`/meeting/room/${uuid}?rvno=${id}`);
   }
 
   function onInfoButtonClick() {
@@ -149,6 +152,7 @@ ReservationMiniItem.propTypes = {
   index: PropTypes.number,
   patient: PropTypes.string,
   description: PropTypes.string,
+  deleted: PropTypes.bool,
   summary: PropTypes.string,
 };
 

@@ -17,6 +17,7 @@ import {
   getUserReservationList,
 } from "../../librarys/api/reservation.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
+import Empty from "../Common/Empty.jsx";
 
 const List = styled.div`
   margin: 28px 0;
@@ -89,10 +90,12 @@ const ReservationMiniList = () => {
               role={item.role}
               patient={item.patient}
               name={item.name}
+              deleted={item.deleted}
               description={item.description}
               summary={item.summary}
             />
           ))}
+          {list.length == 0 && <Empty />}
         </List>
       </BlockContainer>
     </ReducerContext.Provider>

@@ -17,6 +17,7 @@ import {
   getAdminReservationList,
   getUserReservationList,
 } from "../../librarys/api/reservation.js";
+import Empty from "../Common/Empty.jsx";
 
 const List = styled.div`
   margin: 28px 0;
@@ -79,10 +80,12 @@ const ReservationList = () => {
               patient={item.patient}
               name={item.name}
               image={item.image}
+              deleted={item.deleted}
               description={item.description}
               summary={item.summary}
             />
           ))}
+          {list.length == 0 && <Empty />}
         </List>
         <Pagination />
       </BlockContainer>

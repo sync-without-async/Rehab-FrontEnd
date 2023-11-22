@@ -65,6 +65,12 @@ const LoginComponents = () => {
     }
   };
 
+  function onKeyDown(event) {
+    if (event.key === "Enter") {
+      handleLogin();
+    }
+  }
+
   return (
     <BlockContainer>
       <TitleText text="로그인" />
@@ -79,6 +85,7 @@ const LoginComponents = () => {
           password
           value={password}
           onInput={(e) => setPassword(e.target.value)}
+          onKeyDown={onKeyDown}
         />
       </InputContainer>
 
