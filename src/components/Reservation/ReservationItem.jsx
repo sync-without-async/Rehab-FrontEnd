@@ -109,11 +109,13 @@ const ReservationItem = ({
     [date, index],
   );
 
+  const removable = fullDate.valueOf() > dayjs().valueOf();
+
   const time = useMemo(() => dayjs().diff(fullDate, "minute"), [fullDate]);
   const isUser = useMemo(() => classNames({ user: role === "USER" }), [role]);
 
   const isRoomOpen = time >= -10;
-  const isReservationDone = time > 30;
+  const isReservationDone = time > 300;
 
   const buttonStyle = useMemo(() => {
     if (isReservationDone) {
@@ -141,6 +143,7 @@ const ReservationItem = ({
           patientId: patient,
           reservationId: id,
           chartDetail: null,
+          removable,
           description,
           summary,
         },

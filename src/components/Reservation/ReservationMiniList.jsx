@@ -87,6 +87,7 @@ const ReservationMiniList = () => {
               date={item.date}
               index={item.index}
               role={item.role}
+              patient={item.patient}
               name={item.name}
               description={item.description}
               summary={item.summary}

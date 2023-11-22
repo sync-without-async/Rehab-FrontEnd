@@ -45,7 +45,8 @@ const ReservationInfoModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const value = useSelector(selectProps(id));
-  const { patientId, reservationId, description, summary } = value || {};
+  const { patientId, reservationId, description, summary, removable } =
+    value || {};
   const role = useSelector(selectRole);
 
   async function onChartButtonClick() {
@@ -79,7 +80,12 @@ const ReservationInfoModal = () => {
               환자 차트 페이지로
             </Button>
           ) : null}
-          <Button onClick={onCancelButtonClick}>예약 취소</Button>
+          <Button
+            type={removable ? "info" : "disabled"}
+            onClick={onCancelButtonClick}
+          >
+            예약 취소
+          </Button>
         </ButtonContainer>
       </Container>
     </Modal>

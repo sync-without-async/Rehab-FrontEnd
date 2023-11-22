@@ -67,6 +67,7 @@ const ReservationMiniItem = ({
   role,
   date,
   index,
+  patient,
   description,
   summary,
 }) => {
@@ -78,9 +79,11 @@ const ReservationMiniItem = ({
     [date, index],
   );
 
+  const removable = fullDate.valueOf() > dayjs().valueOf();
+
   const time = useMemo(() => dayjs().diff(fullDate, "minute"), [fullDate]);
   const isRoomOpen = time >= -10;
-  const isReservationDone = time > 30;
+  const isReservationDone = time > 300;
 
   const buttonStyle = useMemo(() => {
     if (isReservationDone) {
@@ -105,8 +108,10 @@ const ReservationMiniItem = ({
       show({
         id: "reservation_detail",
         props: {
+          patientId: patient,
           reservationId: id,
           chartDetail: null,
+          removable,
           description,
           summary,
         },
@@ -142,12 +147,14 @@ ReservationMiniItem.propTypes = {
   role: PropTypes.string,
   date: PropTypes.string,
   index: PropTypes.number,
+  patient: PropTypes.string,
   description: PropTypes.string,
   summary: PropTypes.string,
 };
 
 ReservationMiniItem.defaultProps = {
   role: "DOCTOR",
+  patient: null,
 };
 
 export default ReservationMiniItem;
