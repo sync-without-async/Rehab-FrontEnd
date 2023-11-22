@@ -60,7 +60,7 @@ const ButtonContainer = styled.div`
 
 const id = "reservation_create";
 
-function createTimes(start = 43, count = 5) {
+function createTimes(start = 36, count = 5) {
   const date = dayjs("2023-01-01T00:00:00+09:00");
   const times = [];
   for (let i = start; i < start + count; i++) {
