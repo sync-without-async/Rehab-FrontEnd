@@ -60,10 +60,10 @@ const ButtonContainer = styled.div`
 
 const id = "reservation_create";
 
-function createTimes(start = 43, count = 5) {
+function createTimes(start = 0, count = 5) {
   const date = dayjs("2023-01-01T00:00:00+09:00");
   const times = [];
-  for (let i = start; i < start + count; i++) {
+  for (let i = start; i < start + count * 10; i += 10) {
     const deltaTime = date.add(30 * i, "m");
     times.push({
       index: i,
@@ -92,7 +92,7 @@ export const ReservationCreateModal = () => {
   useEffect(() => {
     dispatch({
       type: "disabledTime",
-      payload: [36, 37, 38, 39, 40],
+      payload: [0, 10, 20, 30, 40],
     });
 
     (async () => {

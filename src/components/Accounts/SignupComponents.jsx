@@ -77,6 +77,10 @@ const Signup = () => {
       toast.error("비밀번호는 4글자 이상으로 입력해주세요.");
       return;
     }
+    if (role === "") {
+      toast.error("이름을 입력하세요.");
+      return;
+    }
     if (name === "") {
       toast.error("이름을 입력하세요.");
       return;

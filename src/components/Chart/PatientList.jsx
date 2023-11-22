@@ -20,6 +20,7 @@ import { ReducerContext } from "../../reducer/context.js";
 import { getChartList } from "../../librarys/api/chart.js";
 import { useNavigate } from "react-router";
 import { getDisplayBirthday } from "../../librarys/util.js";
+import Empty from "../Common/Empty.jsx";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -101,18 +102,10 @@ const PatientList = () => {
 
   const chartData = useMemo(
     () => [
-      [
-        "환자 이름",
-        "생년월일",
-        "과제 수행도",
-        "담당 " + roleText,
-        "다음 외래 일정",
-        "차트",
-      ],
+      ["환자 이름", "생년월일", "담당 " + roleText, "다음 외래 일정", "차트"],
       ...list.map((item) => [
         item.name,
         getDisplayBirthday(item.birthday),
-        item.metrics + "%",
         item[roleKey],
         getDisplayDate(item.medicalRecords[0].date),
         <Icon key={item.id} />,
@@ -147,11 +140,12 @@ const PatientList = () => {
           />
         </SearchAndFilterContainer>
         <Table
-          template="100px 220px 100px 120px 130px 50px"
-          align={["center", "center", "center", "center", "center", "center"]}
+          template="100px 220px 120px 230px 50px"
+          align={["center", "center", "center", "center", "center"]}
           data={chartData}
           onClick={handleClick}
         />
+        {list.length == 0 && <Empty />}
         <Pagination />
       </Container>
     </ReducerContext.Provider>

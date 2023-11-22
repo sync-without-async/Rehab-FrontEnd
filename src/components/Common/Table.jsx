@@ -7,7 +7,6 @@ const Wrapper = styled.div``;
 
 const Container = styled.div`
   width: 100%;
-  min-height: 280px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -59,7 +58,12 @@ const Table = ({ className, template, align, data, onClick }) => {
           </Text>
         ))}
       </TableItem>
-      <Container className={className}>{children}</Container>
+      <Container
+        className={className}
+        style={{ minHeight: data.length < 2 ? "auto" : "280px" }}
+      >
+        {children}
+      </Container>
     </Wrapper>
   );
 };

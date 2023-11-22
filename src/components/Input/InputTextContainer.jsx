@@ -24,6 +24,7 @@ function InputTextContainer({
   password,
   value,
   onChange,
+  onKeyDown,
   ...props
 }) {
   return (
@@ -34,6 +35,7 @@ function InputTextContainer({
         value={value}
         password={password}
         onChange={onChange}
+        onKeyDown={onKeyDown}
         required={required}
       />
     </InputContainer>
@@ -47,6 +49,11 @@ InputTextContainer.propTypes = {
   password: PropTypes.bool,
   value: PropTypes.string,
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+};
+
+InputTextContainer.defaultProps = {
+  onKeyDown: () => {},
 };
 
 export default InputTextContainer;

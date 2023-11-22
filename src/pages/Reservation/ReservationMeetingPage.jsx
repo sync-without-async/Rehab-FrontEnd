@@ -4,7 +4,7 @@ import { FFmpeg } from "@ffmpeg/ffmpeg";
 import { fetchFile, toBlobURL } from "@ffmpeg/util";
 
 import { useEffect, useReducer, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { RTCClient } from "../../librarys/webrtc/rtc-client.js";
 import { AudioRecorder } from "../../librarys/webrtc/rtc-recorder.js";
 import { ImExit } from "react-icons/im";
@@ -21,6 +21,7 @@ import {
   meetingRoomReducer,
 } from "../../reducer/meeting-room.js";
 import MeetingResultModal from "../../components/Meeting/MeetingResultModal.jsx";
+import { deleteReservation } from "../../librarys/api/reservation.js";
 
 const Container = styled.div`
   height: 100%;
@@ -109,6 +110,9 @@ const ReservationMeetingPage = () => {
     intialMeetingRoomState,
   );
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const rvno = searchParams.get("rvno");
+
   const navigate = useNavigate();
   const clientVideo = useRef(null);
   const remoteVideo = useRef(null);
@@ -164,13 +168,14 @@ const ReservationMeetingPage = () => {
 
     peer.addEventListener("stream", onStream);
 
-    peer.addEventListener("disconnect", () => {
+    peer.addEventListener("disconnect", async () => {
       reduxDispatch(
         show({
           id: "meeting_result",
           props: false,
         }),
       );
+      await deleteReservation(rvno);
       recorder.stop();
       setStatus("연결 종료");
       setStatusDescription("비대면 진료가 종료되었어요.");
@@ -236,6 +241,8 @@ const ReservationMeetingPage = () => {
     const audioStream = await navigator.mediaDevices.getUserMedia({
       audio: true,
     });
+
+    peer.state = true;
 
     recorder.start(audioStream);
     remoteVideo.current.srcObject = stream;

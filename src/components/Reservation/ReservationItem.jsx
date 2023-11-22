@@ -98,6 +98,7 @@ const ReservationItem = ({
   index,
   patient,
   image,
+  deleted,
   description,
   summary,
 }) => {
@@ -109,28 +110,32 @@ const ReservationItem = ({
     [date, index],
   );
 
+  const removable = fullDate.valueOf() > dayjs().valueOf();
+
   const time = useMemo(() => dayjs().diff(fullDate, "minute"), [fullDate]);
   const isUser = useMemo(() => classNames({ user: role === "USER" }), [role]);
 
   const isRoomOpen = time >= -10;
-  const isReservationDone = time > 30;
+  const isReservationDone = time > 300;
 
   const buttonStyle = useMemo(() => {
-    if (isReservationDone) {
+    if (deleted) {
+      return buttonStyleList.complete;
+    } else if (isReservationDone) {
       return buttonStyleList.complete;
     } else if (isRoomOpen) {
       return buttonStyleList.normal;
     } else {
       return buttonStyleList.notReady;
     }
-  }, [isRoomOpen, isReservationDone]);
+  }, [isRoomOpen, isReservationDone, deleted]);
 
   function onJoinButtonClick() {
     if (isReservationDone || !isRoomOpen) {
       return;
     }
 
-    navigate("/meeting/room/" + uuid);
+    navigate(`/meeting/room/${uuid}?rvno=${id}`);
   }
 
   function onInfoButtonClick() {
@@ -141,6 +146,7 @@ const ReservationItem = ({
           patientId: patient,
           reservationId: id,
           chartDetail: null,
+          removable,
           description,
           summary,
         },
@@ -186,6 +192,7 @@ ReservationItem.propTypes = {
   image: PropTypes.string,
   patient: PropTypes.string,
   description: PropTypes.string,
+  deleted: PropTypes.bool,
   summary: PropTypes.string,
 };
 

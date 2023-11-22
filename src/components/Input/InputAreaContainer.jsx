@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 const Input = styled(InputArea)`
   width: 100% !important;
-  height: 100%;
+  flex-grow: 1;
 `;
 
 const InputContainer = styled.div`

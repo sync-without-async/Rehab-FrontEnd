@@ -53,7 +53,6 @@ export class RTCClient extends EventTarget {
     this.id = id;
     this.role = role;
     this.setClientStream(stream);
-    this.state = true;
     await this.signaling.connect(this.id);
     await this.call();
   }

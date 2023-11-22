@@ -14,6 +14,7 @@ import {
 } from "../../reducer/video-list.js";
 import { getVideoList } from "../../librarys/api/video.js";
 import TheraExerciseModal from "./TheraExerciseModal.jsx";
+import Empty from "../Common/Empty.jsx";
 
 const SearchAndFilterContainer = styled.div`
   margin-top: 28px;
@@ -85,6 +86,7 @@ const TheraExerciseList = () => {
               video={item.videoURL}
             />
           ))}
+          {list.length == 0 && <Empty />}
         </List>
 
         <Pagination />

@@ -7,6 +7,7 @@ import { show } from "../../redux/modalSlice.js";
 import { useSelector } from "react-redux";
 import { selectRole } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
+import Empty from "../Common/Empty.jsx";
 
 const Item = styled.div`
   width: 100%;
@@ -75,6 +76,7 @@ const DoctorRecord = ({ title, data, button }) => {
         {data.slice(0, 2).map((item, index) => (
           <RecordItem key={index} date={item.date} content={item.content} />
         ))}
+        {data.length == 0 && <Empty />}
       </List>
     </BlockContainer>
   );
