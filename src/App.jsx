@@ -23,6 +23,10 @@ import { ToastContainer } from "react-toastify";
 import LogoutPage from "./pages/LogoutPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage.jsx";
 import ConvertChartPage from "./pages/ConvertChartPage.jsx";
+import { useEffect } from "react";
+import Cookies from "js-cookie";
+import { useDispatch } from "react-redux";
+import { getMyInfo, loadTokens } from "./redux/userSlice.js";
 
 const VISITOR = ROLE_TYPE.VISITOR;
 const USER = ROLE_TYPE.USER;
@@ -133,6 +137,18 @@ routes.forEach((item) => {
 });
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const accessToken = Cookies.get("accessToken");
+
+    if (!accessToken) return () => {};
+    const id = Cookies.get("id");
+    const role = Cookies.get("role");
+
+    dispatch(getMyInfo({ id, role, accessToken }));
+  }, []);
+
   return (
     <ReducerContext.Provider value={[null, null]}>
       <Router>
