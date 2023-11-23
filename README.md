@@ -48,7 +48,6 @@
 
 ![image](https://github.com/osohyun0224/Capstone-Rehab-FrontEnd/assets/53892427/fa52a4c5-38cf-49b4-b38c-1715a51ada79)
 
-![image](https://github.com/osohyun0224/Capstone-Rehab-FrontEnd/assets/53892427/b5202e3a-442b-42a7-8689-51c9f59cb3dc)
 
 ## 6. 프로젝트 시연 영상
 
