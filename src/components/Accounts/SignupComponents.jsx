@@ -17,6 +17,8 @@ import { useDispatch } from "react-redux";
 import { getMyInfo, login } from "../../redux/userSlice.js";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { show } from "../../redux/modalSlice.js";
+import EmailVerificationModal from "./EmailVerificationModal.jsx";
 
 const Grid = styled.div`
   margin: 48px 70px;
@@ -40,6 +42,21 @@ const hospitals = [
   "강동성심병원",
   "한림성심병원",
 ].map((item) => ({ key: item, value: item }));
+
+const EmailButton = styled(Button)`
+  width: 160px;
+`;
+
+const EmailInputTextContainer = styled(InputTextContainer)`
+  flex-grow: 1;
+`;
+
+const EmailWrapper = styled.div`
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  grid-column-end: span 2;
+`;
 
 const Signup = () => {
   const [state, dispatch] = useReducer(
@@ -94,7 +111,7 @@ const Signup = () => {
       return;
     }
     if (email === "") {
-      toast.error("이메일을 입력하세요.");
+      toast.error("이메일을 인증하세요.");
       return;
     }
     if (phone === "") {
@@ -114,8 +131,17 @@ const Signup = () => {
     }
   }
 
+  const onEmailVerificationClick = () => {
+    reduxDispatch(show("register_email_verify"));
+  };
+
+  const onEmailVerificationSubmit = (email) => {
+    setData("email")(email);
+  };
+
   return (
     <BlockContainer>
+      <EmailVerificationModal onSubmit={onEmailVerificationSubmit} />
       <TitleText text="회원가입" />
       <Grid>
         <RoleButton
@@ -142,26 +168,35 @@ const Signup = () => {
           name="department"
           value={department}
           onChange={setData("department", "target.value")}
+          placeholder="재활의학과"
         />
         <InputTextContainer
           label="성함 *"
           name="name"
           value={name}
           onChange={setData("name", "target.value")}
+          placeholder="홍길동"
         />
         <InputTextContainer
           label="연락처 *"
           name="phone"
           value={phone}
           onChange={setData("phone", "target.value")}
+          placeholder="010-0000-0000"
         />
-        <InputTextContainer
-          label="이메일 *"
-          name="email"
-          value={email}
-          onChange={setData("email", "target.value")}
-          style={{ gridColumnEnd: "span 2" }}
-        />
+        <EmailWrapper>
+          <EmailInputTextContainer
+            label="이메일 *"
+            name="email"
+            value={email}
+            onChange={setData("email", "target.value")}
+            disabled={true}
+            placeholder="이메일 인증 버튼을 눌러서 입력하세요."
+          />
+          <EmailButton type="info" onClick={onEmailVerificationClick}>
+            이메일 인증
+          </EmailButton>
+        </EmailWrapper>
         <InputTextContainer
           label="아이디 *"
           name="mid"
