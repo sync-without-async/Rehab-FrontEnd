@@ -85,7 +85,7 @@ const ReservationList = () => {
               summary={item.summary}
             />
           ))}
-          {list.length == 0 && <Empty />}
+          {list.length == 0 && <Empty message="진료 예약 기록이 없습니다." />}
         </List>
         <Pagination />
       </BlockContainer>

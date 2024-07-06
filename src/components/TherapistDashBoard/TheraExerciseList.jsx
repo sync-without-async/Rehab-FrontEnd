@@ -86,7 +86,7 @@ const TheraExerciseList = () => {
               video={item.videoURL}
             />
           ))}
-          {list.length == 0 && <Empty />}
+          {list.length == 0 && <Empty message="운동 목록이 비었습니다." />}
         </List>
 
         <Pagination />

@@ -65,7 +65,7 @@ const UserAssignList = () => {
     () =>
       state.description
         ? state.description
-        : "아직 재활치료사가 과제를 할당하지 않았습니다. 조금만 기다려주세요!",
+        : "아직 재활치료사가 과제를 할당하지 않았습니다. 나중에 다시 와보세요!",
     [state],
   );
 
@@ -114,7 +114,7 @@ const UserAssignList = () => {
         data={assignData}
         onClick={onClick}
       />
-      {list.length == 0 && <Empty />}
+      {list.length == 0 && <Empty message="과제 목록이 비었습니다." />}
     </Container>
   );
 };

@@ -76,7 +76,7 @@ const DoctorRecord = ({ title, data, button }) => {
         {data.slice(0, 2).map((item, index) => (
           <RecordItem key={index} date={item.date} content={item.content} />
         ))}
-        {data.length == 0 && <Empty />}
+        {data.length == 0 && <Empty message="진료 기록이 비어있습니다." />}
       </List>
     </BlockContainer>
   );

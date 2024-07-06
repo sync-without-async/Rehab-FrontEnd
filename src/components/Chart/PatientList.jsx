@@ -145,7 +145,9 @@ const PatientList = () => {
           data={chartData}
           onClick={handleClick}
         />
-        {list.length == 0 && <Empty />}
+        {list.length === 0 && (
+          <Empty message="환자 목록에 표시할 항목이 없습니다." />
+        )}
         <Pagination />
       </Container>
     </ReducerContext.Provider>

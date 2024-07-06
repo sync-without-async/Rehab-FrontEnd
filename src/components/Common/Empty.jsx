@@ -24,12 +24,14 @@ const Text = styled.p`
   line-height: 16px;
 `;
 
-const Empty = ({ height }) => {
+const EMPTY_MESSAGE = "표시할 항목이 없습니다.";
+
+const Empty = ({ height = "200px", message = EMPTY_MESSAGE }) => {
   return (
     <Container style={{ height }}>
       <MdBrowserNotSupported size={36} />
       <Wrapper>
-        <Text>표시할 항목이 없습니다.</Text>
+        <Text>{message}</Text>
       </Wrapper>
     </Container>
   );
@@ -37,10 +39,7 @@ const Empty = ({ height }) => {
 
 Empty.propTypes = {
   height: PropTypes.string,
-};
-
-Empty.defaultProps = {
-  height: "200px",
+  message: PropTypes.string,
 };
 
 export default Empty;
