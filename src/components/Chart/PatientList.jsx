@@ -21,6 +21,7 @@ import { getChartList } from "../../librarys/api/chart.js";
 import { useNavigate } from "react-router";
 import { getDisplayBirthday } from "../../librarys/util.js";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -145,7 +146,10 @@ const PatientList = () => {
           data={chartData}
           onClick={handleClick}
         />
-        {list.length == 0 && <Empty />}
+        <Conditional
+          condition={list.length === 0}
+          content={<Empty message="환자 목록에 표시할 항목이 없습니다." />}
+        />
         <Pagination />
       </Container>
     </ReducerContext.Provider>

@@ -18,6 +18,7 @@ import {
 } from "../../librarys/api/reservation.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const List = styled.div`
   margin: 28px 0;
@@ -82,7 +83,7 @@ const ReservationMiniList = () => {
         <List>
           {list.map((item) => (
             <ReservationMiniItem
-              key={item.rno}
+              key={item.id}
               id={item.id}
               uuid={item.uuid}
               date={item.date}
@@ -95,7 +96,10 @@ const ReservationMiniList = () => {
               summary={item.summary}
             />
           ))}
-          {list.length == 0 && <Empty />}
+          <Conditional
+            condition={list.length === 0}
+            content={<Empty message="진료 예약 기록이 없습니다." />}
+          />
         </List>
       </BlockContainer>
     </ReducerContext.Provider>

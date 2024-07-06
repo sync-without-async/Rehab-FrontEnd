@@ -115,7 +115,7 @@ export const ReservationCreateModal = () => {
     });
   }
 
-  function onInput(event) {
+  function onChange(event) {
     dispatch({
       type: "description",
       payload: event.target.value,
@@ -164,7 +164,7 @@ export const ReservationCreateModal = () => {
           <InputArea
             label="진료 희망 사유"
             value={description}
-            onInput={onInput}
+            onChange={onChange}
           />
           <Button type="primary" onClick={onComplete}>
             예약 신청

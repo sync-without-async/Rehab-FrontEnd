@@ -5,8 +5,7 @@ import DoctorImage from "../../assets/images/user/Odoctor.png";
 import { useDispatch } from "react-redux";
 import { show } from "../../redux/modalSlice.js";
 
-import { FaUser } from "react-icons/fa";
-import { MdLocalHospital, MdLocationOn } from "react-icons/md";
+import { MdLocalHospital, MdLocationOn, MdPerson } from "react-icons/md";
 
 const Card = styled.div`
   width: 280px;
@@ -105,7 +104,7 @@ export const UserSelectCard = ({
         <UserName>{name}</UserName>
         <Separator />
         <Info>
-          <FaUser /> {role}
+          <MdPerson /> {role}
         </Info>
         <Info>
           <MdLocalHospital /> {hospital}

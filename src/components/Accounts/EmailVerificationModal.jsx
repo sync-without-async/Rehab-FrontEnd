@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import Modal from "../Common/Modal.jsx";
 import ModalTitleText from "../Common/ModalTitleText.jsx";
-import InputAreaContainer from "../Input/InputAreaContainer.jsx";
 import Button from "../Button/Button.jsx";
-import { ReducerContext } from "../../reducer/context.js";
-import { useContext, useMemo, useRef, useState } from "react";
-import { useSelector } from "react-redux";
-import { selectId, selectToken } from "../../redux/userSlice.js";
-import DateSelect from "../Input/DateSelect.jsx";
-import { createRecord } from "../../librarys/api/chart.js";
+import { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { hide } from "../../redux/modalSlice.js";
 

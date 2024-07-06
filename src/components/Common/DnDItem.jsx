@@ -190,6 +190,7 @@ const DnDItem = ({ id, index, data, dropping, dragging, removable }) => {
 DnDItem.propTypes = {
   id: PropTypes.string,
   index: PropTypes.number,
+  data: PropTypes.object,
   children: PropTypes.node,
   dropping: PropTypes.bool,
   dragging: PropTypes.bool,

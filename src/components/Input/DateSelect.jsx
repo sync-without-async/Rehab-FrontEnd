@@ -4,6 +4,7 @@ import Datetime from "react-datetime";
 import IconCalender from "../../assets/icons/iconcalender.png";
 import "react-datetime/css/react-datetime.css";
 import PropTypes from "prop-types";
+import Conditional from "../Common/Conditional.jsx";
 
 const Container = styled.div`
   display: flex;
@@ -70,68 +71,32 @@ const Label = styled.label`
   margin-bottom: 5px;
 `;
 
-const DateSelect = ({ labelText, value, onChange, ...props }) => {
-  const [date, setDate] = useState("");
-  const [open, setOpen] = useState(false);
+const DATE_FORMAT = "YYYY-MM-DD";
 
-  const format = "YYYY-MM-DD";
+const DateSelect = ({ labelText, onChange }) => {
+  const [date, setDate] = useState("");
+  const [isModalVisible, setModalVisible] = useState(false);
+  const modalRef = useRef(null);
 
   const handleClickButton = () => {
-    setOpen(!open);
+    setModalVisible((state) => !state);
   };
 
-  const handleChangeCalendar = (selected) => {
-    const formattedDate = selected.format(format);
+  const handleChangeCalendar = (value) => {
+    const formattedDate = value.format(DATE_FORMAT);
+
     setDate(formattedDate);
-    setOpen(false);
-    if (onChange) onChange(formattedDate);
-  };
+    setModalVisible(false);
 
-  const getSeparator = () => {
-    const regex = /[^0-9a-zA-Z]+/;
-    const match = format.match(regex);
-
-    if (match) {
-      const symbol = match[0];
-      const indexes = [];
-
-      for (let i = 0; i < format.length; i++) {
-        if (format[i] === symbol) {
-          indexes.push(i);
-        }
-      }
-
-      return { symbol, indexes };
+    if (onChange) {
+      onChange(formattedDate);
     }
-    return { symbol: undefined, indexes: [] };
   };
-
-  const separator = getSeparator();
-
-  const handleChangeDate = (e) => {
-    let currentDate = e.target.value;
-
-    if (separator.symbol && separator.indexes.length > 0) {
-      separator.indexes.forEach((index) => {
-        if (currentDate.length > index) {
-          currentDate =
-            currentDate.slice(0, index) +
-            separator.symbol +
-            currentDate.slice(index);
-        }
-      });
-    }
-
-    setDate(currentDate);
-    if (onChange) onChange(currentDate);
-  };
-
-  const modalRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        setOpen(false);
+        setModalVisible(false);
       }
     };
 
@@ -141,39 +106,41 @@ const DateSelect = ({ labelText, value, onChange, ...props }) => {
     };
   }, []);
 
+  const modalComponent = (
+    <>
+      <Overlay onClick={() => setModalVisible(false)} />
+      <CalendarModal ref={modalRef}>
+        <Datetime
+          input={false}
+          timeFormat={false}
+          dateFormat={DATE_FORMAT}
+          value={date}
+          onChange={handleChangeCalendar}
+        />
+      </CalendarModal>
+    </>
+  );
+
   return (
     <Container>
-      {labelText && <Label>{labelText}</Label>}
+      <Label>{labelText}</Label>
       <InputContainer>
         <DateInput
           type="text"
           value={date}
           placeholder="날짜를 선택해주세요."
           onClick={handleClickButton}
+          readOnly
         />
         <CalendarButton type="button" onClick={handleClickButton} />
       </InputContainer>
-      {open && (
-        <>
-          <Overlay onClick={() => setOpen(false)} />
-          <CalendarModal ref={modalRef}>
-            <Datetime
-              input={false}
-              timeFormat={false}
-              dateFormat={format}
-              value={date}
-              onChange={handleChangeCalendar}
-            />
-          </CalendarModal>
-        </>
-      )}
+      <Conditional condition={isModalVisible} content={modalComponent} />
     </Container>
   );
 };
 
 DateSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
-  value: PropTypes.string,
   onChange: PropTypes.func,
 };
 
