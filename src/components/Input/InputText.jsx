@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 const Item = styled.input`
   width: 240px;
@@ -13,16 +14,41 @@ const Item = styled.input`
   &:focus {
     outline: none;
   }
+
+  &.disabled {
+    background-color: #cccccc;
+    color: #666666;
+
+    &::placeholder {
+      color: #8f8f8f;
+    }
+  }
+
+  &::placeholder {
+    color: #c8c8c8;
+  }
 `;
 
-function InputText({ value, onChange, onKeyDown, className, password }) {
+function InputText({
+  value,
+  onChange,
+  onKeyDown,
+  className,
+  disabled,
+  password,
+  placeholder,
+}) {
+  const displayClassName = classNames(className, { disabled });
+
   return (
     <Item
       type={password ? "password" : "text"}
       value={value}
       onChange={onChange}
       onKeyDown={onKeyDown}
-      className={className}
+      className={displayClassName}
+      placeholder={placeholder}
+      disabled={disabled}
     />
   );
 }
@@ -32,11 +58,14 @@ InputText.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
   className: PropTypes.string,
+  disabled: PropTypes.bool,
   password: PropTypes.bool,
+  placeholder: PropTypes.string,
 };
 
 InputText.defaultProps = {
   password: false,
+  disabled: false,
   onKeyDown: () => {},
 };
 

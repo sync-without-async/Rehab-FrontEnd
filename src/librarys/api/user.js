@@ -83,6 +83,36 @@ export async function createAccount(req) {
   return data;
 }
 
+export async function requestEmailVerification(email) {
+  const axios = getSpringAxios();
+
+  const response = await axios.get("/email/send-code/" + email);
+
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
+}
+
+export async function postEmailVerification(email, authCode) {
+  const axios = getSpringAxios();
+
+  const body = {
+    authCode,
+  };
+
+  const response = await axios.post("/email/verify-code/" + email, body);
+
+  const data = {
+    status: true,
+    message: response.data,
+  };
+
+  return data;
+}
+
 export async function getStaffInfo(token, id) {
   const axios = getSpringAxios(token);
 

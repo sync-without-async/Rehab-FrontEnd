@@ -22,6 +22,10 @@ const Item = styled.textarea`
     background-color: #cccccc;
     color: #666666;
   }
+
+  &::placeholder {
+    color: #c8c8c8;
+  }
 `;
 
 function InputArea({ value, onInput, disabled, className }) {

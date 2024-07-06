@@ -43,3 +43,23 @@ export const getDisplayBirthday = (birthday) => {
 
   return `${displayDate} (${age}세)`;
 };
+
+export const getDisplayTime = (time) => {
+  if (time < 0) {
+    time = 0;
+  }
+
+  const min = Math.floor(time / 60)
+    .toString()
+    .padStart(2, "0");
+  const sec = Math.floor(time % 60)
+    .toString()
+    .padStart(2, "0");
+
+  return `${min}:${sec}`;
+};
+
+export const isEmail = (value) => {
+  const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+  return regex.test(value);
+};
