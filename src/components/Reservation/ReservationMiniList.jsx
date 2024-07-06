@@ -83,7 +83,7 @@ const ReservationMiniList = () => {
         <List>
           {list.map((item) => (
             <ReservationMiniItem
-              key={item.rno}
+              key={item.id}
               id={item.id}
               uuid={item.uuid}
               date={item.date}

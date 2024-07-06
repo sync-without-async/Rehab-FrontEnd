@@ -144,7 +144,7 @@ const ReservationMiniItem = ({
 };
 
 ReservationMiniItem.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.number,
   uuid: PropTypes.string,
   name: PropTypes.string,
   role: PropTypes.string,
