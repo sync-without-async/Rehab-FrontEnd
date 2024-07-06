@@ -15,8 +15,8 @@ const Conditional = ({
 
 Conditional.propTypes = {
   condition: PropTypes.bool.isRequired,
-  content: PropTypes.node.isRequired,
-  alternativeContent: PropTypes.node.isRequired,
+  content: PropTypes.node,
+  alternativeContent: PropTypes.node,
 };
 
 export default Conditional;
