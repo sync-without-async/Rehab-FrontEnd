@@ -35,7 +35,7 @@ const InputArea = styled(InputAreaContainer)`
   grid-column-end: span 2;
 `;
 
-const Btn = styled(Button)`
+const RegisterButton = styled(Button)`
   grid-column-end: span 2;
   justify-self: center;
 `;
@@ -112,8 +112,9 @@ const DoctorChart = () => {
         list: [],
       });
 
-      alert(
+      prompt(
         `${name}님의 차트가 성공적으로 생성되었습니다!\n${name}님의 아이디는 ${account_id}, 비밀번호는 1111 입니다.`,
+        account_id,
       );
 
       navigate("/chart");
@@ -161,7 +162,6 @@ const DoctorChart = () => {
           value={schedule}
           onChange={setData("schedule")}
         />
-        <div />
         <InputArea
           label="진료 기록 작성 *"
           value={treatmentRecord}
@@ -172,9 +172,9 @@ const DoctorChart = () => {
           value={exerciseRequest}
           onChange={setData("exerciseRequest", "target.value")}
         />
-        <Btn type="primary" onClick={handleSubmit}>
+        <RegisterButton type="primary" onClick={handleSubmit}>
           차트 등록하기
-        </Btn>
+        </RegisterButton>
       </Grid>
     </BlockContainer>
   );
