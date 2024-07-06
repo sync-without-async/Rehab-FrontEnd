@@ -70,7 +70,7 @@ const ButtonContainer = styled.div`
   gap: 8px;
 `;
 
-const Btn = styled(Button)`
+const CustomButton = styled(Button)`
   width: 160px;
   height: 32px;
   font-size: 14px;
@@ -171,12 +171,12 @@ const ReservationItem = ({
         </Item>
       </Info>
       <ButtonContainer>
-        <Btn type={buttonStyle.type} onClick={onJoinButtonClick}>
+        <CustomButton type={buttonStyle.type} onClick={onJoinButtonClick}>
           {buttonStyle.text}
-        </Btn>
-        <Btn type="info" onClick={onInfoButtonClick}>
+        </CustomButton>
+        <CustomButton type="info" onClick={onInfoButtonClick}>
           상세 정보
-        </Btn>
+        </CustomButton>
       </ButtonContainer>
     </Container>
   );

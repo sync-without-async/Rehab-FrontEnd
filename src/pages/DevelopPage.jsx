@@ -11,7 +11,7 @@ const Wrapper = styled.div`
   gap: 24px;
 `;
 
-const Btn = styled.button`
+const DevButton = styled.button`
   width: 100%;
   padding: 10px 20px;
   cursor: pointer;
@@ -118,10 +118,10 @@ const DevelopPage = () => {
         <Wrapper>
           {routes.map((route) => (
             <Link key={route.path} to={route.path}>
-              <Btn>
+              <DevButton>
                 <Title>{route.title}</Title>
                 <Text>{route.description}</Text>
-              </Btn>
+              </DevButton>
             </Link>
           ))}
         </Wrapper>

@@ -39,7 +39,7 @@ const Big = styled.span`
   font-weight: 800;
 `;
 
-const Btn = styled(Button)`
+const CustomButton = styled(Button)`
   width: 120px;
   height: 28px;
   padding: 0px 8px;
@@ -132,12 +132,12 @@ const ReservationMiniItem = ({
         {fullDate.format(DATE_FORMAT)}
       </Row>
       <Row>
-        <Btn type={buttonStyle.type} onClick={onJoinButtonClick}>
+        <CustomButton type={buttonStyle.type} onClick={onJoinButtonClick}>
           {buttonStyle.text}
-        </Btn>
-        <Btn type="info" onClick={onInfoButtonClick}>
+        </CustomButton>
+        <CustomButton type="info" onClick={onInfoButtonClick}>
           상세 정보
-        </Btn>
+        </CustomButton>
       </Row>
     </Container>
   );
