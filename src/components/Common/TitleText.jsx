@@ -64,10 +64,12 @@ const TitleText = ({ small, text, buttons }) => {
 TitleText.propTypes = {
   small: PropTypes.bool,
   text: PropTypes.string,
-  buttons: PropTypes.arrayOf({
-    text: PropTypes.string,
-    to: PropTypes.string,
-  }),
+  buttons: PropTypes.arrayOf(
+    PropTypes.shape({
+      text: PropTypes.string,
+      to: PropTypes.string,
+    }),
+  ),
 };
 
 TitleText.defaultProps = {

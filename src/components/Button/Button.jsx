@@ -63,6 +63,7 @@ Button.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
   className: PropTypes.string,
+  style: PropTypes.object,
 };
 
 export default Button;
