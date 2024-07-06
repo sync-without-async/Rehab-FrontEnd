@@ -86,34 +86,41 @@ const Signup = () => {
   }
 
   async function clickRegisterButton() {
-    if (id === "" || id.length < 3) {
+    if (role === "") {
+      toast.error("의료진 구분을 선택해주세요.");
+      return;
+    }
+
+    if (id === "" || id.length < 4) {
       toast.error("아이디는 4글자 이상으로 입력해주세요.");
       return;
     }
-    if (password === "" || password.length < 3) {
+
+    if (password === "" || password.length < 4) {
       toast.error("비밀번호는 4글자 이상으로 입력해주세요.");
       return;
     }
-    if (role === "") {
-      toast.error("이름을 입력하세요.");
-      return;
-    }
+
     if (name === "") {
       toast.error("이름을 입력하세요.");
       return;
     }
+
     if (hospital === "") {
       toast.error("소속 병원을 입력하세요.");
       return;
     }
+
     if (department === "") {
       toast.error("소속 부서를 입력하세요.");
       return;
     }
+
     if (email === "") {
       toast.error("이메일을 인증하세요.");
       return;
     }
+
     if (phone === "") {
       toast.error("핸드폰 번호를 입력하세요.");
       return;
