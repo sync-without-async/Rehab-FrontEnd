@@ -15,8 +15,10 @@ const UploadBox = styled.div`
   justify-content: center;
   align-items: center;
   text-align: center;
+
   white-space: pre-wrap;
   cursor: pointer;
+  overflow: hidden;
 `;
 
 const HiddenInput = styled.input`
@@ -24,8 +26,8 @@ const HiddenInput = styled.input`
 `;
 
 const ImagePreview = styled.img`
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 240px;
+  max-height: 158px;
   object-fit: contain;
 `;
 
@@ -62,7 +64,7 @@ const InputImage = ({ onUpload, ...props }) => {
   return (
     <UploadBox {...props} onClick={handleClick}>
       <Conditional
-        condition={preview}
+        condition={preview !== null}
         content={<ImagePreview src={preview} alt="Image preview" />}
         alternativeContent={"이미지\n등록하기"}
       />

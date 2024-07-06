@@ -153,13 +153,13 @@ const Signup = () => {
       <Grid>
         <RoleButton
           role="doctor"
-          isSelected={role === "ROLE_DOCTOR"}
-          onSelectRole={() => setData("role")("ROLE_DOCTOR")}
+          selected={role === "ROLE_DOCTOR"}
+          onSelect={() => setData("role")("ROLE_DOCTOR")}
         />
         <RoleButton
           role="therapist"
-          isSelected={role === "ROLE_THERAPIST"}
-          onSelectRole={() => setData("role")("ROLE_THERAPIST")}
+          selected={role === "ROLE_THERAPIST"}
+          onSelect={() => setData("role")("ROLE_THERAPIST")}
         />
         <DropdownFilter
           label="소속 병원명 *"

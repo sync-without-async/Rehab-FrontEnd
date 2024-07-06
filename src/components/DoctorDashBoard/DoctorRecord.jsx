@@ -88,10 +88,12 @@ const DoctorRecord = ({ title, data, button }) => {
 
 DoctorRecord.propTypes = {
   title: PropTypes.string,
-  data: PropTypes.arrayOf({
-    date: PropTypes.string,
-    content: PropTypes.string,
-  }),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string,
+      content: PropTypes.string,
+    }),
+  ),
   button: PropTypes.bool,
 };
 
