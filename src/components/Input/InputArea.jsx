@@ -28,14 +28,14 @@ const Item = styled.textarea`
   }
 `;
 
-function InputArea({ value, onInput, disabled, className }) {
+function InputArea({ value, onChange, disabled, className }) {
   const displayClassName = classNames(className, { disabled });
 
   return (
     <Item
       type="text"
       value={value}
-      onChange={onInput}
+      onChange={onChange}
       disabled={disabled}
       className={displayClassName}
       rows={3}
@@ -45,7 +45,7 @@ function InputArea({ value, onInput, disabled, className }) {
 
 InputArea.propTypes = {
   value: PropTypes.string,
-  onInput: PropTypes.func,
+  onChange: PropTypes.func,
   className: PropTypes.string,
   disabled: PropTypes.bool,
 };

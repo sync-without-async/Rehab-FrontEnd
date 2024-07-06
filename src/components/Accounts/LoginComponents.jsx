@@ -78,13 +78,13 @@ const LoginComponents = () => {
         <Input
           label="아이디"
           value={id}
-          onInput={(e) => setId(e.target.value)}
+          onChange={(e) => setId(e.target.value)}
         />
         <Input
           label="비밀번호"
           password
           value={password}
-          onInput={(e) => setPassword(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
           onKeyDown={onKeyDown}
         />
       </InputContainer>

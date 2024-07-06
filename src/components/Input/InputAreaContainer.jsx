@@ -19,11 +19,11 @@ const Label = styled.p`
   margin-bottom: 6px;
 `;
 
-function InputAreaContainer({ label, value, onInput, disabled, ...props }) {
+function InputAreaContainer({ label, value, onChange, disabled, ...props }) {
   return (
     <InputContainer {...props}>
       <Label>{label}</Label>
-      <Input value={value} onInput={onInput} disabled={disabled} />
+      <Input value={value} onChange={onChange} disabled={disabled} />
     </InputContainer>
   );
 }
@@ -31,7 +31,7 @@ function InputAreaContainer({ label, value, onInput, disabled, ...props }) {
 InputAreaContainer.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
-  onInput: PropTypes.func,
+  onChange: PropTypes.func,
   disabled: PropTypes.bool,
 };
 

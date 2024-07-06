@@ -73,12 +73,12 @@ export const DoctorCreateModal = () => {
         <InputArea
           label="진료 기록 작성 *"
           value={treatmentRecord}
-          onInput={(e) => setTreatmentRecord(e.target.value)}
+          onChange={(e) => setTreatmentRecord(e.target.value)}
         />
         <InputArea
           label="재활치료사 재활 운동 요청서 작성 *"
           value={exerciseRequest}
-          onInput={(e) => setExerciseRequest(e.target.value)}
+          onChange={(e) => setExerciseRequest(e.target.value)}
         />
         <Wrapper>
           <DateSelect
