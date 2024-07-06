@@ -1,6 +1,6 @@
-import { FaWindowClose } from "react-icons/fa";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { MdBrowserNotSupported } from "react-icons/md";
 
 const Container = styled.div`
   width: 100%;
@@ -19,27 +19,17 @@ const Wrapper = styled.div`
   gap: 8px;
 `;
 
-const Icon = styled(FaWindowClose)`
-  width: 48px;
-  height: 48px;
-`;
-
 const Text = styled.p`
-  font-size: 24px;
-  line-height: 24px;
-`;
-const Description = styled.p`
-  font-size: 12px;
-  line-height: 12px;
+  font-size: 16px;
+  line-height: 16px;
 `;
 
 const Empty = ({ height }) => {
   return (
     <Container style={{ height }}>
-      <Icon />
+      <MdBrowserNotSupported size={36} />
       <Wrapper>
-        <Text>표시할 항목이 없습니다</Text>
-        <Description>나중에 다시 와보세요!</Description>
+        <Text>표시할 항목이 없습니다.</Text>
       </Wrapper>
     </Container>
   );
