@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { selectRole } from "../../redux/userSlice.js";
 import { ROLE_TYPE } from "../../librarys/type.js";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const Item = styled.div`
   width: 100%;
@@ -76,7 +77,10 @@ const DoctorRecord = ({ title, data, button }) => {
         {data.slice(0, 2).map((item, index) => (
           <RecordItem key={index} date={item.date} content={item.content} />
         ))}
-        {data.length == 0 && <Empty message="진료 기록이 비어있습니다." />}
+        <Conditional
+          condition={data.length === 0}
+          content={<Empty message="진료 기록이 비어있습니다." />}
+        />
       </List>
     </BlockContainer>
   );

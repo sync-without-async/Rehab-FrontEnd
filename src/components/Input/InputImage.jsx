@@ -2,11 +2,9 @@ import { useMemo, useRef, useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import { createImage } from "../../librarys/api/image.js";
+import Conditional from "../Common/Conditional.jsx";
 
 const UploadBox = styled.div`
-  width: 154px;
-  height: 154px;
-  justify-self: center;
   color: #878787;
   background-color: #dfdfdf;
   border: 1px solid #ababab;
@@ -61,17 +59,13 @@ const InputImage = ({ onUpload, ...props }) => {
     }
   };
 
-  const content = useMemo(() => {
-    if (preview) {
-      return <ImagePreview src={preview} alt="Image preview" />;
-    } else {
-      return "이미지\n등록하기";
-    }
-  }, [preview]);
-
   return (
     <UploadBox {...props} onClick={handleClick}>
-      {content}
+      <Conditional
+        condition={preview}
+        content={<ImagePreview src={preview} alt="Image preview" />}
+        alternativeContent={"이미지\n등록하기"}
+      />
       <HiddenInput ref={ref} type="file" onChange={handleInputChange} />
     </UploadBox>
   );

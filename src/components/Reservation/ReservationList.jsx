@@ -18,6 +18,7 @@ import {
   getUserReservationList,
 } from "../../librarys/api/reservation.js";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const List = styled.div`
   margin: 28px 0;
@@ -85,7 +86,10 @@ const ReservationList = () => {
               summary={item.summary}
             />
           ))}
-          {list.length == 0 && <Empty message="진료 예약 기록이 없습니다." />}
+          <Conditional
+            condition={list.length === 0}
+            content={<Empty message="진료 예약 기록이 없습니다." />}
+          />
         </List>
         <Pagination />
       </BlockContainer>

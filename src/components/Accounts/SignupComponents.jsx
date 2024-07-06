@@ -6,7 +6,7 @@ import InputImage from "../Input/InputImage.jsx";
 import InputTextContainer from "../Input/InputTextContainer.jsx";
 import Button from "../Button/Button.jsx";
 import DropdownFilter from "../Dropdown/DropdownFilter.jsx";
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import {
   intialUserRegisterState,
   userRegisterReducer,

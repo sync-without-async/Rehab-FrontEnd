@@ -15,6 +15,7 @@ import {
 import { getVideoList } from "../../librarys/api/video.js";
 import TheraExerciseModal from "./TheraExerciseModal.jsx";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const SearchAndFilterContainer = styled.div`
   margin-top: 28px;
@@ -86,7 +87,10 @@ const TheraExerciseList = () => {
               video={item.videoURL}
             />
           ))}
-          {list.length == 0 && <Empty message="운동 목록이 비었습니다." />}
+          <Conditional
+            condition={list.length === 0}
+            content={<Empty message="운동 목록이 비었습니다." />}
+          />
         </List>
 
         <Pagination />

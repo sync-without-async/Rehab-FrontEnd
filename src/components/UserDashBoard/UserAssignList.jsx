@@ -17,6 +17,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { METRICS_PASS } from "../../librarys/type.js";
 import Empty from "../Common/Empty.jsx";
+import Conditional from "../Common/Conditional.jsx";
 
 const Container = styled(BlockContainer)`
   display: flex;
@@ -114,7 +115,10 @@ const UserAssignList = () => {
         data={assignData}
         onClick={onClick}
       />
-      {list.length == 0 && <Empty message="과제 목록이 비었습니다." />}
+      <Conditional
+        condition={list.length == 0}
+        content={<Empty message="과제 목록이 비었습니다." />}
+      />
     </Container>
   );
 };
