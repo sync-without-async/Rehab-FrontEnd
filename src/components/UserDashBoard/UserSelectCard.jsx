@@ -21,6 +21,7 @@ const Card = styled.div`
 const Title = styled.h1`
   font-size: 14px;
   margin-bottom: 15px;
+  font-weight:bold;
 `;
 
 const Separator = styled.hr`
@@ -64,7 +65,7 @@ const Info = styled.div`
 
 const Button = styled.button`
   width: 150px;
-  height: 24px;
+  height: 30px;
   border-radius: 10px;
   background-color: #3592ff;
   color: #fefdfd;
