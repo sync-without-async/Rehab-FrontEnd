@@ -1,9 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import dropdownicon from "../../assets/icons/dropdownicon.png";
-
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
+import dropdownIcon from "../../assets/icons/down_icon.svg";
 
 const Container = styled.div`
   position: relative;
@@ -37,10 +35,10 @@ const DropdownText = styled.p`
   flex-grow: 1;
 `;
 
-const DropdownIcon = styled(MdOutlineKeyboardArrowDown)`
-  width: 36px;
-  height: 36px;
-`;
+// const DropdownIcon = styled.div`
+//   width: 36px;
+//   height: 36px;
+// `;
 
 const DropdownList = styled.div`
   width: 100%;
@@ -86,7 +84,7 @@ function DropdownFilter({ label, items, defaultText, onSelect }) {
       {label ? <Label>{label}</Label> : null}
       <DropdownContainer onClick={toggleDropdown}>
         <DropdownText>{value?.value || defaultText}</DropdownText>
-        <DropdownIcon />
+        <img src={dropdownIcon} alt="Dropdown Icon" width={20} height={20} />
       </DropdownContainer>
       <DropdownList open={isOpen}>
         <DropdownItem onClick={() => handleItemClick(null)}>

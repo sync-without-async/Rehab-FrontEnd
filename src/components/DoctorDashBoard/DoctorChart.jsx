@@ -27,7 +27,7 @@ import { createProgram } from "../../librarys/api/program.js";
 const Grid = styled.div`
   margin: 48px 70px;
   display: grid;
-  grid-template-columns: 240px 240px;
+  grid-template-columns: 250px 250px;
   gap: 28px 100px;
 `;
 

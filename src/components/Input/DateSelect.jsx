@@ -13,17 +13,14 @@ const Container = styled.div`
 `;
 
 const DateInput = styled.input`
-  box-sizing: border-box;
   width: 200px;
   height: 40px;
   border-radius: 10px;
   background-color: #fafafa;
   border: 1px solid #bbbbbb;
-  margin-right: 10px;
-  padding-left: 12px;
+  padding: 0 12px;
   font-size: 14px;
   outline: none;
-  caret-color: transparent;
   cursor: pointer;
 `;
 
@@ -32,21 +29,26 @@ const CalendarButton = styled.button`
   height: 40px;
   background-color: #fafafa;
   cursor: pointer;
-  border: none;
-  color: white;
   border-radius: 10px;
   background-image: url(${IconCalender});
-  background-size: 25px 25px;
+  background-size: 20px 20px;
+  margin-left:10px;
   background-repeat: no-repeat;
   background-position: center;
   border: 1px solid #bbbbbb;
 `;
+
 
 const CalendarModal = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   z-index: 1000;
 `;
 
@@ -56,9 +58,20 @@ const Overlay = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 999;
+  animation: fadeIn 0.3s ease-out;
 `;
+
+// @keyframes fadeIn {
+//   from {
+//     opacity: 0;
+//   }
+//   to {
+//     opacity: 1;
+//   }
+// }
+
 
 const InputContainer = styled.div`
   display: flex;
