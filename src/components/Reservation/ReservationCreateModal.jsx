@@ -63,7 +63,7 @@ const id = "reservation_create";
 function createTimes(start = 0, count = 5) {
   const date = dayjs("2023-01-01T00:00:00+09:00");
   const times = [];
-  for (let i = start; i < start + count * 10; i += 10) {
+  for (let i = start; i < start + count; i += 1) {
     const deltaTime = date.add(30 * i, "m");
     times.push({
       index: i,
@@ -71,6 +71,15 @@ function createTimes(start = 0, count = 5) {
     });
   }
   return times;
+}
+
+// 현재 시간을 30분 단위로 쪼갠 block으로 반환
+function getStartIndex() {
+  const date = dayjs();
+  const hour = date.hour();
+  const minute = date.minute() + hour * 60;
+
+  return Math.floor(minute / 30);
 }
 
 export const ReservationCreateModal = () => {
@@ -82,7 +91,7 @@ export const ReservationCreateModal = () => {
   const userId = useSelector(selectId);
   const adminId = useSelector(selectProps(id));
 
-  const [times, setTimes] = useState(createTimes());
+  const [times, setTimes] = useState(createTimes(getStartIndex()));
   const { index, disabledTime, description, year, month, date } = state;
   const serverTime = useMemo(
     () => dayjs([year, month, date]).format("YYYY-MM-DD"),
@@ -92,7 +101,7 @@ export const ReservationCreateModal = () => {
   useEffect(() => {
     dispatch({
       type: "disabledTime",
-      payload: [0, 10, 20, 30, 40],
+      payload: [],
     });
 
     (async () => {
